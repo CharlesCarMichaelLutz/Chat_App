@@ -1,0 +1,69 @@
+.chatroomPage--container {
+  display: flex;
+  width: 90%;
+  height: 90%;
+  height:80vh;
+  position: absolute;
+  left: 12%;
+  top:12%;
+  bottom:12%;
+  right: 12%;
+}
+
+.active--users {
+  width: 20%;
+  height: 90%;
+  background-color: #f2f2f2;
+  padding: 20px;
+  position: absolute;
+  left: 0;
+}
+
+.active--users h2 {
+  margin-top: 0;
+}
+
+.chatroom {
+  width: 80%;
+  padding: 20px;
+  margin-left: 20px;
+  position: absolute;
+  left: 20%;
+}
+
+.message--container {
+  height: calc(100% - 50px);
+  overflow-y: auto;
+}
+
+.create--message {
+  margin-bottom: 10px;
+}
+
+.username {
+  font-weight: bold;
+  margin-right: 10px;
+}
+
+.submit--message {
+  padding: 5px 10px;
+  margin-left: 5px;
+  background-color: chartreuse;
+}
+
+.input--container {
+  display: flex;
+  margin-top: 5px;
+  width: 50%;
+  padding: 20px;
+  margin-left: 20px;
+  position: absolute;
+  left: 20%;
+  bottom :2%;
+}
+
+input[type="text"] {
+  flex-grow: 1;
+  padding: 5px;
+}
+
