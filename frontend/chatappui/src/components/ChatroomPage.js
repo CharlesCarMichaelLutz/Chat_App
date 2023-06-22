@@ -1,41 +1,55 @@
-import React from 'react'
+import React, {useState} from 'react'
 //import {Link} from 'react-router-dom'
 import '../styling/ChatroomPage.css'
 
 function ChatroomPage() {
 
-  var userA = {
-    name: "User A",
-    messages: [
-      {text:"Greetings everyone!"},
-    ]
-  }
+  const [users, setUsers] = useState([
+    {
+      name: "User A",
+      messages: [
+        {text:"Greetings everyone!"},
+      ]
+    },
+    {
+      name: "User B",
+      messages: [
+        {text:"Welcome User A!"},
+        {text:"I would like to visit the beach soon"},
+        {text: "And I won't forget to bring sunscreen"}
+      ]
+    },
+    {
+      name: "User C",
+      messages: [
+        {text:"I am looking forward to a good one"},
+      ]
+    },
+    {
+      name: "User D",
+      messages: [
+        {text:"Let's have a great summer"},
+        {text:"That's agreed User B"}
+      ]
+    }
+  ])
 
-  var userB = {
-    name: "User B",
-    messages: [
-      {text:"Welcome User A!"},
-      {text:"I would like to visit the beach soon"},
-      {text: "And I won't forget to bring sunscreen"}
-    ]
-  }
+  const [message, setMessage] = useState('')
 
-  var userC = {
-    name: "User C",
-    messages: [
-      {text:"I am looking forward to a good one"},
-    ]
-  }
 
-  var userD = {
-    name: "User D",
-    messages: [
-      {text:"Let's have a great summer"},
-      {text:"That's agreed User B"}
-    ]
-  }
+  function handleSendMessage() {
+      const createNewMessage = {
+        text: message
+      }
 
-  const users = [userA, userB, userC, userD]
+      const newUser = {
+        name: 'Current User',
+        messages: [createNewMessage]
+      }
+
+      setUsers(prevUsers => [...prevUsers, newUser])
+      setMessage('')
+  }
 
   const renderMessage = users.flatMap((user, index) => (
     user.messages.flatMap((message, messageIndex) => (
@@ -65,8 +79,8 @@ function ChatroomPage() {
       </span>
 
       <span className='input--container'>
-        <input type='text' placeholder="...enter message here"/>
-        <button className='submit--message'>Send</button>
+          <input type='text' placeholder="...enter message here" onChange={(e) => setMessage(e.target.value)}/>
+          <button className='submit--message' onClick={handleSendMessage}>Send</button>
       </span>
     </div>
   )
