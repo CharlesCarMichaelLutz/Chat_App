@@ -3,7 +3,7 @@ import React, {useState} from 'react'
 import '../styling/ChatroomPage.css'
 
 function ChatroomPage() {
-
+  const [message, setMessage] = useState('')
   const [users, setUsers] = useState([
     {
       name: "User A",
@@ -34,9 +34,6 @@ function ChatroomPage() {
     }
   ])
 
-  const [message, setMessage] = useState('')
-
-
   function handleSendMessage() {
       const createNewMessage = {
         text: message
@@ -48,6 +45,8 @@ function ChatroomPage() {
       }
 
       setUsers(prevUsers => [...prevUsers, newUser])
+      //figure out the object structure and field
+      //that needs to be reset on each render
       setMessage('')
   }
 
@@ -78,10 +77,17 @@ function ChatroomPage() {
         </ul>
       </span>
 
-      <span className='input--container'>
-          <input type='text' placeholder="...enter message here" onChange={(e) => setMessage(e.target.value)}/>
-          <button className='submit--message' onClick={handleSendMessage}>Send</button>
-      </span>
+      <form className='input--container'onSubmit={(event) => {
+          event.preventDefault()
+          handleSendMessage()
+        }}>
+          <input 
+            type='text' 
+            placeholder="...enter message here" 
+            onChange={(e) => setMessage(e.target.value)}
+          />
+          <button className='submit--message'>Send</button>
+      </form>
     </div>
   )
 }
