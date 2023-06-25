@@ -31,5 +31,38 @@ if (app.Environment.IsDevelopment())
 
 app.MapGet("/", () => "Rabbit Chat incoming!");
 
+//GET all messages
+app.MapGet("/api/messages", async (ChatroomDb db) =>
+{
+    var result = await //something 
+    return Results.Ok(result);
+});
+
+//POST a message
+app.MapPost("/api/messages", async (ChatroomDb db) =>
+{
+   //some different logic
+});
+
+//GET all users
+app.MapGet("/api/users", async (ChatroomDb db) =>
+{
+    var result = await //something 
+    return Results.Ok(result);
+});
+
+//POST a user
+app.MapPost("/api/users", async (ChatroomDb db) =>
+{
+    //some different logic
+});
+
+//GET a single user
+app.MapGet("/api/users/{id}", async (ChatroomDb db) =>
+{
+    var result = await //something
+    return Results.Ok(result);
+});
+
 
 app.Run();
