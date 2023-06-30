@@ -1,3 +1,4 @@
+using chatAppWebApi.Services;
 using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -38,16 +39,9 @@ if (app.Environment.IsDevelopment())
     });
 }
 
-
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseCors("ReactAppPolicy");
-
-//app.MapGet("/", async (HttpContext context) => 
-//{
-//    //var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "index.html");
-//    //await context.Response.SendFileAsync(filePath);
-//});
 
 app.Run(async (context) =>
 {
@@ -55,12 +49,12 @@ app.Run(async (context) =>
     await context.Response.SendFileAsync(Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "index.html"));
 });
 
-////GET all messages
-//app.MapGet("/api/messages", async (ChatroomDb db) =>
-//{
-//    var result = await //something 
-//    return Results.Ok(result);
-//});
+//GET all messages
+app.MapGet("/api/messages", async (IChatroomService chatRoom) =>
+{
+    var result = await chatRoom.GetAllMessages();
+    return Results.Ok(result);
+});
 
 ////POST a message
 //app.MapPost("/api/messages", async (ChatroomDb db) =>
