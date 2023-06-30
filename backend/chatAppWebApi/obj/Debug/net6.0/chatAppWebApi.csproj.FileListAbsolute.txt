@@ -31,7 +31,7 @@ C:\Users\User\Desktop\ChatApp\backend\chatAppWebApi\obj\Debug\net6.0\chatAppWebA
 C:\Users\User\Desktop\ChatApp\backend\chatAppWebApi\obj\Debug\net6.0\chatAppWebApi.genruntimeconfig.cache
 C:\Users\User\Desktop\ChatApp\backend\chatAppWebApi\obj\Debug\net6.0\ref\chatAppWebApi.dll
 C:\Users\User\Desktop\ChatApp\backend\chatAppWebApi\bin\Debug\net6.0\wwwroot\index.html
-C:\Users\User\Desktop\ChatApp\backend\chatAppWebApi\bin\Debug\net6.0\wwwroot\static\css\main.2f7538b7.css
-C:\Users\User\Desktop\ChatApp\backend\chatAppWebApi\bin\Debug\net6.0\wwwroot\static\js\787.83093967.chunk.js
-C:\Users\User\Desktop\ChatApp\backend\chatAppWebApi\bin\Debug\net6.0\wwwroot\static\js\main.ee622b6a.js
 C:\Users\User\Desktop\ChatApp\backend\chatAppWebApi\bin\Debug\net6.0\chatAppWebApi.staticwebassets.runtime.json
+C:\Users\User\Desktop\ChatApp\backend\chatAppWebApi\bin\Debug\net6.0\wwwroot\build\static\css\main.2f7538b7.css
+C:\Users\User\Desktop\ChatApp\backend\chatAppWebApi\bin\Debug\net6.0\wwwroot\build\static\js\787.83093967.chunk.js
+C:\Users\User\Desktop\ChatApp\backend\chatAppWebApi\bin\Debug\net6.0\wwwroot\build\static\js\main.64536b86.js

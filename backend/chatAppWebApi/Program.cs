@@ -15,6 +15,17 @@ services.AddSwaggerGen(create =>
     });
 });
 
+//enable CORS
+services.AddCors(options => 
+{
+    options.AddPolicy("ReactAppPolicy", builder =>
+    {
+        builder.WithOrigins("http://localhost:3000")
+               .AllowAnyMethod()
+               .AllowAnyHeader();     
+    });
+});
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -27,11 +38,22 @@ if (app.Environment.IsDevelopment())
     });
 }
 
-app.UseHttpsRedirection();
-app.UseDefaultFiles();
-app.UseStaticFiles();
 
-app.MapGet("/", () => "Rabbit Chat incoming!");
+app.UseHttpsRedirection();
+app.UseStaticFiles();
+app.UseCors("ReactAppPolicy");
+
+//app.MapGet("/", async (HttpContext context) => 
+//{
+//    //var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "index.html");
+//    //await context.Response.SendFileAsync(filePath);
+//});
+
+app.Run(async (context) =>
+{
+    context.Response.ContentType = "text/html";
+    await context.Response.SendFileAsync(Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "index.html"));
+});
 
 ////GET all messages
 //app.MapGet("/api/messages", async (ChatroomDb db) =>

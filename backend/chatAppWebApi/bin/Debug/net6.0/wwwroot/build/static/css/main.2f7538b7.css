@@ -1,0 +1,135 @@
+﻿body {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Fira Sans,Droid Sans,Helvetica Neue,sans-serif;
+    margin: 0
+}
+
+code {
+    font-family: source-code-pro,Menlo,Monaco,Consolas,Courier New,monospace
+}
+
+.chatroomPage--container {
+    bottom: 12%;
+    display: flex;
+    height: 90%;
+    height: 80vh;
+    left: 12%;
+    position: absolute;
+    right: 12%;
+    top: 12%;
+    width: 90%
+}
+
+.active--users {
+    background-color: #f2f2f2;
+    height: 90%;
+    left: 0;
+    padding: 20px;
+    position: absolute;
+    width: 20%
+}
+
+    .active--users h2 {
+        margin-top: 0
+    }
+
+.chatroom {
+    left: 20%;
+    margin-left: 20px;
+    padding: 20px;
+    position: absolute;
+    width: 80%
+}
+
+.message--container {
+    height: calc(100% - 50px);
+    overflow-y: auto
+}
+
+.create--message {
+    margin-bottom: 10px
+}
+
+.username {
+    font-weight: 700;
+    margin-right: 10px
+}
+
+.submit--message {
+    background-color: #7fff00;
+    margin-left: 5px;
+    padding: 5px 10px
+}
+
+.input--container {
+    bottom: 2%;
+    display: flex;
+    left: 20%;
+    margin-left: 20px;
+    margin-top: 5px;
+    padding: 20px;
+    position: absolute;
+    width: 50%
+}
+
+input[type=text] {
+    flex-grow: 1;
+    padding: 5px
+}
+
+.landingPage--container {
+    height: 100vh;
+    justify-content: center;
+    margin: 0 auto
+}
+
+.landingPage--container, .landingPage--header {
+    align-items: center;
+    display: flex;
+    flex-direction: column
+}
+
+.landingPage--header {
+    margin-bottom: 20px
+}
+
+.landingPage--logo {
+    height: 15%;
+    object-fit: contain;
+    width: 20%
+}
+
+.landingPage--title {
+    margin-top: 10px
+}
+
+.landingPage--main {
+    align-items: center;
+    display: flex;
+    justify-content: center
+}
+
+.landingPage--links {
+    align-items: center;
+    display: flex;
+    flex-direction: column
+}
+
+label {
+    margin-bottom: 10px
+}
+
+.createaccount-button, .guest--button, .login--button {
+    background-color: #007bff;
+    border-radius: 5px;
+    color: #fff;
+    margin-bottom: 40px;
+    padding: 8px 16px;
+    text-decoration: none
+}
+
+    .createaccount-button:hover, .guest--button:hover, .login--button:hover {
+        background-color: #0056b3
+    }
+/*# sourceMappingURL=main.2f7538b7.css.map*/
