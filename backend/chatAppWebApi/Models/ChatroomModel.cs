@@ -7,16 +7,16 @@
 
     public class ChatroomData
     {
-        public string[] Users { get; set; }
+        public UserModel[] UserModel { get; set; }
     }
-    public class Users
+    public class UserModel
     {
         public string UserName { get; set; }
-        public string[] Messages { get; set; }
+        public MessageModel[] MessageModel { get; set; }
     }
 
-    public class Messages
+    public class MessageModel
     {
-        public string Text { get; set; }
+        public string Message { get; set; }
     }
 }
