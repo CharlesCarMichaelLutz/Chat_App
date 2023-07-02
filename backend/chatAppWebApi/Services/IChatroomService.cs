@@ -4,6 +4,7 @@ namespace chatAppWebApi.Services
 {
     public interface IChatroomService
     {
-        Task<IEnumerable<Messages>> GetAllMessages();
+        Task<IEnumerable<UserModel>> GetAllMessages();
+        Task<IEnumerable<UserModel>> SendMessage();
     }
 }

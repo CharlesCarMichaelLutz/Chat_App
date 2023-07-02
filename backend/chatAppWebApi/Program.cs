@@ -5,6 +5,12 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 var services = builder.Services;
+
+//Dependency Injection
+services.AddScoped<IChatroomService, ChatroomService>();
+
+services.AddHttpClient<IChatroomService,ChatroomService>();
+
 services.AddEndpointsApiExplorer();
 services.AddSwaggerGen(create =>
 {
@@ -40,47 +46,51 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-app.UseStaticFiles();
+app.UseRouting();
+//app.UseStaticFiles();
+
 app.UseCors("ReactAppPolicy");
 
-app.Run(async (context) =>
+app.UseEndpoints(endpoints =>
 {
-    context.Response.ContentType = "text/html";
-    await context.Response.SendFileAsync(Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "index.html"));
+    //GET All messsages
+    endpoints.MapGet("/api/messages", async (HttpContext httpContext, IChatroomService chatRoom) =>
+    {
+        var result = await chatRoom.GetAllMessages();
+        await httpContext.Response.WriteAsJsonAsync(result);
+    });
+
+    ////POST a message
+    //endpoints.MapPost("/api/messages", async (HttpContext httpContext, IChatroomService chatRoom, MessageInput _messageInput) =>
+    //{
+    //    //return 
+    //});
+
+    ////GET all users
+    //endpoints.MapGet("/api/users", async (ChatroomDb db) =>
+    //{
+    //    var result = await //something 
+    //return Results.Ok(result);
+    //});
+
+    ////POST a user
+    //endpoints.MapPost("/api/users", async (ChatroomDb db) =>
+    //{
+    //    //some different logic
+    //});
+
+    ////GET a single user
+    //endpoints.MapGet("/api/users/{id}", async (ChatroomDb db) =>
+    //{
+    //    var result = await //something
+    //return Results.Ok(result);
+    //});
+
+    endpoints.MapFallback(async context =>
+    {
+        context.Response.ContentType = "text/html";
+        await context.Response.SendFileAsync(Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "index.html"));
+    });
 });
-
-//GET all messages
-app.MapGet("/api/messages", async (IChatroomService chatRoom) =>
-{
-    var result = await chatRoom.GetAllMessages();
-    return Results.Ok(result);
-});
-
-////POST a message
-//app.MapPost("/api/messages", async (ChatroomDb db) =>
-//{
-//   //some different logic
-//});
-
-////GET all users
-//app.MapGet("/api/users", async (ChatroomDb db) =>
-//{
-//    var result = await //something 
-//    return Results.Ok(result);
-//});
-
-////POST a user
-//app.MapPost("/api/users", async (ChatroomDb db) =>
-//{
-//    //some different logic
-//});
-
-////GET a single user
-//app.MapGet("/api/users/{id}", async (ChatroomDb db) =>
-//{
-//    var result = await //something
-//    return Results.Ok(result);
-//});
-
 
 app.Run();
