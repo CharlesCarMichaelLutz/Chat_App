@@ -60,10 +60,10 @@ app.UseEndpoints(endpoints =>
         await httpContext.Response.WriteAsJsonAsync(result);
     });
 
-    ////POST a message
-    //endpoints.MapPost("/api/messages", async (HttpContext httpContext, IChatroomService chatRoom, MessageInput _messageInput) =>
+    //POST a message
+    //endpoints.MapPost("/api/messages", async (HttpContext httpContext, IChatroomService chatRoom =>
     //{
-    //    //return 
+    //    return null;
     //});
 
     ////GET all users

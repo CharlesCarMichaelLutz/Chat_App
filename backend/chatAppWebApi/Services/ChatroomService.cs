@@ -13,14 +13,24 @@ namespace chatAppWebApi.Services
             _httpClient = httpClient;
             //_chatroomModel = chatroomModel;
         }
-        public async Task<IEnumerable<UserModel>> GetAllMessages()
+        public async Task<IEnumerable<MessageModel>> GetAllMessages()
         {
-            return await Task.FromResult(ChatroomRepository._chatroom);
+            //return await Task.FromResult(ChatroomRepository._chatroom);
+            var allMessages = new List<MessageModel>();
+            
+            foreach (var user in ChatroomRepository._chatroom)
+            {
+                foreach (var messageModel in user.MessageModel)
+                {
+                        allMessages.Add(messageModel);
+                }
+            }
+            return allMessages;
         }
 
-        public async Task<IEnumerable<UserModel>> SendMessage()
-        {
-            return await Task.FromResult(ChatroomRepository._chatroom);
-        }
+        //public async Task<IEnumerable<UserModel>> SendMessage()
+        //{
+        //    //return await Task.FromResult(ChatroomRepository._chatroom);
+        //}
     }
 }
