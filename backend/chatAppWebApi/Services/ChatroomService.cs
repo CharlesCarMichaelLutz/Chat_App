@@ -15,22 +15,38 @@ namespace chatAppWebApi.Services
         }
         public async Task<IEnumerable<MessageModel>> GetAllMessages()
         {
-            //return await Task.FromResult(ChatroomRepository._chatroom);
-            var allMessages = new List<MessageModel>();
-            
-            foreach (var user in ChatroomRepository._chatroom)
-            {
-                foreach (var messageModel in user.MessageModel)
-                {
-                        allMessages.Add(messageModel);
-                }
-            }
-            return allMessages;
+            var allMessages = ChatroomRepository._chatroom
+                .SelectMany(user => user.MessageModel)
+                .ToList();
+
+            return await Task.FromResult(allMessages);
         }
 
-        //public async Task<IEnumerable<UserModel>> SendMessage()
+        //public async Task<IEnumerable<UserModel>> CreateMessage()
         //{
         //    //return await Task.FromResult(ChatroomRepository._chatroom);
         //}
+
+        public async Task<IEnumerable<string>> GetAllUsers()
+        {
+            var allUsers = ChatroomRepository._chatroom
+                .Select(user => user.UserName)
+                .ToList();
+
+            return await Task.FromResult(allUsers);
+        }
+
+        //public async Task<IEnumerable<UserModel>> CreateUser()
+        //{
+        //    //return await Task.FromResult(ChatroomRepository._chatroom);
+        //}
+        public async Task<IEnumerable<string>> GetUser()
+        {
+            var allUsers = ChatroomRepository._chatroom
+                .Select(user => user.UserName)
+                .ToList();
+
+            return await Task.FromResult(allUsers);
+        }
     }
 }

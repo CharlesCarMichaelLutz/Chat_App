@@ -1,4 +1,5 @@
 using chatAppWebApi.Services;
+using Microsoft.AspNetCore.Http;
 using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -66,12 +67,13 @@ app.UseEndpoints(endpoints =>
     //    return null;
     //});
 
-    ////GET all users
-    //endpoints.MapGet("/api/users", async (ChatroomDb db) =>
-    //{
-    //    var result = await //something 
-    //return Results.Ok(result);
-    //});
+    //GET all users
+    endpoints.MapGet("/api/users", async (HttpContext httpContext, IChatroomService chatRoom) =>
+    {
+        var result = await chatRoom.GetAllUsers();
+        await httpContext.Response.WriteAsJsonAsync(result);
+        //return Results.Ok(result);
+    });
 
     ////POST a user
     //endpoints.MapPost("/api/users", async (ChatroomDb db) =>
