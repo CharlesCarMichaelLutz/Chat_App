@@ -69,13 +69,13 @@ app.UseEndpoints(endpoints =>
     //});
 
     //GET all users
-    //endpoints.MapGet("/api/users", 
-    //    async (HttpContext httpContext, IChatroomService chatRoom) =>
-    //{
-    //    var result = await chatRoom.GetAllUsers();
-    //    await httpContext.Response.WriteAsJsonAsync(result);
-    //    //return Results.Ok(result);
-    //});
+    endpoints.MapGet("/api/users",
+        async (HttpContext httpContext, IChatroomService chatRoom) =>
+    {
+        var result = await chatRoom.GetAllUsers();
+        await httpContext.Response.WriteAsJsonAsync(result);
+        //return Results.Ok(result);
+    });
 
     ////POST a user
     //endpoints.MapPost("/api/users", async (ChatroomDb db) =>
@@ -84,13 +84,13 @@ app.UseEndpoints(endpoints =>
     //});
 
     //GET a single user
-    //endpoints.MapGet("/api/users/{id}", 
-    //    async (HttpContext httpContext, IChatroomService chatRoom, int id) =>
-    //{
-    //    var result = await chatRoom.GetUser(id);
-    //    await httpContext.Response.WriteAsJsonAsync(result);
-    //    //return Results.Ok(result);
-    //});
+    endpoints.MapGet("/api/users/{id}",
+        async (HttpContext httpContext, IChatroomService chatRoom, int id) =>
+    {
+        var result = await chatRoom.GetUser(id);
+        await httpContext.Response.WriteAsJsonAsync(result);
+        //return Results.Ok(result);
+    });
 
     endpoints.MapFallback(async context =>
     {

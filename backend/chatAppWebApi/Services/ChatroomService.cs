@@ -23,26 +23,23 @@ namespace chatAppWebApi.Services
         //    //return await Task.FromResult(ChatroomRepository._chatroom);
         //}
 
-        //public async Task<IEnumerable<string>> GetAllUsers()
-        //{
-        //    var allUsers = ChatroomRepository._chatroom
-        //        .Select(user => user.UserName)
-        //        .ToList();
+        public async Task<IEnumerable<UserModel>> GetAllUsers()
+        {
+            var allUsers = ChatroomRepository._users;
 
-        //    return await Task.FromResult(allUsers);
-        //}
+            return await Task.FromResult(allUsers);
+        }
 
         //public async Task<IEnumerable<UserModel>> CreateUser()
         //{
         //    //return await Task.FromResult(ChatroomRepository._chatroom);
         //}
-        //public async Task<UserModel?> GetUser(int id)
-        //{
-        //    var getUser = ChatroomRepository._chatroom
-        //        .SingleOrDefault(user => user.Id == id);
-        //        //.ToList();
+        public async Task<UserModel?> GetUser(int id)
+        {
+            var getUser = ChatroomRepository._users
+                .SingleOrDefault(user => user.Id == id);
 
-        //    return await Task.FromResult(getUser);
-        //}
+            return await Task.FromResult(getUser);
+        }
     }
 }
