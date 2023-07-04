@@ -7,17 +7,13 @@ namespace chatAppWebApi.Services
     public class ChatroomService : IChatroomService
     {
         private readonly HttpClient _httpClient;
-        //private readonly ChatroomModel _chatroomModel;
         public ChatroomService(HttpClient httpClient) 
         { 
             _httpClient = httpClient;
-            //_chatroomModel = chatroomModel;
         }
         public async Task<IEnumerable<MessageModel>> GetAllMessages()
         {
-            var allMessages = ChatroomRepository._chatroom
-                .SelectMany(user => user.MessageModel)
-                .ToList();
+            var allMessages = ChatroomRepository._messages;
 
             return await Task.FromResult(allMessages);
         }
@@ -27,26 +23,26 @@ namespace chatAppWebApi.Services
         //    //return await Task.FromResult(ChatroomRepository._chatroom);
         //}
 
-        public async Task<IEnumerable<string>> GetAllUsers()
-        {
-            var allUsers = ChatroomRepository._chatroom
-                .Select(user => user.UserName)
-                .ToList();
+        //public async Task<IEnumerable<string>> GetAllUsers()
+        //{
+        //    var allUsers = ChatroomRepository._chatroom
+        //        .Select(user => user.UserName)
+        //        .ToList();
 
-            return await Task.FromResult(allUsers);
-        }
+        //    return await Task.FromResult(allUsers);
+        //}
 
         //public async Task<IEnumerable<UserModel>> CreateUser()
         //{
         //    //return await Task.FromResult(ChatroomRepository._chatroom);
         //}
-        public async Task<UserModel?> GetUser(int id)
-        {
-            var getUser = ChatroomRepository._chatroom
-                .SingleOrDefault(user => user.Id == id);
-                //.ToList();
+        //public async Task<UserModel?> GetUser(int id)
+        //{
+        //    var getUser = ChatroomRepository._chatroom
+        //        .SingleOrDefault(user => user.Id == id);
+        //        //.ToList();
 
-            return await Task.FromResult(getUser);
-        }
+        //    return await Task.FromResult(getUser);
+        //}
     }
 }
