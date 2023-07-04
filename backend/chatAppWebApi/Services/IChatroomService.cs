@@ -10,6 +10,6 @@ namespace chatAppWebApi.Services
         Task<IEnumerable<string>> GetAllUsers();
 
         //Task<IEnumerable<UserModel>> CreateUser();
-        Task<IEnumerable<string>> GetUser();
+        Task<UserModel> GetUser(int id);
     }
 }

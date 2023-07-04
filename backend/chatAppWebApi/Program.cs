@@ -55,7 +55,8 @@ app.UseCors("ReactAppPolicy");
 app.UseEndpoints(endpoints =>
 {
     //GET All messsages
-    endpoints.MapGet("/api/messages", async (HttpContext httpContext, IChatroomService chatRoom) =>
+    endpoints.MapGet("/api/messages", 
+        async (HttpContext httpContext, IChatroomService chatRoom) =>
     {
         var result = await chatRoom.GetAllMessages();
         await httpContext.Response.WriteAsJsonAsync(result);
@@ -68,7 +69,8 @@ app.UseEndpoints(endpoints =>
     //});
 
     //GET all users
-    endpoints.MapGet("/api/users", async (HttpContext httpContext, IChatroomService chatRoom) =>
+    endpoints.MapGet("/api/users", 
+        async (HttpContext httpContext, IChatroomService chatRoom) =>
     {
         var result = await chatRoom.GetAllUsers();
         await httpContext.Response.WriteAsJsonAsync(result);
@@ -81,12 +83,14 @@ app.UseEndpoints(endpoints =>
     //    //some different logic
     //});
 
-    ////GET a single user
-    //endpoints.MapGet("/api/users/{id}", async (ChatroomDb db) =>
-    //{
-    //    var result = await //something
-    //return Results.Ok(result);
-    //});
+    //GET a single user
+    endpoints.MapGet("/api/users/{id}", 
+        async (HttpContext httpContext, IChatroomService chatRoom, int id) =>
+    {
+        var result = await chatRoom.GetUser(id);
+        await httpContext.Response.WriteAsJsonAsync(result);
+        //return Results.Ok(result);
+    });
 
     endpoints.MapFallback(async context =>
     {

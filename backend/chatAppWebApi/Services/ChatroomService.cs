@@ -40,13 +40,13 @@ namespace chatAppWebApi.Services
         //{
         //    //return await Task.FromResult(ChatroomRepository._chatroom);
         //}
-        public async Task<IEnumerable<string>> GetUser()
+        public async Task<UserModel?> GetUser(int id)
         {
-            var allUsers = ChatroomRepository._chatroom
-                .Select(user => user.UserName)
-                .ToList();
+            var getUser = ChatroomRepository._chatroom
+                .SingleOrDefault(user => user.Id == id);
+                //.ToList();
 
-            return await Task.FromResult(allUsers);
+            return await Task.FromResult(getUser);
         }
     }
 }
