@@ -1,3 +1,4 @@
+using chatAppWebApi.Models;
 using chatAppWebApi.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.OpenApi.Models;
@@ -63,10 +64,27 @@ app.UseEndpoints(endpoints =>
     });
 
     //POST a message
-    //endpoints.MapPost("/api/messages", async (HttpContext httpContext, IChatroomService chatRoom =>
-    //{
-    //    return null;
-    //});
+    //working as expected in SwaggerUI
+    endpoints.MapPost("/api/messages",
+        async (HttpContext httpContext, IChatroomService chatRoom, string username, string message) =>
+    {
+        var result = chatRoom.CreateMessage(username, message);
+        await httpContext.Response.WriteAsJsonAsync(result.Result);
+    });
+
+    ////POST a message
+    ////working as expected in postman 
+    //endpoints.MapPost("/api/messages",
+    //    async (HttpContext httpContext, IChatroomService chatRoom) =>
+    //    {
+    //        var requestBody = await httpContext.Request.ReadFromJsonAsync<MessageModel>();
+
+    //        var username = requestBody?.UserName;
+    //        var message = requestBody?.Message;
+
+    //        var result = await chatRoom.CreateMessage(username, message);
+    //        await httpContext.Response.WriteAsJsonAsync(result);
+    //    });
 
     //GET all users
     endpoints.MapGet("/api/users",
