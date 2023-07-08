@@ -1,6 +1,7 @@
 using chatAppWebApi.Models;
 using chatAppWebApi.Services;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -95,11 +96,13 @@ app.UseEndpoints(endpoints =>
         //return Results.Ok(result);
     });
 
-    ////POST a user
-    //endpoints.MapPost("/api/users", async (ChatroomDb db) =>
-    //{
-    //    //some different logic
-    //});
+    //POST a user
+    endpoints.MapPost("/api/users", 
+        async (HttpContext httpContext, IChatroomService chatRoom, string username) =>
+    {
+        var result = chatRoom.CreateUser(username);
+        await httpContext.Response.WriteAsJsonAsync(result.Result);
+    });
 
     //GET a single user
     endpoints.MapGet("/api/users/{id}",

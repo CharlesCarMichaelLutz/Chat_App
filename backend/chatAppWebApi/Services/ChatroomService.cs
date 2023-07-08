@@ -17,12 +17,11 @@ namespace chatAppWebApi.Services
 
             return await Task.FromResult(allMessages);
         }
-
         public async Task<MessageModel> CreateMessage(string username, string message)
         {
             var newMessage = new MessageModel
             {
-                Id = IncrementId(),
+                Id = IncrementMessageId(),
                 UserName = username,
                 Message = message,
             };
@@ -31,7 +30,6 @@ namespace chatAppWebApi.Services
 
             return await Task.FromResult(newMessage);
         }
-
         public async Task<IEnumerable<UserModel>> GetAllUsers()
         {
             var allUsers = ChatroomRepository._users;
@@ -39,10 +37,18 @@ namespace chatAppWebApi.Services
             return await Task.FromResult(allUsers);
         }
 
-        //public async Task<IEnumerable<UserModel>> CreateUser()
-        //{
-        //    //return await Task.FromResult(ChatroomRepository._chatroom);
-        //}
+        public async Task<UserModel> CreateUser(string username)
+        {
+            var newUser = new UserModel
+            {
+                Id = IncrementUserId(),
+                UserName = username,
+            };
+
+            ChatroomRepository._users.Add(newUser);
+
+            return await Task.FromResult(newUser);
+        }
         public async Task<UserModel?> GetUser(int id)
         {
             var getUser = ChatroomRepository._users
@@ -50,13 +56,22 @@ namespace chatAppWebApi.Services
 
             return await Task.FromResult(getUser);
         }
-        private int IncrementId()
+        private int IncrementMessageId()
         {
             int currentId = ChatroomRepository._messages.Max(message => message.Id);
 
             int newMessageId = currentId + 1;
 
             return newMessageId;
+        }
+
+        private int IncrementUserId()
+        {
+            int currentId = ChatroomRepository._users.Max(message => message.Id);
+
+            int newUserId = currentId + 1;
+
+            return newUserId;
         }
     }
 }

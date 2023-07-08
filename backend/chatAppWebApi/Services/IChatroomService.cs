@@ -7,8 +7,7 @@ namespace chatAppWebApi.Services
         Task<IEnumerable<MessageModel>> GetAllMessages();
         Task<MessageModel> CreateMessage(string username, string message);
         Task<IEnumerable<UserModel>> GetAllUsers();
-
-        //Task<IEnumerable<UserModel>> CreateUser();
+        Task<UserModel> CreateUser(string username);
         Task<UserModel> GetUser(int id);
     }
 }
