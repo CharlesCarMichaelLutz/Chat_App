@@ -35,3 +35,4 @@ C:\Users\User\Desktop\ChatApp\backend\chatAppWebApi\bin\Debug\net6.0\chatAppWebA
 C:\Users\User\Desktop\ChatApp\backend\chatAppWebApi\bin\Debug\net6.0\wwwroot\build\static\css\main.2f7538b7.css
 C:\Users\User\Desktop\ChatApp\backend\chatAppWebApi\bin\Debug\net6.0\wwwroot\build\static\js\787.83093967.chunk.js
 C:\Users\User\Desktop\ChatApp\backend\chatAppWebApi\bin\Debug\net6.0\wwwroot\build\static\js\main.64536b86.js
+C:\Users\User\Desktop\ChatApp\backend\chatAppWebApi\bin\Debug\net6.0\Newtonsoft.Json.dll

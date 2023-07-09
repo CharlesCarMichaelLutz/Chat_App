@@ -1,21 +1,31 @@
 ﻿using chatAppWebApi.Models;
 using chatAppWebApi.Repositories;
 using System.Reflection.Metadata.Ecma335;
+using System.Text.Json.Serialization;
+using Newtonsoft.Json;
 
 namespace chatAppWebApi.Services
 {
     public class ChatroomService : IChatroomService
     {
         private readonly HttpClient _httpClient;
+        private const string BaseUrl = "https://localhost:7119/";
+        //private const string BaseUrl = "http://localhost:5218/";
+
         public ChatroomService(HttpClient httpClient) 
         { 
             _httpClient = httpClient;
+            _httpClient.BaseAddress = new Uri(BaseUrl);
         }
         public async Task<IEnumerable<MessageModel>> GetAllMessages()
         {
-            var allMessages = ChatroomRepository._messages;
+            var response = await _httpClient.GetAsync("/api/messages");
+            response.EnsureSuccessStatusCode();
 
-            return await Task.FromResult(allMessages);
+            var content = await response.Content.ReadAsStringAsync();
+            var result = JsonConvert.DeserializeObject<IEnumerable<MessageModel>>(content);
+
+            return result;
         }
         public async Task<MessageModel> CreateMessage(string username, string message)
         {

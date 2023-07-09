@@ -50,7 +50,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseRouting();
-//app.UseStaticFiles();
+app.UseStaticFiles();
 
 app.UseCors("ReactAppPolicy");
 
@@ -72,20 +72,6 @@ app.UseEndpoints(endpoints =>
         var result = chatRoom.CreateMessage(username, message);
         await httpContext.Response.WriteAsJsonAsync(result.Result);
     });
-
-    ////POST a message
-    ////working as expected in postman 
-    //endpoints.MapPost("/api/messages",
-    //    async (HttpContext httpContext, IChatroomService chatRoom) =>
-    //    {
-    //        var requestBody = await httpContext.Request.ReadFromJsonAsync<MessageModel>();
-
-    //        var username = requestBody?.UserName;
-    //        var message = requestBody?.Message;
-
-    //        var result = await chatRoom.CreateMessage(username, message);
-    //        await httpContext.Response.WriteAsJsonAsync(result);
-    //    });
 
     //GET all users
     endpoints.MapGet("/api/users",

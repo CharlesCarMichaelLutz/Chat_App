@@ -1,63 +1,63 @@
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 //import {Link} from 'react-router-dom'
 import '../styling/ChatroomPage.css'
+import axios from 'axios'
+
 
 function ChatroomPage() {
   const [message, setMessage] = useState('')
-  const [users, setUsers] = useState([
-    {
-      name: "User A",
-      messages: [
-        {text:"Greetings everyone!"},
-      ]
-    },
-    {
-      name: "User B",
-      messages: [
-        {text:"Welcome User A!"},
-        {text:"I would like to visit the beach soon"},
-        {text: "And I won't forget to bring sunscreen"}
-      ]
-    },
-    {
-      name: "User C",
-      messages: [
-        {text:"I am looking forward to a good one"},
-      ]
-    },
-    {
-      name: "User D",
-      messages: [
-        {text:"Let's have a great summer"},
-        {text:"That's agreed User B"}
-      ]
-    }
-  ])
+  const [users, setUsers] = useState([])
 
-  function handleSendMessage() {
+  const baseUrl = process.env.REACT_APP_API_BASE_URL
+
+  useEffect(() => {
+    const getUsersAndMessages = async () => {
+     
+      const response = await axios.get(`${baseUrl}/api/users}`)
+      const fetchedUsers = response.data
+
+      const updatedUsers = fetchedUsers.map((user) => {
+        return {
+          username: user.username,
+          messages: []
+        }
+      })
+      setUsers(updatedUsers)
+    }
+
+    getUsersAndMessages()
+  }, [])
+
+  async function handleSendMessage() {
       const createNewMessage = {
         text: message
       }
 
-      const newUser = {
-        name: 'Current User',
-        messages: [createNewMessage]
-      }
+      const response = await axios.post(`${baseUrl}/api/messages}`, createNewMessage)
+      const newMessage = response.data
 
-      setUsers(prevUsers => [...prevUsers, newUser])
-      //figure out the object structure and field
-      //that needs to be reset on each render
+      const updatedUsers = users.map((user) => {
+        if(user.name === 'Current User') {
+          return {
+            ...user,
+            messages: [...user.messages, newMessage]
+          }
+        }
+        return user
+      })
+
+      setUsers(updatedUsers)
       setMessage('')
   }
 
-  const renderMessage = users.flatMap((user, index) => (
-    user.messages.flatMap((message, messageIndex) => (
-          <li className='create--message' key={`${index}-${messageIndex}`}>
-            <span className='username'>{user.name}</span>
-            <span className='content'>{message.text}</span>
+  const renderMessage = users.flatMap((user) => {
+    return user.messages.map((message) => (
+          <li className='create--message' key={message.id}>
+            <span className='username'>{user.username}</span>
+            <span className='content'>{message.message}</span>
           </li>
-    ))
-  ))
+      ))
+    })
 
   return (
     <div className='chatroomPage--container'>

@@ -1,5 +1,8 @@
-﻿namespace chatAppWebApi.Models
+﻿using Newtonsoft.Json;
+
+namespace chatAppWebApi.Models
 {
+    //[Serializable]
     public class ChatroomModel
     {
         public ChatroomData[] ChatroomData { get; set; }
