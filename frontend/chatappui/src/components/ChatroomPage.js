@@ -26,7 +26,7 @@ function ChatroomPage() {
     }
 
     getUsersAndMessages()
-  }, [])
+  }, [users])
 
   async function handleSendMessage() {
       const createNewMessage = {

@@ -9,23 +9,15 @@ namespace chatAppWebApi.Services
     public class ChatroomService : IChatroomService
     {
         private readonly HttpClient _httpClient;
-        private const string BaseUrl = "https://localhost:7119/";
-        //private const string BaseUrl = "http://localhost:5218/";
-
         public ChatroomService(HttpClient httpClient) 
         { 
             _httpClient = httpClient;
-            _httpClient.BaseAddress = new Uri(BaseUrl);
         }
         public async Task<IEnumerable<MessageModel>> GetAllMessages()
         {
-            var response = await _httpClient.GetAsync("/api/messages");
-            response.EnsureSuccessStatusCode();
+            var allMessages = ChatroomRepository._messages;
 
-            var content = await response.Content.ReadAsStringAsync();
-            var result = JsonConvert.DeserializeObject<IEnumerable<MessageModel>>(content);
-
-            return result;
+            return await Task.FromResult(allMessages);
         }
         public async Task<MessageModel> CreateMessage(string username, string message)
         {
@@ -46,7 +38,6 @@ namespace chatAppWebApi.Services
 
             return await Task.FromResult(allUsers);
         }
-
         public async Task<UserModel> CreateUser(string username)
         {
             var newUser = new UserModel
@@ -74,7 +65,6 @@ namespace chatAppWebApi.Services
 
             return newMessageId;
         }
-
         private int IncrementUserId()
         {
             int currentId = ChatroomRepository._users.Max(message => message.Id);

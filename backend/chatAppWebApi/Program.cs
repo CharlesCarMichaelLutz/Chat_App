@@ -1,18 +1,23 @@
 using chatAppWebApi.Models;
 using chatAppWebApi.Services;
+using chatAppWebApi.SignalR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.OpenApi.Models;
+using System.Net.Http.Headers;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
 var services = builder.Services;
 
-//Dependency Injection
 services.AddScoped<IChatroomService, ChatroomService>();
 
-services.AddHttpClient<IChatroomService,ChatroomService>();
+services.AddHttpClient<IChatroomService,ChatroomService>(client => 
+{
+    client.DefaultRequestHeaders.Accept.Clear();
+    client.BaseAddress = new Uri("https://localhost:7119/");
+    client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+});
 
 services.AddEndpointsApiExplorer();
 services.AddSwaggerGen(create =>
@@ -25,7 +30,6 @@ services.AddSwaggerGen(create =>
     });
 });
 
-//enable CORS
 services.AddCors(options => 
 {
     options.AddPolicy("ReactAppPolicy", builder =>
@@ -36,9 +40,10 @@ services.AddCors(options =>
     });
 });
 
+services.AddSignalR();
+
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
@@ -56,43 +61,34 @@ app.UseCors("ReactAppPolicy");
 
 app.UseEndpoints(endpoints =>
 {
-    //GET All messsages
-    endpoints.MapGet("/api/messages", 
-        async (HttpContext httpContext, IChatroomService chatRoom) =>
+    endpoints.MapHub<ChatHub>("/chathub");
+
+    endpoints.MapGet("/api/messages", async (HttpContext httpContext, IChatroomService chatRoom) =>
     {
         var result = await chatRoom.GetAllMessages();
         await httpContext.Response.WriteAsJsonAsync(result);
     });
 
-    //POST a message
-    //working as expected in SwaggerUI
-    endpoints.MapPost("/api/messages",
-        async (HttpContext httpContext, IChatroomService chatRoom, string username, string message) =>
+    endpoints.MapPost("/api/messages", async (HttpContext httpContext, IChatroomService chatRoom, string username, string message) =>
     {
         var result = chatRoom.CreateMessage(username, message);
         await httpContext.Response.WriteAsJsonAsync(result.Result);
     });
 
-    //GET all users
-    endpoints.MapGet("/api/users",
-        async (HttpContext httpContext, IChatroomService chatRoom) =>
+    endpoints.MapGet("/api/users", async (HttpContext httpContext, IChatroomService chatRoom) =>
     {
         var result = await chatRoom.GetAllUsers();
         await httpContext.Response.WriteAsJsonAsync(result);
         //return Results.Ok(result);
     });
 
-    //POST a user
-    endpoints.MapPost("/api/users", 
-        async (HttpContext httpContext, IChatroomService chatRoom, string username) =>
+    endpoints.MapPost("/api/users", async (HttpContext httpContext, IChatroomService chatRoom, string username) =>
     {
         var result = chatRoom.CreateUser(username);
         await httpContext.Response.WriteAsJsonAsync(result.Result);
     });
 
-    //GET a single user
-    endpoints.MapGet("/api/users/{id}",
-        async (HttpContext httpContext, IChatroomService chatRoom, int id) =>
+    endpoints.MapGet("/api/users/{id}", async (HttpContext httpContext, IChatroomService chatRoom, int id) =>
     {
         var result = await chatRoom.GetUser(id);
         await httpContext.Response.WriteAsJsonAsync(result);

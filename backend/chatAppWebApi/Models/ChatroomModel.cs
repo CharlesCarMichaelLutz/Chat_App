@@ -2,7 +2,7 @@
 
 namespace chatAppWebApi.Models
 {
-    //[Serializable]
+    [Serializable]
     public class ChatroomModel
     {
         public ChatroomData[] ChatroomData { get; set; }
