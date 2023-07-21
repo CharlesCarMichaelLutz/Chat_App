@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react'
 //import {Link} from 'react-router-dom'
 import '../styling/ChatroomPage.css'
 import axios from 'axios'
-
+import ChatroomWebSocket from './ChatroomWebSocket'
 
 function ChatroomPage() {
   const [message, setMessage] = useState('')
@@ -13,7 +13,7 @@ function ChatroomPage() {
   useEffect(() => {
     const getUsersAndMessages = async () => {
      
-      const response = await axios.get(`${baseUrl}/api/users}`)
+      const response = await axios.get( `${baseUrl}/api/users}`)
       const fetchedUsers = response.data
 
       const updatedUsers = fetchedUsers.map((user) => {
@@ -28,7 +28,13 @@ function ChatroomPage() {
     getUsersAndMessages()
   }, [users])
 
-  async function handleSendMessage() {
+  async function handleSendMessage(event) {
+      event.preventDefault()
+
+      if(!message.trim()){
+        return
+      }
+
       const createNewMessage = {
         text: message
       }
@@ -61,6 +67,7 @@ function ChatroomPage() {
 
   return (
     <div className='chatroomPage--container'>
+      <ChatroomWebSocket baseUrl={baseUrl}/>
       <span className='active--users'>
         <h2>Active Now</h2>
         <ul>
@@ -77,13 +84,11 @@ function ChatroomPage() {
         </ul>
       </span>
 
-      <form className='input--container'onSubmit={(event) => {
-          event.preventDefault()
-          handleSendMessage()
-        }}>
+      <form className='input--container'onSubmit={handleSendMessage}>
           <input 
             type='text' 
             placeholder="...enter message here" 
+            value={message}
             onChange={(e) => setMessage(e.target.value)}
           />
           <button className='submit--message'>Send</button>
