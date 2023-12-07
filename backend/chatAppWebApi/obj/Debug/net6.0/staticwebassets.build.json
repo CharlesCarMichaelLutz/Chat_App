@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "VNJ8lIs/Uvw435lyx8k5JfX/FwlohcdtbeTkOJLtfJA=",
+  "Hash": "JIuKU/dTjOrQcvhjII8jMDCK3g4xV2t6R3X9fLOOay8=",
   "Source": "chatAppWebApi",
   "BasePath": "_content/chatAppWebApi",
   "Mode": "Default",
@@ -83,6 +83,40 @@
       "CopyToOutputDirectory": "PreserveNewest",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\index.html"
+    },
+    {
+      "Identity": "C:\\Users\\User\\Desktop\\ChatApp\\backend\\chatAppWebApi\\wwwroot\\js\\signalr\\dist\\browser\\signalr.js",
+      "SourceId": "chatAppWebApi",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\User\\Desktop\\ChatApp\\backend\\chatAppWebApi\\wwwroot\\",
+      "BasePath": "_content/chatAppWebApi",
+      "RelativePath": "js/signalr/dist/browser/signalr.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "PreserveNewest",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\js\\signalr\\dist\\browser\\signalr.js"
+    },
+    {
+      "Identity": "C:\\Users\\User\\Desktop\\ChatApp\\backend\\chatAppWebApi\\wwwroot\\js\\signalr\\dist\\browser\\signalr.min.js",
+      "SourceId": "chatAppWebApi",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\User\\Desktop\\ChatApp\\backend\\chatAppWebApi\\wwwroot\\",
+      "BasePath": "_content/chatAppWebApi",
+      "RelativePath": "js/signalr/dist/browser/signalr.min.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "PreserveNewest",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\js\\signalr\\dist\\browser\\signalr.min.js"
     }
   ]
 }

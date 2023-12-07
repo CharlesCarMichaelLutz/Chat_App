@@ -61,8 +61,6 @@ app.UseCors("ReactAppPolicy");
 
 app.UseEndpoints(endpoints =>
 {
-    endpoints.MapHub<ChatHub>("/chathub");
-
     endpoints.MapGet("/api/messages", async (HttpContext httpContext, IChatroomService chatRoom) =>
     {
         var result = await chatRoom.GetAllMessages();
@@ -94,6 +92,9 @@ app.UseEndpoints(endpoints =>
         await httpContext.Response.WriteAsJsonAsync(result);
         //return Results.Ok(result);
     });
+
+    endpoints.MapHub<ChatHub>("/chatHub");
+
 
     endpoints.MapFallback(async context =>
     {

@@ -55,3 +55,6 @@ C:\Users\User\Desktop\ChatApp\backend\chatAppWebApi\bin\Debug\net6.0\System.Text
 C:\Users\User\Desktop\ChatApp\backend\chatAppWebApi\bin\Debug\net6.0\System.Text.Json.dll
 C:\Users\User\Desktop\ChatApp\backend\chatAppWebApi\bin\Debug\net6.0\System.Threading.Channels.dll
 C:\Users\User\Desktop\ChatApp\backend\chatAppWebApi\bin\Debug\net6.0\runtimes\browser\lib\net6.0\System.Text.Encodings.Web.dll
+C:\Users\User\Desktop\ChatApp\backend\chatAppWebApi\bin\Debug\net6.0\wwwroot\js\signalr\dist\browser\signalr.js
+C:\Users\User\Desktop\ChatApp\backend\chatAppWebApi\bin\Debug\net6.0\wwwroot\js\signalr\dist\browser\signalr.min.js
+C:\Users\User\Desktop\ChatApp\backend\chatAppWebApi\bin\Debug\net6.0\libman.json
