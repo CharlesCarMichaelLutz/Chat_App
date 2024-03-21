@@ -9,6 +9,8 @@ namespace chatAppWebApi.Services
     public class ChatroomService : IChatroomService
     {
         private readonly HttpClient _httpClient;
+
+        //private readonly IChatroomRepository chatroomRepository;
         public ChatroomService(HttpClient httpClient) 
         { 
             _httpClient = httpClient;

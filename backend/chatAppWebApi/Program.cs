@@ -10,14 +10,9 @@ var builder = WebApplication.CreateBuilder(args);
 
 var services = builder.Services;
 
+//services.AddScoped<INpqsqlDataAccess, NpqsqlDataAccess>();
+//services.AddScoped<IChatroomRepository, ChatroomRepository>();
 services.AddScoped<IChatroomService, ChatroomService>();
-
-services.AddHttpClient<IChatroomService,ChatroomService>(client => 
-{
-    client.DefaultRequestHeaders.Accept.Clear();
-    client.BaseAddress = new Uri("https://localhost:7119/");
-    client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-});
 
 services.AddEndpointsApiExplorer();
 services.AddSwaggerGen(create =>
