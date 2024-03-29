@@ -1,17 +1,14 @@
-using chatAppWebApi.Models;
+using chatAppWebApi.Repositories;
 using chatAppWebApi.Services;
 using chatAppWebApi.SignalR;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.OpenApi.Models;
-using System.Net.Http.Headers;
 
 var builder = WebApplication.CreateBuilder(args);
 
 var services = builder.Services;
 
 //services.AddScoped<INpqsqlDataAccess, NpqsqlDataAccess>();
-//services.AddScoped<IChatroomRepository, ChatroomRepository>();
+services.AddScoped<IChatroomRepository, ChatroomRepository>();
 services.AddScoped<IChatroomService, ChatroomService>();
 
 services.AddEndpointsApiExplorer();
@@ -56,40 +53,38 @@ app.UseCors("ReactAppPolicy");
 
 app.UseEndpoints(endpoints =>
 {
-    endpoints.MapGet("/api/messages", async (HttpContext httpContext, IChatroomService chatRoom) =>
-    {
-        var result = await chatRoom.GetAllMessages();
-        await httpContext.Response.WriteAsJsonAsync(result);
-    });
-
-    endpoints.MapPost("/api/messages", async (HttpContext httpContext, IChatroomService chatRoom, string username, string message) =>
-    {
-        var result = chatRoom.CreateMessage(username, message);
-        await httpContext.Response.WriteAsJsonAsync(result.Result);
-    });
-
-    endpoints.MapGet("/api/users", async (HttpContext httpContext, IChatroomService chatRoom) =>
-    {
-        var result = await chatRoom.GetAllUsers();
-        await httpContext.Response.WriteAsJsonAsync(result);
-        //return Results.Ok(result);
-    });
-
-    endpoints.MapPost("/api/users", async (HttpContext httpContext, IChatroomService chatRoom, string username) =>
-    {
-        var result = chatRoom.CreateUser(username);
-        await httpContext.Response.WriteAsJsonAsync(result.Result);
-    });
-
-    endpoints.MapGet("/api/users/{id}", async (HttpContext httpContext, IChatroomService chatRoom, int id) =>
-    {
-        var result = await chatRoom.GetUser(id);
-        await httpContext.Response.WriteAsJsonAsync(result);
-        //return Results.Ok(result);
-    });
 
     endpoints.MapHub<ChatHub>("/chatHub");
 
+    endpoints.MapGet("/api/messages", async (IChatroomService chatRoom) =>
+    {
+        var response = await chatRoom.GetAllMessages();
+        return Results.Ok(response);
+    });
+
+    endpoints.MapPost("/api/messages", async (IChatroomService chatRoom, string username, string message) =>
+    {
+        var response = await chatRoom.CreateMessage(username, message);
+        return Results.Ok(response);
+    });
+
+    endpoints.MapGet("/api/users", async (IChatroomService chatRoom) =>
+    {
+        var response = await chatRoom.GetAllUsers();
+        return Results.Ok(response);
+    });
+
+    endpoints.MapPost("/api/users", async (IChatroomService chatRoom, string username) =>
+    {
+        var response = await chatRoom.CreateUser(username);
+        return Results.Ok(response);
+    });
+
+    endpoints.MapGet("/api/users/{id}", async (IChatroomService chatRoom, int id) =>
+    {
+        var response = await chatRoom.GetUser(id);
+        return Results.Ok(response);
+    });
 
     endpoints.MapFallback(async context =>
     {

@@ -3,19 +3,70 @@
 namespace chatAppWebApi.Repositories
 {
     //Mock Repository created for initial testing
-    public class ChatroomRepository
+    public class ChatroomRepository : IChatroomRepository
     {
-        public static List<UserModel> _users = new List<UserModel>()
+        public async Task<IEnumerable<MessageModel>> GetAllMessages()
+        {
+            return _messages;
+        }
+        public async Task<MessageModel> CreateMessage(MessageModel newMessage)
+        {
+            _messages.Add(newMessage);
+
+            return newMessage;
+        }
+        public async Task<IEnumerable<UserModel>> GetAll()
+        {
+            return _users;
+        }
+        public async Task<UserModel> CreateUser(UserModel user)
+        {
+            _users.Add(user);
+
+            return user;
+        }
+        public async Task<UserModel?> GetUser(int id)
+        {
+            var existingUser = _users.SingleOrDefault(user => user.Id == id);
+
+            return existingUser;
+        }
+        public int IncrementMessageId()
+        {
+            int currentId = _users.Max(message => message.Id);
+
+            int newMessageId = currentId + 1;
+
+            return newMessageId;
+        }
+
+        public int IncrementUserId()
+        {
+            int currentId = _users.Max(message => message.Id);
+
+            int newUserId = currentId + 1;
+
+            return newUserId;
+        }
+
+        public Task<IEnumerable<UserModel>> GetAllUsers()
+        {
+            throw new NotImplementedException();
+        }
+
+
+        //Data Store 
+        public static List<UserModel> _users = new()
             {
                 new UserModel()
-                {   
+                {
                     Id = 1,
                     UserName = "User A",
                 },
                 new UserModel()
                 {
                     Id = 2,
-                    UserName = "User B", 
+                    UserName = "User B",
                 },
                  new UserModel()
                 {
@@ -23,13 +74,13 @@ namespace chatAppWebApi.Repositories
                     UserName = "User C",
                 },
                  new UserModel()
-                { 
+                {
                     Id = 4,
                     UserName = "User D"
                 }
             };
 
-        public static List<MessageModel> _messages = new List<MessageModel>()
+        public static List<MessageModel> _messages = new()
             {
                 new MessageModel()
                 {
