@@ -17,11 +17,13 @@ namespace chatAppWebApi.Models
     {
         public int Id { get; set; }
         public string UserName { get; set; }
+        public DateTime CreatedDate { get; set; }
     }
     public class MessageModel
     {
         public int Id { get; set; }
-        public string UserName { get; set; }
-        public string Message { get; set; }
+        public string UserId { get; set; }
+        public string Text { get; set; }
+        public DateTime CreatedDate { get; set; }
     }
 }
