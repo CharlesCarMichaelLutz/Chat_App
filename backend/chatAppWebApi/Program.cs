@@ -53,8 +53,11 @@ app.UseCors("ReactAppPolicy");
 
 app.UseEndpoints(endpoints =>
 {
+    //Controller 
 
     endpoints.MapHub<ChatHub>("/chatHub");
+
+    //Controller Methods
 
     endpoints.MapGet("/api/messages", async (IChatroomService chatRoom) =>
     {

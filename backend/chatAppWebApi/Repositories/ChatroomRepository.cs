@@ -1,13 +1,22 @@
 ﻿using chatAppWebApi.Models;
+using Dapper;
+using Npgsql;
+using System.Data;
 
 namespace chatAppWebApi.Repositories
 {
     //Mock Repository created for initial testing
     public class ChatroomRepository : IChatroomRepository
     {
-        public async Task<IEnumerable<MessageModel>> GetAllMessages()
+        private readonly IDbConnection _connection;
+        public ChatroomRepository(IConfiguration config)
         {
-            return _messages;
+            _connection = new NpgsqlConnection(config.GetConnectionString("RabbitChatDb"));
+        }
+        public async Task<IEnumerable<MessageModel>> GetAllAsync()
+        {
+            using var connection = _connection;
+            return await connection.QueryAsync<MessageModel>("SELECT * FROM Messages");
         }
         public async Task<MessageModel> CreateMessage(MessageModel newMessage)
         {
