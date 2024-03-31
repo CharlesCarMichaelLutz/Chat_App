@@ -8,10 +8,10 @@ namespace chatAppWebApi.Repositories
     //Mock Repository created for initial testing
     public class ChatroomRepository : IChatroomRepository
     {
-        private readonly IDbConnection _connection;
+        //private readonly IDbConnection _connection;
         public ChatroomRepository(IConfiguration config)
         {
-            _connection = new NpgsqlConnection(config.GetConnectionString("RabbitChatDb"));
+            //_connection = new NpgsqlConnection(config.GetConnectionString("RabbitChatDb"));
         }
         public async Task<IEnumerable<MessageModel>> GetAllAsync()
         {

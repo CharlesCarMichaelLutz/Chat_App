@@ -1,3 +1,4 @@
+using chatAppWebApi.Database;
 using chatAppWebApi.Repositories;
 using chatAppWebApi.Services;
 using chatAppWebApi.SignalR;
@@ -5,9 +6,11 @@ using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
+var config = builder.Configuration;
 var services = builder.Services;
 
-//services.AddScoped<INpqsqlDataAccess, NpqsqlDataAccess>();
+services.AddScoped<IPostgreSqlConnectionFactory>(_ =>
+    new PostgreSqlConnectionFactory(config.GetValue<string>("ConnectionStrings:RabbitChatDb")));
 services.AddScoped<IChatroomRepository, ChatroomRepository>();
 services.AddScoped<IChatroomService, ChatroomService>();
 
