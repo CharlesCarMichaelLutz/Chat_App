@@ -10,30 +10,12 @@ namespace chatAppWebApi.Repositories
     public class ChatroomRepository : IChatroomRepository
     {
         private readonly IPostgreSqlConnectionFactory _connectionFactory;
+
         public ChatroomRepository(IPostgreSqlConnectionFactory connectionFactory)
         {
             _connectionFactory = connectionFactory;
         }
-        public async Task<IEnumerable<MessageModel>> GetAllAsync()
-        {
-            using var connection = await _connectionFactory.CreateConnectionAsync();
 
-            return await connection.QueryAsync<MessageModel>("SELECT * FROM Messages");
-        }
-        public async Task<MessageModel> CreateMessage(MessageModel newMessage)
-        {
-            using var connection = await _connectionFactory.CreateConnectionAsync();
-
-            _messages.Add(newMessage);
-
-            return newMessage;
-        }
-        public async Task<IEnumerable<UserModel>> GetAll()
-        {
-            using var connection = await _connectionFactory.CreateConnectionAsync();
-
-            return _users;
-        }
         public async Task<UserModel> CreateUser(UserModel user)
         {
             using var connection = await _connectionFactory.CreateConnectionAsync();
@@ -42,6 +24,13 @@ namespace chatAppWebApi.Repositories
 
             return user;
         }
+        public async Task<IEnumerable<UserModel>> GetAll()
+        {
+            using var connection = await _connectionFactory.CreateConnectionAsync();
+
+            return _users;
+        }
+
         public async Task<UserModel?> GetUser(int id)
         {
             using var connection = await _connectionFactory.CreateConnectionAsync();
@@ -50,6 +39,23 @@ namespace chatAppWebApi.Repositories
 
             return existingUser;
         }
+
+        public async Task<MessageModel> CreateMessage(MessageModel newMessage)
+        {
+            using var connection = await _connectionFactory.CreateConnectionAsync();
+
+            _messages.Add(newMessage);
+
+            return newMessage;
+        }
+
+        public async Task<IEnumerable<MessageModel>> GetAllAsync()
+        {
+            using var connection = await _connectionFactory.CreateConnectionAsync();
+
+            return await connection.QueryAsync<MessageModel>("SELECT * FROM Messages");
+        }
+
         public int IncrementMessageId()
         {
             int currentId = _users.Max(message => message.Id);
@@ -67,12 +73,6 @@ namespace chatAppWebApi.Repositories
 
             return newUserId;
         }
-
-        public Task<IEnumerable<UserModel>> GetAllUsers()
-        {
-            throw new NotImplementedException();
-        }
-
 
         //Data Store 
         public static List<UserModel> _users = new()
