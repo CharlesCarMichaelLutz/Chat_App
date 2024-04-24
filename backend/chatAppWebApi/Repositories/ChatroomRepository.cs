@@ -6,143 +6,53 @@ using System.Data;
 
 namespace chatAppWebApi.Repositories
 {
-    //Mock Repository created for initial testing
     public class ChatroomRepository : IChatroomRepository
     {
         private readonly IPostgreSqlConnectionFactory _connectionFactory;
-
         public ChatroomRepository(IPostgreSqlConnectionFactory connectionFactory)
         {
             _connectionFactory = connectionFactory;
         }
-
-        public async Task<UserModel> CreateUser(UserModel user)
+        public async Task<bool> CreateUserAsync(UserModel user)
         {
             using var connection = await _connectionFactory.CreateConnectionAsync();
 
-            _users.Add(user);
+            var result = await connection.ExecuteAsync(
+                @"INSERT INTO User (Id, UserName, CreatedDate) 
+                VALUES (@Id, @UserName, @CreatedDate)", 
+                user);
 
-            return user;
+            return result > 0;
         }
-        public async Task<IEnumerable<UserModel>> GetAll()
+        public async Task<IEnumerable<UserModel>> GetAllUsersAsync()
         {
             using var connection = await _connectionFactory.CreateConnectionAsync();
 
-            return _users;
+            return await connection.QueryAsync<UserModel>("SELECT * FROM User");
         }
-
-        public async Task<UserModel?> GetUser(int id)
+        public async Task<UserModel?> GetUserAsync(int id)
         {
             using var connection = await _connectionFactory.CreateConnectionAsync();
 
-            var existingUser = _users.SingleOrDefault(user => user.Id == id);
-
-            return existingUser;
+            return await connection.QuerySingleOrDefaultAsync<UserModel>(
+                "SELECT * FROM User WHERE Id = @Id LIMIT 1", new { Id = id.ToString() });
         }
-
-        public async Task<MessageModel> CreateMessage(MessageModel newMessage)
+        public async Task<bool> CreateMessageAsync(MessageModel message)
         {
             using var connection = await _connectionFactory.CreateConnectionAsync();
 
-            _messages.Add(newMessage);
+            var result = await connection.ExecuteAsync(
+            @"INSERT INTO Message (Id, UserId, Text, CreatedDate) 
+                VALUES (@Id, @UserId, @Text, @CreatedDate)",
+            message);
 
-            return newMessage;
+            return result > 0;
         }
-
-        public async Task<IEnumerable<MessageModel>> GetAllAsync()
+        public async Task<IEnumerable<MessageModel>> GetAllMessagesAsync()
         {
             using var connection = await _connectionFactory.CreateConnectionAsync();
 
-            return await connection.QueryAsync<MessageModel>("SELECT * FROM Messages");
+            return await connection.QueryAsync<MessageModel>("SELECT * FROM Message");
         }
-
-        public int IncrementMessageId()
-        {
-            int currentId = _users.Max(message => message.Id);
-
-            int newMessageId = currentId + 1;
-
-            return newMessageId;
-        }
-
-        public int IncrementUserId()
-        {
-            int currentId = _users.Max(message => message.Id);
-
-            int newUserId = currentId + 1;
-
-            return newUserId;
-        }
-
-        //Data Store 
-        public static List<UserModel> _users = new()
-            {
-                new UserModel()
-                {
-                    Id = 1,
-                    UserName = "User A",
-                },
-                new UserModel()
-                {
-                    Id = 2,
-                    UserName = "User B",
-                },
-                 new UserModel()
-                {
-                    Id = 3,
-                    UserName = "User C",
-                },
-                 new UserModel()
-                {
-                    Id = 4,
-                    UserName = "User D"
-                }
-            };
-
-        public static List<MessageModel> _messages = new()
-            {
-                new MessageModel()
-                {
-                    Id = 1,
-                    UserId = "User A",
-                    Text = "Greetings everyone!"
-                },
-                new MessageModel()
-                {
-                    Id = 2,
-                    UserId = "User B",
-                    Text = "Welcome User A!"
-                },
-                new MessageModel()
-                {
-                    Id = 3,
-                    UserId = "User B", 
-                    Text = "I would like to visit the beach soon"
-                },
-                new MessageModel()
-                {
-                    Id = 4,
-                    UserId = "User B", 
-                    Text = "And I won't forget to bring sunscreen"
-                },
-                 new MessageModel()
-                {
-                    Id = 5,
-                    UserId = "User D", 
-                    Text = "That's agreed User B"
-                },
-                new MessageModel()
-                {
-                    Id = 6,
-                    UserId = "User C",
-                    Text = "I am looking forward to a good one"
-                },
-                new MessageModel()
-                {
-                    Id = 7,
-                    UserId = "User D",
-                    Text = "Let's have a great summer"
-                }
-            };
     }
 }

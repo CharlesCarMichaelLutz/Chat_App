@@ -13,91 +13,32 @@ namespace chatAppWebApi.Services
         {
             _chatroomRepository = chatroomRepository;
         }
-        public async Task<IEnumerable<MessageModel>> GetAllMessages()
+        public async Task<bool> CreateUser(UserModel user)
         {
-            return await _chatroomRepository.GetAllMessages();
-        }
-        public async Task<MessageModel> CreateMessage(string username, string message)
-        {
-            var newMessage = new MessageModel
+            var existingUser = await _chatroomRepository.CreateUserAsync(user);
+            if (existingUser)
             {
-                Id = IncrementMessageId(),
-                UserName = username,
-                Message = message,
-            };
-
-            var response = await _chatroomRepository.CreateMessage(newMessage);
-
-            if (response is not null)
-            {
-                return response;
+                var message = $"A user with id {user.UserName} already exists";
+                throw new Exception(message);
             }
-            else
-            {
-                throw new Exception();
-            };
+
+            return await _chatroomRepository.CreateUserAsync(user);
         }
         public async Task<IEnumerable<UserModel>> GetAllUsers()
         {
-            var allUsers = await _chatroomRepository.GetAll();
-
-            if (allUsers is not null) 
-            {
-                return allUsers;   
-            }
-            else
-            {
-                throw new Exception();
-            };
-
-        }
-        public async Task<UserModel> CreateUser(string username)
-        {
-            var newUser = new UserModel
-            {
-                Id = IncrementUserId(),
-                UserName = username,
-            };
-
-            var response = await _chatroomRepository.CreateUser(newUser);
-
-            if (response is not null)
-            {
-                return response;
-            }
-            else
-            {
-                throw new Exception();
-            };
+            return await _chatroomRepository.GetAllUsersAsync();
         }
         public async Task<UserModel?> GetUser(int id)
         {
-            var existingUser = await _chatroomRepository.GetUser(id);
-            
-            if(existingUser is not null)
-            {
-                return existingUser;
-            }
-            else
-            {
-                throw new Exception();
-            }
+            return await _chatroomRepository.GetUserAsync(id);
         }
-        private int IncrementMessageId()
+        public async Task<bool> CreateMessage(MessageModel message)
         {
-            int currentId = ChatroomRepository._messages.Max(message => message.Id);
-
-            int newMessageId = currentId + 1;
-
-            return newMessageId;
+            return await _chatroomRepository.CreateMessageAsync(message);
         }
-        private int IncrementUserId()
+        public async Task<IEnumerable<MessageModel>> GetAllMessages()
         {
-            int currentId = ChatroomRepository._users.Max(message => message.Id);
-
-            int newUserId = currentId + 1;
-
-            return newUserId;
+            return await _chatroomRepository.GetAllMessagesAsync();
         }
     }
 }

@@ -4,13 +4,10 @@ namespace chatAppWebApi.Repositories
 {
     public interface IChatroomRepository
     {
-        Task<MessageModel> CreateMessage(MessageModel message);
-        Task<UserModel> CreateUser(UserModel user);
-        Task<IEnumerable<MessageModel>> GetAllMessages();
-        Task<IEnumerable<UserModel>> GetAllUsers();
-        Task<IEnumerable<UserModel>> GetAll();
-        Task<UserModel> GetUser(int id);
-        int IncrementMessageId();
-        int IncrementUserId();
+        Task<bool> CreateUserAsync(UserModel user);
+        Task<IEnumerable<UserModel>> GetAllUsersAsync();
+        Task<UserModel?> GetUserAsync(int id);
+        Task<bool> CreateMessageAsync(MessageModel message);
+        Task<IEnumerable<MessageModel>> GetAllMessagesAsync();
     }
 }

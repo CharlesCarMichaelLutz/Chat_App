@@ -1,4 +1,5 @@
 using chatAppWebApi.Database;
+using chatAppWebApi.Models;
 using chatAppWebApi.Repositories;
 using chatAppWebApi.Services;
 using chatAppWebApi.SignalR;
@@ -58,15 +59,9 @@ app.UseEndpoints(endpoints =>
 {
     endpoints.MapHub<ChatHub>("/chatHub");
 
-    endpoints.MapGet("/api/messages", async (IChatroomService chatRoom) =>
+    endpoints.MapPost("/api/users", async (IChatroomService chatRoom, UserModel user) =>
     {
-        var response = await chatRoom.GetAllMessages();
-        return Results.Ok(response);
-    });
-
-    endpoints.MapPost("/api/messages", async (IChatroomService chatRoom, string username, string message) =>
-    {
-        var response = await chatRoom.CreateMessage(username, message);
+        var response = await chatRoom.CreateUser(user);
         return Results.Ok(response);
     });
 
@@ -76,15 +71,21 @@ app.UseEndpoints(endpoints =>
         return Results.Ok(response);
     });
 
-    endpoints.MapPost("/api/users", async (IChatroomService chatRoom, string username) =>
-    {
-        var response = await chatRoom.CreateUser(username);
-        return Results.Ok(response);
-    });
-
     endpoints.MapGet("/api/users/{id}", async (IChatroomService chatRoom, int id) =>
     {
         var response = await chatRoom.GetUser(id);
+        return Results.Ok(response);
+    });
+
+    endpoints.MapPost("/api/messages", async (IChatroomService chatRoom, MessageModel message) =>
+    {
+        var response = await chatRoom.CreateMessage(message);
+        return Results.Ok(response);
+    });
+
+    endpoints.MapGet("/api/messages", async (IChatroomService chatRoom) =>
+    {
+        var response = await chatRoom.GetAllMessages();
         return Results.Ok(response);
     });
 

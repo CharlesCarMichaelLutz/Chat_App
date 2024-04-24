@@ -58,3 +58,6 @@ C:\Users\User\Desktop\ChatApp\backend\chatAppWebApi\bin\Debug\net6.0\runtimes\br
 C:\Users\User\Desktop\ChatApp\backend\chatAppWebApi\bin\Debug\net6.0\wwwroot\js\signalr\dist\browser\signalr.js
 C:\Users\User\Desktop\ChatApp\backend\chatAppWebApi\bin\Debug\net6.0\wwwroot\js\signalr\dist\browser\signalr.min.js
 C:\Users\User\Desktop\ChatApp\backend\chatAppWebApi\bin\Debug\net6.0\libman.json
+C:\Users\User\Desktop\ChatApp\backend\chatAppWebApi\bin\Debug\net6.0\Dapper.dll
+C:\Users\User\Desktop\ChatApp\backend\chatAppWebApi\bin\Debug\net6.0\Npgsql.dll
+C:\Users\User\Desktop\ChatApp\backend\chatAppWebApi\bin\Debug\net6.0\System.Diagnostics.DiagnosticSource.dll
