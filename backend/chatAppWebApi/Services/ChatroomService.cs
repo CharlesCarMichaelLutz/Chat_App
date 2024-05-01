@@ -1,8 +1,5 @@
 ﻿using chatAppWebApi.Models;
 using chatAppWebApi.Repositories;
-using System.Reflection.Metadata.Ecma335;
-using System.Text.Json.Serialization;
-using Newtonsoft.Json;
 
 namespace chatAppWebApi.Services
 {

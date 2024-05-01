@@ -1,8 +1,6 @@
-﻿using Newtonsoft.Json;
-
+﻿
 namespace chatAppWebApi.Models
 {
-    [Serializable]
     public class ChatroomModel
     {
         public List<UserModel>  Users { get; set; }
