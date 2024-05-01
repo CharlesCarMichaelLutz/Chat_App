@@ -18,8 +18,8 @@ namespace chatAppWebApi.Repositories
             using var connection = await _connectionFactory.CreateConnectionAsync();
 
             var result = await connection.ExecuteAsync(
-                @"INSERT INTO User (Id, UserName, CreatedDate) 
-                VALUES (@Id, @UserName, @CreatedDate)", 
+                @"INSERT INTO ""User"" (""UserName"", ""CreatedDate"") 
+                VALUES (@UserName, @CreatedDate)", 
                 user);
 
             return result > 0;
@@ -28,22 +28,22 @@ namespace chatAppWebApi.Repositories
         {
             using var connection = await _connectionFactory.CreateConnectionAsync();
 
-            return await connection.QueryAsync<UserModel>("SELECT * FROM User");
+            return await connection.QueryAsync<UserModel>(@"SELECT * FROM ""User"" ");
         }
         public async Task<UserModel?> GetUserAsync(int id)
         {
             using var connection = await _connectionFactory.CreateConnectionAsync();
 
             return await connection.QuerySingleOrDefaultAsync<UserModel>(
-                "SELECT * FROM User WHERE Id = @Id LIMIT 1", new { Id = id.ToString() });
+                @"SELECT * FROM ""User"" WHERE ""Id"" = @Id LIMIT 1", new { Id = id });
         }
         public async Task<bool> CreateMessageAsync(MessageModel message)
         {
             using var connection = await _connectionFactory.CreateConnectionAsync();
 
             var result = await connection.ExecuteAsync(
-            @"INSERT INTO Message (Id, UserId, Text, CreatedDate) 
-                VALUES (@Id, @UserId, @Text, @CreatedDate)",
+            @"INSERT INTO ""Message"" (""UserId"", ""Text"", ""CreatedDate"") 
+                VALUES (@UserId, @Text, @CreatedDate)",
             message);
 
             return result > 0;
@@ -52,7 +52,7 @@ namespace chatAppWebApi.Repositories
         {
             using var connection = await _connectionFactory.CreateConnectionAsync();
 
-            return await connection.QueryAsync<MessageModel>("SELECT * FROM Message");
+            return await connection.QueryAsync<MessageModel>(@"SELECT * FROM ""Message"" ");
         }
     }
 }

@@ -20,7 +20,21 @@ public class PostgreSqlConnectionFactory : IPostgreSqlConnectionFactory
     public async Task<IDbConnection> CreateConnectionAsync()
     {
         var connection = new NpgsqlConnection(_connectionString);
-        await connection.OpenAsync();
+        try
+        {
+            await connection.OpenAsync();
+            //Console.WriteLine("Successful connection to DB");
+
+            //using (var command = new NpgsqlCommand("SELECT CURRENT_TIMESTAMP", connection))
+            //{
+            //    var result = await command.ExecuteScalarAsync();
+            //    Console.WriteLine($"Current timestamp from DB: {result}");
+            //}
+        }
+        catch (Exception ex) 
+        {
+            Console.WriteLine($"Could not connect to DB: {ex.Message}");
+        }
         return connection;
     }
 }

@@ -15,10 +15,10 @@ namespace chatAppWebApi.Services
         }
         public async Task<bool> CreateUser(UserModel user)
         {
-            var existingUser = await _chatroomRepository.CreateUserAsync(user);
-            if (existingUser)
+            var existingUser = await _chatroomRepository.GetUserAsync(user.Id);
+            if (existingUser is not null)
             {
-                var message = $"A user with id {user.UserName} already exists";
+                var message = $"A user with id {user.Id} already exists";
                 throw new Exception(message);
             }
 
