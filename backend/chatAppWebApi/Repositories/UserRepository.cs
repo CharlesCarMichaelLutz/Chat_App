@@ -4,10 +4,17 @@ using Dapper;
 
 namespace chatAppWebApi.Repositories
 {
-    public class ChatroomRepository : IChatroomRepository
+    public interface IUserRepository
+    {
+        Task<bool> CreateUserAsync(UserModel user);
+        Task<IEnumerable<UserModel>> GetAllUsersAsync();
+        Task<UserModel?> GetUserAsync(int id);
+    }
+
+    public class UserRepository : IUserRepository
     {
         private readonly IPostgreSqlConnectionFactory _connectionFactory;
-        public ChatroomRepository(IPostgreSqlConnectionFactory connectionFactory)
+        public UserRepository(IPostgreSqlConnectionFactory connectionFactory)
         {
             _connectionFactory = connectionFactory;
         }
@@ -17,7 +24,7 @@ namespace chatAppWebApi.Repositories
 
             var result = await connection.ExecuteAsync(
                 @"INSERT INTO ""User"" (""UserName"", ""CreatedDate"") 
-                VALUES (@UserName, @CreatedDate)", 
+                VALUES (@UserName, @CreatedDate)",
                 user);
 
             return result > 0;
@@ -34,23 +41,6 @@ namespace chatAppWebApi.Repositories
 
             return await connection.QuerySingleOrDefaultAsync<UserModel>(
                 @"SELECT * FROM ""User"" WHERE ""Id"" = @Id LIMIT 1", new { Id = id });
-        }
-        public async Task<bool> CreateMessageAsync(MessageModel message)
-        {
-            using var connection = await _connectionFactory.CreateConnectionAsync();
-
-            var result = await connection.ExecuteAsync(
-            @"INSERT INTO ""Message"" (""UserId"", ""Text"", ""CreatedDate"") 
-                VALUES (@UserId, @Text, @CreatedDate)",
-            message);
-
-            return result > 0;
-        }
-        public async Task<IEnumerable<MessageModel>> GetAllMessagesAsync()
-        {
-            using var connection = await _connectionFactory.CreateConnectionAsync();
-
-            return await connection.QueryAsync<MessageModel>(@"SELECT * FROM ""Message"" ");
         }
     }
 }

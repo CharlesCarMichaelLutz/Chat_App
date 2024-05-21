@@ -12,8 +12,10 @@ var services = builder.Services;
 
 services.AddScoped<IPostgreSqlConnectionFactory>(_ =>
     new PostgreSqlConnectionFactory(config.GetValue<string>("ConnectionStrings:RabbitChatDb")));
-services.AddScoped<IChatroomRepository, ChatroomRepository>();
-services.AddScoped<IChatroomService, ChatroomService>();
+services.AddScoped<IUserService, UserService>();
+services.AddScoped<IMessageService, MessageService>();
+services.AddScoped<IUserRepository, UserRepository>();
+services.AddScoped<IMessageRepository, MessageRepository>();
 
 services.AddEndpointsApiExplorer();
 services.AddSwaggerGen(create =>
@@ -59,31 +61,31 @@ app.UseEndpoints(endpoints =>
 {
     endpoints.MapHub<ChatHub>("/chatHub");
 
-    endpoints.MapPost("/api/users", async (IChatroomService chatRoom, UserModel user) =>
+    endpoints.MapPost("/api/users", async (IUserService chatRoom, UserModel user) =>
     {
         var response = await chatRoom.CreateUser(user);
         return Results.Ok(response);
     });
 
-    endpoints.MapGet("/api/users", async (IChatroomService chatRoom) =>
+    endpoints.MapGet("/api/users", async (IUserService chatRoom) =>
     {
         var response = await chatRoom.GetAllUsers();
         return Results.Ok(response);
     });
 
-    endpoints.MapGet("/api/users/{id}", async (IChatroomService chatRoom, int id) =>
+    endpoints.MapGet("/api/users/{id}", async (IUserService chatRoom, int id) =>
     {
         var response = await chatRoom.GetUser(id);
         return Results.Ok(response);
     });
 
-    endpoints.MapPost("/api/messages", async (IChatroomService chatRoom, MessageModel message) =>
+    endpoints.MapPost("/api/messages", async (IMessageService chatRoom, MessageModel message) =>
     {
         var response = await chatRoom.CreateMessage(message);
         return Results.Ok(response);
     });
 
-    endpoints.MapGet("/api/messages", async (IChatroomService chatRoom) =>
+    endpoints.MapGet("/api/messages", async (IMessageService chatRoom) =>
     {
         var response = await chatRoom.GetAllMessages();
         return Results.Ok(response);
