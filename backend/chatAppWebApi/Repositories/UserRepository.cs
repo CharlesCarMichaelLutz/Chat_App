@@ -8,7 +8,7 @@ namespace chatAppWebApi.Repositories
     {
         Task<bool> CreateUserAsync(UserModel user);
         Task<IEnumerable<UserModel>> GetAllUsersAsync();
-        Task<UserModel?> GetUserAsync(int id);
+        //Task<UserModel?> GetUserAsync(int id);
     }
 
     public class UserRepository : IUserRepository
@@ -34,13 +34,6 @@ namespace chatAppWebApi.Repositories
             using var connection = await _connectionFactory.CreateConnectionAsync();
 
             return await connection.QueryAsync<UserModel>(@"SELECT * FROM ""User"" ");
-        }
-        public async Task<UserModel?> GetUserAsync(int id)
-        {
-            using var connection = await _connectionFactory.CreateConnectionAsync();
-
-            return await connection.QuerySingleOrDefaultAsync<UserModel>(
-                @"SELECT * FROM ""User"" WHERE ""Id"" = @Id LIMIT 1", new { Id = id });
         }
     }
 }

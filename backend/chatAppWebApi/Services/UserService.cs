@@ -7,7 +7,6 @@ namespace chatAppWebApi.Services
     {
         Task<bool> CreateUser(UserModel user);
         Task<IEnumerable<UserModel>> GetAllUsers();
-        Task<UserModel?> GetUser(int id);
     }
 
     public class UserService : IUserService
@@ -31,10 +30,6 @@ namespace chatAppWebApi.Services
         public async Task<IEnumerable<UserModel>> GetAllUsers()
         {
             return await _userRepository.GetAllUsersAsync();
-        }
-        public async Task<UserModel?> GetUser(int id)
-        {
-            return await _userRepository.GetUserAsync(id);
         }
     }
 }

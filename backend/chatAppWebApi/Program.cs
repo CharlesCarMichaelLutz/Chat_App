@@ -61,33 +61,39 @@ app.UseEndpoints(endpoints =>
 {
     endpoints.MapHub<ChatHub>("/chatHub");
 
-    endpoints.MapPost("/api/users", async (IUserService chatRoom, UserModel user) =>
+    endpoints.MapPost("/api/users/signup", async (IUserService service, UserModel user) =>
     {
-        var response = await chatRoom.CreateUser(user);
+        var response = await service.CreateUser(user);
         return Results.Ok(response);
     });
 
-    endpoints.MapGet("/api/users", async (IUserService chatRoom) =>
+    endpoints.MapPost("/api/users/login", async (IUserService service, UserModel user) =>
     {
-        var response = await chatRoom.GetAllUsers();
+        var response = await service.GetUser(user);
         return Results.Ok(response);
     });
 
-    endpoints.MapGet("/api/users/{id}", async (IUserService chatRoom, int id) =>
+    endpoints.MapGet("/api/users", async (IUserService service) =>
     {
-        var response = await chatRoom.GetUser(id);
+        var response = await service.GetAllUsers();
         return Results.Ok(response);
     });
 
-    endpoints.MapPost("/api/messages", async (IMessageService chatRoom, MessageModel message) =>
+    //endpoints.MapGet("/api/users/{id}", async (IUserService service, string username) =>
+    //{
+    //    var response = await service.GetUserByUsername(username));
+    //    return Results.Ok(response);
+    //});
+
+    endpoints.MapPost("/api/messages", async (IMessageService service, MessageModel message) =>
     {
-        var response = await chatRoom.CreateMessage(message);
+        var response = await service.CreateMessage(message);
         return Results.Ok(response);
     });
 
-    endpoints.MapGet("/api/messages", async (IMessageService chatRoom) =>
+    endpoints.MapGet("/api/messages", async (IMessageService service) =>
     {
-        var response = await chatRoom.GetAllMessages();
+        var response = await service.GetAllMessages();
         return Results.Ok(response);
     });
 

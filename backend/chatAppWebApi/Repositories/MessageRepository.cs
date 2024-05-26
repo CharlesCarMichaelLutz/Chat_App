@@ -8,6 +8,7 @@ namespace chatAppWebApi.Repositories
     {
         Task<bool> CreateMessageAsync(MessageModel message);
         Task<IEnumerable<MessageModel>> GetAllMessagesAsync();
+        Task<MessageModel?> GetMessageAsync(int id);
     }
     public class MessageRepository : IMessageRepository
     {
@@ -32,6 +33,13 @@ namespace chatAppWebApi.Repositories
             using var connection = await _connectionFactory.CreateConnectionAsync();
 
             return await connection.QueryAsync<MessageModel>(@"SELECT * FROM ""Message"" ");
+        }
+        public async Task<MessageModel?> GetMessageAsync(int id)
+        {
+            using var connection = await _connectionFactory.CreateConnectionAsync();
+
+            return await connection.QuerySingleOrDefaultAsync<MessageModel>(
+                @"SELECT * FROM ""Message"" WHERE ""Id"" = @Id LIMIT 1", new { Id = id });
         }
     }
 }

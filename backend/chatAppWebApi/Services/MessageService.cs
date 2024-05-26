@@ -7,6 +7,7 @@ namespace chatAppWebApi.Services
     {
         Task<bool> CreateMessage(MessageModel message);
         Task<IEnumerable<MessageModel>> GetAllMessages();
+        Task<MessageModel?> GetMessage(int id);
     }
     public class MessageService : IMessageService
     {
@@ -22,6 +23,11 @@ namespace chatAppWebApi.Services
         public async Task<IEnumerable<MessageModel>> GetAllMessages()
         {
             return await _messageRepository.GetAllMessagesAsync();
+        }
+
+        public async Task<MessageModel?> GetMessage(int id)
+        {
+            return await _messageRepository.GetMessageAsync(id);
         }
     }
 }
