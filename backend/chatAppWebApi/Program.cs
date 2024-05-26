@@ -3,15 +3,34 @@ using chatAppWebApi.Models;
 using chatAppWebApi.Repositories;
 using chatAppWebApi.Services;
 using chatAppWebApi.SignalR;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
 var config = builder.Configuration;
 var services = builder.Services;
 
+services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
+{
+    options.TokenValidationParameters = new TokenValidationParameters()
+    {
+        ValidateActor = true,
+        ValidateAudience = true,
+        ValidateLifetime = true,
+        ValidateIssuerSigningKey = true,
+        ValidIssuer = config["Jwt:Issuer"],
+        ValidAudience = config["Jwt:Audience"],
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(config["Jwt:Key"]))
+    };
+});
+
 services.AddScoped<IPostgreSqlConnectionFactory>(_ =>
     new PostgreSqlConnectionFactory(config.GetValue<string>("ConnectionStrings:RabbitChatDb")));
+
 services.AddScoped<IUserService, UserService>();
 services.AddScoped<IMessageService, MessageService>();
 services.AddScoped<IUserRepository, UserRepository>();
@@ -51,6 +70,7 @@ if (app.Environment.IsDevelopment())
     });
 }
 
+app.UseAuthentication();
 app.UseHttpsRedirection();
 app.UseRouting();
 app.UseStaticFiles();
@@ -73,19 +93,19 @@ app.UseEndpoints(endpoints =>
         return Results.Ok(response);
     });
 
-    endpoints.MapGet("/api/users", async (IUserService service) =>
+    endpoints.MapGet("/api/users", [Authorize] async (IUserService service) =>
     {
         var response = await service.GetAllUsers();
         return Results.Ok(response);
     });
 
-    endpoints.MapPost("/api/messages", async (IMessageService service, MessageModel message) =>
+    endpoints.MapPost("/api/messages", [Authorize] async (IMessageService service, MessageModel message) =>
     {
         var response = await service.CreateMessage(message);
         return Results.Ok(response);
     });
 
-    endpoints.MapGet("/api/messages", async (IMessageService service) =>
+    endpoints.MapGet("/api/messages", [Authorize] async (IMessageService service) =>
     {
         var response = await service.GetAllMessages();
         return Results.Ok(response);

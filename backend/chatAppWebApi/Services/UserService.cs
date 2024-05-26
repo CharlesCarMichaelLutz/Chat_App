@@ -1,6 +1,11 @@
 ﻿using chatAppWebApi.Models;
 using chatAppWebApi.Repositories;
+using Microsoft.IdentityModel.Tokens;
+using System.IdentityModel.Tokens.Jwt;
 using System.Text;
+
+var builder = WebApplication.CreateBuilder(args);
+var config = builder.Configuration;
 
 namespace chatAppWebApi.Services
 {
@@ -42,15 +47,13 @@ namespace chatAppWebApi.Services
                 var loggedInUser = await _userRepository.GetUserByUsernameAsync(user);
                 if(loggedInUser is not null) 
                 { 
-                    var message = $"username and/or password are incorrect try again";
+                    var message = "username and/or password are incorrect try again";
                     throw new Exception(message);
                 }
 
-                return loggedInUser;
+                //var tokenString = await GetJwtToken();
 
-                //var token = await GetJwtToken();
-
-                //return await Results.Ok(token);
+                //return await Results.Ok(tokenString);
             }
             return null;
         }
@@ -59,7 +62,7 @@ namespace chatAppWebApi.Services
         //{
         //    var token = new JwtSecurityToken
         //    (
-                
+        //        issuer: config["Jwt:Issuer"],
         //    )
         //}
     }
