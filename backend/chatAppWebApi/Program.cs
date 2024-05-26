@@ -69,7 +69,7 @@ app.UseEndpoints(endpoints =>
 
     endpoints.MapPost("/api/users/login", async (IUserService service, UserModel user) =>
     {
-        var response = await service.GetUser(user);
+        var response = await service.GetUserByUsername(user);
         return Results.Ok(response);
     });
 
@@ -78,12 +78,6 @@ app.UseEndpoints(endpoints =>
         var response = await service.GetAllUsers();
         return Results.Ok(response);
     });
-
-    //endpoints.MapGet("/api/users/{id}", async (IUserService service, string username) =>
-    //{
-    //    var response = await service.GetUserByUsername(username));
-    //    return Results.Ok(response);
-    //});
 
     endpoints.MapPost("/api/messages", async (IMessageService service, MessageModel message) =>
     {

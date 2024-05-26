@@ -10,7 +10,7 @@ namespace chatAppWebApi.Models
     {
         public int Id { get; set; }
         public string UserName { get; set; }
-        //public string PasswordHash { get; set; }
+        public string PasswordHash { get; set; }
         public DateTime CreatedDate { get; set; }
     }
     public class MessageModel
