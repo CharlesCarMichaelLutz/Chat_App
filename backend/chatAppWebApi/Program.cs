@@ -31,7 +31,7 @@ services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(
 });
 
 services.AddScoped<IPostgreSqlConnectionFactory>(_ =>
-    new PostgreSqlConnectionFactory(config.GetValue<string>("ConnectionStrings:RabbitChatDb")));
+    new PostgreSqlConnectionFactory(config.GetValue<string>("ConnectionStrings:chat_app")));
 
 services.AddScoped<IUserService, UserService>();
 services.AddScoped<IMessageService, MessageService>();
@@ -110,6 +110,12 @@ app.UseEndpoints(endpoints =>
     endpoints.MapGet("/api/messages", [Authorize] async (IMessageService service) =>
     {
         var response = await service.GetAllMessages();
+        return Results.Ok(response);
+    });
+
+    endpoints.MapGet("/api/messages/{id}", [Authorize] async (IMessageService service, int id) =>
+    {
+        var response = await service.GetMessage(id);
         return Results.Ok(response);
     });
 

@@ -28,7 +28,7 @@ namespace chatAppWebApi.Services
             var existingUser = await _userRepository.GetUserByUsernameAsync(user);
             if (existingUser is not null)
             {
-                var message = $"A user with id {user.UserName} already exists";
+                var message = $"A user with id {user.Username} already exists";
                 throw new Exception(message);
             }
 
@@ -41,7 +41,7 @@ namespace chatAppWebApi.Services
 
         public async Task<IResult?> GetUserByUsername(UserModel user)
         {
-            if(!string.IsNullOrEmpty(user.UserName) &&
+            if(!string.IsNullOrEmpty(user.Username) &&
                !string .IsNullOrEmpty(user.PasswordHash))
             {
                 var loggedInUser = await _userRepository.GetUserByUsernameAsync(user);

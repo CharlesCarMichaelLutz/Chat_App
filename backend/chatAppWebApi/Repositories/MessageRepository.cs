@@ -22,7 +22,7 @@ namespace chatAppWebApi.Repositories
             using var connection = await _connectionFactory.CreateConnectionAsync();
 
             var result = await connection.ExecuteAsync(
-            @"INSERT INTO ""Message"" (""UserId"", ""Text"", ""CreatedDate"") 
+            @"INSERT INTO messages (UserId, Text, CreatedDate) 
                 VALUES (@UserId, @Text, @CreatedDate)",
             message);
 
@@ -32,14 +32,14 @@ namespace chatAppWebApi.Repositories
         {
             using var connection = await _connectionFactory.CreateConnectionAsync();
 
-            return await connection.QueryAsync<MessageModel>(@"SELECT * FROM ""Message"" ");
+            return await connection.QueryAsync<MessageModel>("SELECT * FROM messages");
         }
         public async Task<MessageModel?> GetMessageAsync(int id)
         {
             using var connection = await _connectionFactory.CreateConnectionAsync();
 
             return await connection.QuerySingleOrDefaultAsync<MessageModel>(
-                @"SELECT * FROM ""Message"" WHERE ""Id"" = @Id LIMIT 1", new { Id = id });
+                @"SELECT * FROM messages WHERE Id = @Id LIMIT 1", new { Id = id });
         }
     }
 }

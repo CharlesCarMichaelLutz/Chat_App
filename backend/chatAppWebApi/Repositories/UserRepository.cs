@@ -23,8 +23,8 @@ namespace chatAppWebApi.Repositories
             using var connection = await _connectionFactory.CreateConnectionAsync();
 
             var result = await connection.ExecuteAsync(
-                @"INSERT INTO ""User"" (""UserName"", ""CreatedDate"") 
-                VALUES (@UserName, @CreatedDate)",
+                @"INSERT INTO users (Username, PasswordHash, CreatedDate)
+                VALUES (@Username, @PasswordHash @CreatedDate)",
                 user);
 
             return result > 0;
@@ -33,14 +33,14 @@ namespace chatAppWebApi.Repositories
         {
             using var connection = await _connectionFactory.CreateConnectionAsync();
 
-            return await connection.QueryAsync<UserModel>(@"SELECT * FROM ""User"" ");
+            return await connection.QueryAsync<UserModel>(@"SELECT * FROM users");
         }
 
         public async Task<IResult?> GetUserByUsernameAsync(UserModel user)
         {
             using var connection = await _connectionFactory.CreateConnectionAsync();
 
-            return await connection.QuerySingleOrDefaultAsync<IResult?>(@"SELECT * FROM ""User"" WHERE ""UserName"" = @UserName", user);
+            return await connection.QuerySingleOrDefaultAsync<IResult?>(@"SELECT * FROM users WHERE Username = @UserName", user);
         }
     }
 }
