@@ -1,11 +1,9 @@
 ﻿using chatAppWebApi.Models;
 using chatAppWebApi.Repositories;
+using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Text;
-
-var builder = WebApplication.CreateBuilder(args);
-var config = builder.Configuration;
 
 namespace chatAppWebApi.Services
 {
@@ -13,15 +11,17 @@ namespace chatAppWebApi.Services
     {
         Task<bool> CreateUser(UserModel user);
         Task<IEnumerable<UserModel>> GetAllUsers();
-        Task<UserModel?> GetUserByUsername(UserModel user);
+        Task<IResult?> GetUserByUsername(UserModel user);
     }
 
     public class UserService : IUserService
     {
         private readonly IUserRepository _userRepository;
-        public UserService(IUserRepository userRepository)
+        private readonly JwtCredentials _jwtCredentials;
+        public UserService(IUserRepository userRepository, IOptions<JwtCredentials> jwtCredentials)
         {
             _userRepository = userRepository;
+            _jwtCredentials = jwtCredentials.Value;
         }
         public async Task<bool> CreateUser(UserModel user)
         {
@@ -39,31 +39,38 @@ namespace chatAppWebApi.Services
             return await _userRepository.GetAllUsersAsync();
         }
 
-        public async Task<UserModel?> GetUserByUsername(UserModel user)
+        public async Task<IResult?> GetUserByUsername(UserModel user)
         {
             if(!string.IsNullOrEmpty(user.UserName) &&
                !string .IsNullOrEmpty(user.PasswordHash))
             {
                 var loggedInUser = await _userRepository.GetUserByUsernameAsync(user);
                 if(loggedInUser is not null) 
-                { 
-                    var message = "username and/or password are incorrect try again";
-                    throw new Exception(message);
+                {
+                    throw new Exception("User not found");
                 }
 
-                //var tokenString = await GetJwtToken();
+                var tokenString = await GenerateJwtToken();
 
-                //return await Results.Ok(tokenString);
+                return Results.Ok(tokenString);
             }
-            return null;
+            return Results.BadRequest("Incorrect username and/or password entered");
         }
 
-        //public static async Task<string> GetJwtToken()
-        //{
-        //    var token = new JwtSecurityToken
-        //    (
-        //        issuer: config["Jwt:Issuer"],
-        //    )
-        //}
+        private async Task<string> GenerateJwtToken()
+        {
+            var token = new JwtSecurityToken
+           (
+               issuer: _jwtCredentials.Issuer,
+               audience: _jwtCredentials.Audience,
+               expires: DateTime.UtcNow.AddHours(2),
+               notBefore: DateTime.UtcNow,
+               signingCredentials: new SigningCredentials(
+                    new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_jwtCredentials.Key)),
+                    SecurityAlgorithms.HmacSha256)
+           );
+
+           return new JwtSecurityTokenHandler().WriteToken(token);
+        }
     }
 }

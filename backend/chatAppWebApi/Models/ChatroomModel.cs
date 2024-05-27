@@ -20,4 +20,12 @@ namespace chatAppWebApi.Models
         public string Text { get; set; }
         public DateTime CreatedDate { get; set; }
     }
+
+    public class JwtCredentials
+    {
+        public string Key { get; set; }
+        public string Issuer { get; set; }
+        public string Audience { get; set; }
+
+    }
 }
