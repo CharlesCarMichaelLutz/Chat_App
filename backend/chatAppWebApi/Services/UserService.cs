@@ -4,6 +4,7 @@ using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Text;
+using BCrypt.Net;
 
 namespace chatAppWebApi.Services
 {
@@ -11,7 +12,7 @@ namespace chatAppWebApi.Services
     {
         Task<bool> CreateUser(UserModel user);
         Task<IEnumerable<UserModel>> GetAllUsers();
-        Task<IResult?> GetUserByUsername(UserModel user);
+        Task<IResult?> LoginUser(UserModel user);
     }
 
     public class UserService : IUserService
@@ -25,26 +26,35 @@ namespace chatAppWebApi.Services
         }
         public async Task<bool> CreateUser(UserModel user)
         {
-            var existingUser = await _userRepository.GetUserByUsernameAsync(user);
+            var existingUser = await _userRepository.GetUsernameAsync(user);
             if (existingUser is not null)
             {
                 var message = $"A user with id {user.Username} already exists";
                 throw new Exception(message);
             }
 
-            return await _userRepository.CreateUserAsync(user);
+            var clientPassword = BCrypt.Net.BCrypt.HashPassword(user.PasswordHash);
+
+            var newUser = new UserModel
+            {
+                Username = user.Username,
+                PasswordHash = clientPassword,
+                CreatedDate = user.CreatedDate
+            };
+
+            return await _userRepository.CreateUserAsync(newUser);
         }
         public async Task<IEnumerable<UserModel>> GetAllUsers()
         {
             return await _userRepository.GetAllUsersAsync();
         }
 
-        public async Task<IResult?> GetUserByUsername(UserModel user)
+        public async Task<IResult?> LoginUser(UserModel user)
         {
             if(!string.IsNullOrEmpty(user.Username) &&
                !string .IsNullOrEmpty(user.PasswordHash))
             {
-                var loggedInUser = await _userRepository.GetUserByUsernameAsync(user);
+                var loggedInUser = await _userRepository.GetUserLogin(user);
                 if(loggedInUser is not null) 
                 {
                     throw new Exception("User not found");
