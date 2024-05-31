@@ -5,6 +5,7 @@ using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Text;
 using BCrypt.Net;
+using System.Security.Claims;
 
 namespace chatAppWebApi.Services
 {
@@ -33,12 +34,12 @@ namespace chatAppWebApi.Services
                 throw new Exception(message);
             }
 
-            var clientPassword = BCrypt.Net.BCrypt.HashPassword(user.PasswordHash);
+            var hashedPassword = BCrypt.Net.BCrypt.HashPassword(user.PasswordHash);
 
             var newUser = new UserModel
             {
                 Username = user.Username,
-                PasswordHash = clientPassword,
+                PasswordHash = hashedPassword,
                 CreatedDate = user.CreatedDate
             };
 
@@ -51,25 +52,28 @@ namespace chatAppWebApi.Services
 
         public async Task<IResult?> LoginUser(UserModel user)
         {
-            if(!string.IsNullOrEmpty(user.Username) &&
-               !string .IsNullOrEmpty(user.PasswordHash))
+            var loggedInUser = await _userRepository.GetUsernameAsync(user);
+                
+            if (loggedInUser is null || !BCrypt.Net.BCrypt.Verify(user.PasswordHash, loggedInUser.PasswordHash)) 
             {
-                var loggedInUser = await _userRepository.GetUserLogin(user);
-                if(loggedInUser is not null) 
-                {
-                    throw new Exception("User not found");
-                }
-
-                var tokenString = await GenerateJwtToken();
-
-                return Results.Ok(tokenString);
+                throw new Exception("Incorrect username or password");
             }
-            return Results.BadRequest("Incorrect username and/or password entered");
+
+            var tokenString = await GenerateJwtToken(loggedInUser);
+
+            return Results.Ok(tokenString);
         }
 
-        private async Task<string> GenerateJwtToken()
+        private async Task<string> GenerateJwtToken(UserModel user)
         {
-            var token = new JwtSecurityToken
+           var claims = new[]
+           {
+                    new Claim(JwtRegisteredClaimNames.Sub, user.Username),
+                    new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
+                    new Claim(ClaimTypes.NameIdentifier, user.Id.ToString())
+           };
+
+           var token = new JwtSecurityToken
            (
                issuer: _jwtCredentials.Issuer,
                audience: _jwtCredentials.Audience,

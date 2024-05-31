@@ -24,7 +24,7 @@ namespace chatAppWebApi.Repositories
 
             var result = await connection.ExecuteAsync(
                 @"INSERT INTO users (Username, PasswordHash, CreatedDate)
-                VALUES (@Username, @PasswordHash @CreatedDate)",
+                VALUES (@Username, @PasswordHash, @CreatedDate)",
                 user);
 
             return result > 0;

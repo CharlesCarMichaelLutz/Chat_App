@@ -68,3 +68,4 @@ C:\Users\User\Desktop\ChatApp\backend\chatAppWebApi\bin\Debug\net6.0\Microsoft.I
 C:\Users\User\Desktop\ChatApp\backend\chatAppWebApi\bin\Debug\net6.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
 C:\Users\User\Desktop\ChatApp\backend\chatAppWebApi\bin\Debug\net6.0\Microsoft.IdentityModel.Tokens.dll
 C:\Users\User\Desktop\ChatApp\backend\chatAppWebApi\bin\Debug\net6.0\System.IdentityModel.Tokens.Jwt.dll
+C:\Users\User\Desktop\ChatApp\backend\chatAppWebApi\bin\Debug\net6.0\BCrypt.Net-Next.dll

@@ -47,6 +47,29 @@ services.AddSwaggerGen(create =>
         Description = "Chat and collaborate as you wish",
         Version = "v1"
     });
+
+    create.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+    {
+        In = ParameterLocation.Header,
+        Description = "Please enter into field the word 'Bearer' followed by a space and the JWT",
+        Name = "Authorization",
+        Type = SecuritySchemeType.ApiKey
+    });
+
+    create.AddSecurityRequirement(new OpenApiSecurityRequirement
+    {
+        {
+            new OpenApiSecurityScheme
+            {
+                Reference = new OpenApiReference
+                {
+                    Type = ReferenceType.SecurityScheme,
+                    Id = "Bearer"
+                }
+            },
+            Array.Empty<string>()
+        }
+    });
 });
 
 services.AddCors(options => 
@@ -72,12 +95,14 @@ if (app.Environment.IsDevelopment())
     });
 }
 
-app.UseAuthentication();
 app.UseHttpsRedirection();
 app.UseRouting();
 app.UseStaticFiles();
 
 app.UseCors("ReactAppPolicy");
+
+app.UseAuthentication();
+app.UseAuthorization();
 
 app.UseEndpoints(endpoints =>
 {
@@ -91,7 +116,7 @@ app.UseEndpoints(endpoints =>
 
     endpoints.MapPost("/api/users/login", async (IUserService service, UserModel user) =>
     {
-        var response = await service.GetUserByUsername(user);
+        var response = await service.LoginUser(user);
         return Results.Ok(response);
     });
 
