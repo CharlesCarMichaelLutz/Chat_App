@@ -76,7 +76,7 @@ services.AddCors(options =>
 {
     options.AddPolicy("ReactAppPolicy", builder =>
     {
-        builder.WithOrigins("http://localhost:3000")
+        builder.WithOrigins("http://localhost:3001")
                .AllowAnyMethod()
                .AllowAnyHeader();     
     });
@@ -106,15 +106,15 @@ app.UseAuthorization();
 
 app.UseEndpoints(endpoints =>
 {
-    endpoints.MapHub<ChatHub>("/chatHub");
+    //endpoints.MapHub<ChatHub>("/chatHub");
 
-    endpoints.MapPost("/api/users/signup", async (IUserService service, UserModel user) =>
+    endpoints.MapPost("/api/users/signup/{user}", async (IUserService service, UserModel user) =>
     {
         var response = await service.CreateUser(user);
         return Results.Ok(response);
     });
 
-    endpoints.MapPost("/api/users/login", async (IUserService service, UserModel user) =>
+    endpoints.MapPost("/api/users/login/{user}", async (IUserService service, UserModel user) =>
     {
         var response = await service.LoginUser(user);
         return Results.Ok(response);
@@ -126,7 +126,7 @@ app.UseEndpoints(endpoints =>
         return Results.Ok(response);
     });
 
-    endpoints.MapPost("/api/messages", [Authorize] async (IMessageService service, MessageModel message) =>
+    endpoints.MapPost("/api/messages/{message}", [Authorize] async (IMessageService service, MessageModel message) =>
     {
         var response = await service.CreateMessage(message);
         return Results.Ok(response);
