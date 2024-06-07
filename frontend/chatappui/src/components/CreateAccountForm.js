@@ -1,24 +1,23 @@
 //import React from "react";
-import { useState } from "react";
-import axios from "axios";
+import { useState } from "react"
+import axios from "axios"
+import { endpoints } from "./Endpoints"
 
 function CreateAccountForm() {
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
+  const [username, setUsername] = useState("")
+  const [password, setPassword] = useState("")
 
   async function handleCreateAccount() {
+    console.log(endpoints.BASE_URI + `users/signup`)
     try {
-      const res = await axios.post(
-        `${process.env.REACT_APP_BASE_URL}/users/signup`,
-        {
-          Username: username,
-          PasswordHash: password,
-        }
-      );
-      alert("account created successfully");
-      console.log(res);
+      const res = await axios.post(endpoints.BASE_URI + `users/signup`, {
+        Username: username,
+        PasswordHash: password,
+      })
+      alert("account created successfully")
+      console.log(res)
     } catch (error) {
-      console.error(error);
+      console.error(error)
     }
   }
 
@@ -49,7 +48,7 @@ function CreateAccountForm() {
         Sign Up
       </button>
     </>
-  );
+  )
 }
 
-export default CreateAccountForm;
+export default CreateAccountForm

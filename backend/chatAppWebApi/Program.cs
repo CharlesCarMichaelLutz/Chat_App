@@ -5,6 +5,7 @@ using chatAppWebApi.Services;
 using chatAppWebApi.SignalR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.Text;
@@ -108,13 +109,13 @@ app.UseEndpoints(endpoints =>
 {
     //endpoints.MapHub<ChatHub>("/chatHub");
 
-    endpoints.MapPost("/api/users/signup/{user}", async (IUserService service, UserModel user) =>
+    endpoints.MapPost("/api/users/signup", async (IUserService service, [FromBody] UserModel user) =>
     {
         var response = await service.CreateUser(user);
         return Results.Ok(response);
     });
 
-    endpoints.MapPost("/api/users/login/{user}", async (IUserService service, UserModel user) =>
+    endpoints.MapPost("/api/users/login", async (IUserService service,[FromBody] UserModel user) =>
     {
         var response = await service.LoginUser(user);
         return Results.Ok(response);

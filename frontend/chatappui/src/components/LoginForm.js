@@ -1,26 +1,26 @@
 //import React from "react";
-import { useState } from "react";
-import axios from "axios";
+import { useState } from "react"
+import axios from "axios"
+import { endpoints } from "./Endpoints"
 
 function LoginForm() {
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
+  const [username, setUsername] = useState("")
+  const [password, setPassword] = useState("")
 
   //Will return an object that needs to get saved in state
 
   async function handleLogin() {
+    console.log(endpoints.BASE_URI + `users/login`)
     try {
-      const res = await axios.post(
-        `${process.env.REACT_APP_BASE_URL}/users/login`,
-        {
-          Username: username,
-          PasswordHash: password,
-        }
-      );
-      alert("successfully logged in");
-      console.log(res);
+      const res = await axios.post(endpoints.BASE_URI + `users/login`, {
+        Username: username,
+        PasswordHash: password,
+      })
+      alert("successfully logged in")
+      //This is the JWT token
+      console.log(res.data.value)
     } catch (error) {
-      console.error(error);
+      console.error(error)
     }
   }
 
@@ -51,7 +51,7 @@ function LoginForm() {
         Log In
       </button>
     </>
-  );
+  )
 }
 
-export default LoginForm;
+export default LoginForm
