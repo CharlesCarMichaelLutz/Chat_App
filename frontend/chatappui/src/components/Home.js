@@ -1,34 +1,23 @@
-import React from "react";
-import rabbit from "../App";
-//import { useState } from "react";
-import CreateAccountForm from "./CreateAccountForm";
-import LoginForm from "./LoginForm";
+import React, { useState } from "react"
+import rabbit from "../App"
+import LoginForm from "./LoginForm"
 
 function Home() {
-  //const [user, setUser] = useState([]);
-
+  const [loggedin, setIsloggedIn] = useState(false)
   return (
     <>
-      <div className="landingPage--container">
-        <header className="landingPage--header">
-          <img
-            src={rabbit}
-            alt={"rabbit image"}
-            className="landingPage--logo"
-          />
-          <h1 className="landingPage--title">Rabbit Chat</h1>
+      <div className="Home--container">
+        <header className="Home--header">
+          <img src={rabbit} alt={"rabbit image"} className="Home--logo" />
+          <h1 className="Home--title">Rabbit Chat</h1>
         </header>
 
-        <main className="landingPage--main">
-          <h2 htmlFor="guest--button">View as guest</h2>
-          <button className="guest--button">Guest</button>
-
-          <CreateAccountForm />
+        <main>
           <LoginForm />
         </main>
       </div>
     </>
-  );
+  )
 }
 
-export default Home;
+export default Home
