@@ -1,71 +1,73 @@
 //import React from "react";
 import { useState } from "react"
-import axios from "axios"
-import { endpoints } from "./Endpoints"
+import { useAuth } from "../hooks/AuthProvider"
+//import rabbit from ""
 
 function LoginForm() {
-  const [username, setUsername] = useState("")
-  const [password, setPassword] = useState("")
-  const [isSignUp, setIsSignup] = useState(true)
+  const { isSignUp, toggleSignUp, loginAction } = useAuth()
 
-  //Will return an object that needs to get saved in state
+  const [input, setInput] = useState({
+    username: "",
+    password: "",
+  })
 
-  async function handleLogin() {
-    const path = isSignUp ? `users/signup` : `users/login`
-    const url = endpoints.BASE_URI + path
-    console.log(url)
-    try {
-      const res = await axios.post(url, {
-        Username: username,
-        PasswordHash: password,
-      })
+  function handleChange(e) {
+    const { name, value } = e.target
+    setInput((prev) => ({
+      ...prev,
+      [name]: value,
+    }))
+  }
 
-      if (isSignUp) {
-        alert("created account success!")
-      } else {
-        alert("logged in success!")
-        //This is the JWT token
-        console.log(res.data.value)
-        //Save the JWT in local storage
-      }
-    } catch (error) {
-      console.error(error)
-    } finally {
-      setUsername("")
-      setPassword("")
+  function handleSubmit(e) {
+    e.preventDefault()
+    const { username, password } = input
+    if (username !== "" && password !== "") {
+      loginAction(input)
+      return
     }
+    alert("Username and Password must not be empty")
   }
 
   return (
     <div className="login--form">
-      <h2 htmlFor="guest--button">View as guest</h2>
-      <button className="guest--button">Guest</button>
+      <header className="Home--header">
+        {/* <img src={rabbit} alt={"rabbit image"} className="Home--logo" /> */}
+        <h1 className="Home--title">Rabbit Chat</h1>
+      </header>
 
-      <h2>{isSignUp ? `Create account` : `Login`}</h2>
-      <label className="label" htmlFor="username">
-        Username
-      </label>
-      <input
-        className="username--input"
-        type="text"
-        id="username"
-        value={username}
-        onChange={(e) => setUsername(e.target.value)}
-      />
-      <label className="label" htmlFor="password">
-        Password
-      </label>
-      <input
-        className="password--input"
-        type="password"
-        id="password"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-      />
-      <button onClick={handleLogin} className="login--button">
-        {isSignUp ? `Sign Up` : `Login`}
-      </button>
-      <button onClick={() => setIsSignup(!isSignUp)}>
+      <form onSubmit={handleSubmit}>
+        {/* <h2 htmlFor="guest--button">View as guest</h2>
+        <button className="guest--button">Guest</button> */}
+
+        <h2>{isSignUp ? `Create account` : `Login`}</h2>
+        <label className="label" htmlFor="username">
+          Username
+        </label>
+        <input
+          className="username--input"
+          type="text"
+          id="username"
+          name="username"
+          value={input.username}
+          onChange={handleChange}
+        />
+        <label className="label" htmlFor="password">
+          Password
+        </label>
+        <input
+          className="password--input"
+          type="password"
+          id="password"
+          name="password"
+          value={input.password}
+          onChange={handleChange}
+        />
+        <button className="login--button">
+          {isSignUp ? `Sign Up` : `Login`}
+        </button>
+      </form>
+      <button type="button" onClick={toggleSignUp}>
         {isSignUp ? `Switch to Login` : `Switch to Sign Up`}
       </button>
     </div>

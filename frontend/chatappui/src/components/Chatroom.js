@@ -1,17 +1,55 @@
-// import React, { useEffect, useState } from "react";
-// import axios from "axios";
-
-// const baseUrl = process.env.REACT_APP_API_BASE_URL;
+// import React, { useEffect, useState } from "react"
+// import axios from "axios"
+// import { endpoints } from "./Endpoints"
+// import { useAuth } from "../hooks/AuthProvider"
 
 // function Chatroom() {
-//   const [message, setMessage] = useState("");
-//   const [chatroom, setChatroom] = useState([]);
-
-//   async function getChatroom() {}
+//   const { logOut, user, token } = useAuth()
+//   const [message, setMessage] = useState("")
+//   const [chatroom, setChatroom] = useState([])
 
 //   useEffect(() => {
-//     getChatroom();
-//   }, [chatroom]);
+//     getChatroom()
+//   }, [chatroom])
+
+//   function handleChange(e) {
+//     const { name, value } = e.target
+//     setMessage((prev) => {
+//       return { ...prev, [name]: value }
+//     })
+//   }
+
+//   async function getChatroom() {
+//     //Call get /messages endpoint from server
+//     try {
+//       const res = await axios.get(endpoints.BASE_URI + `messages`)
+//       setChatroom(res)
+//     } catch (error) {
+//       console.log(error)
+//   }
+
+//   async function handleSubmitMessage() {
+//     //Call post /messages endpoint from server
+//     try {
+//       const res = await axios.post(endpoints.BASE_URI + `messages`, {
+//         userId: "",
+//         text: message,
+//       })
+//       console.log(res)
+//     } catch (error) {
+//       console.log(error)
+//     } finally {
+//       setMessage("")
+//     }
+//   }
+
+//   const renderChatroom = chatroom.map((user) => {
+//     return (
+//       <li className="create--message" key={user.id}>
+//          <span className="username">{user.username}</span>
+//          <span className="content">{message.message}</span>
+//        </li>
+//   })
 
 //   return (
 //     <>
@@ -20,15 +58,12 @@
 //         <span className="active--users">
 //           <h2>Active Now</h2>
 //           <ul>
-//             <li>User A</li>
-//             <li>User B</li>
-//             <li>User C</li>
-//             <li>User D</li>
+//             <li>{user}</li>
 //           </ul>
 //         </span>
 
 //         <span className="chatroom">
-//           <ul className="message--container">{renderMessage}</ul>
+//           <ul className="message--container">{chatroom}</ul>
 //         </span>
 
 //         <form className="input--container" onSubmit={handleSendMessage}>
@@ -36,13 +71,13 @@
 //             type="text"
 //             placeholder="...enter message here"
 //             value={message}
-//             onChange={(e) => setMessage(e.target.value)}
+//             onChange={handleChange}
 //           />
 //           <button className="submit--message">Send</button>
 //         </form>
 //       </div>
 //     </>
-//   );
+//   )
 // }
 
-// export default Chatroom;
+// export default Chatroom

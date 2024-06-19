@@ -69,7 +69,6 @@ C:\Users\User\Desktop\ChatApp\backend\chatAppWebApi\bin\Debug\net6.0\Microsoft.I
 C:\Users\User\Desktop\ChatApp\backend\chatAppWebApi\bin\Debug\net6.0\Microsoft.IdentityModel.Tokens.dll
 C:\Users\User\Desktop\ChatApp\backend\chatAppWebApi\bin\Debug\net6.0\System.IdentityModel.Tokens.Jwt.dll
 C:\Users\User\Desktop\ChatApp\backend\chatAppWebApi\bin\Debug\net6.0\BCrypt.Net-Next.dll
-C:\Users\Charlie\Desktop\Chat_App\Chat_App\backend\chatAppWebApi\bin\Debug\net6.0\wwwroot\build\static\css\main.bc171277.css
 C:\Users\Charlie\Desktop\Chat_App\Chat_App\backend\chatAppWebApi\bin\Debug\net6.0\wwwroot\build\static\js\787.83093967.chunk.js
 C:\Users\Charlie\Desktop\Chat_App\Chat_App\backend\chatAppWebApi\bin\Debug\net6.0\wwwroot\index.html
 C:\Users\Charlie\Desktop\Chat_App\Chat_App\backend\chatAppWebApi\bin\Debug\net6.0\wwwroot\js\signalr\dist\browser\signalr.js
@@ -140,4 +139,5 @@ C:\Users\Charlie\Desktop\Chat_App\Chat_App\backend\chatAppWebApi\obj\Debug\net6.
 C:\Users\Charlie\Desktop\Chat_App\Chat_App\backend\chatAppWebApi\obj\Debug\net6.0\chatAppWebApi.pdb
 C:\Users\Charlie\Desktop\Chat_App\Chat_App\backend\chatAppWebApi\obj\Debug\net6.0\chatAppWebApi.genruntimeconfig.cache
 C:\Users\Charlie\Desktop\Chat_App\Chat_App\backend\chatAppWebApi\obj\Debug\net6.0\ref\chatAppWebApi.dll
-C:\Users\Charlie\Desktop\Chat_App\Chat_App\backend\chatAppWebApi\bin\Debug\net6.0\wwwroot\build\static\js\main.250e8a1f.js
+C:\Users\Charlie\Desktop\Chat_App\Chat_App\backend\chatAppWebApi\bin\Debug\net6.0\wwwroot\build\static\css\main.46c77496.css
+C:\Users\Charlie\Desktop\Chat_App\Chat_App\backend\chatAppWebApi\bin\Debug\net6.0\wwwroot\build\static\js\main.766058e2.js

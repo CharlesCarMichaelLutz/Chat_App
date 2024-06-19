@@ -2,11 +2,11 @@
   display: flex;
   width: 90%;
   height: 90%;
-  height:80vh;
+  height: 80vh;
   position: absolute;
   left: 12%;
-  top:12%;
-  bottom:12%;
+  top: 12%;
+  bottom: 12%;
   right: 12%;
 }
 
@@ -59,11 +59,10 @@
   margin-left: 20px;
   position: absolute;
   left: 20%;
-  bottom :2%;
+  bottom: 2%;
 }
 
 input[type="text"] {
   flex-grow: 1;
   padding: 5px;
 }
-

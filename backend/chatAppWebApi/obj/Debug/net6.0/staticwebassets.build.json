@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "l72Bo5z/KKhgyzCwk0V6+qo5CM8dMB+LFOLWGWDPBWY=",
+  "Hash": "UvmKS/Aq1bCI+574K7INchbmLZ1wHVcAdCkXywYnRew=",
   "Source": "chatAppWebApi",
   "BasePath": "_content/chatAppWebApi",
   "Mode": "Default",
@@ -17,12 +17,12 @@
   ],
   "Assets": [
     {
-      "Identity": "C:\\Users\\Charlie\\Desktop\\Chat_App\\Chat_App\\backend\\chatAppWebApi\\wwwroot\\build\\static\\css\\main.bc171277.css",
+      "Identity": "C:\\Users\\Charlie\\Desktop\\Chat_App\\Chat_App\\backend\\chatAppWebApi\\wwwroot\\build\\static\\css\\main.46c77496.css",
       "SourceId": "chatAppWebApi",
       "SourceType": "Discovered",
       "ContentRoot": "C:\\Users\\Charlie\\Desktop\\Chat_App\\Chat_App\\backend\\chatAppWebApi\\wwwroot\\",
       "BasePath": "_content/chatAppWebApi",
-      "RelativePath": "build/static/css/main.bc171277.css",
+      "RelativePath": "build/static/css/main.46c77496.css",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -33,7 +33,7 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "PreserveNewest",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\build\\static\\css\\main.bc171277.css"
+      "OriginalItemSpec": "wwwroot\\build\\static\\css\\main.46c77496.css"
     },
     {
       "Identity": "C:\\Users\\Charlie\\Desktop\\Chat_App\\Chat_App\\backend\\chatAppWebApi\\wwwroot\\build\\static\\js\\787.83093967.chunk.js",
@@ -55,12 +55,12 @@
       "OriginalItemSpec": "wwwroot\\build\\static\\js\\787.83093967.chunk.js"
     },
     {
-      "Identity": "C:\\Users\\Charlie\\Desktop\\Chat_App\\Chat_App\\backend\\chatAppWebApi\\wwwroot\\build\\static\\js\\main.250e8a1f.js",
+      "Identity": "C:\\Users\\Charlie\\Desktop\\Chat_App\\Chat_App\\backend\\chatAppWebApi\\wwwroot\\build\\static\\js\\main.766058e2.js",
       "SourceId": "chatAppWebApi",
       "SourceType": "Discovered",
       "ContentRoot": "C:\\Users\\Charlie\\Desktop\\Chat_App\\Chat_App\\backend\\chatAppWebApi\\wwwroot\\",
       "BasePath": "_content/chatAppWebApi",
-      "RelativePath": "build/static/js/main.250e8a1f.js",
+      "RelativePath": "build/static/js/main.766058e2.js",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -71,7 +71,7 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "PreserveNewest",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\build\\static\\js\\main.250e8a1f.js"
+      "OriginalItemSpec": "wwwroot\\build\\static\\js\\main.766058e2.js"
     },
     {
       "Identity": "C:\\Users\\Charlie\\Desktop\\Chat_App\\Chat_App\\backend\\chatAppWebApi\\wwwroot\\index.html",
