@@ -53,8 +53,8 @@ namespace chatAppWebApi.Services
         public async Task<IResult?> LoginUser(UserModel user)
         {
             var loggedInUser = await _userRepository.GetUsernameAsync(user);
-                
-            if (loggedInUser is null || !BCrypt.Net.BCrypt.Verify(user.PasswordHash, loggedInUser.PasswordHash)) 
+
+            if (loggedInUser is null || !BCrypt.Net.BCrypt.Verify(user.PasswordHash, loggedInUser.PasswordHash))
             {
                 throw new Exception("Incorrect username or password");
             }

@@ -19,11 +19,16 @@ function LoginForm() {
     }))
   }
 
+  function clearInput() {
+    setInput({ username: "", password: "" })
+  }
+
   function handleSubmit(e) {
     e.preventDefault()
     const { username, password } = input
     if (username !== "" && password !== "") {
       loginAction(input)
+      clearInput()
       return
     }
     alert("Username and Password must not be empty")

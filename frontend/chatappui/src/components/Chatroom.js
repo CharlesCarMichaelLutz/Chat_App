@@ -1,83 +1,113 @@
-// import React, { useEffect, useState } from "react"
-// import axios from "axios"
-// import { endpoints } from "./Endpoints"
-// import { useAuth } from "../hooks/AuthProvider"
+import React, { useCallback, useEffect, useState } from "react"
+import axios from "axios"
+import { endpoints } from "./Endpoints"
+import { useAuth } from "../hooks/AuthProvider"
+import "../styling/Chatroom.css"
 
-// function Chatroom() {
-//   const { logOut, user, token } = useAuth()
-//   const [message, setMessage] = useState("")
-//   const [chatroom, setChatroom] = useState([])
+function Chatroom() {
+  const { logOut, token } = useAuth()
+  const [message, setMessage] = useState("")
+  const [users, setUsers] = useState([])
+  const [chatroom, setChatroom] = useState([])
 
-//   useEffect(() => {
-//     getChatroom()
-//   }, [chatroom])
+  function handleChange(e) {
+    const { name, value } = e.target
+    setMessage((prev) => {
+      return { ...prev, [name]: value }
+    })
+  }
 
-//   function handleChange(e) {
-//     const { name, value } = e.target
-//     setMessage((prev) => {
-//       return { ...prev, [name]: value }
-//     })
-//   }
+  const getUsers = useCallback(async () => {
+    try {
+      const res = await axios.get(endpoints.BASE_URI + `users`, {
+        headers: { Authorization: `Bearer ${token}` },
+      })
+      setUsers(res.data)
+      console.log(res.data)
+    } catch (error) {
+      console.log(error)
+    }
+  }, [token])
 
-//   async function getChatroom() {
-//     //Call get /messages endpoint from server
-//     try {
-//       const res = await axios.get(endpoints.BASE_URI + `messages`)
-//       setChatroom(res)
-//     } catch (error) {
-//       console.log(error)
-//   }
+  const getChatroom = useCallback(async () => {
+    try {
+      const res = await axios.get(endpoints.BASE_URI + `messages`, {
+        headers: { Authorization: `Bearer ${token}` },
+      })
+      setChatroom(res.data)
+      console.log(res.data)
+    } catch (error) {
+      console.log(error)
+    }
+  }, [token])
 
-//   async function handleSubmitMessage() {
-//     //Call post /messages endpoint from server
-//     try {
-//       const res = await axios.post(endpoints.BASE_URI + `messages`, {
-//         userId: "",
-//         text: message,
-//       })
-//       console.log(res)
-//     } catch (error) {
-//       console.log(error)
-//     } finally {
-//       setMessage("")
-//     }
-//   }
+  useEffect(() => {
+    getChatroom()
+    getUsers()
+  }, [getChatroom, getUsers])
 
-//   const renderChatroom = chatroom.map((user) => {
-//     return (
-//       <li className="create--message" key={user.id}>
-//          <span className="username">{user.username}</span>
-//          <span className="content">{message.message}</span>
-//        </li>
-//   })
+  async function handleSubmitMessage() {
+    //Call post /messages endpoint from server
+    try {
+      const res = await axios.post(
+        `messages`,
+        {
+          UserId: users.UserId,
+          Text: message,
+        },
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      )
+      console.log(res)
+    } catch (error) {
+      console.log(error)
+    } finally {
+      setMessage("")
+    }
+  }
 
-//   return (
-//     <>
-//       <div className="chatroomPage--container">
-//         {/* <ChatroomWebSocket baseUrl={baseUrl} /> */}
-//         <span className="active--users">
-//           <h2>Active Now</h2>
-//           <ul>
-//             <li>{user}</li>
-//           </ul>
-//         </span>
+  const renderChatroom = chatroom.map((messageDetail) => {
+    return (
+      <li className="create--message" key={messageDetail.id}>
+        <span className="username">{messageDetail.userId}</span>
+        <span className="content">{messageDetail.text}</span>
+      </li>
+    )
+  })
 
-//         <span className="chatroom">
-//           <ul className="message--container">{chatroom}</ul>
-//         </span>
+  const renderActiveUsers = users.map((user) => {
+    return <li key={user.id}>{user.username}</li>
+  })
 
-//         <form className="input--container" onSubmit={handleSendMessage}>
-//           <input
-//             type="text"
-//             placeholder="...enter message here"
-//             value={message}
-//             onChange={handleChange}
-//           />
-//           <button className="submit--message">Send</button>
-//         </form>
-//       </div>
-//     </>
-//   )
-// }
+  return (
+    <>
+      <div className="chatroomPage--container">
+        {/* <ChatroomWebSocket baseUrl={baseUrl} /> */}
+        <span className="active--users">
+          <h2>Active Now</h2>
+          <ul>{renderActiveUsers}</ul>
+        </span>
 
-// export default Chatroom
+        <span className="chatroom">
+          <ul className="message--container">{renderChatroom}</ul>
+        </span>
+
+        <form className="input--container" onSubmit={handleSubmitMessage}>
+          <input
+            type="text"
+            placeholder="...enter message here"
+            value={message}
+            onChange={handleChange}
+          />
+          <button className="submit--message">Send</button>
+        </form>
+        <button className="logout--button" onClick={logOut}>
+          XXXXXX
+        </button>
+      </div>
+    </>
+  )
+}
+
+export default Chatroom

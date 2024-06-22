@@ -1,20 +1,21 @@
 import { useContext, createContext, useState } from "react"
 import axios from "axios"
 import { endpoints } from "../components/Endpoints"
-//import { useNavigate } from "react-router-dom"
+import { useNavigate } from "react-router-dom"
 
 const AuthContext = createContext()
 
 function AuthProvider({ children }) {
-  const [user, setUser] = useState(null)
+  //const [user, setUser] = useState(null)
   const [token, setToken] = useState(localStorage.getItem("site") || "")
   const [isSignUp, setIsSignup] = useState(false)
-  //const navigate = useNavigate()
+  const navigate = useNavigate()
 
   async function loginAction(data) {
     const { username, password } = data
     const path = isSignUp ? `users/signup` : `users/login`
     const url = endpoints.BASE_URI + path
+    console.log(url)
 
     try {
       const res = await axios.post(url, {
@@ -22,7 +23,7 @@ function AuthProvider({ children }) {
         PasswordHash: password,
       })
 
-      console.log(res)
+      console.log(res.data)
 
       if (isSignUp) {
         if (res.data) {
@@ -32,11 +33,11 @@ function AuthProvider({ children }) {
         }
       } else {
         const jwt = res.data.value
-        setUser(res.data)
+        //setUser(res.data)
         setToken(jwt)
         localStorage.setItem("site", jwt)
         alert("logged in success!")
-        //navigate("/chatroom")
+        navigate("/chatroom")
         return
       }
     } catch (error) {
@@ -50,7 +51,7 @@ function AuthProvider({ children }) {
   }
 
   function logOut() {
-    setUser(null)
+    //setUser(null)
     setToken("")
     localStorage.removeItem("site")
     //navigate("/login")
@@ -58,7 +59,7 @@ function AuthProvider({ children }) {
 
   return (
     <AuthContext.Provider
-      value={{ loginAction, isSignUp, toggleSignUp, user, token, logOut }}
+      value={{ loginAction, isSignUp, toggleSignUp, token, logOut }}
     >
       {children}
     </AuthContext.Provider>
