@@ -1,87 +1,103 @@
 import React, { useCallback, useEffect, useState } from "react"
 import axios from "axios"
 import { endpoints } from "./Endpoints"
-import { useAuth } from "../hooks/AuthProvider"
+import { useAuth } from "./AuthProvider"
 import "../styling/Chatroom.css"
 
 function Chatroom() {
-  const { logOut, token } = useAuth()
-  const [message, setMessage] = useState("")
+  const { logOut, loggedInUsers, currentUser } = useAuth()
   const [users, setUsers] = useState([])
-  const [chatroom, setChatroom] = useState([])
+  const [messages, setMessages] = useState([])
+
+  const [input, setInput] = useState({
+    message: "",
+  })
 
   function handleChange(e) {
     const { name, value } = e.target
-    setMessage((prev) => {
-      return { ...prev, [name]: value }
-    })
+    setInput((prev) => ({
+      ...prev,
+      [name]: value,
+    }))
   }
+
+  const curr = loggedInUsers.find((user) => user.id === currentUser)
+
+  console.log(curr)
 
   const getUsers = useCallback(async () => {
     try {
       const res = await axios.get(endpoints.BASE_URI + `users`, {
-        headers: { Authorization: `Bearer ${token}` },
+        headers: { Authorization: `Bearer ${curr.token}` },
       })
       setUsers(res.data)
       console.log(res.data)
     } catch (error) {
       console.log(error)
     }
-  }, [token])
+  }, [curr.token])
 
-  const getChatroom = useCallback(async () => {
+  const getMessages = useCallback(async () => {
     try {
       const res = await axios.get(endpoints.BASE_URI + `messages`, {
-        headers: { Authorization: `Bearer ${token}` },
+        headers: { Authorization: `Bearer ${curr.token}` },
       })
-      setChatroom(res.data)
+      setMessages(res.data)
       console.log(res.data)
     } catch (error) {
       console.log(error)
     }
-  }, [token])
+  }, [curr.token])
 
   useEffect(() => {
-    getChatroom()
+    getMessages()
     getUsers()
-  }, [getChatroom, getUsers])
+  }, [getMessages, getUsers])
 
-  async function handleSubmitMessage() {
+  async function handleSubmitMessage(e) {
     //Call post /messages endpoint from server
+    e.preventDefault()
     try {
+      //const {username, token} loggedInUser
       const res = await axios.post(
-        `messages`,
+        endpoints.BASE_URI + `messages`,
         {
-          UserId: users.UserId,
-          Text: message,
+          Text: input.message,
+          UserId: currentUser,
         },
         {
-          headers: { Authorization: `Bearer ${token}` },
+          headers: { Authorization: `Bearer ${curr.token}` },
         }
       )
+      getMessages()
       console.log(res)
     } catch (error) {
       console.log(error)
     } finally {
-      setMessage("")
+      setInput({ message: "" })
     }
   }
 
-  const renderChatroom = chatroom.map((messageDetail) => {
+  const renderChatroom = messages.map((message) => {
+    const findUserById = users.find((user) => user.id === message.userId)
+    const username = findUserById ? findUserById.username : "Guest"
     return (
-      <li className="create--message" key={messageDetail.id}>
-        <span className="username">{messageDetail.userId}</span>
-        <span className="content">{messageDetail.text}</span>
+      <li className="create--message" key={message.id}>
+        <span className="username">{username}</span>
+        <span className="content">{message.text}</span>
       </li>
     )
   })
 
-  const renderActiveUsers = users.map((user) => {
-    return <li key={user.id}>{user.username}</li>
+  const renderActiveUsers = loggedInUsers.map((user) => {
+    return <li key={user.userId}>{user.username}</li>
   })
 
   return (
     <>
+      <button className="logout--button" onClick={() => logOut(currentUser)}>
+        Logout
+      </button>
       <div className="chatroomPage--container">
         {/* <ChatroomWebSocket baseUrl={baseUrl} /> */}
         <span className="active--users">
@@ -97,14 +113,13 @@ function Chatroom() {
           <input
             type="text"
             placeholder="...enter message here"
-            value={message}
+            name="message"
+            id="message"
+            value={input.message}
             onChange={handleChange}
           />
           <button className="submit--message">Send</button>
         </form>
-        <button className="logout--button" onClick={logOut}>
-          XXXXXX
-        </button>
       </div>
     </>
   )

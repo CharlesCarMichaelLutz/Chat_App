@@ -77,7 +77,7 @@ services.AddCors(options =>
 {
     options.AddPolicy("ReactAppPolicy", builder =>
     {
-        builder.WithOrigins("http://localhost:3001")
+        builder.WithOrigins("http://localhost:3000")
                .AllowAnyMethod()
                .AllowAnyHeader();     
     });
@@ -127,7 +127,7 @@ app.UseEndpoints(endpoints =>
         return Results.Ok(response);
     });
 
-    endpoints.MapPost("/api/messages/{message}", [Authorize] async (IMessageService service, MessageModel message) =>
+    endpoints.MapPost("/api/messages", [Authorize] async (IMessageService service, [FromBody] MessageModel message) =>
     {
         var response = await service.CreateMessage(message);
         return Results.Ok(response);

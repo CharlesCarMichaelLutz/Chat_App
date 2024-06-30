@@ -40,7 +40,6 @@ namespace chatAppWebApi.Services
             {
                 Username = user.Username,
                 PasswordHash = hashedPassword,
-                CreatedDate = user.CreatedDate
             };
 
             return await _userRepository.CreateUserAsync(newUser);
@@ -61,7 +60,14 @@ namespace chatAppWebApi.Services
 
             var tokenString = await GenerateJwtToken(loggedInUser);
 
-            return Results.Ok(tokenString);
+            var response = new LoginResponse
+            {
+                UserId = loggedInUser.Id,
+                Token = tokenString,
+                Username = user.Username,
+            };
+
+            return Results.Ok(response);
         }
 
         private async Task<string> GenerateJwtToken(UserModel user)
