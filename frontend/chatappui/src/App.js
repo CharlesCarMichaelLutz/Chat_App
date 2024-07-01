@@ -1,7 +1,6 @@
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom"
 import Chatroom from "./components/Chatroom"
 import LoginForm from "./components/LoginForm"
-//import AuthProvider from "./hooks/AuthProvider"
 import AuthProvider from "./components/AuthProvider"
 import PrivateRoute from "./components/PrivateRoute"
 import "../src/styling/App.css"

@@ -21,7 +21,7 @@ function Chatroom() {
     }))
   }
 
-  const curr = loggedInUsers.find((user) => user.id === currentUser)
+  const curr = loggedInUsers.find((user) => user.userId === currentUser)
 
   console.log(curr)
 
@@ -55,10 +55,8 @@ function Chatroom() {
   }, [getMessages, getUsers])
 
   async function handleSubmitMessage(e) {
-    //Call post /messages endpoint from server
     e.preventDefault()
     try {
-      //const {username, token} loggedInUser
       const res = await axios.post(
         endpoints.BASE_URI + `messages`,
         {

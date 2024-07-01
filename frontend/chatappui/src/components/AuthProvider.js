@@ -1,28 +1,18 @@
-import { useState, useEffect, useContext, createContext } from "react"
+import { useState, useContext, createContext } from "react"
 import axios from "axios"
 import { endpoints } from "./Endpoints"
 import { useNavigate } from "react-router-dom"
+import { useLocalStorage } from "../hooks/useLocalStorage"
 
 const AuthContext = createContext()
 
+const USERS = "Local_Storage_Key"
+
 function AuthProvider({ children }) {
   const [currentUser, setCurrentUser] = useState(null)
-  const [loggedInUsers, setLoggedInUsers] = useState(
-    JSON.parse(localStorage.getItem("users") || [])
-  )
+  const [loggedInUsers, setLoggedInUsers] = useLocalStorage(USERS, [])
   const [isSignUp, setIsSignup] = useState(false)
   const navigate = useNavigate()
-
-  // useEffect(() => {
-  //   const storedUsers = localStorage.getItem("users") || []
-  //   if (storedUsers) {
-  //     setLoggedInUser(JSON.parse(storedUsers))
-  //   }
-  // }, [])
-
-  useEffect(() => {
-    localStorage.setItem("users", JSON.stringify(loggedInUsers))
-  }, [loggedInUsers])
 
   async function loginAction(data) {
     const { username, password } = data
@@ -50,14 +40,11 @@ function AuthProvider({ children }) {
           username,
           token,
         }
-        const addNewUser = loggedInUsers.map((prevUser) => [
-          ...prevUser,
-          newUser,
-        ])
-        //setCurrentUser(res.data.value.userId)
+        console.log(newUser)
+        const addNewUser = [...loggedInUsers, newUser]
+
         setCurrentUser(userId)
         setLoggedInUsers(addNewUser)
-        //localStorage.setItem("users", JSON.stringify([newUser]))
         alert("logged in success!")
         navigate("/chatroom")
         return
@@ -74,9 +61,8 @@ function AuthProvider({ children }) {
   function logOut(id) {
     const updatedUsers = loggedInUsers.filter((users) => users.userId !== id)
     setLoggedInUsers(updatedUsers)
-    localStorage.setItem("users", JSON.stringify(updatedUsers))
     setCurrentUser(null)
-    navigate("/login")
+    navigate("/")
   }
 
   return (
