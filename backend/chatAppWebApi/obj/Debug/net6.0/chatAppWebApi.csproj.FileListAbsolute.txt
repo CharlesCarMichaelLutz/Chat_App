@@ -139,5 +139,5 @@ C:\Users\Charlie\Desktop\Chat_App\Chat_App\backend\chatAppWebApi\obj\Debug\net6.
 C:\Users\Charlie\Desktop\Chat_App\Chat_App\backend\chatAppWebApi\obj\Debug\net6.0\chatAppWebApi.pdb
 C:\Users\Charlie\Desktop\Chat_App\Chat_App\backend\chatAppWebApi\obj\Debug\net6.0\chatAppWebApi.genruntimeconfig.cache
 C:\Users\Charlie\Desktop\Chat_App\Chat_App\backend\chatAppWebApi\obj\Debug\net6.0\ref\chatAppWebApi.dll
-C:\Users\Charlie\Desktop\Chat_App\Chat_App\backend\chatAppWebApi\bin\Debug\net6.0\wwwroot\build\static\css\main.46c77496.css
-C:\Users\Charlie\Desktop\Chat_App\Chat_App\backend\chatAppWebApi\bin\Debug\net6.0\wwwroot\build\static\js\main.766058e2.js
+C:\Users\Charlie\Desktop\Chat_App\Chat_App\backend\chatAppWebApi\bin\Debug\net6.0\wwwroot\build\static\css\main.9e7325c2.css
+C:\Users\Charlie\Desktop\Chat_App\Chat_App\backend\chatAppWebApi\bin\Debug\net6.0\wwwroot\build\static\js\main.7a08fe1e.js

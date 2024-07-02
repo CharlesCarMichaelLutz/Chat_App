@@ -40,6 +40,7 @@ namespace chatAppWebApi.Services
             {
                 Username = user.Username,
                 PasswordHash = hashedPassword,
+                CreatedDate = DateTime.UtcNow,
             };
 
             return await _userRepository.CreateUserAsync(newUser);

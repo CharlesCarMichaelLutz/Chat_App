@@ -22,8 +22,8 @@ namespace chatAppWebApi.Repositories
             using var connection = await _connectionFactory.CreateConnectionAsync();
 
             var result = await connection.ExecuteAsync(
-            @"INSERT INTO messages (UserId, Text) 
-                VALUES (@UserId, @Text)",
+            @"INSERT INTO messages (UserId, Text, CreatedDate) 
+                VALUES (@UserId, @Text, @CreatedDate)",
             message);
 
             return result > 0;
