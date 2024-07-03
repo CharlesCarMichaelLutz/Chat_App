@@ -6,11 +6,13 @@ import { useLocalStorage } from "../hooks/useLocalStorage"
 
 const AuthContext = createContext()
 
-const USERS = "Local_Storage_Key"
+const USERS = "AUTHORIZED_Key"
+
+const IDENTIFY = "IDENTIFY_Key"
 
 function AuthProvider({ children }) {
-  const [currentUser, setCurrentUser] = useState(null)
-  const [loggedInUsers, setLoggedInUsers] = useLocalStorage(USERS, [])
+  const [user, setUser] = useLocalStorage(IDENTIFY, "")
+  const [authorizedUsers, setAuthorizedUsers] = useLocalStorage(USERS, [])
   const [isSignUp, setIsSignup] = useState(false)
   const navigate = useNavigate()
 
@@ -25,8 +27,6 @@ function AuthProvider({ children }) {
         PasswordHash: password,
       })
 
-      console.log("login response:", res.data.value)
-
       if (isSignUp) {
         if (res.data) {
           alert("Account created successfully!")
@@ -40,11 +40,9 @@ function AuthProvider({ children }) {
           username,
           token,
         }
-        console.log(newUser)
-        const addNewUser = [...loggedInUsers, newUser]
-
-        setCurrentUser(userId)
-        setLoggedInUsers(addNewUser)
+        const addNewUser = [...authorizedUsers, newUser]
+        setUser(userId)
+        setAuthorizedUsers(addNewUser)
         alert("logged in success!")
         navigate("/chatroom")
         return
@@ -54,16 +52,26 @@ function AuthProvider({ children }) {
     }
   }
 
+  const curr = authorizedUsers.find((authUser) => (authUser.id = user))
+  console.log("authorized user:", curr)
+
   function toggleSignUp() {
     setIsSignup((prev) => !prev)
   }
 
   function logOut(id) {
-    const updatedUsers = loggedInUsers.filter((users) => users.userId !== id)
-    setLoggedInUsers(updatedUsers)
-    setCurrentUser(null)
+    const updatedUsers = authorizedUsers.filter((users) => users.userId !== id)
+    console.log("removed user:", updatedUsers)
+    setAuthorizedUsers(updatedUsers)
+
+    //localStorage.clear()
+    setUser(null)
     navigate("/")
   }
+
+  //const activeUsers = []
+
+  //activeUsers.push(authorizedUsers.username)
 
   return (
     <AuthContext.Provider
@@ -72,8 +80,9 @@ function AuthProvider({ children }) {
         isSignUp,
         toggleSignUp,
         logOut,
-        loggedInUsers,
-        currentUser,
+        authorizedUsers,
+        user,
+        curr,
       }}
     >
       {children}

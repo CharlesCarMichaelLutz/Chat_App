@@ -12,7 +12,7 @@ export function useLocalStorage(key, initial) {
 
   useEffect(() => {
     if (value === undefined) {
-      localStorage.getItem(key)
+      localStorage.removeItem(key)
     } else {
       localStorage.setItem(key, JSON.stringify(value))
     }

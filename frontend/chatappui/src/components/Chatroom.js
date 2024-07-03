@@ -5,7 +5,7 @@ import { useAuth } from "./AuthProvider"
 import "../styling/Chatroom.css"
 
 function Chatroom() {
-  const { logOut, loggedInUsers, currentUser } = useAuth()
+  const { logOut, authorizedUsers, user, curr } = useAuth()
   const [users, setUsers] = useState([])
   const [messages, setMessages] = useState([])
 
@@ -21,17 +21,13 @@ function Chatroom() {
     }))
   }
 
-  const curr = loggedInUsers.find((user) => user.userId === currentUser)
-
-  console.log(curr)
-
   const getUsers = useCallback(async () => {
     try {
       const res = await axios.get(endpoints.BASE_URI + `users`, {
         headers: { Authorization: `Bearer ${curr.token}` },
       })
       setUsers(res.data)
-      console.log(res.data)
+      //console.log(res.data)
     } catch (error) {
       console.log(error)
     }
@@ -43,7 +39,7 @@ function Chatroom() {
         headers: { Authorization: `Bearer ${curr.token}` },
       })
       setMessages(res.data)
-      console.log(res.data)
+      //console.log(res.data)
     } catch (error) {
       console.log(error)
     }
@@ -57,18 +53,19 @@ function Chatroom() {
   async function handleSubmitMessage(e) {
     e.preventDefault()
     try {
-      const res = await axios.post(
+      //const res = await axios.post(
+      await axios.post(
         endpoints.BASE_URI + `messages`,
         {
           Text: input.message,
-          UserId: currentUser,
+          UserId: user,
         },
         {
           headers: { Authorization: `Bearer ${curr.token}` },
         }
       )
       getMessages()
-      console.log(res)
+      //console.log(res)
     } catch (error) {
       console.log(error)
     } finally {
@@ -87,13 +84,13 @@ function Chatroom() {
     )
   })
 
-  const renderActiveUsers = loggedInUsers.map((user) => {
-    return <li key={user.userId}>{user.username}</li>
+  const renderActiveUsers = authorizedUsers.map((user) => {
+    return <li key={user.username}>{user.username}</li>
   })
 
   return (
     <>
-      <button className="logout--button" onClick={() => logOut(currentUser)}>
+      <button className="logout--button" onClick={() => logOut(user)}>
         Logout
       </button>
       <div className="chatroomPage--container">
