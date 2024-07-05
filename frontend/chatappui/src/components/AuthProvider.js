@@ -7,11 +7,10 @@ import { useLocalStorage } from "../hooks/useLocalStorage"
 const AuthContext = createContext()
 
 const USERS = "AUTHORIZED_Key"
-
-const IDENTIFY = "IDENTIFY_Key"
+const ID = "ID_Key"
 
 function AuthProvider({ children }) {
-  const [user, setUser] = useLocalStorage(IDENTIFY, "")
+  const [user, setUser] = useLocalStorage(ID, "")
   const [authorizedUsers, setAuthorizedUsers] = useLocalStorage(USERS, [])
   const [isSignUp, setIsSignup] = useState(false)
   const navigate = useNavigate()
@@ -53,7 +52,7 @@ function AuthProvider({ children }) {
   }
 
   const curr = authorizedUsers.find((authUser) => (authUser.id = user))
-  console.log("authorized user:", curr)
+  //console.log("authorized user:", curr)
 
   function toggleSignUp() {
     setIsSignup((prev) => !prev)
@@ -64,14 +63,10 @@ function AuthProvider({ children }) {
     console.log("removed user:", updatedUsers)
     setAuthorizedUsers(updatedUsers)
 
-    //localStorage.clear()
+    localStorage.clear()
     setUser(null)
     navigate("/")
   }
-
-  //const activeUsers = []
-
-  //activeUsers.push(authorizedUsers.username)
 
   return (
     <AuthContext.Provider

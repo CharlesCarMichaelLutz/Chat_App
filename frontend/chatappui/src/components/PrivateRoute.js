@@ -1,14 +1,14 @@
-// import React from "react"
-// import { Navigate, Outlet } from "react-router-dom"
-// import { useAuth } from "./AuthProvider"
+import React from "react"
+import { Navigate, Outlet } from "react-router-dom"
+import { useAuth } from "./AuthProvider"
 
-// function PrivateRoute() {
-//   const { loggedInUsers } = useAuth()
+function PrivateRoute() {
+  const { curr } = useAuth()
 
-//   if (!loggedInUsers.token) {
-//     return <Navigate to="/" />
-//   }
-//   return <Outlet />
-// }
+  if (!curr.token) {
+    return <Navigate to="/" />
+  }
+  return <Outlet />
+}
 
-// export default PrivateRoute
+export default PrivateRoute
