@@ -5,9 +5,10 @@ import { useAuth } from "./AuthProvider"
 function PrivateRoute() {
   const { curr } = useAuth()
 
-  if (!curr.token) {
+  if (!curr || !curr.token) {
     return <Navigate to="/" />
   }
+
   return <Outlet />
 }
 

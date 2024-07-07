@@ -34,15 +34,24 @@ function AuthProvider({ children }) {
         }
       } else {
         const { userId, username, token } = res.data.value
-        const newUser = {
-          userId,
-          username,
-          token,
+        const existingUser = authorizedUsers.findIndex(
+          (user) => user.userId === userId
+        )
+        if (existingUser === -1) {
+          const newUser = {
+            userId,
+            username,
+            token,
+            isLoggedIn: true,
+          }
+          setAuthorizedUsers([...authorizedUsers, newUser])
+        } else {
+          const updatedUsers = [...authorizedUsers]
+          updatedUsers[existingUser].isLoggedIn = true
+          setAuthorizedUsers(updatedUsers)
         }
-        const addNewUser = [...authorizedUsers, newUser]
         setUser(userId)
-        setAuthorizedUsers(addNewUser)
-        alert("logged in success!")
+        //alert("logged in success!")
         navigate("/chatroom")
         return
       }
@@ -51,19 +60,22 @@ function AuthProvider({ children }) {
     }
   }
 
-  const curr = authorizedUsers.find((authUser) => (authUser.id = user))
-  //console.log("authorized user:", curr)
+  const curr = authorizedUsers.find((authUser) => authUser.userId === user)
 
   function toggleSignUp() {
     setIsSignup((prev) => !prev)
   }
 
   function logOut(id) {
-    const updatedUsers = authorizedUsers.filter((users) => users.userId !== id)
-    console.log("removed user:", updatedUsers)
-    setAuthorizedUsers(updatedUsers)
+    //const updatedUsers = authorizedUsers.filter((users) => users.userId !== id)
+    const updatedUsers = authorizedUsers.map((users) => {
+      if (users.userId === id) {
+        return { ...user, isLoggedIn: false }
+      }
+      return user
+    })
 
-    localStorage.clear()
+    setAuthorizedUsers(updatedUsers)
     setUser(null)
     navigate("/")
   }

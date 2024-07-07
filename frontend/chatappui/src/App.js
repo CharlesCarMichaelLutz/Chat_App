@@ -11,8 +11,9 @@ function App() {
       <AuthProvider>
         <Routes>
           <Route path="/" element={<LoginForm />} />
-          <Route path="/chatroom" element={<Chatroom />} />
-          <Route element={<PrivateRoute />}></Route>
+          <Route element={<PrivateRoute />}>
+            <Route path="/chatroom" element={<Chatroom />} />
+          </Route>
         </Routes>
       </AuthProvider>
     </Router>

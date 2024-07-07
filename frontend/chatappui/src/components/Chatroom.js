@@ -5,8 +5,8 @@ import { useAuth } from "./AuthProvider"
 import "../styling/Chatroom.css"
 
 function Chatroom() {
-  const { logOut, authorizedUsers, user, curr } = useAuth()
-  const [users, setUsers] = useState([])
+  const { logOut, authorizedUsers, curr } = useAuth()
+  const [usernames, setUsernames] = useState([])
   const [messages, setMessages] = useState([])
 
   const [input, setInput] = useState({
@@ -26,8 +26,7 @@ function Chatroom() {
       const res = await axios.get(endpoints.BASE_URI + `users`, {
         headers: { Authorization: `Bearer ${curr.token}` },
       })
-      setUsers(res.data)
-      //console.log(res.data)
+      setUsernames(res.data)
     } catch (error) {
       console.log(error)
     }
@@ -39,33 +38,32 @@ function Chatroom() {
         headers: { Authorization: `Bearer ${curr.token}` },
       })
       setMessages(res.data)
-      //console.log(res.data)
     } catch (error) {
       console.log(error)
     }
   }, [curr.token])
 
   useEffect(() => {
-    getMessages()
-    getUsers()
-  }, [getMessages, getUsers])
+    if (curr.token) {
+      getMessages()
+      getUsers()
+    }
+  }, [curr.token, getMessages, getUsers, logOut])
 
   async function handleSubmitMessage(e) {
     e.preventDefault()
     try {
-      //const res = await axios.post(
       await axios.post(
         endpoints.BASE_URI + `messages`,
         {
           Text: input.message,
-          UserId: user,
+          UserId: curr.userId,
         },
         {
           headers: { Authorization: `Bearer ${curr.token}` },
         }
       )
       getMessages()
-      //console.log(res)
     } catch (error) {
       console.log(error)
     } finally {
@@ -74,7 +72,7 @@ function Chatroom() {
   }
 
   const renderChatroom = messages.map((message) => {
-    const findUserById = users.find((user) => user.id === message.userId)
+    const findUserById = usernames.find((user) => user.id === message.userId)
     const username = findUserById ? findUserById.username : "Guest"
     return (
       <li className="create--message" key={message.id}>
@@ -84,13 +82,17 @@ function Chatroom() {
     )
   })
 
-  const renderActiveUsers = authorizedUsers.map((user) => {
-    return <li key={user.username}>{user.username}</li>
-  })
+  const renderActiveUsers = authorizedUsers
+    .filter((user) => user.isLoggedIn)
+    .map((user) => {
+      return <li key={user.userId}>{user.username}</li>
+    })
+
+  console.log("active users:", renderActiveUsers)
 
   return (
     <>
-      <button className="logout--button" onClick={() => logOut(user)}>
+      <button className="logout--button" onClick={() => logOut(curr.userId)}>
         Logout
       </button>
       <div className="chatroomPage--container">
