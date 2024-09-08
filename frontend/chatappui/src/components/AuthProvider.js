@@ -27,11 +27,10 @@ function AuthProvider({ children }) {
       })
 
       if (isSignUp) {
-        if (res.data) {
-          alert("Account created successfully!")
-        } else {
-          alert("failed to create account")
-        }
+        const accountStatus = res.data
+          ? alert("Account created successfully!")
+          : alert("failed to create account")
+        return accountStatus
       } else {
         const { userId, username, token } = res.data.value
         const existingUser = authorizedUsers.findIndex(
