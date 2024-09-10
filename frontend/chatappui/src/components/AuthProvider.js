@@ -6,12 +6,12 @@ import { useLocalStorage } from "../hooks/useLocalStorage"
 
 const AuthContext = createContext()
 
-const USERS = "AUTHORIZED_Key"
-const ID = "ID_Key"
+const USER_ID = "ID_Key"
+const USERS = "USERS"
 
 function AuthProvider({ children }) {
-  const [user, setUser] = useLocalStorage(ID, "")
-  const [authorizedUsers, setAuthorizedUsers] = useLocalStorage(USERS, [])
+  const [user, setUser] = useLocalStorage(USER_ID, "")
+  const [loggedInUsers, setLoggedInUsers] = useLocalStorage(USERS, [])
   const [isSignUp, setIsSignup] = useState(false)
   const navigate = useNavigate()
 
@@ -33,24 +33,16 @@ function AuthProvider({ children }) {
         return accountStatus
       } else {
         const { userId, username, token } = res.data.value
-        const existingUser = authorizedUsers.findIndex(
+        const existingUserId = loggedInUsers.findIndex(
           (user) => user.userId === userId
         )
-        if (existingUser === -1) {
-          const newUser = {
-            userId,
-            username,
-            token,
-            isLoggedIn: true,
-          }
-          setAuthorizedUsers([...authorizedUsers, newUser])
-        } else {
-          const updatedUsers = [...authorizedUsers]
-          updatedUsers[existingUser].isLoggedIn = true
-          setAuthorizedUsers(updatedUsers)
+        if (existingUserId === -1) {
+          const newUser = { userId, username, token }
+          setLoggedInUsers((prevUsers) => [...prevUsers, newUser])
         }
+
         setUser(userId)
-        //alert("logged in success!")
+        alert("logged in success!")
         navigate("/chatroom")
         return
       }
@@ -59,22 +51,16 @@ function AuthProvider({ children }) {
     }
   }
 
-  const curr = authorizedUsers.find((authUser) => authUser.userId === user)
+  const curr = loggedInUsers.find((currentUser) => currentUser.userId === user)
 
   function toggleSignUp() {
     setIsSignup((prev) => !prev)
   }
 
   function logOut(id) {
-    //const updatedUsers = authorizedUsers.filter((users) => users.userId !== id)
-    const updatedUsers = authorizedUsers.map((users) => {
-      if (users.userId === id) {
-        return { ...user, isLoggedIn: false }
-      }
-      return user
-    })
-
-    setAuthorizedUsers(updatedUsers)
+    setLoggedInUsers(
+      loggedInUsers.filter((currentUser) => currentUser.userId !== id)
+    )
     setUser(null)
     navigate("/")
   }
@@ -86,8 +72,7 @@ function AuthProvider({ children }) {
         isSignUp,
         toggleSignUp,
         logOut,
-        authorizedUsers,
-        user,
+        loggedInUsers,
         curr,
       }}
     >

@@ -5,7 +5,7 @@ import { useAuth } from "./AuthProvider"
 import "../styling/Chatroom.css"
 
 function Chatroom() {
-  const { logOut, authorizedUsers, curr } = useAuth()
+  const { logOut, loggedInUsers, curr } = useAuth()
   const [usernames, setUsernames] = useState([])
   const [messages, setMessages] = useState([])
 
@@ -82,8 +82,8 @@ function Chatroom() {
     )
   })
 
-  const renderActiveUsers = authorizedUsers
-    .filter((user) => user.isLoggedIn)
+  const renderActiveUsers = loggedInUsers
+    .filter((user) => user.userId)
     .map((user) => {
       return <li key={user.userId}>{user.username}</li>
     })
@@ -96,16 +96,21 @@ function Chatroom() {
         Logout
       </button>
       <div className="chatroomPage--container">
-        {/* <ChatroomWebSocket baseUrl={baseUrl} /> */}
+        {/* 
+          pass in user and message to web socket component below as props (curr
+        ?) 
+        */}
+
+        {/* 
+          <ChatroomWebSocket baseUrl={baseUrl} /> 
+        */}
         <span className="active--users">
           <h2>Active Now</h2>
           <ul>{renderActiveUsers}</ul>
         </span>
-
         <span className="chatroom">
           <ul className="message--container">{renderChatroom}</ul>
         </span>
-
         <form className="input--container" onSubmit={handleSubmitMessage}>
           <input
             type="text"
