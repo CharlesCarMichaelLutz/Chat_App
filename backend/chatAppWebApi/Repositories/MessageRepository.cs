@@ -1,8 +1,8 @@
 ﻿using chatAppWebApi.Database;
 using chatAppWebApi.Models;
 using Dapper;
-using Microsoft.IdentityModel.Tokens;
-using System.Data;
+//using Microsoft.IdentityModel.Tokens;
+//using System.Data;
 
 namespace chatAppWebApi.Repositories
 {

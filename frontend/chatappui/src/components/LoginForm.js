@@ -1,11 +1,10 @@
 import { useState } from "react"
 import { useAuth } from "./AuthProvider"
-import { useNavigate } from "react-router-dom"
+//import { useNavigate } from "react-router-dom"
 //import rabbit from ""
 
 function LoginForm() {
   const { isSignUp, toggleSignUp, loginAction } = useAuth()
-  //const navigate = useNavigate()
 
   const [input, setInput] = useState({
     username: "",

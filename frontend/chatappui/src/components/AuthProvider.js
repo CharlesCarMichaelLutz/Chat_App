@@ -6,16 +6,19 @@ import { useLocalStorage } from "../hooks/useLocalStorage"
 
 const AuthContext = createContext()
 
-const USER_ID = "ID_Key"
-const USERS = "USERS"
+const USER = "USER"
+//const USER_CREDENTIALS = "USER_CREDENTIALS"
 
 function AuthProvider({ children }) {
-  const [user, setUser] = useLocalStorage(USER_ID, "")
-  const [loggedInUsers, setLoggedInUsers] = useLocalStorage(USERS, [])
+  //Perhaps this does not need to be in localStorage but just a piece of State
+  const [user, setUser] = useLocalStorage(USER, "")
+  //Does this need to be an array or can it just be an empty string
+  //const [credentials, setCredentials] = useLocalStorage(USER_CREDENTIALS, [])
   const [isSignUp, setIsSignup] = useState(false)
   const navigate = useNavigate()
 
   async function loginAction(data) {
+    //send the credendtials to the server
     const { username, password } = data
     const path = isSignUp ? `users/signup` : `users/login`
     const url = endpoints.BASE_URI + path
@@ -31,37 +34,36 @@ function AuthProvider({ children }) {
           ? alert("Account created successfully!")
           : alert("failed to create account")
         return accountStatus
-      } else {
-        const { userId, username, token } = res.data.value
-        const existingUserId = loggedInUsers.findIndex(
-          (user) => user.userId === userId
-        )
-        if (existingUserId === -1) {
-          const newUser = { userId, username, token }
-          setLoggedInUsers((prevUsers) => [...prevUsers, newUser])
-        }
-
-        setUser(userId)
-        alert("logged in success!")
-        navigate("/chatroom")
-        return
       }
+      //debug to make it cleaner if possible
+      //const { userId, username, token } = res.data.values
+      //const newUser = { userId, username, token }
+      //setCredentials((prevUsers) => [...prevUsers, newUser])
+
+      //setUser(userId)
+      setUser(res.data.values)
+      alert("logged in success!")
+      navigate("/chatroom")
+      return
     } catch (error) {
       console.error(error)
     }
   }
 
-  const curr = loggedInUsers.find((currentUser) => currentUser.userId === user)
+  //const curr = user.find((currentUser) => currentUser.userId === user)
 
   function toggleSignUp() {
     setIsSignup((prev) => !prev)
   }
 
-  function logOut(id) {
-    setLoggedInUsers(
-      loggedInUsers.filter((currentUser) => currentUser.userId !== id)
-    )
-    setUser(null)
+  //function logOut(id) {
+  function logOut() {
+    // setCredentials(
+    //   credentials.filter((currentUser) => currentUser.userId !== id)
+    // )
+    setUser({})
+    //setUser(null)
+    localStorage.clear()
     navigate("/")
   }
 
@@ -72,8 +74,9 @@ function AuthProvider({ children }) {
         isSignUp,
         toggleSignUp,
         logOut,
-        loggedInUsers,
-        curr,
+        user,
+        //curr,
+        //credentials,
       }}
     >
       {children}
