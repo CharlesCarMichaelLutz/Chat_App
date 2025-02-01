@@ -77,9 +77,7 @@ services.AddCors(options =>
 {
     options.AddPolicy("ReactAppPolicy", builder =>
     {
-        builder.WithOrigins("http://localhost:3000")
-               //.AllowAnyMethod()
-               //.AllowAnyHeader();   
+        builder.WithOrigins("http://localhost:3000") 
           .AllowAnyHeader()
           .AllowCredentials()
           .AllowAnyMethod();

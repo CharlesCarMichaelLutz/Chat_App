@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react"
 import { HubConnectionBuilder } from "@microsoft/signalr"
 
+//integrate this logic with Chatroom.js API call logic
+
 const ChatroomWebSocket = () => {
   const [hubConnection, setHubConnection] = useState(null)
 

@@ -5,7 +5,6 @@ import { useAuth } from "./AuthProvider"
 import "../styling/Chatroom.css"
 
 function Chatroom() {
-  //const { logOut, credentials, curr } = useAuth()
   const { logOut, user } = useAuth()
   const [usernames, setUsernames] = useState([])
   const [messages, setMessages] = useState([])
@@ -25,7 +24,6 @@ function Chatroom() {
   const getUsers = useCallback(async () => {
     try {
       const res = await axios.get(endpoints.BASE_URI + `users`, {
-        //headers: { Authorization: `Bearer ${curr.token}` },
         headers: { Authorization: `Bearer ${user.token}` },
       })
       setUsernames(res.data)
@@ -37,7 +35,6 @@ function Chatroom() {
   const getMessages = useCallback(async () => {
     try {
       const res = await axios.get(endpoints.BASE_URI + `messages`, {
-        //headers: { Authorization: `Bearer ${curr.token}` },
         headers: { Authorization: `Bearer ${user.token}` },
       })
       setMessages(res.data)
@@ -53,7 +50,7 @@ function Chatroom() {
     }
   }, [user.token, getMessages, getUsers, logOut])
 
-  async function handleSubmitMessage(e) {
+  async function handleSendMessage(e) {
     e.preventDefault()
     try {
       await axios.post(
@@ -85,17 +82,16 @@ function Chatroom() {
     )
   })
 
-  // const renderActiveUsers = credentials
-  //   .filter((user) => user.userId)
-  //   .map((user) => {
-  //     return <li key={user.userId}>{user.username}</li>
+  // const renderActiveUsers = user
+  //   .filter((usr) => usr.userId)
+  //   .map((usr) => {
+  //     return <li key={usr.userId}>{usr.username}</li>
   //   })
 
   // console.log("active users:", renderActiveUsers)
 
   return (
     <>
-      {/* </><button className="logout--button" onClick={() => logOut(curr.userId)}> */}
       <button className="logout--button" onClick={() => logOut()}>
         Logout
       </button>
@@ -108,7 +104,7 @@ function Chatroom() {
         <span className="chatroom">
           <ul className="message--container">{renderChatroom}</ul>
         </span>
-        <form className="input--container" onSubmit={handleSubmitMessage}>
+        <form className="input--container" onSubmit={handleSendMessage}>
           <input
             type="text"
             placeholder="...enter message here"
