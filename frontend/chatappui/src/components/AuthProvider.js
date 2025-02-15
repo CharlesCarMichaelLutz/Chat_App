@@ -13,6 +13,10 @@ function AuthProvider({ children }) {
   const [isSignUp, setIsSignup] = useState(false)
   const navigate = useNavigate()
 
+  function toggleSignUp() {
+    setIsSignup((prev) => !prev)
+  }
+
   async function loginAction(data) {
     const { username, password } = data
     const path = isSignUp ? `users/signup` : `users/login`
@@ -39,10 +43,6 @@ function AuthProvider({ children }) {
     }
   }
 
-  function toggleSignUp() {
-    setIsSignup((prev) => !prev)
-  }
-
   function logOut() {
     setUser({})
     localStorage.clear()
@@ -52,11 +52,11 @@ function AuthProvider({ children }) {
   return (
     <AuthContext.Provider
       value={{
-        loginAction,
+        user,
         isSignUp,
         toggleSignUp,
+        loginAction,
         logOut,
-        user,
       }}
     >
       {children}

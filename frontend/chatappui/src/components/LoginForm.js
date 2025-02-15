@@ -6,28 +6,28 @@ import { useAuth } from "./AuthProvider"
 function LoginForm() {
   const { isSignUp, toggleSignUp, loginAction } = useAuth()
 
-  const [input, setInput] = useState({
+  const [credentials, setCredentials] = useState({
     username: "",
     password: "",
   })
 
   function handleChange(e) {
     const { name, value } = e.target
-    setInput((prev) => ({
+    setCredentials((prev) => ({
       ...prev,
       [name]: value,
     }))
   }
 
   function clearInput() {
-    setInput({ username: "", password: "" })
+    setCredentials({ username: "", password: "" })
   }
 
   function handleSubmit(e) {
     e.preventDefault()
-    const { username, password } = input
+    const { username, password } = credentials
     if (username !== "" && password !== "") {
-      loginAction(input)
+      loginAction(credentials)
       //navigate("/chatroom")
       clearInput()
       return
@@ -55,7 +55,7 @@ function LoginForm() {
           type="text"
           id="username"
           name="username"
-          value={input.username}
+          value={credentials.username}
           onChange={handleChange}
         />
         <label className="label" htmlFor="password">
@@ -66,7 +66,7 @@ function LoginForm() {
           type="password"
           id="password"
           name="password"
-          value={input.password}
+          value={credentials.password}
           onChange={handleChange}
         />
         <button className="login--button">

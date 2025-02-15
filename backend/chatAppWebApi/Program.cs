@@ -6,6 +6,7 @@ using chatAppWebApi.SignalR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.Text;
@@ -108,7 +109,7 @@ app.UseAuthorization();
 
 app.UseEndpoints(endpoints =>
 {
-    //endpoints.MapHub<ChatHub>("/chatHub");
+    endpoints.MapHub<ChatHub>("/chatHub");
 
     endpoints.MapPost("/api/users/signup", async (IUserService service, [FromBody] UserModel user) =>
     {
@@ -128,9 +129,13 @@ app.UseEndpoints(endpoints =>
         return Results.Ok(response);
     });
 
-    endpoints.MapPost("/api/messages", [Authorize] async (IMessageService service, [FromBody] MessageModel message) =>
+    endpoints.MapPost("/api/messages/broadcast", [Authorize] async (IMessageService service, [FromBody] MessageModel message) =>
     {
         var response = await service.CreateMessage(message);
+        if (!response)
+        {
+            return Results.BadRequest("failed to create a message");
+        }
         return Results.Ok(response);
     });
 

@@ -1,4 +1,5 @@
 import React, { useCallback, useEffect, useState } from "react"
+import useWebSocket from "../hooks/useWebSocket"
 import axios from "axios"
 import { endpoints } from "./Endpoints"
 import { useAuth } from "./AuthProvider"
@@ -8,10 +9,10 @@ function Chatroom() {
   const { logOut, user } = useAuth()
   const [usernames, setUsernames] = useState([])
   const [messages, setMessages] = useState([])
-
   const [messageInput, setMessageInput] = useState({
     message: "",
   })
+  const hubConnection = useWebSocket()
 
   function handleChange(e) {
     const { name, value } = e.target
@@ -21,6 +22,7 @@ function Chatroom() {
     }))
   }
 
+  //create useAxios custom hook to make API call
   const getUsers = useCallback(async () => {
     try {
       const res = await axios.get(endpoints.BASE_URI + `users`, {
@@ -32,6 +34,7 @@ function Chatroom() {
     }
   }, [user.token])
 
+  //create useAxios custom hook to make API call
   const getMessages = useCallback(async () => {
     try {
       const res = await axios.get(endpoints.BASE_URI + `messages`, {
@@ -50,11 +53,33 @@ function Chatroom() {
     }
   }, [user.token, getMessages, getUsers, logOut])
 
-  async function handleSendMessage(e) {
-    e.preventDefault()
+  //propagate message to all clients via signalR websocket connection
+  const broadcastMessage = async (event) => {
+    event.preventDefault()
+    const { userId } = user
+    const { message } = messageInput
+    try {
+      if (hubConnection) {
+        await hubConnection.invoke(
+          "SendMessage",
+          // user.userId,
+          // messageInput.message
+          userId,
+          message
+        )
+      }
+      await handleSendMessage(event)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  //this is what gets wired up to signalR chatHub
+  const handleSendMessage = async (event) => {
+    event.preventDefault()
     try {
       await axios.post(
-        endpoints.BASE_URI + `messages`,
+        endpoints.BASE_URI + `messages/broadcast`,
         {
           Text: messageInput.message,
           UserId: user.userId,
@@ -63,7 +88,7 @@ function Chatroom() {
           headers: { Authorization: `Bearer ${user.token}` },
         }
       )
-      getMessages()
+      //getMessages()
     } catch (error) {
       console.log(error)
     } finally {
@@ -82,21 +107,12 @@ function Chatroom() {
     )
   })
 
-  // const renderActiveUsers = user
-  //   .filter((usr) => usr.userId)
-  //   .map((usr) => {
-  //     return <li key={usr.userId}>{usr.username}</li>
-  //   })
-
-  // console.log("active users:", renderActiveUsers)
-
   return (
     <>
       <button className="logout--button" onClick={() => logOut()}>
         Logout
       </button>
       <div className="chatroomPage--container">
-        {/* pass in user and message to web socket component below as props */}
         <span className="active--users">
           <h2>Active Now</h2>
           {/* <ul>{renderActiveUsers}</ul> */}
@@ -104,7 +120,7 @@ function Chatroom() {
         <span className="chatroom">
           <ul className="message--container">{renderChatroom}</ul>
         </span>
-        <form className="input--container" onSubmit={handleSendMessage}>
+        <form className="input--container" onSubmit={broadcastMessage}>
           <input
             type="text"
             placeholder="...enter message here"
