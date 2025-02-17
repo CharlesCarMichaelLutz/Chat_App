@@ -35,7 +35,7 @@ function AuthProvider({ children }) {
         return accountStatus
       }
       setUser(res.data.value)
-      //alert("logged in success!")
+      alert("logged in success!")
       navigate("/chatroom")
       return
     } catch (error) {

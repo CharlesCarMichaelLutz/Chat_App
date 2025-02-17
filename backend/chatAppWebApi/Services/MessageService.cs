@@ -8,7 +8,6 @@ namespace chatAppWebApi.Services
     public interface IMessageService
     {
         Task<bool> CreateMessage(MessageModel message);
-
         Task<IEnumerable<MessageModel>> GetAllMessages();
         Task<MessageModel?> GetMessage(int id);
     }
@@ -25,11 +24,13 @@ namespace chatAppWebApi.Services
         {
             try
             {
+                //this is not firing currently
                 var saved = await _messageRepository.CreateMessageAsync(message);
-                if(!saved)
+                if (!saved)
                 {
                     return false;
                 }
+
                 await _hubContext.Clients.All.SendAsync("ReceiveMessage", message.UserId, message.Text);
                 return true;
 
@@ -39,7 +40,6 @@ namespace chatAppWebApi.Services
                 Console.WriteLine(ex.Message);
                 return false;
             }
-
         }
         public async Task<IEnumerable<MessageModel>> GetAllMessages()
         {

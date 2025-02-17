@@ -22,7 +22,6 @@ function Chatroom() {
     }))
   }
 
-  //create useAxios custom hook to make API call
   const getUsers = useCallback(async () => {
     try {
       const res = await axios.get(endpoints.BASE_URI + `users`, {
@@ -34,7 +33,6 @@ function Chatroom() {
     }
   }, [user.token])
 
-  //create useAxios custom hook to make API call
   const getMessages = useCallback(async () => {
     try {
       const res = await axios.get(endpoints.BASE_URI + `messages`, {
@@ -53,31 +51,10 @@ function Chatroom() {
     }
   }, [user.token, getMessages, getUsers, logOut])
 
-  //propagate message to all clients via signalR websocket connection
-  const broadcastMessage = async (event) => {
-    event.preventDefault()
-    const { userId } = user
-    const { message } = messageInput
+  const broadcastMessage = async (e) => {
+    e.preventDefault()
     try {
-      if (hubConnection) {
-        await hubConnection.invoke(
-          "SendMessage",
-          // user.userId,
-          // messageInput.message
-          userId,
-          message
-        )
-      }
-      await handleSendMessage(event)
-    } catch (error) {
-      console.log(error)
-    }
-  }
-
-  //this is what gets wired up to signalR chatHub
-  const handleSendMessage = async (event) => {
-    event.preventDefault()
-    try {
+      //request sends to server successfully
       await axios.post(
         endpoints.BASE_URI + `messages/broadcast`,
         {
@@ -88,7 +65,15 @@ function Chatroom() {
           headers: { Authorization: `Bearer ${user.token}` },
         }
       )
-      //getMessages()
+      //this is not firing
+      if (hubConnection) {
+        await hubConnection.invoke(
+          "SendMessage",
+          user.userId,
+          messageInput.message
+        )
+        console.log("Sending to server:", user.userId, messageInput.message)
+      }
     } catch (error) {
       console.log(error)
     } finally {
@@ -109,6 +94,7 @@ function Chatroom() {
 
   return (
     <>
+      {/* <useWebSocket setMessages={setMessages} /> */}
       <button className="logout--button" onClick={() => logOut()}>
         Logout
       </button>
