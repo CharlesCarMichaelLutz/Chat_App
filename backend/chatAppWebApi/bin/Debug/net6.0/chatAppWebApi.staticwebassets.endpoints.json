@@ -1,157 +1,19 @@
 {
   "Version": 1,
-  "Hash": "l2/t782uLebB5vS3NxkayeQzKM2M8lJAzB7t8YpLEq8=",
-  "Source": "chatAppWebApi",
-  "BasePath": "_content/chatAppWebApi",
-  "Mode": "Default",
   "ManifestType": "Build",
-  "ReferencedProjectsConfiguration": [],
-  "DiscoveryPatterns": [
-    {
-      "Name": "chatAppWebApi\\wwwroot",
-      "Source": "chatAppWebApi",
-      "ContentRoot": "C:\\Users\\Charlie\\Desktop\\Chat_App\\Chat_App\\backend\\chatAppWebApi\\wwwroot\\",
-      "BasePath": "_content/chatAppWebApi",
-      "Pattern": "**"
-    }
-  ],
-  "Assets": [
-    {
-      "Identity": "C:\\Users\\Charlie\\Desktop\\Chat_App\\Chat_App\\backend\\chatAppWebApi\\wwwroot\\build\\static\\css\\main.9e7325c2.css",
-      "SourceId": "chatAppWebApi",
-      "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Charlie\\Desktop\\Chat_App\\Chat_App\\backend\\chatAppWebApi\\wwwroot\\",
-      "BasePath": "_content/chatAppWebApi",
-      "RelativePath": "build/static/css/main.9e7325c2#[.{fingerprint}]?.css",
-      "AssetKind": "All",
-      "AssetMode": "All",
-      "AssetRole": "Primary",
-      "AssetMergeBehavior": "",
-      "AssetMergeSource": "",
-      "RelatedAsset": "",
-      "AssetTraitName": "",
-      "AssetTraitValue": "",
-      "Fingerprint": "9yzzalzq6y",
-      "Integrity": "P/E2HNyL5MvE106PY7+PYGsYiaZiuEcS7cPoF++DbeQ=",
-      "CopyToOutputDirectory": "PreserveNewest",
-      "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\build\\static\\css\\main.9e7325c2.css"
-    },
-    {
-      "Identity": "C:\\Users\\Charlie\\Desktop\\Chat_App\\Chat_App\\backend\\chatAppWebApi\\wwwroot\\build\\static\\js\\787.83093967.chunk.js",
-      "SourceId": "chatAppWebApi",
-      "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Charlie\\Desktop\\Chat_App\\Chat_App\\backend\\chatAppWebApi\\wwwroot\\",
-      "BasePath": "_content/chatAppWebApi",
-      "RelativePath": "build/static/js/787.83093967.chunk#[.{fingerprint}]?.js",
-      "AssetKind": "All",
-      "AssetMode": "All",
-      "AssetRole": "Primary",
-      "AssetMergeBehavior": "",
-      "AssetMergeSource": "",
-      "RelatedAsset": "",
-      "AssetTraitName": "",
-      "AssetTraitValue": "",
-      "Fingerprint": "2qaqx9faxm",
-      "Integrity": "NlK2QDOt9lTUQxHyoYkk/BvjcQ28PgVr7RUIjQH0Txc=",
-      "CopyToOutputDirectory": "PreserveNewest",
-      "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\build\\static\\js\\787.83093967.chunk.js"
-    },
-    {
-      "Identity": "C:\\Users\\Charlie\\Desktop\\Chat_App\\Chat_App\\backend\\chatAppWebApi\\wwwroot\\build\\static\\js\\main.7a08fe1e.js",
-      "SourceId": "chatAppWebApi",
-      "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Charlie\\Desktop\\Chat_App\\Chat_App\\backend\\chatAppWebApi\\wwwroot\\",
-      "BasePath": "_content/chatAppWebApi",
-      "RelativePath": "build/static/js/main.7a08fe1e#[.{fingerprint}]?.js",
-      "AssetKind": "All",
-      "AssetMode": "All",
-      "AssetRole": "Primary",
-      "AssetMergeBehavior": "",
-      "AssetMergeSource": "",
-      "RelatedAsset": "",
-      "AssetTraitName": "",
-      "AssetTraitValue": "",
-      "Fingerprint": "eyjz7821zp",
-      "Integrity": "xjYlwUAg+jZ0ieLQO9qpb9M7dpEGOm/u0umSs5502Vg=",
-      "CopyToOutputDirectory": "PreserveNewest",
-      "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\build\\static\\js\\main.7a08fe1e.js"
-    },
-    {
-      "Identity": "C:\\Users\\Charlie\\Desktop\\Chat_App\\Chat_App\\backend\\chatAppWebApi\\wwwroot\\index.html",
-      "SourceId": "chatAppWebApi",
-      "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Charlie\\Desktop\\Chat_App\\Chat_App\\backend\\chatAppWebApi\\wwwroot\\",
-      "BasePath": "_content/chatAppWebApi",
-      "RelativePath": "index#[.{fingerprint}]?.html",
-      "AssetKind": "All",
-      "AssetMode": "All",
-      "AssetRole": "Primary",
-      "AssetMergeBehavior": "",
-      "AssetMergeSource": "",
-      "RelatedAsset": "",
-      "AssetTraitName": "",
-      "AssetTraitValue": "",
-      "Fingerprint": "wrbwooerg6",
-      "Integrity": "nBv59BKKxegogAHvq2YJGIhNMaVvZvmqVMgKXGqyOQ4=",
-      "CopyToOutputDirectory": "PreserveNewest",
-      "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\index.html"
-    },
-    {
-      "Identity": "C:\\Users\\Charlie\\Desktop\\Chat_App\\Chat_App\\backend\\chatAppWebApi\\wwwroot\\js\\signalr\\dist\\browser\\signalr.js",
-      "SourceId": "chatAppWebApi",
-      "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Charlie\\Desktop\\Chat_App\\Chat_App\\backend\\chatAppWebApi\\wwwroot\\",
-      "BasePath": "_content/chatAppWebApi",
-      "RelativePath": "js/signalr/dist/browser/signalr#[.{fingerprint}]?.js",
-      "AssetKind": "All",
-      "AssetMode": "All",
-      "AssetRole": "Primary",
-      "AssetMergeBehavior": "",
-      "AssetMergeSource": "",
-      "RelatedAsset": "",
-      "AssetTraitName": "",
-      "AssetTraitValue": "",
-      "Fingerprint": "5zbeu3qnbd",
-      "Integrity": "IV5JB7N8lMM9vTWpXbhXbKEYQ0TsMHFl/E3WSsshcwE=",
-      "CopyToOutputDirectory": "PreserveNewest",
-      "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\js\\signalr\\dist\\browser\\signalr.js"
-    },
-    {
-      "Identity": "C:\\Users\\Charlie\\Desktop\\Chat_App\\Chat_App\\backend\\chatAppWebApi\\wwwroot\\js\\signalr\\dist\\browser\\signalr.min.js",
-      "SourceId": "chatAppWebApi",
-      "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Charlie\\Desktop\\Chat_App\\Chat_App\\backend\\chatAppWebApi\\wwwroot\\",
-      "BasePath": "_content/chatAppWebApi",
-      "RelativePath": "js/signalr/dist/browser/signalr.min#[.{fingerprint}]?.js",
-      "AssetKind": "All",
-      "AssetMode": "All",
-      "AssetRole": "Primary",
-      "AssetMergeBehavior": "",
-      "AssetMergeSource": "",
-      "RelatedAsset": "",
-      "AssetTraitName": "",
-      "AssetTraitValue": "",
-      "Fingerprint": "ap8wluut4l",
-      "Integrity": "DoGpE3SGJRRoD9CaiWtkCe/As6OKWk+NthTWY2XnNbs=",
-      "CopyToOutputDirectory": "PreserveNewest",
-      "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\js\\signalr\\dist\\browser\\signalr.min.js"
-    }
-  ],
   "Endpoints": [
     {
       "Route": "build/static/css/main.9e7325c2.9yzzalzq6y.css",
-      "AssetFile": "C:\\Users\\Charlie\\Desktop\\Chat_App\\Chat_App\\backend\\chatAppWebApi\\wwwroot\\build\\static\\css\\main.9e7325c2.css",
+      "AssetFile": "build/static/css/main.9e7325c2.css",
       "Selectors": [],
       "ResponseHeaders": [
         {
           "Name": "Accept-Ranges",
           "Value": "bytes"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
         },
         {
           "Name": "Content-Length",
@@ -168,10 +30,6 @@
         {
           "Name": "Last-Modified",
           "Value": "Mon, 01 Jul 2024 09:05:42 GMT"
-        },
-        {
-          "Name": "Cache-Control",
-          "Value": "max-age=31536000, immutable"
         }
       ],
       "EndpointProperties": [
@@ -180,23 +38,27 @@
           "Value": "9yzzalzq6y"
         },
         {
-          "Name": "label",
-          "Value": "build/static/css/main.9e7325c2.css"
-        },
-        {
           "Name": "integrity",
           "Value": "sha256-P/E2HNyL5MvE106PY7+PYGsYiaZiuEcS7cPoF++DbeQ="
+        },
+        {
+          "Name": "label",
+          "Value": "build/static/css/main.9e7325c2.css"
         }
       ]
     },
     {
       "Route": "build/static/css/main.9e7325c2.css",
-      "AssetFile": "C:\\Users\\Charlie\\Desktop\\Chat_App\\Chat_App\\backend\\chatAppWebApi\\wwwroot\\build\\static\\css\\main.9e7325c2.css",
+      "AssetFile": "build/static/css/main.9e7325c2.css",
       "Selectors": [],
       "ResponseHeaders": [
         {
           "Name": "Accept-Ranges",
           "Value": "bytes"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
         },
         {
           "Name": "Content-Length",
@@ -213,10 +75,6 @@
         {
           "Name": "Last-Modified",
           "Value": "Mon, 01 Jul 2024 09:05:42 GMT"
-        },
-        {
-          "Name": "Cache-Control",
-          "Value": "no-cache"
         }
       ],
       "EndpointProperties": [
@@ -228,12 +86,16 @@
     },
     {
       "Route": "build/static/js/787.83093967.chunk.2qaqx9faxm.js",
-      "AssetFile": "C:\\Users\\Charlie\\Desktop\\Chat_App\\Chat_App\\backend\\chatAppWebApi\\wwwroot\\build\\static\\js\\787.83093967.chunk.js",
+      "AssetFile": "build/static/js/787.83093967.chunk.js",
       "Selectors": [],
       "ResponseHeaders": [
         {
           "Name": "Accept-Ranges",
           "Value": "bytes"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
         },
         {
           "Name": "Content-Length",
@@ -250,10 +112,6 @@
         {
           "Name": "Last-Modified",
           "Value": "Thu, 06 Jun 2024 11:08:37 GMT"
-        },
-        {
-          "Name": "Cache-Control",
-          "Value": "max-age=31536000, immutable"
         }
       ],
       "EndpointProperties": [
@@ -262,23 +120,27 @@
           "Value": "2qaqx9faxm"
         },
         {
-          "Name": "label",
-          "Value": "build/static/js/787.83093967.chunk.js"
-        },
-        {
           "Name": "integrity",
           "Value": "sha256-NlK2QDOt9lTUQxHyoYkk/BvjcQ28PgVr7RUIjQH0Txc="
+        },
+        {
+          "Name": "label",
+          "Value": "build/static/js/787.83093967.chunk.js"
         }
       ]
     },
     {
       "Route": "build/static/js/787.83093967.chunk.js",
-      "AssetFile": "C:\\Users\\Charlie\\Desktop\\Chat_App\\Chat_App\\backend\\chatAppWebApi\\wwwroot\\build\\static\\js\\787.83093967.chunk.js",
+      "AssetFile": "build/static/js/787.83093967.chunk.js",
       "Selectors": [],
       "ResponseHeaders": [
         {
           "Name": "Accept-Ranges",
           "Value": "bytes"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
         },
         {
           "Name": "Content-Length",
@@ -295,10 +157,6 @@
         {
           "Name": "Last-Modified",
           "Value": "Thu, 06 Jun 2024 11:08:37 GMT"
-        },
-        {
-          "Name": "Cache-Control",
-          "Value": "no-cache"
         }
       ],
       "EndpointProperties": [
@@ -310,12 +168,16 @@
     },
     {
       "Route": "build/static/js/main.7a08fe1e.eyjz7821zp.js",
-      "AssetFile": "C:\\Users\\Charlie\\Desktop\\Chat_App\\Chat_App\\backend\\chatAppWebApi\\wwwroot\\build\\static\\js\\main.7a08fe1e.js",
+      "AssetFile": "build/static/js/main.7a08fe1e.js",
       "Selectors": [],
       "ResponseHeaders": [
         {
           "Name": "Accept-Ranges",
           "Value": "bytes"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
         },
         {
           "Name": "Content-Length",
@@ -332,10 +194,6 @@
         {
           "Name": "Last-Modified",
           "Value": "Mon, 01 Jul 2024 09:19:00 GMT"
-        },
-        {
-          "Name": "Cache-Control",
-          "Value": "max-age=31536000, immutable"
         }
       ],
       "EndpointProperties": [
@@ -344,23 +202,27 @@
           "Value": "eyjz7821zp"
         },
         {
-          "Name": "label",
-          "Value": "build/static/js/main.7a08fe1e.js"
-        },
-        {
           "Name": "integrity",
           "Value": "sha256-xjYlwUAg+jZ0ieLQO9qpb9M7dpEGOm/u0umSs5502Vg="
+        },
+        {
+          "Name": "label",
+          "Value": "build/static/js/main.7a08fe1e.js"
         }
       ]
     },
     {
       "Route": "build/static/js/main.7a08fe1e.js",
-      "AssetFile": "C:\\Users\\Charlie\\Desktop\\Chat_App\\Chat_App\\backend\\chatAppWebApi\\wwwroot\\build\\static\\js\\main.7a08fe1e.js",
+      "AssetFile": "build/static/js/main.7a08fe1e.js",
       "Selectors": [],
       "ResponseHeaders": [
         {
           "Name": "Accept-Ranges",
           "Value": "bytes"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
         },
         {
           "Name": "Content-Length",
@@ -377,10 +239,6 @@
         {
           "Name": "Last-Modified",
           "Value": "Mon, 01 Jul 2024 09:19:00 GMT"
-        },
-        {
-          "Name": "Cache-Control",
-          "Value": "no-cache"
         }
       ],
       "EndpointProperties": [
@@ -392,12 +250,16 @@
     },
     {
       "Route": "index.html",
-      "AssetFile": "C:\\Users\\Charlie\\Desktop\\Chat_App\\Chat_App\\backend\\chatAppWebApi\\wwwroot\\index.html",
+      "AssetFile": "index.html",
       "Selectors": [],
       "ResponseHeaders": [
         {
           "Name": "Accept-Ranges",
           "Value": "bytes"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
         },
         {
           "Name": "Content-Length",
@@ -414,10 +276,6 @@
         {
           "Name": "Last-Modified",
           "Value": "Mon, 01 Jul 2024 09:16:58 GMT"
-        },
-        {
-          "Name": "Cache-Control",
-          "Value": "no-cache"
         }
       ],
       "EndpointProperties": [
@@ -429,12 +287,16 @@
     },
     {
       "Route": "index.wrbwooerg6.html",
-      "AssetFile": "C:\\Users\\Charlie\\Desktop\\Chat_App\\Chat_App\\backend\\chatAppWebApi\\wwwroot\\index.html",
+      "AssetFile": "index.html",
       "Selectors": [],
       "ResponseHeaders": [
         {
           "Name": "Accept-Ranges",
           "Value": "bytes"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
         },
         {
           "Name": "Content-Length",
@@ -451,10 +313,6 @@
         {
           "Name": "Last-Modified",
           "Value": "Mon, 01 Jul 2024 09:16:58 GMT"
-        },
-        {
-          "Name": "Cache-Control",
-          "Value": "max-age=31536000, immutable"
         }
       ],
       "EndpointProperties": [
@@ -463,23 +321,27 @@
           "Value": "wrbwooerg6"
         },
         {
-          "Name": "label",
-          "Value": "index.html"
-        },
-        {
           "Name": "integrity",
           "Value": "sha256-nBv59BKKxegogAHvq2YJGIhNMaVvZvmqVMgKXGqyOQ4="
+        },
+        {
+          "Name": "label",
+          "Value": "index.html"
         }
       ]
     },
     {
       "Route": "js/signalr/dist/browser/signalr.5zbeu3qnbd.js",
-      "AssetFile": "C:\\Users\\Charlie\\Desktop\\Chat_App\\Chat_App\\backend\\chatAppWebApi\\wwwroot\\js\\signalr\\dist\\browser\\signalr.js",
+      "AssetFile": "js/signalr/dist/browser/signalr.js",
       "Selectors": [],
       "ResponseHeaders": [
         {
           "Name": "Accept-Ranges",
           "Value": "bytes"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
         },
         {
           "Name": "Content-Length",
@@ -496,10 +358,6 @@
         {
           "Name": "Last-Modified",
           "Value": "Wed, 05 Jun 2024 09:46:23 GMT"
-        },
-        {
-          "Name": "Cache-Control",
-          "Value": "max-age=31536000, immutable"
         }
       ],
       "EndpointProperties": [
@@ -508,23 +366,27 @@
           "Value": "5zbeu3qnbd"
         },
         {
-          "Name": "label",
-          "Value": "js/signalr/dist/browser/signalr.js"
-        },
-        {
           "Name": "integrity",
           "Value": "sha256-IV5JB7N8lMM9vTWpXbhXbKEYQ0TsMHFl/E3WSsshcwE="
+        },
+        {
+          "Name": "label",
+          "Value": "js/signalr/dist/browser/signalr.js"
         }
       ]
     },
     {
       "Route": "js/signalr/dist/browser/signalr.js",
-      "AssetFile": "C:\\Users\\Charlie\\Desktop\\Chat_App\\Chat_App\\backend\\chatAppWebApi\\wwwroot\\js\\signalr\\dist\\browser\\signalr.js",
+      "AssetFile": "js/signalr/dist/browser/signalr.js",
       "Selectors": [],
       "ResponseHeaders": [
         {
           "Name": "Accept-Ranges",
           "Value": "bytes"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
         },
         {
           "Name": "Content-Length",
@@ -541,10 +403,6 @@
         {
           "Name": "Last-Modified",
           "Value": "Wed, 05 Jun 2024 09:46:23 GMT"
-        },
-        {
-          "Name": "Cache-Control",
-          "Value": "no-cache"
         }
       ],
       "EndpointProperties": [
@@ -556,12 +414,16 @@
     },
     {
       "Route": "js/signalr/dist/browser/signalr.min.ap8wluut4l.js",
-      "AssetFile": "C:\\Users\\Charlie\\Desktop\\Chat_App\\Chat_App\\backend\\chatAppWebApi\\wwwroot\\js\\signalr\\dist\\browser\\signalr.min.js",
+      "AssetFile": "js/signalr/dist/browser/signalr.min.js",
       "Selectors": [],
       "ResponseHeaders": [
         {
           "Name": "Accept-Ranges",
           "Value": "bytes"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
         },
         {
           "Name": "Content-Length",
@@ -578,10 +440,6 @@
         {
           "Name": "Last-Modified",
           "Value": "Wed, 05 Jun 2024 09:46:23 GMT"
-        },
-        {
-          "Name": "Cache-Control",
-          "Value": "max-age=31536000, immutable"
         }
       ],
       "EndpointProperties": [
@@ -590,23 +448,27 @@
           "Value": "ap8wluut4l"
         },
         {
-          "Name": "label",
-          "Value": "js/signalr/dist/browser/signalr.min.js"
-        },
-        {
           "Name": "integrity",
           "Value": "sha256-DoGpE3SGJRRoD9CaiWtkCe/As6OKWk+NthTWY2XnNbs="
+        },
+        {
+          "Name": "label",
+          "Value": "js/signalr/dist/browser/signalr.min.js"
         }
       ]
     },
     {
       "Route": "js/signalr/dist/browser/signalr.min.js",
-      "AssetFile": "C:\\Users\\Charlie\\Desktop\\Chat_App\\Chat_App\\backend\\chatAppWebApi\\wwwroot\\js\\signalr\\dist\\browser\\signalr.min.js",
+      "AssetFile": "js/signalr/dist/browser/signalr.min.js",
       "Selectors": [],
       "ResponseHeaders": [
         {
           "Name": "Accept-Ranges",
           "Value": "bytes"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
         },
         {
           "Name": "Content-Length",
@@ -623,10 +485,6 @@
         {
           "Name": "Last-Modified",
           "Value": "Wed, 05 Jun 2024 09:46:23 GMT"
-        },
-        {
-          "Name": "Cache-Control",
-          "Value": "no-cache"
         }
       ],
       "EndpointProperties": [

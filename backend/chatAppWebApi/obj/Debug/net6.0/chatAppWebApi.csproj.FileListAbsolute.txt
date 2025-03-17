@@ -141,3 +141,7 @@ C:\Users\Charlie\Desktop\Chat_App\Chat_App\backend\chatAppWebApi\obj\Debug\net6.
 C:\Users\Charlie\Desktop\Chat_App\Chat_App\backend\chatAppWebApi\obj\Debug\net6.0\ref\chatAppWebApi.dll
 C:\Users\Charlie\Desktop\Chat_App\Chat_App\backend\chatAppWebApi\bin\Debug\net6.0\wwwroot\build\static\css\main.9e7325c2.css
 C:\Users\Charlie\Desktop\Chat_App\Chat_App\backend\chatAppWebApi\bin\Debug\net6.0\wwwroot\build\static\js\main.7a08fe1e.js
+C:\Users\Charlie\Desktop\Chat_App\Chat_App\backend\chatAppWebApi\bin\Debug\net6.0\chatAppWebApi.staticwebassets.endpoints.json
+C:\Users\Charlie\Desktop\Chat_App\Chat_App\backend\chatAppWebApi\obj\Debug\net6.0\staticwebassets.build.endpoints.json
+C:\Users\Charlie\Desktop\Chat_App\Chat_App\backend\chatAppWebApi\obj\Debug\net6.0\staticwebassets\msbuild.chatAppWebApi.Microsoft.AspNetCore.StaticWebAssetEndpoints.props
+C:\Users\Charlie\Desktop\Chat_App\Chat_App\backend\chatAppWebApi\obj\Debug\net6.0\staticwebassets.upToDateCheck.txt

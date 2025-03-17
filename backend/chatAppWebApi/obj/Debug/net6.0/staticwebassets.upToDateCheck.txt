@@ -1,0 +1,6 @@
+wwwroot\build\static\css\main.9e7325c2.css
+wwwroot\build\static\js\787.83093967.chunk.js
+wwwroot\build\static\js\main.7a08fe1e.js
+wwwroot\index.html
+wwwroot\js\signalr\dist\browser\signalr.js
+wwwroot\js\signalr\dist\browser\signalr.min.js
