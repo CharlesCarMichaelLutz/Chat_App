@@ -24,7 +24,6 @@ namespace chatAppWebApi.Services
         {
             try
             {
-                //this is not firing currently
                 var saved = await _messageRepository.CreateMessageAsync(message);
                 if (!saved)
                 {
