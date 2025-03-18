@@ -1,7 +1,6 @@
 import { useState, useContext, createContext } from "react"
 import axios from "axios"
 import { endpoints } from "./Endpoints"
-//import { baseApi } from "../api/base"
 import { useNavigate } from "react-router-dom"
 import { useLocalStorage } from "../hooks/useLocalStorage"
 
@@ -22,7 +21,6 @@ function AuthProvider({ children }) {
     const { username, password } = data
     const path = isSignUp ? `users/signup` : `users/login`
     const url = endpoints.BASE_URI + path
-    //const url = baseApi + path
 
     try {
       const res = await axios.post(url, {

@@ -9,7 +9,6 @@ function Chatroom() {
   const { logOut, user } = useAuth()
   const [usernames, setUsernames] = useState([])
   const [messages, setMessages] = useState([])
-  console.log("messages:", messages)
   const [messageInput, setMessageInput] = useState({
     message: "",
   })
@@ -29,11 +28,10 @@ function Chatroom() {
         headers: { Authorization: `Bearer ${user.token}` },
       })
       setUsernames(res.data)
-      console.log("2", usernames)
     } catch (error) {
       console.log(error)
     }
-  }, [user.token])
+  }, [user.token, usernames])
 
   const getMessages = useCallback(async () => {
     try {
@@ -41,7 +39,6 @@ function Chatroom() {
         headers: { Authorization: `Bearer ${user.token}` },
       })
       setMessages(res.data)
-      console.log("3", messages)
     } catch (error) {
       console.log(error)
     }
@@ -52,14 +49,11 @@ function Chatroom() {
       getMessages()
       getUsers()
     }
-  }, [user.token, logOut])
-
-  //}, [user.token, getMessages, getUsers, logOut])
+  }, [user.token, getUsers, logOut])
 
   const broadcastMessage = async (e) => {
     e.preventDefault()
     try {
-      //request sends to server successfully
       await axios.post(
         endpoints.BASE_URI + `messages/broadcast`,
         {
@@ -70,15 +64,12 @@ function Chatroom() {
           headers: { Authorization: `Bearer ${user.token}` },
         }
       )
-      //firing as expected
       if (hubConnection) {
         await hubConnection.invoke(
           "SendMessage",
-          //user.userId.toString(),
           user.userId,
           messageInput.message
         )
-        console.log("Sending to server:", user.userId, messageInput.message)
       }
     } catch (error) {
       console.log(error)
@@ -87,13 +78,11 @@ function Chatroom() {
     }
   }
 
-  //5 render messages
   const renderChatroom = messages.map((message) => {
-    const findUserById = usernames.find((user) => user.id === message.userId)
-    const username = findUserById ? findUserById.username : "Guest"
+    const findUser = usernames.find((user) => user.id === message.userId)
     return (
       <li className="create--message" key={message.id}>
-        <span className="username">{username}</span>
+        <span className="username">{findUser.username}</span>
         <span className="content">{message.text}</span>
       </li>
     )
@@ -101,7 +90,6 @@ function Chatroom() {
 
   return (
     <>
-      {/* <useWebSocket setMessages={setMessages} /> */}
       <button className="logout--button" onClick={() => logOut()}>
         Logout
       </button>

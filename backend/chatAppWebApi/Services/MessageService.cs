@@ -9,7 +9,7 @@ namespace chatAppWebApi.Services
     {
         Task<bool> CreateMessage(MessageModel message);
         Task<IEnumerable<MessageModel>> GetAllMessages();
-        Task<MessageModel?> GetMessage(int id);
+        //Task<MessageModel> GetMessage(int id);
     }
     public class MessageService : IMessageService
     {
@@ -29,8 +29,8 @@ namespace chatAppWebApi.Services
                 {
                     return false;
                 }
-
                 await _hubContext.Clients.All.SendAsync("ReceiveMessage", message.UserId, message.Text);
+
                 return true;
 
             }
@@ -45,9 +45,27 @@ namespace chatAppWebApi.Services
             return await _messageRepository.GetAllMessagesAsync();
         }
 
-        public async Task<MessageModel?> GetMessage(int id)
-        {
-            return await _messageRepository.GetMessageAsync(id);
-        }
+        //public async Task<MessageModel> GetMessage(int id)
+        //{
+
+
+        //    try
+        //    {
+        //        var success = await _messageRepository.GetMessageAsync(id);
+        //        if (!success) {
+        //            return false; 
+        //        }
+        //        await _hubContext.Clients.All.SendAsync("ReceiveMessage", id.UserId, id.Text);
+        //        return true;
+
+
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        Console.WriteLine(ex.Message);
+        //        return false;
+        //    }
+
+        //}
     }
 }
