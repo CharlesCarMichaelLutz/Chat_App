@@ -10,6 +10,8 @@ const USER = "USER"
 
 function AuthProvider({ children }) {
   const [user, setUser] = useLocalStorage(USER, "")
+  //const [activeUserList, setActiveUserList] = useState([])
+  //console.log("users:", activeUserList)
   const [isSignUp, setIsSignup] = useState(false)
   const navigate = useNavigate()
 
@@ -35,6 +37,8 @@ function AuthProvider({ children }) {
         return accountStatus
       }
       setUser(res.data.value)
+      //console.log("response:", res.data.value)
+      //setActiveUserList((users) => [...users, res.data.value])
       alert("logged in success!")
       navigate("/chatroom")
       return
@@ -43,8 +47,9 @@ function AuthProvider({ children }) {
     }
   }
 
-  function logOut() {
+  function logOut(userId) {
     setUser({})
+    //activeUsers.filter(user => user.id === userId)
     localStorage.clear()
     navigate("/")
   }
@@ -53,6 +58,7 @@ function AuthProvider({ children }) {
     <AuthContext.Provider
       value={{
         user,
+        //activeUserList,
         isSignUp,
         toggleSignUp,
         loginAction,

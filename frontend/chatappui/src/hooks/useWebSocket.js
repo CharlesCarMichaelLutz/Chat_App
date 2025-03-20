@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"
 import { HubConnectionBuilder } from "@microsoft/signalr"
 import { endpoints } from "../components/Endpoints"
 
-const useWebSocket = (setMessages) => {
+const useWebSocket = (setMessageList) => {
   const [hubConnection, setHubConnection] = useState(null)
 
   useEffect(() => {
@@ -16,8 +16,8 @@ const useWebSocket = (setMessages) => {
       .start()
       .then(() => {
         connection.on("ReceiveMessage", (userId, text) => {
-          if (setMessages) {
-            setMessages((messagelist) => [...messagelist, { userId, text }])
+          if (setMessageList) {
+            setMessageList((messagelist) => [...messagelist, { userId, text }])
           }
         })
       })
@@ -28,7 +28,7 @@ const useWebSocket = (setMessages) => {
     return () => {
       connection.stop()
     }
-  }, [setMessages])
+  }, [setMessageList])
   return { hubConnection }
 }
 

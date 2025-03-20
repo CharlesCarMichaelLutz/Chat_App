@@ -7,12 +7,13 @@ import "../styling/Chatroom.css"
 
 function Chatroom() {
   const { logOut, user } = useAuth()
-  const [usernames, setUsernames] = useState([])
-  const [messages, setMessages] = useState([])
+  //const { logOut, user, activeUserList } = useAuth()
+  const [usernameList, setUsernameList] = useState([])
+  const [messageList, setMessageList] = useState([])
   const [messageInput, setMessageInput] = useState({
     message: "",
   })
-  const { hubConnection } = useWebSocket(setMessages)
+  const { hubConnection } = useWebSocket(setMessageList)
 
   function handleChange(e) {
     const { name, value } = e.target
@@ -27,18 +28,18 @@ function Chatroom() {
       const res = await axios.get(endpoints.BASE_URI + `users`, {
         headers: { Authorization: `Bearer ${user.token}` },
       })
-      setUsernames(res.data)
+      setUsernameList(res.data)
     } catch (error) {
       console.log(error)
     }
-  }, [user.token, usernames])
+  }, [user.token, usernameList])
 
   const getMessages = useCallback(async () => {
     try {
       const res = await axios.get(endpoints.BASE_URI + `messages`, {
         headers: { Authorization: `Bearer ${user.token}` },
       })
-      setMessages(res.data)
+      setMessageList(res.data)
     } catch (error) {
       console.log(error)
     }
@@ -78,15 +79,19 @@ function Chatroom() {
     }
   }
 
-  const renderChatroom = messages.map((message) => {
-    const findUser = usernames.find((user) => user.id === message.userId)
+  const renderChatroom = messageList.map((message) => {
+    const findUser = usernameList.find((user) => user.id === message.userId)
     return (
       <li className="create--message" key={message.id}>
-        <span className="username">{findUser.username}</span>
+        <span className="username">{findUser && findUser.username}</span>
         <span className="content">{message.text}</span>
       </li>
     )
   })
+
+  // const renderActiveUsers = activeUserList.map((user) => {
+  //   return <li key={user.id}>{user.username}</li>
+  // })
 
   return (
     <>

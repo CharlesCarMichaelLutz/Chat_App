@@ -1,64 +1,17 @@
-import { useState } from "react"
 import { useAuth } from "./AuthProvider"
-//import rabbit from ""
+import { useLoginForm } from "../hooks/useLoginForm"
 
-function LoginForm() {
-  const { isSignUp, toggleSignUp, loginAction } = useAuth()
-
-  const [credentials, setCredentials] = useState({
-    username: "",
-    password: "",
-  })
-
-  function handleChange(e) {
-    const { name, value } = e.target
-    setCredentials((prev) => ({
-      ...prev,
-      [name]: value,
-    }))
-  }
-
-  function clearInput() {
-    setCredentials({ username: "", password: "" })
-  }
-
-  function handleSubmit(e) {
-    e.preventDefault()
-    const { username, password } = credentials
-    if (username !== "" && password !== "") {
-      loginAction(credentials)
-      clearInput()
-      return
-    }
-    alert("Username and Password must not be empty")
-  }
-
-  function handleSubmitGuest(e) {
-    e.preventDefault()
-    const guestCredentials = {
-      username: process.env.REACT_APP_GUEST_USER,
-      password: process.env.REACT_APP_GUEST_PASSWORD,
-    }
-    console.log(guestCredentials)
-    loginAction(guestCredentials)
-  }
-
+export function LoginForm() {
+  const { isSignUp, toggleSignUp } = useAuth()
+  const { credentials, handleChange, handleSubmit } = useLoginForm()
   return (
-    <div className="login--form">
-      <header className="Home--header">
-        {/* <img src={rabbit} alt={"rabbit image"} className="Home--logo" /> */}
-        <h1 className="Home--title">Rabbit Chat</h1>
-      </header>
-
-      <form onSubmit={handleSubmitGuest}>
-        <h2 htmlFor="guest--button">View as guest</h2>
-        <button className="guest--button">Guest</button>
-      </form>
-
-      <form onSubmit={handleSubmit}>
-        {/* <h2 htmlFor="guest--button">View as guest</h2>
-        <button className="guest--button">Guest</button> */}
-
+    <>
+      <form
+        onSubmit={(e) => {
+          e.preventDefault()
+          handleSubmit()
+        }}
+      >
         <h2>{isSignUp ? `Create account` : `Login`}</h2>
         <label className="label" htmlFor="username">
           Username
@@ -69,6 +22,7 @@ function LoginForm() {
           id="username"
           name="username"
           value={credentials.username}
+          required
           onChange={handleChange}
         />
         <label className="label" htmlFor="password">
@@ -80,6 +34,7 @@ function LoginForm() {
           id="password"
           name="password"
           value={credentials.password}
+          required
           onChange={handleChange}
         />
         <button className="login--button">
@@ -89,8 +44,6 @@ function LoginForm() {
       <button type="button" onClick={toggleSignUp}>
         {isSignUp ? `Switch to Login` : `Switch to Sign Up`}
       </button>
-    </div>
+    </>
   )
 }
-
-export default LoginForm
