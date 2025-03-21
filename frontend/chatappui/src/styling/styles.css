@@ -46,70 +46,107 @@ code {
 .logout-button {
 }
 
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  margin-bottom: 2rem;
+}
+
 /* Login Page */
 
-/* .Home--container {
-  margin: 0 auto;
+.login {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 100vh;
-} */
+  width: 500px;
+  position: relative;
+  margin: auto;
+}
 
-.Home--header {
+.login-header {
   display: flex;
   flex-direction: column;
   align-items: center;
   margin-bottom: 20px;
 }
 
-.Home--logo {
+.login-header-image {
   width: 20%;
   height: 15%;
-  object-fit: contain;
 }
 
-.Home--title {
+.login-title {
   margin-top: 10px;
 }
 
-label {
-  margin-bottom: 10px;
+.login-guest-form {
+  margin: 10px 0;
+  padding: 10px;
+  font-size: 16px;
+  justify-content: center;
+  width: 400 px;
 }
 
-.guest--button,
+.login-form {
+  margin: 10px 0;
+  padding: 10px;
+  font-size: 16px;
+  justify-content: center;
+  width: 400 px;
+}
+
+.guest-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.createaccount-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.login-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* .guest-button,
 .createaccount-button,
-.login--button {
+.login-button {
+  display: flex;
   margin-bottom: 40px;
   padding: 8px 16px;
   text-decoration: none;
   color: white;
   background-color: blue;
   border-radius: 5px;
+  width: 250px;
+  height: 30px;
+  font-size: 16px;
+  justify-content: center;
+  align-items: center;
+} */
+
+label {
+  display: block;
 }
 
-.guest--button:hover,
+input[type="text"],
+input[type="password"] {
+  display: block;
+  margin-top: 5px;
+}
+
+.guest-button:hover,
 .createaccount-button:hover,
-.login--button:hover {
+.login-button:hover {
   background-color: #0056b3;
 }
 
-.login--form {
-  display: flex;
-  flex-direction: column;
-  width: 400px;
-  margin: auto;
-}
-
-.login-form input {
-  margin: 10px 0;
-  padding: 10px;
-  font-size: 16px;
-  justify-content: center;
-}
-
-.guest--button,
+.guest-button,
 .login-form button {
   margin-bottom: 40px;
   padding: 8px 16px;
@@ -117,6 +154,7 @@ label {
   color: white;
   background-color: #007bff;
   border-radius: 5px;
+  width: 250px;
 }
 
 h2 {

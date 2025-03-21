@@ -4,7 +4,7 @@ import { GuestLoginForm } from "../components/GuestLoginForm"
 
 export function Login() {
   return (
-    <div className="login--form">
+    <div className="login">
       <Header />
       <GuestLoginForm />
       <LoginForm />

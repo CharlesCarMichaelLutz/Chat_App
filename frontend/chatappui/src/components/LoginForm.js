@@ -7,6 +7,7 @@ export function LoginForm() {
   return (
     <>
       <form
+        className="login-form"
         onSubmit={(e) => {
           e.preventDefault()
           handleSubmit()
@@ -15,29 +16,31 @@ export function LoginForm() {
         <h2>{isSignUp ? `Create account` : `Login`}</h2>
         <label className="label" htmlFor="username">
           Username
+          <input
+            className="username--input"
+            type="text"
+            id="username"
+            name="username"
+            placeholder="...enter username"
+            value={credentials.username}
+            required
+            onChange={handleChange}
+          />
         </label>
-        <input
-          className="username--input"
-          type="text"
-          id="username"
-          name="username"
-          value={credentials.username}
-          required
-          onChange={handleChange}
-        />
         <label className="label" htmlFor="password">
           Password
+          <input
+            className="password--input"
+            type="password"
+            id="password"
+            name="password"
+            placeholder="...enter password"
+            value={credentials.password}
+            required
+            onChange={handleChange}
+          />
         </label>
-        <input
-          className="password--input"
-          type="password"
-          id="password"
-          name="password"
-          value={credentials.password}
-          required
-          onChange={handleChange}
-        />
-        <button className="login--button">
+        <button className="login-button">
           {isSignUp ? `Sign Up` : `Login`}
         </button>
       </form>

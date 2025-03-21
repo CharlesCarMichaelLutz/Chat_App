@@ -4,9 +4,9 @@ export function GuestLoginForm() {
   const { handleSubmitGuest } = useLoginForm()
   return (
     <>
-      <form onSubmit={handleSubmitGuest}>
-        <h2 htmlFor="guest--button">View as guest</h2>
-        <button className="guest--button">Guest</button>
+      <form className="login-guest-form" onSubmit={handleSubmitGuest}>
+        <h2 htmlFor="guest-button-label">Visit as guest</h2>
+        <button className="guest-button">Guest</button>
       </form>
     </>
   )

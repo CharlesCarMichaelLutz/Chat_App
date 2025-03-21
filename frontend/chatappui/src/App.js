@@ -4,13 +4,13 @@ import { Login } from "./pages/Login"
 import PrivateRoute from "./components/PrivateRoute"
 import Chatroom from "./components/Chatroom"
 import "../src/styling/styles.css"
-import { LoginLayout } from "./layouts/LoginLayout"
+import { Layout } from "./layouts/Layout"
 
 function App() {
   return (
     <Router>
       <AuthProvider>
-        <LoginLayout />
+        <Layout />
         <Routes>
           <Route path="/" element={<Login />} />
           <Route element={<PrivateRoute />}>
