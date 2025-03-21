@@ -3,10 +3,10 @@ import useWebSocket from "../hooks/useWebSocket"
 import axios from "axios"
 import { endpoints } from "./Endpoints"
 import { useAuth } from "./AuthProvider"
-import "../styling/Chatroom.css"
+import "../styling/styles.css"
 
 function Chatroom() {
-  const { logOut, user } = useAuth()
+  const { user } = useAuth()
   //const { logOut, user, activeUserList } = useAuth()
   const [usernameList, setUsernameList] = useState([])
   const [messageList, setMessageList] = useState([])
@@ -50,7 +50,7 @@ function Chatroom() {
       getMessages()
       getUsers()
     }
-  }, [user.token, getUsers, logOut])
+  }, [user.token, getUsers])
 
   const broadcastMessage = async (e) => {
     e.preventDefault()
@@ -95,9 +95,10 @@ function Chatroom() {
 
   return (
     <>
-      <button className="logout--button" onClick={() => logOut()}>
+      {/* <button className="logout--button" onClick={() => logOut()}>
         Logout
-      </button>
+      </button> */}
+
       <div className="chatroomPage--container">
         <span className="active--users">
           <h2>Active Now</h2>

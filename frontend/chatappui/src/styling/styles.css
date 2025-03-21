@@ -1,0 +1,208 @@
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+}
+
+/* Navbar */
+
+.navbar-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+}
+
+.navbar-left {
+  font-size: 1.5em;
+  font-weight: bold;
+  margin-left: 1em;
+}
+
+.navbar-right {
+  display: flex;
+  align-items: center;
+  margin-right: 1em;
+}
+
+.navbar-right button {
+  margin-left: 1em;
+  padding: 0.5em 1em;
+  border: none;
+  border-radius: 0.5em;
+  background-color: #444;
+  color: #fff;
+  cursor: pointer;
+}
+
+.logout-button {
+}
+
+/* Login Page */
+
+/* .Home--container {
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+} */
+
+.Home--header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.Home--logo {
+  width: 20%;
+  height: 15%;
+  object-fit: contain;
+}
+
+.Home--title {
+  margin-top: 10px;
+}
+
+label {
+  margin-bottom: 10px;
+}
+
+.guest--button,
+.createaccount-button,
+.login--button {
+  margin-bottom: 40px;
+  padding: 8px 16px;
+  text-decoration: none;
+  color: white;
+  background-color: blue;
+  border-radius: 5px;
+}
+
+.guest--button:hover,
+.createaccount-button:hover,
+.login--button:hover {
+  background-color: #0056b3;
+}
+
+.login--form {
+  display: flex;
+  flex-direction: column;
+  width: 400px;
+  margin: auto;
+}
+
+.login-form input {
+  margin: 10px 0;
+  padding: 10px;
+  font-size: 16px;
+  justify-content: center;
+}
+
+.guest--button,
+.login-form button {
+  margin-bottom: 40px;
+  padding: 8px 16px;
+  text-decoration: none;
+  color: white;
+  background-color: #007bff;
+  border-radius: 5px;
+}
+
+h2 {
+  text-align: center;
+}
+
+.password--input {
+  margin-bottom: 20px;
+}
+
+/* Chatroom Page */
+
+.chatroomPage--container {
+  display: flex;
+  width: 90%;
+  height: 90%;
+  height: 80vh;
+  position: absolute;
+  left: 12%;
+  top: 12%;
+  bottom: 12%;
+  right: 12%;
+}
+
+.active--users {
+  width: 20%;
+  height: 90%;
+  background-color: #f2f2f2;
+  padding: 20px;
+  position: absolute;
+  left: 0;
+}
+
+.active--users h2 {
+  margin-top: 0;
+}
+
+.chatroom {
+  width: 80%;
+  padding: 20px;
+  margin-left: 20px;
+  position: absolute;
+  left: 20%;
+}
+
+.message--container {
+  height: calc(100% - 50px);
+  overflow-y: auto;
+  list-style: none;
+}
+
+.create--message {
+  margin-bottom: 10px;
+}
+
+.username {
+  font-weight: bold;
+  margin-right: 10px;
+}
+
+.submit--message {
+  padding: 5px 10px;
+  margin-left: 5px;
+  background-color: chartreuse;
+}
+
+.input--container {
+  display: flex;
+  margin-top: 5px;
+  width: 50%;
+  padding: 20px;
+  margin-left: 20px;
+  position: absolute;
+  left: 20%;
+  bottom: 2%;
+}
+
+input[type="text"] {
+  flex-grow: 1;
+  padding: 5px;
+}
+
+/* .logout--button {
+  cursor: pointer;
+  background-color: rgb(220, 68, 68);
+  color: black;
+  font-weight: 600;
+  font-size: larger;
+} */
