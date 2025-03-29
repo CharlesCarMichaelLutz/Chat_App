@@ -8,7 +8,7 @@ namespace chatAppWebApi.Repositories
     {
         Task<bool> CreateMessageAsync(MessageModel message);
         Task<IEnumerable<MessageModel>> GetAllMessagesAsync();
-        //Task<MessageModel?> GetMessageAsync(int id);
+        Task<bool> DeleteMessageAsync(int id);
     }
     public class MessageRepository : IMessageRepository
     {
@@ -34,12 +34,17 @@ namespace chatAppWebApi.Repositories
 
             return await connection.QueryAsync<MessageModel>("SELECT * FROM messages");
         }
-        //public async Task<MessageModel> GetMessageAsync(int id)
-        //{
-        //    using var connection = await _connectionFactory.CreateConnectionAsync();
+        public async Task<bool> DeleteMessageAsync(int id)
+        {
+            using var connection = await _connectionFactory.CreateConnectionAsync();
 
-        //    return await connection.QuerySingleOrDefaultAsync<MessageModel>(
-        //        @"SELECT * FROM messages WHERE Id = @Id LIMIT 1", new { Id = id });
-        //}
+            string deleteSql = "DELETE FROM messages WHERE Id =@Id";
+
+            var result = await connection.ExecuteAsync(deleteSql, new {Id = id});
+
+            return result > 0;
+        }
     }
 }
+
+//line41

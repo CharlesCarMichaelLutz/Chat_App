@@ -95,6 +95,29 @@
           }
         }
       }
+    },
+    "/api/messages/{id}": {
+      "delete": {
+        "tags": [
+          "chatAppWebApi"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "integer",
+                "format": "int32"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
     }
   },
   "components": {

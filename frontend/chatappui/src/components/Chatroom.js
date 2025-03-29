@@ -32,7 +32,7 @@ function Chatroom() {
     } catch (error) {
       console.log(error)
     }
-  }, [user.token, usernameList])
+  }, [user.token])
 
   const getMessages = useCallback(async () => {
     try {
@@ -50,7 +50,7 @@ function Chatroom() {
       getMessages()
       getUsers()
     }
-  }, [user.token, getUsers])
+  }, [user.token, getUsers, getMessages])
 
   const broadcastMessage = async (e) => {
     e.preventDefault()
@@ -79,12 +79,30 @@ function Chatroom() {
     }
   }
 
+  const deleteMessage = async (messageId) => {
+    try {
+      if (hubConnection) {
+        await hubConnection.invoke("RemoveMessage", messageId)
+      }
+      await axios.delete(endpoints.BASE_URI + `messages/${messageId}`, {
+        headers: { Authorization: `Bearer ${user.token}` },
+      })
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   const renderChatroom = messageList.map((message) => {
-    const findUser = usernameList.find((user) => user.id === message.userId)
+    const matchUser = usernameList.find((user) => user.id === message.userId)
     return (
       <li className="create--message" key={message.id}>
-        <span className="username">{findUser && findUser.username}</span>
+        <span className="username">{matchUser && matchUser.username}</span>
         <span className="content">{message.text}</span>
+        <span>
+          {matchUser.username === user.username && (
+            <button onClick={() => deleteMessage(message.id)}>Delete</button>
+          )}
+        </span>
       </li>
     )
   })
@@ -95,10 +113,6 @@ function Chatroom() {
 
   return (
     <>
-      {/* <button className="logout--button" onClick={() => logOut()}>
-        Logout
-      </button> */}
-
       <div className="chatroomPage--container">
         <span className="active--users">
           <h2>Active Now</h2>
@@ -108,6 +122,7 @@ function Chatroom() {
           <ul className="message--container">{renderChatroom}</ul>
         </span>
         <form className="input--container" onSubmit={broadcastMessage}>
+          {/* <form className="input--container"> */}
           <input
             type="text"
             placeholder="...enter message here"

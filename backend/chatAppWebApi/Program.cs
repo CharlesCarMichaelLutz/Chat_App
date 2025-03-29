@@ -148,11 +148,11 @@ app.UseEndpoints(endpoints =>
         return Results.Ok(response);
     });
 
-    //endpoints.MapGet("/api/messages/{id}", [Authorize] async (IMessageService service, int id) =>
-    //{
-    //    var response = await service.GetMessage(id);
-    //    return Results.Ok(response);
-    //});
+    endpoints.MapDelete("/api/messages/{id}", [Authorize] async (IMessageService service, [FromBody] int id) =>
+    {
+        var response = await service.DeleteMessage(id);
+        return Results.Ok(response);
+    });
 
     endpoints.MapFallback(async context =>
     {

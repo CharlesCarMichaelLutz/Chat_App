@@ -10,6 +10,11 @@ namespace chatAppWebApi.SignalR
             await Clients.All.SendAsync("ReceiveMessage", user, message);
         }
 
+        public async Task RemoveMessage(int messageId)
+        {
+            await Clients.All.SendAsync("MessageDeleted", messageId);
+        }
+
         //public override async Task OnConnectedAsync()
         //{
         //    await Clients.All.SendAsync("ReceiveMessage", $"{Context.ConnectionId} has joined");

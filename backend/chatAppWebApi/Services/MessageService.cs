@@ -9,16 +9,14 @@ namespace chatAppWebApi.Services
     {
         Task<bool> CreateMessage(MessageModel message);
         Task<IEnumerable<MessageModel>> GetAllMessages();
-        //Task<MessageModel> GetMessage(int id);
+        Task<bool> DeleteMessage(int id);
     }
     public class MessageService : IMessageService
     {
         private readonly IMessageRepository _messageRepository;
-        private readonly IHubContext<ChatHub> _hubContext;
-        public MessageService(IMessageRepository messageRepository, IHubContext<ChatHub> hubContext) 
+        public MessageService(IMessageRepository messageRepository)
         {
             _messageRepository = messageRepository;
-            _hubContext = hubContext;
         }
         public async Task<bool> CreateMessage(MessageModel message)
         {
@@ -29,10 +27,7 @@ namespace chatAppWebApi.Services
                 {
                     return false;
                 }
-                await _hubContext.Clients.All.SendAsync("ReceiveMessage", message.UserId, message.Text);
-
                 return true;
-
             }
             catch (Exception ex) 
             {
@@ -44,28 +39,12 @@ namespace chatAppWebApi.Services
         {
             return await _messageRepository.GetAllMessagesAsync();
         }
+        public async Task<bool> DeleteMessage(int id)
+        {
+            return await _messageRepository.DeleteMessageAsync(id);
 
-        //public async Task<MessageModel> GetMessage(int id)
-        //{
-
-
-        //    try
-        //    {
-        //        var success = await _messageRepository.GetMessageAsync(id);
-        //        if (!success) {
-        //            return false; 
-        //        }
-        //        await _hubContext.Clients.All.SendAsync("ReceiveMessage", id.UserId, id.Text);
-        //        return true;
-
-
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        Console.WriteLine(ex.Message);
-        //        return false;
-        //    }
-
-        //}
+        }
     }
 }
+
+//line 44
