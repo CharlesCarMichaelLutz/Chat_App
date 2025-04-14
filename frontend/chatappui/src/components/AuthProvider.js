@@ -38,7 +38,7 @@ function AuthProvider({ children }) {
       }
       setUser(res.data.value)
       //console.log("response:", res.data.value)
-      //setActiveUserList((users) => [...users, res.data.value])
+      //setActiveUserList((users) => [...users, res.data.value.username])
       alert("logged in success!")
       navigate("/chatroom")
       return

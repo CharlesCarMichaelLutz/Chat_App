@@ -7,12 +7,12 @@ import "../styling/styles.css"
 
 function Chatroom() {
   const { user } = useAuth()
-  //const { logOut, user, activeUserList } = useAuth()
   const [usernameList, setUsernameList] = useState([])
   const [messageList, setMessageList] = useState([])
   const [messageInput, setMessageInput] = useState({
     message: "",
   })
+  const [loading, setLoading] = useState(true)
   const { hubConnection } = useWebSocket(setMessageList)
 
   function handleChange(e) {
@@ -31,6 +31,8 @@ function Chatroom() {
       setUsernameList(res.data)
     } catch (error) {
       console.log(error)
+    } finally {
+      setLoading(false)
     }
   }, [user.token])
 
@@ -42,19 +44,29 @@ function Chatroom() {
       setMessageList(res.data)
     } catch (error) {
       console.log(error)
+    } finally {
+      setLoading(false)
     }
   }, [user.token])
 
   useEffect(() => {
     if (user.token) {
+      setLoading(true)
       getMessages()
       getUsers()
     }
-  }, [user.token, getUsers, getMessages])
+  }, [user.token])
 
   const broadcastMessage = async (e) => {
     e.preventDefault()
     try {
+      if (hubConnection) {
+        await hubConnection.invoke(
+          "SendMessage",
+          user.userId.toString(),
+          messageInput.message
+        )
+      }
       await axios.post(
         endpoints.BASE_URI + `messages/broadcast`,
         {
@@ -65,17 +77,11 @@ function Chatroom() {
           headers: { Authorization: `Bearer ${user.token}` },
         }
       )
-      if (hubConnection) {
-        await hubConnection.invoke(
-          "SendMessage",
-          user.userId,
-          messageInput.message
-        )
-      }
     } catch (error) {
       console.log(error)
     } finally {
       setMessageInput({ message: "" })
+      setLoading(false)
     }
   }
 
@@ -93,10 +99,11 @@ function Chatroom() {
   }
 
   const renderChatroom = messageList.map((message) => {
-    const matchUser = usernameList.find((user) => user.id === message.userId)
+    const userIdInt = Number(message.userId)
+    const matchUser = usernameList.find((usr) => usr.id === userIdInt)
     return (
       <li className="create--message" key={message.id}>
-        <span className="username">{matchUser && matchUser.username}</span>
+        <span className="username">{matchUser.username}</span>
         <span className="content">{message.text}</span>
         <span>
           {matchUser.username === user.username && (
@@ -107,22 +114,25 @@ function Chatroom() {
     )
   })
 
-  // const renderActiveUsers = activeUserList.map((user) => {
-  //   return <li key={user.id}>{user.username}</li>
-  // })
+  if (loading) {
+    return <div>Loading....</div>
+  }
 
   return (
     <>
       <div className="chatroomPage--container">
         <span className="active--users">
           <h2>Active Now</h2>
-          {/* <ul>{renderActiveUsers}</ul> */}
+          {/* {activeUserList.map((username) => {
+            if(username.isLoggedIn){
+              return username
+            }
+          })} */}
         </span>
         <span className="chatroom">
           <ul className="message--container">{renderChatroom}</ul>
         </span>
         <form className="input--container" onSubmit={broadcastMessage}>
-          {/* <form className="input--container"> */}
           <input
             type="text"
             placeholder="...enter message here"
@@ -139,3 +149,11 @@ function Chatroom() {
 }
 
 export default Chatroom
+
+//upon login set an isLoggedIn boolean on the user object to true
+// push the user object into an array
+//map over the array
+//if user.isLoggedIn === true
+//render username
+//false
+// do not render username
