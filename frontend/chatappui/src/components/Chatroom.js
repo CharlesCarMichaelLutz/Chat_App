@@ -22,26 +22,43 @@ function Chatroom() {
       [name]: value,
     }))
   }
+  // const getUsers = useCallback(async () => {
+  //   try {
+  //     const res = await axios.get(endpoints.BASE_URI + `users`, {
+  //       headers: { Authorization: `Bearer ${user.token}` },
+  //     })
+  //     setUsernameList(res.data)
+  //   } catch (error) {
+  //     console.log(error)
+  //   } finally {
+  //     setLoading(false)
+  //   }
+  // }, [user.token])
 
-  const getUsers = useCallback(async () => {
+  // const getMessages = useCallback(async () => {
+  //   try {
+  //     const res = await axios.get(endpoints.BASE_URI + `messages`, {
+  //       headers: { Authorization: `Bearer ${user.token}` },
+  //     })
+  //     setMessageList(res.data)
+  //   } catch (error) {
+  //     console.log(error)
+  //   } finally {
+  //     setLoading(false)
+  //   }
+  // }, [user.token])
+
+  //combine both requests into a single useCallback
+  const fetchData = useCallback(async () => {
     try {
-      const res = await axios.get(endpoints.BASE_URI + `users`, {
+      const res1 = await axios.get(endpoints.BASE_URI + `users`, {
         headers: { Authorization: `Bearer ${user.token}` },
       })
-      setUsernameList(res.data)
-    } catch (error) {
-      console.log(error)
-    } finally {
-      setLoading(false)
-    }
-  }, [user.token])
-
-  const getMessages = useCallback(async () => {
-    try {
-      const res = await axios.get(endpoints.BASE_URI + `messages`, {
+      setUsernameList(res1.data)
+      const res2 = await axios.get(endpoints.BASE_URI + `messages`, {
         headers: { Authorization: `Bearer ${user.token}` },
       })
-      setMessageList(res.data)
+      setMessageList(res2.data)
     } catch (error) {
       console.log(error)
     } finally {
@@ -52,26 +69,28 @@ function Chatroom() {
   useEffect(() => {
     if (user.token) {
       setLoading(true)
-      getMessages()
-      getUsers()
+      // getUsers()
+      // getMessages()
+      fetchData()
     }
   }, [user.token])
 
-  const broadcastMessage = async (e) => {
+  const propagateSendMessage = async (e) => {
     e.preventDefault()
     try {
       if (hubConnection) {
         await hubConnection.invoke(
           "SendMessage",
-          user.userId.toString(),
+          // user.userId.toString(),
+          user.userId,
           messageInput.message
         )
       }
       await axios.post(
         endpoints.BASE_URI + `messages/broadcast`,
         {
-          Text: messageInput.message,
           UserId: user.userId,
+          Text: messageInput.message,
         },
         {
           headers: { Authorization: `Bearer ${user.token}` },
@@ -85,10 +104,10 @@ function Chatroom() {
     }
   }
 
-  const deleteMessage = async (messageId) => {
+  const propagateDeleteMessage = async (messageId) => {
     try {
       if (hubConnection) {
-        await hubConnection.invoke("RemoveMessage", messageId)
+        await hubConnection.invoke("DeleteMessage", messageId)
       }
       await axios.delete(endpoints.BASE_URI + `messages/${messageId}`, {
         headers: { Authorization: `Bearer ${user.token}` },
@@ -98,16 +117,39 @@ function Chatroom() {
     }
   }
 
+  // const renderChatroom = messageList.map((message) => {
+  //   const userIdInt = Number(message.userId)
+  //   const matchUser = usernameList.find((usr) => usr.id === userIdInt)
+  //   return (
+  //     <li className="create--message" key={message.id}>
+  //       <span className="username">
+  //         {matchUser ? matchUser.username : "Unknown"}
+  //       </span>
+  //       <span className="content">{message.text}</span>
+  //       <span>
+  //         {matchUser && matchUser.username === user.username && (
+  //           <button onClick={() => deleteMessage(message.id)}>Delete</button>
+  //         )}
+  //       </span>
+  //     </li>
+  //   )
+  // })
+
   const renderChatroom = messageList.map((message) => {
-    const userIdInt = Number(message.userId)
-    const matchUser = usernameList.find((usr) => usr.id === userIdInt)
+    // const userIdInt = Number(message.userId)
+    // const matchUser = usernameList.find((usr) => usr.id === userIdInt)
+    const matchUser = usernameList.find((usr) => usr.id === message.userId)
     return (
       <li className="create--message" key={message.id}>
-        <span className="username">{matchUser.username}</span>
+        <span className="username">
+          {matchUser ? matchUser.username : "Unknown"}
+        </span>
         <span className="content">{message.text}</span>
         <span>
-          {matchUser.username === user.username && (
-            <button onClick={() => deleteMessage(message.id)}>Delete</button>
+          {matchUser && matchUser.username === user.username && (
+            <button onClick={() => propagateDeleteMessage(message.id)}>
+              Delete
+            </button>
           )}
         </span>
       </li>
@@ -121,18 +163,18 @@ function Chatroom() {
   return (
     <>
       <div className="chatroomPage--container">
-        <span className="active--users">
+        {/* <span className="active--users">
           <h2>Active Now</h2>
-          {/* {activeUserList.map((username) => {
+           {activeUserList.map((username) => {
             if(username.isLoggedIn){
               return username
             }
-          })} */}
-        </span>
+          })}
+        </span>  */}
         <span className="chatroom">
           <ul className="message--container">{renderChatroom}</ul>
         </span>
-        <form className="input--container" onSubmit={broadcastMessage}>
+        <form className="input--container" onSubmit={propagateSendMessage}>
           <input
             type="text"
             placeholder="...enter message here"

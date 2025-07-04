@@ -47,6 +47,18 @@ namespace chatAppWebApi.Services
         }
         public async Task<IEnumerable<UserModel>> GetAllUsers()
         {
+            //var response = _userRepository.GetAllUsersAsync();
+
+            //var dto = new UserDTO
+            //{
+            //    Id = response.Id,
+            //    Username = response.Username,
+            //};
+
+            //return await dto;
+
+            //TODO reshape the data with a DTO so it omits passwordHash & createdDate
+
             return await _userRepository.GetAllUsersAsync();
         }
 

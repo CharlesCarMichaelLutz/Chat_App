@@ -1,28 +1,32 @@
 {
   "Files": [
     {
+      "Id": "C:\\Users\\Charlie\\Desktop\\Chat_App\\Chat_App\\backend\\chatAppWebApi\\wwwroot\\build\\index.html",
+      "PackagePath": "staticwebassets\\build\\index.html"
+    },
+    {
+      "Id": "C:\\Users\\Charlie\\Desktop\\Chat_App\\Chat_App\\backend\\chatAppWebApi\\wwwroot\\build\\js\\signalr\\dist\\browser\\signalr.js",
+      "PackagePath": "staticwebassets\\build\\js\\signalr\\dist\\browser\\signalr.js"
+    },
+    {
+      "Id": "C:\\Users\\Charlie\\Desktop\\Chat_App\\Chat_App\\backend\\chatAppWebApi\\wwwroot\\build\\js\\signalr\\dist\\browser\\signalr.min.js",
+      "PackagePath": "staticwebassets\\build\\js\\signalr\\dist\\browser\\signalr.min.js"
+    },
+    {
       "Id": "C:\\Users\\Charlie\\Desktop\\Chat_App\\Chat_App\\backend\\chatAppWebApi\\wwwroot\\build\\static\\css\\main.9e7325c2.css",
       "PackagePath": "staticwebassets\\build\\static\\css\\main.9e7325c2.css"
     },
     {
-      "Id": "C:\\Users\\Charlie\\Desktop\\Chat_App\\Chat_App\\backend\\chatAppWebApi\\wwwroot\\build\\static\\js\\787.83093967.chunk.js",
-      "PackagePath": "staticwebassets\\build\\static\\js\\787.83093967.chunk.js"
+      "Id": "C:\\Users\\Charlie\\Desktop\\Chat_App\\Chat_App\\backend\\chatAppWebApi\\wwwroot\\build\\static\\css\\main.9e7325c2.css.map",
+      "PackagePath": "staticwebassets\\build\\static\\css\\main.9e7325c2.css.map"
     },
     {
-      "Id": "C:\\Users\\Charlie\\Desktop\\Chat_App\\Chat_App\\backend\\chatAppWebApi\\wwwroot\\build\\static\\js\\main.7a08fe1e.js",
-      "PackagePath": "staticwebassets\\build\\static\\js\\main.7a08fe1e.js"
+      "Id": "C:\\Users\\Charlie\\Desktop\\Chat_App\\Chat_App\\backend\\chatAppWebApi\\wwwroot\\build\\static\\js\\main.5144c60f.js",
+      "PackagePath": "staticwebassets\\build\\static\\js\\main.5144c60f.js"
     },
     {
-      "Id": "C:\\Users\\Charlie\\Desktop\\Chat_App\\Chat_App\\backend\\chatAppWebApi\\wwwroot\\index.html",
-      "PackagePath": "staticwebassets\\index.html"
-    },
-    {
-      "Id": "C:\\Users\\Charlie\\Desktop\\Chat_App\\Chat_App\\backend\\chatAppWebApi\\wwwroot\\js\\signalr\\dist\\browser\\signalr.js",
-      "PackagePath": "staticwebassets\\js\\signalr\\dist\\browser\\signalr.js"
-    },
-    {
-      "Id": "C:\\Users\\Charlie\\Desktop\\Chat_App\\Chat_App\\backend\\chatAppWebApi\\wwwroot\\js\\signalr\\dist\\browser\\signalr.min.js",
-      "PackagePath": "staticwebassets\\js\\signalr\\dist\\browser\\signalr.min.js"
+      "Id": "C:\\Users\\Charlie\\Desktop\\Chat_App\\Chat_App\\backend\\chatAppWebApi\\wwwroot\\build\\static\\js\\main.5144c60f.js.map",
+      "PackagePath": "staticwebassets\\build\\static\\js\\main.5144c60f.js.map"
     },
     {
       "Id": "obj\\Debug\\net6.0\\staticwebassets\\msbuild.build.chatAppWebApi.props",

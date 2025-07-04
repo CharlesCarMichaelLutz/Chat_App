@@ -10,6 +10,7 @@ namespace chatAppWebApi.Services
         Task<bool> CreateMessage(MessageModel message);
         Task<IEnumerable<MessageModel>> GetAllMessages();
         Task<bool> DeleteMessage(int id);
+
     }
     public class MessageService : IMessageService
     {
@@ -29,19 +30,35 @@ namespace chatAppWebApi.Services
                 }
                 return true;
             }
-            catch (Exception ex) 
+            catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
                 return false;
             }
         }
+
         public async Task<IEnumerable<MessageModel>> GetAllMessages()
         {
+            //TODO reshape the data with a DTO so it omits createdDate
+
             return await _messageRepository.GetAllMessagesAsync();
         }
         public async Task<bool> DeleteMessage(int id)
         {
-            return await _messageRepository.DeleteMessageAsync(id);
+            try
+            {
+                var saved = await _messageRepository.DeleteMessageAsync(id);
+                if (!saved)
+                {
+                    return false;
+                }
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return false;
+            }
 
         }
     }
