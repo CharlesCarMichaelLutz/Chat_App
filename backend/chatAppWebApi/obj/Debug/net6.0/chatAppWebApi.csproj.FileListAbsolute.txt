@@ -69,10 +69,6 @@ C:\Users\User\Desktop\ChatApp\backend\chatAppWebApi\bin\Debug\net6.0\Microsoft.I
 C:\Users\User\Desktop\ChatApp\backend\chatAppWebApi\bin\Debug\net6.0\Microsoft.IdentityModel.Tokens.dll
 C:\Users\User\Desktop\ChatApp\backend\chatAppWebApi\bin\Debug\net6.0\System.IdentityModel.Tokens.Jwt.dll
 C:\Users\User\Desktop\ChatApp\backend\chatAppWebApi\bin\Debug\net6.0\BCrypt.Net-Next.dll
-C:\Users\Charlie\Desktop\Chat_App\Chat_App\backend\chatAppWebApi\bin\Debug\net6.0\wwwroot\build\static\js\787.83093967.chunk.js
-C:\Users\Charlie\Desktop\Chat_App\Chat_App\backend\chatAppWebApi\bin\Debug\net6.0\wwwroot\index.html
-C:\Users\Charlie\Desktop\Chat_App\Chat_App\backend\chatAppWebApi\bin\Debug\net6.0\wwwroot\js\signalr\dist\browser\signalr.js
-C:\Users\Charlie\Desktop\Chat_App\Chat_App\backend\chatAppWebApi\bin\Debug\net6.0\wwwroot\js\signalr\dist\browser\signalr.min.js
 C:\Users\Charlie\Desktop\Chat_App\Chat_App\backend\chatAppWebApi\bin\Debug\net6.0\appsettings.Development.json
 C:\Users\Charlie\Desktop\Chat_App\Chat_App\backend\chatAppWebApi\bin\Debug\net6.0\appsettings.json
 C:\Users\Charlie\Desktop\Chat_App\Chat_App\backend\chatAppWebApi\bin\Debug\net6.0\libman.json
@@ -139,8 +135,6 @@ C:\Users\Charlie\Desktop\Chat_App\Chat_App\backend\chatAppWebApi\obj\Debug\net6.
 C:\Users\Charlie\Desktop\Chat_App\Chat_App\backend\chatAppWebApi\obj\Debug\net6.0\chatAppWebApi.pdb
 C:\Users\Charlie\Desktop\Chat_App\Chat_App\backend\chatAppWebApi\obj\Debug\net6.0\chatAppWebApi.genruntimeconfig.cache
 C:\Users\Charlie\Desktop\Chat_App\Chat_App\backend\chatAppWebApi\obj\Debug\net6.0\ref\chatAppWebApi.dll
-C:\Users\Charlie\Desktop\Chat_App\Chat_App\backend\chatAppWebApi\bin\Debug\net6.0\wwwroot\build\static\css\main.9e7325c2.css
-C:\Users\Charlie\Desktop\Chat_App\Chat_App\backend\chatAppWebApi\bin\Debug\net6.0\wwwroot\build\static\js\main.7a08fe1e.js
 C:\Users\Charlie\Desktop\Chat_App\Chat_App\backend\chatAppWebApi\bin\Debug\net6.0\chatAppWebApi.staticwebassets.endpoints.json
 C:\Users\Charlie\Desktop\Chat_App\Chat_App\backend\chatAppWebApi\obj\Debug\net6.0\staticwebassets.build.endpoints.json
 C:\Users\Charlie\Desktop\Chat_App\Chat_App\backend\chatAppWebApi\obj\Debug\net6.0\staticwebassets\msbuild.chatAppWebApi.Microsoft.AspNetCore.StaticWebAssetEndpoints.props

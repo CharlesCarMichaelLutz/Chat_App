@@ -17,6 +17,19 @@ namespace chatAppWebApi.Repositories
         {
             _connectionFactory = connectionFactory;
         }
+        //public async Task<bool> CreateMessageAsync(MessageModel message)
+        //{
+        //    using var connection = await _connectionFactory.CreateConnectionAsync();
+
+        //    var result = await connection.ExecuteAsync(
+        //    @"INSERT INTO messages (UserId, Text, CreatedDate) 
+        //        VALUES (@UserId, @Text, @CreatedDate)",
+        //    message);
+
+        //    return result;
+
+        //}
+
         public async Task<bool> CreateMessageAsync(MessageModel message)
         {
             using var connection = await _connectionFactory.CreateConnectionAsync();
@@ -34,13 +47,14 @@ namespace chatAppWebApi.Repositories
 
             return await connection.QueryAsync<MessageModel>("SELECT * FROM messages");
         }
+
         public async Task<bool> DeleteMessageAsync(int id)
         {
             using var connection = await _connectionFactory.CreateConnectionAsync();
 
-            string deleteSql = "DELETE FROM messages WHERE Id =@Id";
+            var deleteSql = @"DELETE FROM messages WHERE Id = @Id";
 
-            var result = await connection.ExecuteAsync(deleteSql, new {Id = id});
+            var result = await connection.ExecuteAsync(deleteSql, new { Id = id});
 
             return result > 0;
         }

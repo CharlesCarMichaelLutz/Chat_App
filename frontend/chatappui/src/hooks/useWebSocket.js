@@ -14,13 +14,21 @@ const useWebSocket = (setMessageList) => {
 
       setHubConnection(connection)
 
-      connection.on("ReceiveMessage", (userId, text) => {
+      //working as expected
+
+      // connection.on("CreateMessageResponse", (id, userId, text) => {
+      //   if (setMessageList) {
+      //     setMessageList((list) => [...list, { id, userId, text }])
+      //   }
+      // })
+
+      connection.on("CreateMessageResponse", (userId, text) => {
         if (setMessageList) {
           setMessageList((list) => [...list, { userId, text }])
         }
       })
 
-      connection.on("MessageDeleted", (messageId) => {
+      connection.on("DeleteMessageResponse", (messageId) => {
         if (setMessageList) {
           setMessageList((list) =>
             list.filter((message) => message.id !== messageId)

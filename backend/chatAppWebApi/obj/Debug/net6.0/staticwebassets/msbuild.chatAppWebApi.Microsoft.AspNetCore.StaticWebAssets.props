@@ -1,5 +1,59 @@
 ﻿<Project>
   <ItemGroup>
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\build\index.html'))">
+      <SourceType>Package</SourceType>
+      <SourceId>chatAppWebApi</SourceId>
+      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
+      <BasePath>_content/chatAppWebApi</BasePath>
+      <RelativePath>build/index.html</RelativePath>
+      <AssetKind>All</AssetKind>
+      <AssetMode>All</AssetMode>
+      <AssetRole>Primary</AssetRole>
+      <RelatedAsset></RelatedAsset>
+      <AssetTraitName></AssetTraitName>
+      <AssetTraitValue></AssetTraitValue>
+      <Fingerprint>rve5ntw4to</Fingerprint>
+      <Integrity>l+VNr22eCCNLDA5gdoxlJngv3dgWyjOywhM7YAw6TKU=</Integrity>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\build\index.html'))</OriginalItemSpec>
+    </StaticWebAsset>
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\build\js\signalr\dist\browser\signalr.js'))">
+      <SourceType>Package</SourceType>
+      <SourceId>chatAppWebApi</SourceId>
+      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
+      <BasePath>_content/chatAppWebApi</BasePath>
+      <RelativePath>build/js/signalr/dist/browser/signalr.js</RelativePath>
+      <AssetKind>All</AssetKind>
+      <AssetMode>All</AssetMode>
+      <AssetRole>Primary</AssetRole>
+      <RelatedAsset></RelatedAsset>
+      <AssetTraitName></AssetTraitName>
+      <AssetTraitValue></AssetTraitValue>
+      <Fingerprint>spv7zx213a</Fingerprint>
+      <Integrity>UCOdBHi13gdQ6AXaDzbOyGHdkB/1zaS/CSjF1ciw7qI=</Integrity>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\build\js\signalr\dist\browser\signalr.js'))</OriginalItemSpec>
+    </StaticWebAsset>
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\build\js\signalr\dist\browser\signalr.min.js'))">
+      <SourceType>Package</SourceType>
+      <SourceId>chatAppWebApi</SourceId>
+      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
+      <BasePath>_content/chatAppWebApi</BasePath>
+      <RelativePath>build/js/signalr/dist/browser/signalr.min.js</RelativePath>
+      <AssetKind>All</AssetKind>
+      <AssetMode>All</AssetMode>
+      <AssetRole>Primary</AssetRole>
+      <RelatedAsset></RelatedAsset>
+      <AssetTraitName></AssetTraitName>
+      <AssetTraitValue></AssetTraitValue>
+      <Fingerprint>8zb1dpva3y</Fingerprint>
+      <Integrity>HGwre49z6/rHMKejjOTqKMufNzhhzGD43CoP0Ih7W5s=</Integrity>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\build\js\signalr\dist\browser\signalr.min.js'))</OriginalItemSpec>
+    </StaticWebAsset>
     <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\build\static\css\main.9e7325c2.css'))">
       <SourceType>Package</SourceType>
       <SourceId>chatAppWebApi</SourceId>
@@ -14,99 +68,63 @@
       <AssetTraitValue></AssetTraitValue>
       <Fingerprint>9yzzalzq6y</Fingerprint>
       <Integrity>P/E2HNyL5MvE106PY7+PYGsYiaZiuEcS7cPoF++DbeQ=</Integrity>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\build\static\css\main.9e7325c2.css'))</OriginalItemSpec>
     </StaticWebAsset>
-    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\build\static\js\787.83093967.chunk.js'))">
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\build\static\css\main.9e7325c2.css.map'))">
       <SourceType>Package</SourceType>
       <SourceId>chatAppWebApi</SourceId>
       <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
       <BasePath>_content/chatAppWebApi</BasePath>
-      <RelativePath>build/static/js/787.83093967.chunk.js</RelativePath>
+      <RelativePath>build/static/css/main.9e7325c2.css.map</RelativePath>
       <AssetKind>All</AssetKind>
       <AssetMode>All</AssetMode>
       <AssetRole>Primary</AssetRole>
       <RelatedAsset></RelatedAsset>
       <AssetTraitName></AssetTraitName>
       <AssetTraitValue></AssetTraitValue>
-      <Fingerprint>2qaqx9faxm</Fingerprint>
-      <Integrity>NlK2QDOt9lTUQxHyoYkk/BvjcQ28PgVr7RUIjQH0Txc=</Integrity>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <Fingerprint>92t4ej4th7</Fingerprint>
+      <Integrity>3xm11KYe2jTxkyEB9ci1NRT1XiQ8KV9SuKHqoITviSM=</Integrity>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-      <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\build\static\js\787.83093967.chunk.js'))</OriginalItemSpec>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\build\static\css\main.9e7325c2.css.map'))</OriginalItemSpec>
     </StaticWebAsset>
-    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\build\static\js\main.7a08fe1e.js'))">
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\build\static\js\main.5144c60f.js'))">
       <SourceType>Package</SourceType>
       <SourceId>chatAppWebApi</SourceId>
       <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
       <BasePath>_content/chatAppWebApi</BasePath>
-      <RelativePath>build/static/js/main.7a08fe1e.js</RelativePath>
+      <RelativePath>build/static/js/main.5144c60f.js</RelativePath>
       <AssetKind>All</AssetKind>
       <AssetMode>All</AssetMode>
       <AssetRole>Primary</AssetRole>
       <RelatedAsset></RelatedAsset>
       <AssetTraitName></AssetTraitName>
       <AssetTraitValue></AssetTraitValue>
-      <Fingerprint>eyjz7821zp</Fingerprint>
-      <Integrity>xjYlwUAg+jZ0ieLQO9qpb9M7dpEGOm/u0umSs5502Vg=</Integrity>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <Fingerprint>3vvass5o83</Fingerprint>
+      <Integrity>z5tEHs2m8jRRy+qvO9zw4EdiY2ttlDqtDQS9goKMniI=</Integrity>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-      <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\build\static\js\main.7a08fe1e.js'))</OriginalItemSpec>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\build\static\js\main.5144c60f.js'))</OriginalItemSpec>
     </StaticWebAsset>
-    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\index.html'))">
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\build\static\js\main.5144c60f.js.map'))">
       <SourceType>Package</SourceType>
       <SourceId>chatAppWebApi</SourceId>
       <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
       <BasePath>_content/chatAppWebApi</BasePath>
-      <RelativePath>index.html</RelativePath>
+      <RelativePath>build/static/js/main.5144c60f.js.map</RelativePath>
       <AssetKind>All</AssetKind>
       <AssetMode>All</AssetMode>
       <AssetRole>Primary</AssetRole>
       <RelatedAsset></RelatedAsset>
       <AssetTraitName></AssetTraitName>
       <AssetTraitValue></AssetTraitValue>
-      <Fingerprint>wrbwooerg6</Fingerprint>
-      <Integrity>nBv59BKKxegogAHvq2YJGIhNMaVvZvmqVMgKXGqyOQ4=</Integrity>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <Fingerprint>am9uz45fac</Fingerprint>
+      <Integrity>ztBTbqEggVmt7iBa8rztyZGtg40OkL4KFmcnLe1dcAU=</Integrity>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-      <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\index.html'))</OriginalItemSpec>
-    </StaticWebAsset>
-    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\js\signalr\dist\browser\signalr.js'))">
-      <SourceType>Package</SourceType>
-      <SourceId>chatAppWebApi</SourceId>
-      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
-      <BasePath>_content/chatAppWebApi</BasePath>
-      <RelativePath>js/signalr/dist/browser/signalr.js</RelativePath>
-      <AssetKind>All</AssetKind>
-      <AssetMode>All</AssetMode>
-      <AssetRole>Primary</AssetRole>
-      <RelatedAsset></RelatedAsset>
-      <AssetTraitName></AssetTraitName>
-      <AssetTraitValue></AssetTraitValue>
-      <Fingerprint>5zbeu3qnbd</Fingerprint>
-      <Integrity>IV5JB7N8lMM9vTWpXbhXbKEYQ0TsMHFl/E3WSsshcwE=</Integrity>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-      <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\js\signalr\dist\browser\signalr.js'))</OriginalItemSpec>
-    </StaticWebAsset>
-    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\js\signalr\dist\browser\signalr.min.js'))">
-      <SourceType>Package</SourceType>
-      <SourceId>chatAppWebApi</SourceId>
-      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
-      <BasePath>_content/chatAppWebApi</BasePath>
-      <RelativePath>js/signalr/dist/browser/signalr.min.js</RelativePath>
-      <AssetKind>All</AssetKind>
-      <AssetMode>All</AssetMode>
-      <AssetRole>Primary</AssetRole>
-      <RelatedAsset></RelatedAsset>
-      <AssetTraitName></AssetTraitName>
-      <AssetTraitValue></AssetTraitValue>
-      <Fingerprint>ap8wluut4l</Fingerprint>
-      <Integrity>DoGpE3SGJRRoD9CaiWtkCe/As6OKWk+NthTWY2XnNbs=</Integrity>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-      <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\js\signalr\dist\browser\signalr.min.js'))</OriginalItemSpec>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\build\static\js\main.5144c60f.js.map'))</OriginalItemSpec>
     </StaticWebAsset>
   </ItemGroup>
 </Project>

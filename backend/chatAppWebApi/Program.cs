@@ -74,11 +74,11 @@ services.AddSwaggerGen(create =>
     });
 });
 
-services.AddCors(options => 
+services.AddCors(options =>
 {
     options.AddPolicy("ReactAppPolicy", builder =>
     {
-        builder.WithOrigins("http://localhost:3000") 
+        builder.WithOrigins("http://localhost:3000")
           .AllowAnyHeader()
           .AllowCredentials()
           .AllowAnyMethod();
@@ -120,7 +120,7 @@ app.UseEndpoints(endpoints =>
         return Results.Ok(response);
     });
 
-    endpoints.MapPost("/api/users/login", async (IUserService service,[FromBody] UserModel user) =>
+    endpoints.MapPost("/api/users/login", async (IUserService service, [FromBody] UserModel user) =>
     {
         var response = await service.LoginUser(user);
         return Results.Ok(response);
@@ -162,3 +162,5 @@ app.UseEndpoints(endpoints =>
 });
 
 app.Run();
+
+

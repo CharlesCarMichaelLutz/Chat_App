@@ -21,7 +21,6 @@ function AuthProvider({ children }) {
     const { username, password } = data
     const path = isSignUp ? `users/signup` : `users/login`
     const url = endpoints.BASE_URI + path
-
     try {
       const res = await axios.post(url, {
         Username: username,
@@ -43,7 +42,7 @@ function AuthProvider({ children }) {
     }
   }
 
-  function logOut(userId) {
+  function logOut() {
     setUser({})
     localStorage.clear()
     navigate("/")

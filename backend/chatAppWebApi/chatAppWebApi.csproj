@@ -20,13 +20,6 @@
   </ItemGroup>
 
   <ItemGroup>
-	  
-	<Content Update="wwwroot\**">
-	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-	</Content>
-  </ItemGroup>
-
-  <ItemGroup>
     <Folder Include="Database\Stored Procedures\" />
   </ItemGroup>
 
