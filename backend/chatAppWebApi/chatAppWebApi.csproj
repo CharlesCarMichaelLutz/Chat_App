@@ -20,7 +20,12 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Database\Stored Procedures\" />
+    <Folder Include="wwwroot\" />
   </ItemGroup>
+
+	<Target Name="CompileClient" BeforeTargets="Publish">
+		<Exec WorkingDirectory="./client" Command="npm install" />
+		<Exec WorkingDirectory="./client" Command="npm run build" />
+	</Target>
 
 </Project>

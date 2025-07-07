@@ -1,7 +1,5 @@
-wwwroot\build\index.html
-wwwroot\build\js\signalr\dist\browser\signalr.js
-wwwroot\build\js\signalr\dist\browser\signalr.min.js
-wwwroot\build\static\css\main.9e7325c2.css
-wwwroot\build\static\css\main.9e7325c2.css.map
-wwwroot\build\static\js\main.5144c60f.js
-wwwroot\build\static\js\main.5144c60f.js.map
+wwwroot\assets\index-D8b4DHJx.css
+wwwroot\assets\index-DK-xQhXp.js
+wwwroot\assets\react-CHdo91hT.svg
+wwwroot\index.html
+wwwroot\vite.svg
