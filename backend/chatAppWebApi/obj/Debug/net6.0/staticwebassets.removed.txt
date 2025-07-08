@@ -1,0 +1,3 @@
+C:\Users\Charlie\Desktop\Chat_App\Chat_App\backend\chatAppWebApi\wwwroot\assets\index-D8b4DHJx.css
+C:\Users\Charlie\Desktop\Chat_App\Chat_App\backend\chatAppWebApi\wwwroot\assets\index-DK-xQhXp.js
+C:\Users\Charlie\Desktop\Chat_App\Chat_App\backend\chatAppWebApi\wwwroot\assets\react-CHdo91hT.svg

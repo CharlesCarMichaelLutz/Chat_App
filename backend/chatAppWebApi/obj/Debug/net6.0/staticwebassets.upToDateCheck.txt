@@ -1,5 +1,4 @@
-wwwroot\assets\index-D8b4DHJx.css
-wwwroot\assets\index-DK-xQhXp.js
-wwwroot\assets\react-CHdo91hT.svg
+wwwroot\assets\index-AyoHnR3o.js
+wwwroot\assets\index-oObCuMxg.css
 wwwroot\index.html
 wwwroot\vite.svg
