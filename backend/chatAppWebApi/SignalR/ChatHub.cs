@@ -7,32 +7,33 @@ namespace chatAppWebApi.SignalR
 {
     public class ChatHub : Hub
     {
-        private readonly IMessageService _messageService;
-        public ChatHub(IMessageService messageService)
-        {
-            _messageService = messageService;
-        }
-        //Working as expected
-        //public async Task SendMessage(string userId, string message)
+        //private readonly IMessageService _messageService;
+        //public ChatHub(IMessageService messageService)
         //{
-        //    await Clients.All.SendAsync("CreateMessageResponse", userId, message);
+        //    _messageService = messageService;
         //}
-        public async Task SendMessage(int userId, string text)
+     
+        //public async Task SendMessage(int userId, string text)
+        //{
+        //    //call MessageService
+        //    //save message to DB and get message Id
+
+        //    //re shape data to include id for message and return MessageDTO object
+        //    //perhaps that can be done inside MessageService?
+
+        //    var messageDto = await _messageService.CreateMessage(new MessageModel
+        //    {
+        //        UserId = userId,
+        //        Text = text,
+        //        CreatedDate = DateTime.UtcNow,
+        //    });
+        //    await Clients.All.SendAsync("CreateMessageResponse", messageDto);
+        //}
+
+        //Working as expected
+        public async Task SendMessage(int userId, string message)
         {
-            // call MessageService
-            //save message to DB and get message Id
-
-            //re shape data to include id for message and return MessageDTO object
-            //perhaps that can be done inside MessageService?
-
-            var messageDto = await _messageService.CreateMessage(new MessageModel
-            {
-                UserId = userId,
-                Text = text,
-                CreatedDate = DateTime.UtcNow,
-            });
-
-            await Clients.All.SendAsync("CreateMessageResponse", messageDto);
+            await Clients.All.SendAsync("CreateMessageResponse", userId, message);
         }
 
         //Add id into response so client can match correctly

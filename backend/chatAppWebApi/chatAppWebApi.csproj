@@ -19,10 +19,6 @@
     <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.14.1" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="wwwroot\" />
-  </ItemGroup>
-
 	<Target Name="CompileClient" BeforeTargets="Publish">
 		<Exec WorkingDirectory="./client" Command="npm install" />
 		<Exec WorkingDirectory="./client" Command="npm run build" />

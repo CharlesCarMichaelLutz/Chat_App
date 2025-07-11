@@ -1,4 +1,6 @@
-wwwroot\assets\index-BkFdldJJ.js
+wwwroot\assets\index-4F299SKo.js
 wwwroot\assets\index-oObCuMxg.css
 wwwroot\index.html
+wwwroot\js\signalr\dist\browser\signalr.js
+wwwroot\js\signalr\dist\browser\signalr.min.js
 wwwroot\vite.svg
