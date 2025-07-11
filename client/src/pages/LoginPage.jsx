@@ -1,5 +1,11 @@
-import React from "react"
+import { LoginForm } from "../components/LoginForm"
+import { GuestLoginForm } from "../components/GuestLoginForm"
 
-export const LoginPage = () => {
-  return <div>This is the Login page</div>
+export function LoginPage() {
+  return (
+    <>
+      <GuestLoginForm />
+      <LoginForm />
+    </>
+  )
 }

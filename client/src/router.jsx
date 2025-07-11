@@ -4,11 +4,16 @@ import { ErrorPage } from "./pages/ErrorPage"
 import { LoginPage } from "./pages/LoginPage"
 import { PrivateRoute } from "./components/PrivateRoute"
 import { ChatroomPage } from "./pages/ChatroomPage"
+import { AuthProvider } from "./components/AuthProvider"
 
 export const router = createBrowserRouter([
   {
     path: "/",
-    element: <Layout />,
+    element: (
+      <AuthProvider>
+        <Layout />
+      </AuthProvider>
+    ),
     children: [
       {
         errorElement: <ErrorPage />,

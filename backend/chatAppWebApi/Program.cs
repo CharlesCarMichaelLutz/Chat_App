@@ -79,6 +79,8 @@ services.AddCors(options =>
     options.AddPolicy("ReactAppPolicy", builder =>
     {
         builder.WithOrigins("http://localhost:5173")
+                  //builder.WithOrigins("http://localhost:3000")
+
           .AllowAnyHeader()
           .AllowCredentials()
           .AllowAnyMethod();
@@ -112,7 +114,7 @@ app.UseAuthorization();
 
 app.UseEndpoints(endpoints =>
 {   //setup websocket for real-time connection
-    //endpoints.MapHub<ChatHub>("/chatHub");
+    endpoints.MapHub<ChatHub>("/chatHub");
 
     //sign up a user
     endpoints.MapPost("/api/users/signup", async (IUserService service, [FromBody] UserModel user) =>

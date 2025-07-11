@@ -1,4 +1,4 @@
-wwwroot\assets\index-AyoHnR3o.js
+wwwroot\assets\index-BkFdldJJ.js
 wwwroot\assets\index-oObCuMxg.css
 wwwroot\index.html
 wwwroot\vite.svg
