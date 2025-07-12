@@ -79,8 +79,6 @@ services.AddCors(options =>
     options.AddPolicy("ReactAppPolicy", builder =>
     {
         builder.WithOrigins("http://localhost:5173")
-                  //builder.WithOrigins("http://localhost:3000")
-
           .AllowAnyHeader()
           .AllowCredentials()
           .AllowAnyMethod();
@@ -151,7 +149,7 @@ app.UseEndpoints(endpoints =>
         return Results.Ok(response);
     });
     //delete a message by id
-    endpoints.MapDelete("/api/messages/{id}", [Authorize] async (IMessageService service, [FromBody] int id) =>
+    endpoints.MapDelete("/api/messages/{id}", [Authorize] async (IMessageService service, int id) =>
     {
         var response = await service.DeleteMessage(id);
         return Results.Ok(response);

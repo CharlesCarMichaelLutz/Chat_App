@@ -24,7 +24,7 @@
     "Order": 0,
     "Parameters": [
       {
-        "Name": "Int32",
+        "Name": "id",
         "Type": "System.Int32",
         "IsRequired": true
       }
