@@ -2,6 +2,7 @@
 using chatAppWebApi.Repositories;
 using chatAppWebApi.SignalR;
 using Microsoft.AspNetCore.SignalR;
+using System.Diagnostics.Eventing.Reader;
 
 namespace chatAppWebApi.Services
 {
@@ -10,7 +11,7 @@ namespace chatAppWebApi.Services
         Task<bool> CreateMessage(MessageModel message);
         Task<IEnumerable<MessageModel>> GetAllMessages();
         Task<bool> DeleteMessage(int id);
-
+        Task<MessageDTO> GetMessage();
     }
     public class MessageService : IMessageService
     {
@@ -19,28 +20,49 @@ namespace chatAppWebApi.Services
         {
             _messageRepository = messageRepository;
         }
+        //working as expected
+
+        //public async Task<bool> CreateMessage(MessageModel message)
+        //{
+        //    try
+        //    {
+        //        var saved = await _messageRepository.CreateMessageAsync(message);
+        //        if (!saved)
+        //        {
+        //            return false;
+        //        }
+        //        return true;
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        Console.WriteLine(ex.Message);
+        //        return false;
+        //    }
+        //}
+
         public async Task<bool> CreateMessage(MessageModel message)
         {
-            try
-            {
                 var saved = await _messageRepository.CreateMessageAsync(message);
-                if (!saved)
-                {
-                    return false;
-                }
-                return true;
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-                return false;
-            }
-        }
 
+                if (saved)
+                {
+                    return true;
+                }
+                return false;
+        }
+        public async Task<MessageDTO> GetMessage()
+        {
+                var saved = await _messageRepository.GetMessageAsync();
+
+                return new MessageDTO
+                {
+                    MessageId = saved.Id,
+                    UserId = saved.UserId,
+                    Text = saved.Text,
+                };
+        }
         public async Task<IEnumerable<MessageModel>> GetAllMessages()
         {
-            //TODO reshape the data with a DTO so it omits createdDate
-
             return await _messageRepository.GetAllMessagesAsync();
         }
         public async Task<bool> DeleteMessage(int id)

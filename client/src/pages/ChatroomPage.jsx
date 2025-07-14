@@ -73,27 +73,46 @@ export function ChatroomPage() {
     }
   }, [user.token])
 
+  // const propagateSendMessage = async (e) => {
+  //   e.preventDefault()
+  //   try {
+  //     if (hubConnection) {
+  //       await hubConnection.invoke(
+  //         "SendMessage",
+  //         // user.userId.toString(),
+  //         user.userId,
+  //         messageInput.message
+  //       )
+  //     }
+  //     await baseApi.post(
+  //       baseApi + `messages/broadcast`,
+  //       {
+  //         UserId: user.userId,
+  //         Text: messageInput.message,
+  //       },
+  //       {
+  //         headers: { Authorization: `Bearer ${user.token}` },
+  //       }
+  //     )
+  //   } catch (error) {
+  //     console.log(error)
+  //   } finally {
+  //     setMessageInput({ message: "" })
+  //     setLoading(false)
+  //   }
+  // }
+
   const propagateSendMessage = async (e) => {
     e.preventDefault()
     try {
       if (hubConnection) {
         await hubConnection.invoke(
           "SendMessage",
-          // user.userId.toString(),
           user.userId,
-          messageInput.message
+          messageInput.message,
+          null
         )
       }
-      await baseApi.post(
-        baseApi + `messages/broadcast`,
-        {
-          UserId: user.userId,
-          Text: messageInput.message,
-        },
-        {
-          headers: { Authorization: `Bearer ${user.token}` },
-        }
-      )
     } catch (error) {
       console.log(error)
     } finally {
@@ -102,14 +121,24 @@ export function ChatroomPage() {
     }
   }
 
+  // const propagateDeleteMessage = async (messageId) => {
+  //   try {
+  //     if (hubConnection) {
+  //       await hubConnection.invoke("DeleteMessage", messageId)
+  //     }
+  //     await baseApi.delete(`messages/${messageId}`, {
+  //       headers: { Authorization: `Bearer ${user.token}` },
+  //     })
+  //   } catch (error) {
+  //     console.log(error)
+  //   }
+  // }
+
   const propagateDeleteMessage = async (messageId) => {
     try {
       if (hubConnection) {
         await hubConnection.invoke("DeleteMessage", messageId)
       }
-      await baseApi.delete(`messages/${messageId}`, {
-        headers: { Authorization: `Bearer ${user.token}` },
-      })
     } catch (error) {
       console.log(error)
     }

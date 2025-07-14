@@ -13,12 +13,23 @@ namespace chatAppWebApi.Models
         public string PasswordHash { get; set; }
         public DateTime CreatedDate { get; set; }
     }
+    public class UserDTO
+    {
+        public int UserId { get; set; }
+        public string Username { get; set; }
+    }
     public class MessageModel
     {
         public int Id { get; set; }
         public int UserId { get; set; }
         public string Text { get; set; }
         public DateTime CreatedDate { get; set; }
+    }
+    public class MessageDTO
+    {
+        public int MessageId { get; set; }
+        public int UserId { get; set; }
+        public string Text { get; set; }
     }
 
     public class DeleteMessageModel
@@ -40,19 +51,6 @@ namespace chatAppWebApi.Models
         public int UserId { get; set; }
         public string Token { get; set; }
         public string Username { get; set; }
-    }
-
-    public class UserDTO
-    {
-        public int Id { get; set; }
-        public string Username { get; set; }
-    }
-
-    public class MessageDTO
-    {
-        public int Id { get; set; }
-        public int UserId { get; set; }
-        public string Text { get; set; }
     }
 
     //public class ChatMessage

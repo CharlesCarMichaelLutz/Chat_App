@@ -1,59 +1,44 @@
 ﻿using chatAppWebApi.Models;
 using chatAppWebApi.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.SignalR;
 
 namespace chatAppWebApi.SignalR
 
 {
+    //[Authorize]
+    //public class ChatHub : Hub<IChatClient>
     public class ChatHub : Hub
+
     {
-        //private readonly IMessageService _messageService;
-        //public ChatHub(IMessageService messageService)
-        //{
-        //    _messageService = messageService;
-        //}
-     
-        //public async Task SendMessage(int userId, string text)
-        //{
-        //    //call MessageService
-        //    //save message to DB and get message Id
-
-        //    //re shape data to include id for message and return MessageDTO object
-        //    //perhaps that can be done inside MessageService?
-
-        //    var messageDto = await _messageService.CreateMessage(new MessageModel
-        //    {
-        //        UserId = userId,
-        //        Text = text,
-        //        CreatedDate = DateTime.UtcNow,
-        //    });
-        //    await Clients.All.SendAsync("CreateMessageResponse", messageDto);
-        //}
-
-        //Working as expected
-        public async Task SendMessage(int userId, string message)
+        private readonly IMessageService _messageService;
+        public ChatHub(IMessageService messageService)
         {
-            await Clients.All.SendAsync("CreateMessageResponse", userId, message);
+            _messageService = messageService;
         }
 
-        //Add id into response so client can match correctly
-
+        //Working as expected
         //public async Task SendMessage(int userId, string message)
         //{
-        //    //save message to DB from messageService/messageRepository
-        //    //retunr a mess
-        //    await Clients.All.SendAsync("CreateMessageResponse",id, userId, message);
+        //    await Clients.All.SendMessage(userId, message);
         //}
+        public async Task SendMessage(int userId, string text, int id )
+        {
+            var savedMessage = await _messageService.CreateMessage(new MessageModel
+            {
+                UserId = userId,
+                Text = text,
+                CreatedDate = DateTime.UtcNow,
+            });
+
+            if (savedMessage)
+            {
+                var response = await _messageService.GetMessage();
+                await Clients.All.SendAsync("CreateMessageResponse", response.MessageId, response.UserId, response.Text);
+            };
+        }
 
         //Working as expected
-
-        //public async Task DeleteMessage(int messageId)
-        //{
-        //    //delete message from DB at messageService/messageRepository
-
-        //    await Clients.All.SendAsync("DeleteMessageResponse", messageId);
-        //}
-
         public async Task DeleteMessage(int messageId)
         {
             //delete message from DB at messageService/messageRepository
@@ -61,12 +46,18 @@ namespace chatAppWebApi.SignalR
             await Clients.All.SendAsync("DeleteMessageResponse", messageId);
         }
 
-        //public override async Task OnConnectedAsync()
+        //public async Task DeleteMessage(int messageId)
         //{
-        //    await Clients.All.SendAsync("ReceiveMessage", $"{Context.ConnectionId} has joined");
+        //    //save message to DB from messageService/messageRepository
+        //    //retunr a mess
+        //    await Clients.All.DeleteMessage(messageId);
         //}
+
+        public override async Task OnConnectedAsync()
+        {
+            await Clients.All.SendAsync("ReceiveMessage", $"{Context.ConnectionId} has joined");
+        }
 
     }
 }
 
-//realized that data being sent over from client is not being serialized

@@ -111,49 +111,60 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.UseEndpoints(endpoints =>
-{   //setup websocket for real-time connection
-    endpoints.MapHub<ChatHub>("/chatHub");
-
+{   
     //sign up a user
-    endpoints.MapPost("/api/users/signup", async (IUserService service, [FromBody] UserModel user) =>
+    endpoints.MapPost("/api/users/signup", async (
+              IUserService service, [FromBody] UserModel user) =>
     {
         var response = await service.CreateUser(user);
         return Results.Ok(response);
     });
     //login an existing user
-    endpoints.MapPost("/api/users/login", async (IUserService service, [FromBody] UserModel user) =>
+    endpoints.MapPost("/api/users/login", async (
+              IUserService service, [FromBody] UserModel user) =>
     {
         var response = await service.LoginUser(user);
         return Results.Ok(response);
     });
     //get all users
-    endpoints.MapGet("/api/users", [Authorize] async (IUserService service) =>
+    endpoints.MapGet("/api/users", [Authorize] async (
+              IUserService service) =>
     {
         var response = await service.GetAllUsers();
         return Results.Ok(response);
     });
-    //create a message
-    endpoints.MapPost("/api/messages/broadcast", [Authorize] async (IMessageService service, [FromBody] MessageModel message) =>
-    {
-        var response = await service.CreateMessage(message);
-        if (!response)
-        {
-            return Results.BadRequest("failed to create a message");
-        }
-        return Results.Ok(response);
-    });
     //get all messages
-    endpoints.MapGet("/api/messages", [Authorize] async (IMessageService service) =>
+    endpoints.MapGet("/api/messages", [Authorize] async (
+              IMessageService service) =>
     {
         var response = await service.GetAllMessages();
         return Results.Ok(response);
     });
+
+    //setup websocket for real-time connection
+    endpoints.MapHub<ChatHub>("/chatHub");
+
     //delete a message by id
-    endpoints.MapDelete("/api/messages/{id}", [Authorize] async (IMessageService service, int id) =>
+    endpoints.MapDelete("/api/messages/{id}", [Authorize] async (
+              IMessageService service, int id) =>
     {
         var response = await service.DeleteMessage(id);
         return Results.Ok(response);
     });
+
+    //create a message
+    //endpoints.MapPost("/api/messages/broadcast", [Authorize] async (
+    //          IMessageService service, [FromBody] MessageModel message) =>
+    //{
+    //    var response = await service.CreateMessage(message);
+    //    if (!response)
+    //    {
+    //        return Results.BadRequest("failed to create a message");
+    //    }
+    //    //await hubContext.Clients.All.SendAsync("CreateMessageResponse", message.UserId, message.Text);
+
+    //    return Results.Ok(response);
+    //});
 
     endpoints.MapFallback(async context =>
     {

@@ -13,20 +13,20 @@ export function useWebSocket(setMessageList) {
 
       setHubConnection(connection)
 
-      //working as expected
-
-      // connection.on("CreateMessageResponse", (id, userId, text) => {
-      //   if (setMessageList) {
-      //     setMessageList((list) => [...list, { id, userId, text }])
-      //   }
-      // })
-
-      connection.on("CreateMessageResponse", (userId, text) => {
+      connection.on("CreateMessageResponse", (id, userId, text) => {
         if (setMessageList) {
-          setMessageList((list) => [...list, { userId, text }])
+          setMessageList((list) => [...list, { id, userId, text }])
         }
       })
 
+      // //working as expected
+      // connection.on("CreateMessageResponse", (userId, text) => {
+      //   if (setMessageList) {
+      //     setMessageList((list) => [...list, { userId, text }])
+      //   }
+      // })
+
+      // //working as expected
       connection.on("DeleteMessageResponse", (messageId) => {
         if (setMessageList) {
           setMessageList((list) =>
@@ -34,6 +34,14 @@ export function useWebSocket(setMessageList) {
           )
         }
       })
+
+      // connection.on("DeleteMessage", (messageId) => {
+      //   if (setMessageList) {
+      //     setMessageList((list) =>
+      //       list.filter((message) => message.id !== messageId)
+      //     )
+      //   }
+      // })
 
       await connection.start()
 
