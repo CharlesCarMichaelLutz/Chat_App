@@ -168,11 +168,17 @@ export function ChatroomPage() {
     const matchUser = usernameList.find((usr) => usr.id === message.userId)
     return (
       <li key={message.id}>
-        <span>{matchUser ? matchUser.username : "Unknown"}</span>
-        <span>{message.text}</span>
+        <span className="username">
+          {matchUser ? matchUser.username : "Unknown"}
+        </span>
+        {" : "}
+        <span className="message">{message.text}</span>{" "}
         <span>
           {matchUser && matchUser.username === user.username && (
-            <button onClick={() => propagateDeleteMessage(message.id)}>
+            <button
+              className="delete-button"
+              onClick={() => propagateDeleteMessage(message.id)}
+            >
               Delete
             </button>
           )}
@@ -188,29 +194,31 @@ export function ChatroomPage() {
 
   return (
     <>
-      <div>
-        {/* <span className="active--users">
+      <div className="wrapper">
+        <section className="active-users">
           <h2>Active Now</h2>
-           {activeUserList.map((username) => {
-            if(username.isLoggedIn){
+          {/* {activeUserList.map((username) => {
+            if (username.isLoggedIn) {
               return username
             }
-          })}
-        </span>  */}
-        <span>
+          })} */}
+        </section>
+        <section className="chatroom-data">
           <ul>{renderChatroom}</ul>
-        </span>
-        <form onSubmit={propagateSendMessage}>
-          <input
-            type="text"
-            placeholder="...enter message here"
-            name="message"
-            id="message"
-            value={messageInput.message}
-            onChange={handleChange}
-          />
-          <button>Send</button>
-        </form>
+        </section>
+        <fieldset>
+          <form onSubmit={propagateSendMessage}>
+            <input
+              type="text"
+              placeholder="...enter message here"
+              name="message"
+              id="message"
+              value={messageInput.message}
+              onChange={handleChange}
+            />
+            <button>Send</button>
+          </form>
+        </fieldset>
       </div>
     </>
   )

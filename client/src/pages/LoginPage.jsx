@@ -1,11 +1,11 @@
-import { LoginForm } from "../components/LoginForm"
-import { GuestLoginForm } from "../components/GuestLoginForm"
+import { LoginForms } from "../components/LoginForms"
+import rabbit from "../images/rabbitchat.jpg"
 
 export function LoginPage() {
   return (
     <>
-      <GuestLoginForm />
-      <LoginForm />
+      <img src={rabbit} alt="rabbit chat image" />
+      <LoginForms />
     </>
   )
 }
