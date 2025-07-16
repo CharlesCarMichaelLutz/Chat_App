@@ -31,13 +31,11 @@ namespace chatAppWebApi.Models
         public int UserId { get; set; }
         public string Text { get; set; }
     }
-
     public class DeleteMessageModel
     {
         public int Id { get; set; }
         public int UserId { get; set; }
     }
-
     public class JwtCredentials
     {
         public string Key { get; set; }
@@ -45,18 +43,10 @@ namespace chatAppWebApi.Models
         public string Audience { get; set; }
 
     }
-
     public class LoginResponse
     {
         public int UserId { get; set; }
         public string Token { get; set; }
         public string Username { get; set; }
     }
-
-    //public class ChatMessage
-    //{
-    //    public int UserId { get; set; }
-    //    public string Text { get; set; }
-    //    public DateTime CreatedDate { get; set; }
-    //}
 }

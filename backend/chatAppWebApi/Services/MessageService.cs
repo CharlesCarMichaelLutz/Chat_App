@@ -20,26 +20,6 @@ namespace chatAppWebApi.Services
         {
             _messageRepository = messageRepository;
         }
-        //working as expected
-
-        //public async Task<bool> CreateMessage(MessageModel message)
-        //{
-        //    try
-        //    {
-        //        var saved = await _messageRepository.CreateMessageAsync(message);
-        //        if (!saved)
-        //        {
-        //            return false;
-        //        }
-        //        return true;
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        Console.WriteLine(ex.Message);
-        //        return false;
-        //    }
-        //}
-
         public async Task<bool> CreateMessage(MessageModel message)
         {
                 var saved = await _messageRepository.CreateMessageAsync(message);
@@ -56,7 +36,7 @@ namespace chatAppWebApi.Services
 
                 return new MessageDTO
                 {
-                    MessageId = saved.Id,
+                    MessageId = saved.MessageId,
                     UserId = saved.UserId,
                     Text = saved.Text,
                 };
@@ -81,7 +61,6 @@ namespace chatAppWebApi.Services
                 Console.WriteLine(ex.Message);
                 return false;
             }
-
         }
     }
 }

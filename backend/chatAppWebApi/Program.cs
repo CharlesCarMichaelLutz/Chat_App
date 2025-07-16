@@ -141,30 +141,42 @@ app.UseEndpoints(endpoints =>
         return Results.Ok(response);
     });
 
-    //setup websocket for real-time connection
     endpoints.MapHub<ChatHub>("/chatHub");
 
-    //delete a message by id
-    endpoints.MapDelete("/api/messages/{id}", [Authorize] async (
-              IMessageService service, int id) =>
+    //create a message
+    endpoints.MapPost("/api/messages/broadcast", [Authorize] async (
+              IMessageService service, IHubContext<ChatHub> context, [FromBody] MessageModel message) =>
     {
-        var response = await service.DeleteMessage(id);
+        //save message to DB
+        var response = await service.CreateMessage(message);
+
+        if(!response)
+        {
+            return Results.BadRequest("failed to create a message");
+
+        }
+        //get message DTO with ID from DB
+        var messageDTO = await service.GetMessage();
+
+        //propagate DTO to all connected clients
+        await context.Clients.All.SendAsync("PropagateMessageResponse", messageDTO.UserId, messageDTO.Text, messageDTO.MessageId);
+
         return Results.Ok(response);
     });
 
-    //create a message
-    //endpoints.MapPost("/api/messages/broadcast", [Authorize] async (
-    //          IMessageService service, [FromBody] MessageModel message) =>
-    //{
-    //    var response = await service.CreateMessage(message);
-    //    if (!response)
-    //    {
-    //        return Results.BadRequest("failed to create a message");
-    //    }
-    //    //await hubContext.Clients.All.SendAsync("CreateMessageResponse", message.UserId, message.Text);
-
-    //    return Results.Ok(response);
-    //});
+    //delete a message
+    endpoints.MapDelete("/api/messages/{id}", [Authorize] async (
+              IMessageService service, IHubContext<ChatHub> context, int id) =>
+    {
+        var response = await service.DeleteMessage(id);
+        if (!response)
+        {
+            return Results.BadRequest("failed to delete a message");
+        }
+        //propagate deletion to all connected clients
+        await context.Clients.All.SendAsync("DeleteMessageResponse", id);
+        return Results.Ok(response);
+    });
 
     endpoints.MapFallback(async context =>
     {

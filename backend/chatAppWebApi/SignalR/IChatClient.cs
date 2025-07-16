@@ -2,9 +2,7 @@
 //{
 //    public interface IChatClient
 //    {
-//        //Task SendMessage(int userId, string text, int id);
-//        Task SendMessage(int userId, string text);
-
+//        Task SendMessage(int userId, string text, int id);
 //        Task DeleteMessage(int messageId);
 //    }
 //}

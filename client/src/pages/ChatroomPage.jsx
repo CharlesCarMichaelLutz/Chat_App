@@ -106,11 +106,15 @@ export function ChatroomPage() {
     e.preventDefault()
     try {
       if (hubConnection) {
-        await hubConnection.invoke(
-          "SendMessage",
-          user.userId,
-          messageInput.message,
-          null
+        await baseApi.post(
+          baseApi + `messages/broadcast`,
+          {
+            UserId: user.userId,
+            Text: messageInput.message,
+          },
+          {
+            headers: { Authorization: `Bearer ${user.token}` },
+          }
         )
       }
     } catch (error) {
@@ -120,6 +124,24 @@ export function ChatroomPage() {
       setLoading(false)
     }
   }
+
+  // const propagateSendMessage = async (e) => {
+  //   e.preventDefault()
+  //   try {
+  //     if (hubConnection) {
+  //       await hubConnection.invoke(
+  //         "SendMessage",
+  //         user.userId,
+  //         messageInput.message
+  //       )
+  //     }
+  //   } catch (error) {
+  //     console.log(error)
+  //   } finally {
+  //     setMessageInput({ message: "" })
+  //     setLoading(false)
+  //   }
+  // }
 
   // const propagateDeleteMessage = async (messageId) => {
   //   try {
@@ -143,24 +165,6 @@ export function ChatroomPage() {
       console.log(error)
     }
   }
-
-  // const renderChatroom = messageList.map((message) => {
-  //   const userIdInt = Number(message.userId)
-  //   const matchUser = usernameList.find((usr) => usr.id === userIdInt)
-  //   return (
-  //     <li className="create--message" key={message.id}>
-  //       <span className="username">
-  //         {matchUser ? matchUser.username : "Unknown"}
-  //       </span>
-  //       <span className="content">{message.text}</span>
-  //       <span>
-  //         {matchUser && matchUser.username === user.username && (
-  //           <button onClick={() => deleteMessage(message.id)}>Delete</button>
-  //         )}
-  //       </span>
-  //     </li>
-  //   )
-  // })
 
   const renderChatroom = messageList.map((message) => {
     // const userIdInt = Number(message.userId)
@@ -223,11 +227,3 @@ export function ChatroomPage() {
     </>
   )
 }
-
-//upon login set an isLoggedIn boolean on the user object to true
-// push the user object into an array
-//map over the array
-//if user.isLoggedIn === true
-//render username
-//false
-// do not render username
