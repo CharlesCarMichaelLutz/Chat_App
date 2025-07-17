@@ -1,6 +1,5 @@
-wwwroot\assets\index-4F299SKo.js
-wwwroot\assets\index-oObCuMxg.css
+wwwroot\assets\index-Hlpov5an.css
+wwwroot\assets\index-y2V2seu6.js
+wwwroot\assets\rabbitchat-BD_2bsj4.jpg
 wwwroot\index.html
-wwwroot\js\signalr\dist\browser\signalr.js
-wwwroot\js\signalr\dist\browser\signalr.min.js
 wwwroot\vite.svg

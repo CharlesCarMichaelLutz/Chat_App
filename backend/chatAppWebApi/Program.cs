@@ -144,39 +144,39 @@ app.UseEndpoints(endpoints =>
     endpoints.MapHub<ChatHub>("/chatHub");
 
     //create a message
-    endpoints.MapPost("/api/messages/broadcast", [Authorize] async (
-              IMessageService service, IHubContext<ChatHub> context, [FromBody] MessageModel message) =>
-    {
-        //save message to DB
-        var response = await service.CreateMessage(message);
+    //endpoints.MapPost("/api/messages/broadcast", [Authorize] async (
+    //          IMessageService service, IHubContext<ChatHub> context, [FromBody] MessageModel message) =>
+    //{
+    //    //save message to DB
+    //    var response = await service.CreateMessage(message);
 
-        if(!response)
-        {
-            return Results.BadRequest("failed to create a message");
+    //    if(!response)
+    //    {
+    //        return Results.BadRequest("failed to create a message");
 
-        }
-        //get message DTO with ID from DB
-        var messageDTO = await service.GetMessage();
+    //    }
+    //    //get message DTO with ID from DB
+    //    var messageDTO = await service.GetMessage();
 
-        //propagate DTO to all connected clients
-        await context.Clients.All.SendAsync("PropagateMessageResponse", messageDTO.UserId, messageDTO.Text, messageDTO.MessageId);
+    //    //propagate DTO to all connected clients
+    //    await context.Clients.All.SendAsync("PropagateMessageResponse", messageDTO.UserId, messageDTO.Text, messageDTO.MessageId);
 
-        return Results.Ok(response);
-    });
+    //    return Results.Ok(response);
+    //});
 
     //delete a message
-    endpoints.MapDelete("/api/messages/{id}", [Authorize] async (
-              IMessageService service, IHubContext<ChatHub> context, int id) =>
-    {
-        var response = await service.DeleteMessage(id);
-        if (!response)
-        {
-            return Results.BadRequest("failed to delete a message");
-        }
-        //propagate deletion to all connected clients
-        await context.Clients.All.SendAsync("DeleteMessageResponse", id);
-        return Results.Ok(response);
-    });
+    //endpoints.MapDelete("/api/messages/{id}", [Authorize] async (
+    //          IMessageService service, IHubContext<ChatHub> context, int id) =>
+    //{
+    //    var response = await service.DeleteMessage(id);
+    //    if (!response)
+    //    {
+    //        return Results.BadRequest("failed to delete a message");
+    //    }
+    //    //propagate deletion to all connected clients
+    //    await context.Clients.All.SendAsync("DeleteMessageResponse", id);
+    //    return Results.Ok(response);
+    //});
 
     endpoints.MapFallback(async context =>
     {

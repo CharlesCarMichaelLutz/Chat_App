@@ -73,48 +73,26 @@ export function ChatroomPage() {
     }
   }, [user.token])
 
-  // const propagateSendMessage = async (e) => {
-  //   e.preventDefault()
-  //   try {
-  //     if (hubConnection) {
-  //       await hubConnection.invoke(
-  //         "SendMessage",
-  //         // user.userId.toString(),
-  //         user.userId,
-  //         messageInput.message
-  //       )
-  //     }
-  //     await baseApi.post(
-  //       baseApi + `messages/broadcast`,
-  //       {
-  //         UserId: user.userId,
-  //         Text: messageInput.message,
-  //       },
-  //       {
-  //         headers: { Authorization: `Bearer ${user.token}` },
-  //       }
-  //     )
-  //   } catch (error) {
-  //     console.log(error)
-  //   } finally {
-  //     setMessageInput({ message: "" })
-  //     setLoading(false)
-  //   }
-  // }
-
+  //figure out the async/await order to match up with server
   const propagateSendMessage = async (e) => {
     e.preventDefault()
     try {
+      await baseApi.post(
+        baseApi + `messages/broadcast`,
+        {
+          UserId: user.userId,
+          Text: messageInput.message,
+        },
+        {
+          headers: { Authorization: `Bearer ${user.token}` },
+        }
+      )
       if (hubConnection) {
-        await baseApi.post(
-          baseApi + `messages/broadcast`,
-          {
-            UserId: user.userId,
-            Text: messageInput.message,
-          },
-          {
-            headers: { Authorization: `Bearer ${user.token}` },
-          }
+        await hubConnection.invoke(
+          "SendMessage",
+          // user.userId.toString(),
+          user.userId,
+          messageInput.message
         )
       }
     } catch (error) {
@@ -124,6 +102,29 @@ export function ChatroomPage() {
       setLoading(false)
     }
   }
+
+  // const propagateSendMessage = async (e) => {
+  //   e.preventDefault()
+  //   try {
+  //     if (hubConnection) {
+  //       await baseApi.post(
+  //         baseApi + `messages/broadcast`,
+  //         {
+  //           UserId: user.userId,
+  //           Text: messageInput.message,
+  //         },
+  //         {
+  //           headers: { Authorization: `Bearer ${user.token}` },
+  //         }
+  //       )
+  //     }
+  //   } catch (error) {
+  //     console.log(error)
+  //   } finally {
+  //     setMessageInput({ message: "" })
+  //     setLoading(false)
+  //   }
+  // }
 
   // const propagateSendMessage = async (e) => {
   //   e.preventDefault()
@@ -198,19 +199,33 @@ export function ChatroomPage() {
 
   return (
     <>
-      <div className="wrapper">
-        <section className="active-users">
-          <h2>Active Now</h2>
-          {/* {activeUserList.map((username) => {
+      <div className="chatroom-wrapper">
+        <div className="row-one">
+          <section className="active-users">
+            <h2>Active Now</h2>
+            <ul class="active-users-list">
+              <li>User 1</li>
+              <li>Tim</li>
+              <li>User 2</li>
+              <li>Amy</li>
+              <li>User 3</li>
+              <li>Bill</li>
+              <li>User 4</li>
+              <li>Sarah</li>
+              <li>User 5</li>
+              <li>Hope</li>
+            </ul>
+            {/* {activeUserList.map((username) => {
             if (username.isLoggedIn) {
               return username
             }
           })} */}
-        </section>
-        <section className="chatroom-data">
-          <ul>{renderChatroom}</ul>
-        </section>
-        <fieldset>
+          </section>
+          <section className="chatroom-data">
+            <ul>{renderChatroom}</ul>
+          </section>
+        </div>
+        <div className="row-two">
           <form onSubmit={propagateSendMessage}>
             <input
               type="text"
@@ -222,7 +237,7 @@ export function ChatroomPage() {
             />
             <button>Send</button>
           </form>
-        </fieldset>
+        </div>
       </div>
     </>
   )

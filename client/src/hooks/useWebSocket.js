@@ -14,6 +14,7 @@ export function useWebSocket(setMessageList) {
       setHubConnection(connection)
       //experiment with passing in an object instead of 3 arguments
       connection.on("PropagateMessageResponse", (id, userId, text) => {
+        console.log("propagate fires", id, userId, text)
         if (setMessageList) {
           setMessageList((list) => [...list, { id, userId, text }])
         }
