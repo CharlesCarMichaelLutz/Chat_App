@@ -1,40 +1,40 @@
 ﻿<Project>
   <ItemGroup>
-    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\assets\index-Hlpov5an.css'))">
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\assets\index-BsOsS9B-.css'))">
       <SourceType>Package</SourceType>
       <SourceId>chatAppWebApi</SourceId>
       <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
       <BasePath>_content/chatAppWebApi</BasePath>
-      <RelativePath>assets/index-Hlpov5an.css</RelativePath>
+      <RelativePath>assets/index-BsOsS9B-.css</RelativePath>
       <AssetKind>All</AssetKind>
       <AssetMode>All</AssetMode>
       <AssetRole>Primary</AssetRole>
       <RelatedAsset></RelatedAsset>
       <AssetTraitName></AssetTraitName>
       <AssetTraitValue></AssetTraitValue>
-      <Fingerprint>unc87wfesy</Fingerprint>
-      <Integrity>GkmLruEhklQn73Bu63YfGydFl2F1pKVCd+zNkGmA40A=</Integrity>
+      <Fingerprint>nwrd1tpf7b</Fingerprint>
+      <Integrity>eaxGfN3O4lLN2BE/q3dBYEhQqo6d3PxY8ePVd/A3WII=</Integrity>
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-      <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\assets\index-Hlpov5an.css'))</OriginalItemSpec>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\assets\index-BsOsS9B-.css'))</OriginalItemSpec>
     </StaticWebAsset>
-    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\assets\index-y2V2seu6.js'))">
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\assets\index-Ub_CkLWj.js'))">
       <SourceType>Package</SourceType>
       <SourceId>chatAppWebApi</SourceId>
       <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
       <BasePath>_content/chatAppWebApi</BasePath>
-      <RelativePath>assets/index-y2V2seu6.js</RelativePath>
+      <RelativePath>assets/index-Ub_CkLWj.js</RelativePath>
       <AssetKind>All</AssetKind>
       <AssetMode>All</AssetMode>
       <AssetRole>Primary</AssetRole>
       <RelatedAsset></RelatedAsset>
       <AssetTraitName></AssetTraitName>
       <AssetTraitValue></AssetTraitValue>
-      <Fingerprint>jsbzkoogq0</Fingerprint>
-      <Integrity>c5qA/7UDSFUi2W99cSWU4jFnoO9Mxwsxon3BRFu7/IE=</Integrity>
+      <Fingerprint>t10tgdqo8e</Fingerprint>
+      <Integrity>f1YZYPhLVy/baLSJoWYqihSmE1XSxIC7caxLD/ZaMjw=</Integrity>
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-      <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\assets\index-y2V2seu6.js'))</OriginalItemSpec>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\assets\index-Ub_CkLWj.js'))</OriginalItemSpec>
     </StaticWebAsset>
     <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\assets\rabbitchat-BD_2bsj4.jpg'))">
       <SourceType>Package</SourceType>
@@ -66,8 +66,8 @@
       <RelatedAsset></RelatedAsset>
       <AssetTraitName></AssetTraitName>
       <AssetTraitValue></AssetTraitValue>
-      <Fingerprint>2qq6b1uopk</Fingerprint>
-      <Integrity>NsTD3ptK7Ci9Wq5TXUMAO8Zu7gvxcwVSEU0TSoFaT9s=</Integrity>
+      <Fingerprint>ehub6ymelq</Fingerprint>
+      <Integrity>Et2LT10KpEtkfsXEES+pKNyMcgRA6IaejampV5HGCsg=</Integrity>
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\index.html'))</OriginalItemSpec>

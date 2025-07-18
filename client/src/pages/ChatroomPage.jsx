@@ -103,60 +103,6 @@ export function ChatroomPage() {
     }
   }
 
-  // const propagateSendMessage = async (e) => {
-  //   e.preventDefault()
-  //   try {
-  //     if (hubConnection) {
-  //       await baseApi.post(
-  //         baseApi + `messages/broadcast`,
-  //         {
-  //           UserId: user.userId,
-  //           Text: messageInput.message,
-  //         },
-  //         {
-  //           headers: { Authorization: `Bearer ${user.token}` },
-  //         }
-  //       )
-  //     }
-  //   } catch (error) {
-  //     console.log(error)
-  //   } finally {
-  //     setMessageInput({ message: "" })
-  //     setLoading(false)
-  //   }
-  // }
-
-  // const propagateSendMessage = async (e) => {
-  //   e.preventDefault()
-  //   try {
-  //     if (hubConnection) {
-  //       await hubConnection.invoke(
-  //         "SendMessage",
-  //         user.userId,
-  //         messageInput.message
-  //       )
-  //     }
-  //   } catch (error) {
-  //     console.log(error)
-  //   } finally {
-  //     setMessageInput({ message: "" })
-  //     setLoading(false)
-  //   }
-  // }
-
-  // const propagateDeleteMessage = async (messageId) => {
-  //   try {
-  //     if (hubConnection) {
-  //       await hubConnection.invoke("DeleteMessage", messageId)
-  //     }
-  //     await baseApi.delete(`messages/${messageId}`, {
-  //       headers: { Authorization: `Bearer ${user.token}` },
-  //     })
-  //   } catch (error) {
-  //     console.log(error)
-  //   }
-  // }
-
   const propagateDeleteMessage = async (messageId) => {
     try {
       if (hubConnection) {
