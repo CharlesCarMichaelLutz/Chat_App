@@ -4,7 +4,6 @@ import { useAuth } from "./AuthProvider"
 
 export function PrivateRoute() {
   const { user } = useAuth()
-  console.log("PrivateRoute user:", user)
 
   if (!user || !user.token) {
     return <Navigate to="/login" />

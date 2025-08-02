@@ -12,22 +12,13 @@ export function useWebSocket(setMessageList) {
         .build()
 
       setHubConnection(connection)
-      //experiment with passing in an object instead of 3 arguments
       connection.on("PropagateMessageResponse", (id, userId, text) => {
-        console.log("propagate fires", id, userId, text)
+        //console.log("propagate fires", id, userId, text)
         if (setMessageList) {
           setMessageList((list) => [...list, { id, userId, text }])
         }
       })
 
-      // //working as expected
-      // connection.on("CreateMessageResponse", (userId, text) => {
-      //   if (setMessageList) {
-      //     setMessageList((list) => [...list, { userId, text }])
-      //   }
-      // })
-
-      // //working as expected
       connection.on("DeleteMessageResponse", (messageId) => {
         if (setMessageList) {
           setMessageList((list) =>
@@ -35,16 +26,11 @@ export function useWebSocket(setMessageList) {
           )
         }
       })
-
-      // connection.on("DeleteMessage", (messageId) => {
-      //   if (setMessageList) {
-      //     setMessageList((list) =>
-      //       list.filter((message) => message.id !== messageId)
-      //     )
-      //   }
-      // })
-
-      await connection.start()
+      try {
+        await connection.start()
+      } catch (err) {
+        console.error("error starting signalR:", err)
+      }
 
       return () => {
         connection.stop()

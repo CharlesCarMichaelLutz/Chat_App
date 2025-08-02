@@ -20,33 +20,7 @@ export function ChatroomPage() {
       [name]: value,
     }))
   }
-  // const getUsers = useCallback(async () => {
-  //   try {
-  //     const res = await axios.get(endpoints.BASE_URI + `users`, {
-  //       headers: { Authorization: `Bearer ${user.token}` },
-  //     })
-  //     setUsernameList(res.data)
-  //   } catch (error) {
-  //     console.log(error)
-  //   } finally {
-  //     setLoading(false)
-  //   }
-  // }, [user.token])
 
-  // const getMessages = useCallback(async () => {
-  //   try {
-  //     const res = await axios.get(endpoints.BASE_URI + `messages`, {
-  //       headers: { Authorization: `Bearer ${user.token}` },
-  //     })
-  //     setMessageList(res.data)
-  //   } catch (error) {
-  //     console.log(error)
-  //   } finally {
-  //     setLoading(false)
-  //   }
-  // }, [user.token])
-
-  //combine both requests into a single useCallback
   const fetchData = useCallback(async () => {
     try {
       const res1 = await baseApi.get(`users`, {
@@ -67,30 +41,16 @@ export function ChatroomPage() {
   useEffect(() => {
     if (user.token) {
       setLoading(true)
-      // getUsers()
-      // getMessages()
       fetchData()
     }
   }, [user.token])
 
-  //figure out the async/await order to match up with server
   const propagateSendMessage = async (e) => {
     e.preventDefault()
     try {
-      await baseApi.post(
-        baseApi + `messages/broadcast`,
-        {
-          UserId: user.userId,
-          Text: messageInput.message,
-        },
-        {
-          headers: { Authorization: `Bearer ${user.token}` },
-        }
-      )
       if (hubConnection) {
         await hubConnection.invoke(
           "SendMessage",
-          // user.userId.toString(),
           user.userId,
           messageInput.message
         )
@@ -114,8 +74,6 @@ export function ChatroomPage() {
   }
 
   const renderChatroom = messageList.map((message) => {
-    // const userIdInt = Number(message.userId)
-    // const matchUser = usernameList.find((usr) => usr.id === userIdInt)
     const matchUser = usernameList.find((usr) => usr.id === message.userId)
     return (
       <li key={message.id}>
@@ -123,7 +81,7 @@ export function ChatroomPage() {
           {matchUser ? matchUser.username : "Unknown"}
         </span>
         {" : "}
-        <span className="message">{message.text}</span>{" "}
+        <span className="message">{message.text}</span>
         <span>
           {matchUser && matchUser.username === user.username && (
             <button

@@ -36,7 +36,6 @@ namespace chatAppWebApi.Repositories
             using var connection = await _connectionFactory.CreateConnectionAsync();
 
             var response = await connection.QuerySingleAsync<MessageDTO>(
-            //@"SELECT * FROM messages ORDER BY ID DESC LIMIT 1;"
             @"SELECT Id AS MessageId, UserId, Text FROM messages ORDER BY ID DESC LIMIT 1;");
 
             return response;
@@ -45,7 +44,12 @@ namespace chatAppWebApi.Repositories
         {
             using var connection = await _connectionFactory.CreateConnectionAsync();
 
-            return await connection.QueryAsync<MessageModel>("SELECT * FROM messages");
+            var query = "SELECT * FROM messages ORDER BY ID ASC";
+            var response = await connection.QueryAsync<MessageModel>(query);
+
+            //Console.WriteLine($"Fetched {response.Count()} messages from the database.");
+
+            return response;
         }
         public async Task<bool> DeleteMessageAsync(int id)
         {
