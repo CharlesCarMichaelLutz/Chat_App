@@ -1,14 +1,11 @@
 import React from "react"
 import { useLocation } from "react-router-dom"
+import { useAuth } from "../components/AuthProvider"
 
 export function Navigation() {
   const location = useLocation()
+  const { handleLogout } = useAuth()
 
-  function handleLogout() {
-    setUser({})
-    localStorage.clear()
-    navigate("/")
-  }
   return (
     <>
       <div className="navbar-container">

@@ -12,6 +12,7 @@ export function useWebSocket(setMessageList) {
         .build()
 
       setHubConnection(connection)
+
       connection.on("PropagateMessageResponse", (id, userId, text) => {
         //console.log("propagate fires", id, userId, text)
         if (setMessageList) {
@@ -26,6 +27,7 @@ export function useWebSocket(setMessageList) {
           )
         }
       })
+
       try {
         await connection.start()
       } catch (err) {

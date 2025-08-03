@@ -45,7 +45,7 @@ export function ChatroomPage() {
     }
   }, [user.token])
 
-  const propagateSendMessage = async (e) => {
+  const propagateCreateMessage = async (e) => {
     e.preventDefault()
     try {
       if (hubConnection) {
@@ -96,6 +96,12 @@ export function ChatroomPage() {
     )
   })
 
+  // function addUsersToList(){
+  //   return usernameList.map((user) => {
+  //     return <li key={user.id}>{user.username}</li>
+  //   })
+  // }
+
   //swap out loading for state in useNavigation
   if (loading) {
     return <div>Loading....</div>
@@ -130,7 +136,7 @@ export function ChatroomPage() {
           </section>
         </div>
         <div className="row-two">
-          <form onSubmit={propagateSendMessage}>
+          <form onSubmit={propagateCreateMessage}>
             <input
               type="text"
               placeholder="...enter message here"

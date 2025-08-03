@@ -7,7 +7,6 @@ const AuthContext = createContext()
 
 const USER = "USER"
 
-//create loginAction.js in api folder to clean up the code
 export function AuthProvider({ children }) {
   const [user, setUser] = useLocalStorage(USER, "")
   const [isSignUp, setIsSignup] = useState(false)
@@ -20,9 +19,7 @@ export function AuthProvider({ children }) {
   async function loginAction(data) {
     const { username, password } = data
     const path = isSignUp ? `users/signup` : `users/login`
-    //const url = baseApi + path
     try {
-      //      const res = await axios.post(url, {
       const res = await baseApi.post(path, {
         Username: username,
         PasswordHash: password,
@@ -43,7 +40,7 @@ export function AuthProvider({ children }) {
     }
   }
 
-  function logOut() {
+  function handleLogout() {
     setUser({})
     localStorage.clear()
     navigate("/")
@@ -56,7 +53,7 @@ export function AuthProvider({ children }) {
         isSignUp,
         toggleSignUp,
         loginAction,
-        logOut,
+        handleLogout,
       }}
     >
       {children}
