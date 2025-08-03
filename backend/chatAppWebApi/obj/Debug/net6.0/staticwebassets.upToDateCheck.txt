@@ -1,5 +1,5 @@
 wwwroot\assets\index-BsOsS9B-.css
-wwwroot\assets\index-Ub_CkLWj.js
+wwwroot\assets\index-wkMEr_Zx.js
 wwwroot\assets\rabbitchat-BD_2bsj4.jpg
 wwwroot\index.html
 wwwroot\vite.svg

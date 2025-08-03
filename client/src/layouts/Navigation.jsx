@@ -13,10 +13,28 @@ export function Navigation() {
           <h1 className="navbar-left">Rabbit Chat</h1>
         </div>
         <div className="navbar-right">
-          <button>light/dark</button>
+          {/* <button>light/dark</button>
           {location.pathname === "/chatroom" && (
             <button className="logout-button" onClick={handleLogout}>
               Logout
+            </button>
+          )} */}
+          {/* replace with fontawesome button and make accessible */}
+          <button>
+            <span
+              className="bi bi-brightness-high-fill"
+              data-aria-label="light/dark mode toggle"
+            ></span>
+          </button>
+          {location.pathname === "/chatroom" && (
+            /* replace with fontawesome button and make accessible */
+            <button
+              className="logout-button"
+              onClick={handleLogout}
+              data-aria-label="logout"
+            >
+              <span className="bi bi-box-arrow-right"></span>
+              {/* <span class="sr-only">Logout</span> */}
             </button>
           )}
         </div>

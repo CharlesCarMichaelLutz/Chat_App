@@ -8,6 +8,7 @@ export function Layout() {
   return (
     <>
       <Navigation />
+      {/* implement same logic in chatroom component */}
       {isLoading && <div className="loading-spinner" />}
       <div className={`container ${isLoading ? "loading" : ""}`}>
         <Outlet />
