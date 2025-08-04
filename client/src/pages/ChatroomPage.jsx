@@ -73,6 +73,14 @@ export function ChatroomPage() {
     }
   }
 
+  const renderUsersList = usernameList.map((user) => {
+    return (
+      <li key={user.id}>
+        <span className="username">{user.username}</span>
+      </li>
+    )
+  })
+
   const renderChatroom = messageList.map((message) => {
     const matchUser = usernameList.find((usr) => usr.id === message.userId)
     return (
@@ -96,12 +104,6 @@ export function ChatroomPage() {
     )
   })
 
-  // function addUsersToList(){
-  //   return usernameList.map((user) => {
-  //     return <li key={user.id}>{user.username}</li>
-  //   })
-  // }
-
   //swap out loading for state in useNavigation
   if (loading) {
     return <div>Loading....</div>
@@ -112,9 +114,10 @@ export function ChatroomPage() {
       <div className="chatroom-wrapper">
         <div className="row-one">
           <section className="active-users">
-            <h2>Active Now</h2>
+            <h2>Rabbits</h2>
             <ul class="active-users-list">
-              <li>User 1</li>
+              {renderUsersList}
+              {/* <li>User 1</li>
               <li>Tim</li>
               <li>User 2</li>
               <li>Amy</li>
@@ -123,7 +126,7 @@ export function ChatroomPage() {
               <li>User 4</li>
               <li>Sarah</li>
               <li>User 5</li>
-              <li>Hope</li>
+              <li>Hope</li> */}
             </ul>
             {/* {activeUserList.map((username) => {
             if (username.isLoggedIn) {
