@@ -2,7 +2,10 @@ import React, { useCallback, useEffect, useState } from "react"
 import { useWebSocket } from "../hooks/useWebSocket"
 import { useAuth } from "../components/AuthProvider"
 import { baseApi } from "../api/base"
+//import { ClipLoader } from "../components/Loader"
+import { BeatLoader } from "react-spinners"
 
+//left off here
 export function ChatroomPage() {
   const { user } = useAuth()
   const [usernameList, setUsernameList] = useState([])
@@ -104,30 +107,36 @@ export function ChatroomPage() {
     )
   })
 
-  //swap out loading for state in useNavigation
-  if (loading) {
-    return <div>Loading....</div>
+  const override = {
+    display: "block",
+    margin: "0 auto",
+    borderColor: "blue",
   }
+
+  const renderLoading = (
+    <BeatLoader
+      //color="#36d7b7"
+      loading={loading}
+      cssOverride={override}
+      size={150}
+      aira-label="Loading Spinner"
+      data-testid="loader"
+    />
+  )
+
+  // <div className="chatroom-wrapper">
 
   return (
     <>
-      <div className="chatroom-wrapper">
+      {loading && renderLoading}
+
+      <div
+        className={`container ${loading ? renderLoading : "chatroom-wrapper"}`}
+      >
         <div className="row-one">
           <section className="active-users">
             <h2>Rabbits</h2>
-            <ul class="active-users-list">
-              {renderUsersList}
-              {/* <li>User 1</li>
-              <li>Tim</li>
-              <li>User 2</li>
-              <li>Amy</li>
-              <li>User 3</li>
-              <li>Bill</li>
-              <li>User 4</li>
-              <li>Sarah</li>
-              <li>User 5</li>
-              <li>Hope</li> */}
-            </ul>
+            <ul className="active-users-list">{renderUsersList}</ul>
             {/* {activeUserList.map((username) => {
             if (username.isLoggedIn) {
               return username
