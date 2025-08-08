@@ -1,8 +1,12 @@
 import { useState } from "react"
 import { useAuth } from "../components/AuthProvider"
+import { checkUsername, checkPassword } from "../helpers/validators"
 
 export function useLoginForm() {
   const { loginAction } = useAuth()
+
+  const [usernameErrors, setUsernameErrors] = useState([])
+  const [passwordErrors, setPasswordErrors] = useState([])
 
   const [credentials, setCredentials] = useState({
     username: "",
@@ -23,12 +27,20 @@ export function useLoginForm() {
 
   function handleSubmit() {
     const { username, password } = credentials
-    if (username !== "" && password !== "") {
+    //swap out new validation logic here
+    // if (isSignup) {
+    // }
+    const usernameResults = checkUsername(username)
+    const passwordresults = checkPassword(password)
+
+    setUsernameErrors(usernameResults)
+    setPasswordErrors(passwordresults)
+
+    if (usernameErrors < 0 && passwordErrors < 0) {
       loginAction(credentials)
       clearInput()
       return
     }
-    alert("Username and Password must not be empty")
   }
 
   function handleSubmitGuest(e) {
@@ -46,6 +58,7 @@ export function useLoginForm() {
     handleSubmit,
     clearInput,
     handleSubmitGuest,
-    //loginAction,
+    usernameErrors,
+    passwordErrors,
   }
 }

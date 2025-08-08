@@ -25,6 +25,8 @@ export function AuthProvider({ children }) {
         PasswordHash: password,
       })
 
+      //add error handling for API response based on http code received
+
       if (isSignUp) {
         const accountStatus = res.data
           ? alert("Account created successfully!")
