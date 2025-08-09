@@ -6,17 +6,13 @@ using Microsoft.AspNetCore.SignalR;
 namespace chatAppWebApi.SignalR
 
 {
-    //public class ChatHub : Hub<IChatClient>
     public class ChatHub : Hub
-
     {
         private readonly IMessageService _messageService;
         public ChatHub(IMessageService messageService)
         {
             _messageService = messageService;
         }
-
-        //Working as expected
         public async Task SendMessage(int userId, string message)
         {
             var model = new MessageModel
@@ -46,7 +42,6 @@ namespace chatAppWebApi.SignalR
             await Clients.All.SendAsync("PropagateMessageResponse", dto.MessageId, dto.UserId, dto.Text);
         }
 
-        //Working as expected
         public async Task DeleteMessage(int messageId)
         {
             var response = await _messageService.DeleteMessage(messageId);
@@ -65,5 +60,3 @@ namespace chatAppWebApi.SignalR
         }
     }
 }
-
-//make functions/methods of client/server strongly typed

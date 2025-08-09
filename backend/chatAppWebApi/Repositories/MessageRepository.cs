@@ -23,10 +23,10 @@ namespace chatAppWebApi.Repositories
         {
             using var connection = await _connectionFactory.CreateConnectionAsync();
 
-            var result = await connection.ExecuteAsync(
-            @"INSERT INTO messages (UserId, Text, CreatedDate) 
-                VALUES (@UserId, @Text, @CreatedDate)",
-            message);
+            var query = @"INSERT INTO messages (UserId, Text, CreatedDate) 
+                VALUES (@UserId, @Text, @CreatedDate)";
+
+            var result = await connection.ExecuteAsync(query,message);
 
             return result > 0;
         }
@@ -35,8 +35,10 @@ namespace chatAppWebApi.Repositories
         {
             using var connection = await _connectionFactory.CreateConnectionAsync();
 
-            var response = await connection.QuerySingleAsync<MessageDTO>(
-            @"SELECT Id AS MessageId, UserId, Text FROM messages ORDER BY ID DESC LIMIT 1;");
+            var query = @"SELECT Id AS MessageId, UserId, Text FROM messages 
+                ORDER BY ID DESC LIMIT 1;";
+
+            var response = await connection.QuerySingleAsync<MessageDTO>(query);
 
             return response;
         }
@@ -45,9 +47,8 @@ namespace chatAppWebApi.Repositories
             using var connection = await _connectionFactory.CreateConnectionAsync();
 
             var query = "SELECT * FROM messages ORDER BY ID ASC";
-            var response = await connection.QueryAsync<MessageModel>(query);
 
-            //Console.WriteLine($"Fetched {response.Count()} messages from the database.");
+            var response = await connection.QueryAsync<MessageModel>(query);
 
             return response;
         }
@@ -55,9 +56,9 @@ namespace chatAppWebApi.Repositories
         {
             using var connection = await _connectionFactory.CreateConnectionAsync();
 
-            var deleteSql = @"DELETE FROM messages WHERE Id = @Id";
+            var query = @"DELETE FROM messages WHERE Id = @Id";
 
-            var result = await connection.ExecuteAsync(deleteSql, new { Id = id});
+            var result = await connection.ExecuteAsync(query, new { Id = id});
 
             return result > 0;
         }

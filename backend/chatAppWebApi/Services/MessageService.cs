@@ -1,8 +1,5 @@
 ﻿using chatAppWebApi.Models;
 using chatAppWebApi.Repositories;
-using chatAppWebApi.SignalR;
-using Microsoft.AspNetCore.SignalR;
-using System.Diagnostics.Eventing.Reader;
 
 namespace chatAppWebApi.Services
 {

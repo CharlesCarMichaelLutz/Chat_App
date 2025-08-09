@@ -43,6 +43,8 @@ namespace chatAppWebApi.Services
                 CreatedDate = DateTime.UtcNow,
             };
 
+            //direct user to remain logged in the application after being created
+
             return await _userRepository.CreateUserAsync(newUser);
         }
         public async Task<IEnumerable<UserModel>> GetAllUsers()
