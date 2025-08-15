@@ -1,5 +1,7 @@
-wwwroot\assets\index-BsOsS9B-.css
-wwwroot\assets\index-wkMEr_Zx.js
+wwwroot\assets\bootstrap-icons-BeopsB42.woff
+wwwroot\assets\bootstrap-icons-mSm7cUeB.woff2
+wwwroot\assets\index-CsJaXqID.js
+wwwroot\assets\index-XovtAlIL.css
 wwwroot\assets\rabbitchat-BD_2bsj4.jpg
 wwwroot\index.html
 wwwroot\vite.svg

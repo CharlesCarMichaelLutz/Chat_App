@@ -1,11 +1,13 @@
 import React, { useCallback, useEffect, useState } from "react"
 import { useWebSocket } from "../hooks/useWebSocket"
 import { useAuth } from "../components/AuthProvider"
+//import { AuthContext } from "../components/AuthProvider"
 import { baseApi } from "../api/base"
 import { BeatLoader } from "react-spinners"
 
 export function ChatroomPage() {
   const { user } = useAuth()
+  //const { user } = useContext(AuthContext)
   const [usernameList, setUsernameList] = useState([])
   const [messageList, setMessageList] = useState([])
   const [messageInput, setMessageInput] = useState({

@@ -29,13 +29,11 @@ export function LoginForms() {
         >
           <div className="choose-login">
             {isSignUp ? `Create account` : `Login`}
-            {/* separate validation logic between new and existing users */}
-            {/* {isSignUp
-              ? `Create account ${(<CreateUser />)}`
-              : `Login ${(<LoginUser />)}`} */}
           </div>
           <div
-            className={`form-group ${usernameErrors.length > 0 ? "error" : ""}`}
+            className={`form-group ${
+              usernameErrors?.length > 0 ? "error" : ""
+            }`}
           >
             <label className="label" htmlFor="username">
               Username
@@ -50,13 +48,14 @@ export function LoginForms() {
               onChange={handleChange}
               required
             />
-            {console.log("usernameErrors", usernameErrors)}
-            {usernameErrors.length > 0 && (
+            {usernameErrors?.length > 0 && (
               <div className="msg">{usernameErrors.join(", ")}</div>
             )}
           </div>
           <div
-            className={`form-group ${passwordErrors.length > 0 ? "error" : ""}`}
+            className={`form-group ${
+              passwordErrors?.length > 0 ? "error" : ""
+            }`}
           >
             <label className="label" htmlFor="password">
               Password
@@ -71,8 +70,7 @@ export function LoginForms() {
               onChange={handleChange}
               required
             />
-            {console.log("passwordErrors", passwordErrors)}
-            {passwordErrors.length > 0 && (
+            {passwordErrors?.length > 0 && (
               <div className="msg">{passwordErrors.join(", ")}</div>
             )}
           </div>

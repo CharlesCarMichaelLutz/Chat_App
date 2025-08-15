@@ -1,12 +1,20 @@
 {
   "Files": [
     {
-      "Id": "C:\\Users\\Charlie\\Desktop\\Chat_App\\Chat_App\\backend\\chatAppWebApi\\wwwroot\\assets\\index-BsOsS9B-.css",
-      "PackagePath": "staticwebassets\\assets\\index-BsOsS9B-.css"
+      "Id": "C:\\Users\\Charlie\\Desktop\\Chat_App\\Chat_App\\backend\\chatAppWebApi\\wwwroot\\assets\\bootstrap-icons-BeopsB42.woff",
+      "PackagePath": "staticwebassets\\assets\\bootstrap-icons-BeopsB42.woff"
     },
     {
-      "Id": "C:\\Users\\Charlie\\Desktop\\Chat_App\\Chat_App\\backend\\chatAppWebApi\\wwwroot\\assets\\index-wkMEr_Zx.js",
-      "PackagePath": "staticwebassets\\assets\\index-wkMEr_Zx.js"
+      "Id": "C:\\Users\\Charlie\\Desktop\\Chat_App\\Chat_App\\backend\\chatAppWebApi\\wwwroot\\assets\\bootstrap-icons-mSm7cUeB.woff2",
+      "PackagePath": "staticwebassets\\assets\\bootstrap-icons-mSm7cUeB.woff2"
+    },
+    {
+      "Id": "C:\\Users\\Charlie\\Desktop\\Chat_App\\Chat_App\\backend\\chatAppWebApi\\wwwroot\\assets\\index-CsJaXqID.js",
+      "PackagePath": "staticwebassets\\assets\\index-CsJaXqID.js"
+    },
+    {
+      "Id": "C:\\Users\\Charlie\\Desktop\\Chat_App\\Chat_App\\backend\\chatAppWebApi\\wwwroot\\assets\\index-XovtAlIL.css",
+      "PackagePath": "staticwebassets\\assets\\index-XovtAlIL.css"
     },
     {
       "Id": "C:\\Users\\Charlie\\Desktop\\Chat_App\\Chat_App\\backend\\chatAppWebApi\\wwwroot\\assets\\rabbitchat-BD_2bsj4.jpg",

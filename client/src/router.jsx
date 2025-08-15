@@ -33,14 +33,6 @@ export const router = createBrowserRouter([
               },
             ],
           },
-          // {
-          //   path: "chatroom",
-          //   element: (
-          //     <PrivateRoute>
-          //       <ChatroomPage />
-          //     </PrivateRoute>
-          //   ),
-          // },
           {
             path: "*",
             element: <h1> 404 - Page not found</h1>,

@@ -1,40 +1,76 @@
 ﻿<Project>
   <ItemGroup>
-    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\assets\index-BsOsS9B-.css'))">
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\assets\bootstrap-icons-BeopsB42.woff'))">
       <SourceType>Package</SourceType>
       <SourceId>chatAppWebApi</SourceId>
       <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
       <BasePath>_content/chatAppWebApi</BasePath>
-      <RelativePath>assets/index-BsOsS9B-.css</RelativePath>
+      <RelativePath>assets/bootstrap-icons-BeopsB42.woff</RelativePath>
       <AssetKind>All</AssetKind>
       <AssetMode>All</AssetMode>
       <AssetRole>Primary</AssetRole>
       <RelatedAsset></RelatedAsset>
       <AssetTraitName></AssetTraitName>
       <AssetTraitValue></AssetTraitValue>
-      <Fingerprint>nwrd1tpf7b</Fingerprint>
-      <Integrity>eaxGfN3O4lLN2BE/q3dBYEhQqo6d3PxY8ePVd/A3WII=</Integrity>
+      <Fingerprint>7dn3lb52f1</Fingerprint>
+      <Integrity>9VUTt7WRy4SjuH/w406iTUgx1v7cIuVLkRymS1tUShU=</Integrity>
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-      <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\assets\index-BsOsS9B-.css'))</OriginalItemSpec>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\assets\bootstrap-icons-BeopsB42.woff'))</OriginalItemSpec>
     </StaticWebAsset>
-    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\assets\index-wkMEr_Zx.js'))">
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\assets\bootstrap-icons-mSm7cUeB.woff2'))">
       <SourceType>Package</SourceType>
       <SourceId>chatAppWebApi</SourceId>
       <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
       <BasePath>_content/chatAppWebApi</BasePath>
-      <RelativePath>assets/index-wkMEr_Zx.js</RelativePath>
+      <RelativePath>assets/bootstrap-icons-mSm7cUeB.woff2</RelativePath>
       <AssetKind>All</AssetKind>
       <AssetMode>All</AssetMode>
       <AssetRole>Primary</AssetRole>
       <RelatedAsset></RelatedAsset>
       <AssetTraitName></AssetTraitName>
       <AssetTraitValue></AssetTraitValue>
-      <Fingerprint>bt2xrens9m</Fingerprint>
-      <Integrity>f++qGI8EkAwks07hWirehPdeMM5k5uounzedX3bZijU=</Integrity>
+      <Fingerprint>od0yn6f0e3</Fingerprint>
+      <Integrity>bHVxA2ShylYEJncW9tKJl7JjGf2weM8R4LQqtm/y6mE=</Integrity>
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-      <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\assets\index-wkMEr_Zx.js'))</OriginalItemSpec>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\assets\bootstrap-icons-mSm7cUeB.woff2'))</OriginalItemSpec>
+    </StaticWebAsset>
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\assets\index-CsJaXqID.js'))">
+      <SourceType>Package</SourceType>
+      <SourceId>chatAppWebApi</SourceId>
+      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
+      <BasePath>_content/chatAppWebApi</BasePath>
+      <RelativePath>assets/index-CsJaXqID.js</RelativePath>
+      <AssetKind>All</AssetKind>
+      <AssetMode>All</AssetMode>
+      <AssetRole>Primary</AssetRole>
+      <RelatedAsset></RelatedAsset>
+      <AssetTraitName></AssetTraitName>
+      <AssetTraitValue></AssetTraitValue>
+      <Fingerprint>a28zicmkmr</Fingerprint>
+      <Integrity>boqfpt6z5DmIBM+IS289C9H5m8PX21n924uJqL6BW9s=</Integrity>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\assets\index-CsJaXqID.js'))</OriginalItemSpec>
+    </StaticWebAsset>
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\assets\index-XovtAlIL.css'))">
+      <SourceType>Package</SourceType>
+      <SourceId>chatAppWebApi</SourceId>
+      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
+      <BasePath>_content/chatAppWebApi</BasePath>
+      <RelativePath>assets/index-XovtAlIL.css</RelativePath>
+      <AssetKind>All</AssetKind>
+      <AssetMode>All</AssetMode>
+      <AssetRole>Primary</AssetRole>
+      <RelatedAsset></RelatedAsset>
+      <AssetTraitName></AssetTraitName>
+      <AssetTraitValue></AssetTraitValue>
+      <Fingerprint>2p9q1yabrn</Fingerprint>
+      <Integrity>lnwwMcVLpBUaUNWwkr7RZz/JEhv9M7DWu72StT3sN4k=</Integrity>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\assets\index-XovtAlIL.css'))</OriginalItemSpec>
     </StaticWebAsset>
     <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\assets\rabbitchat-BD_2bsj4.jpg'))">
       <SourceType>Package</SourceType>
@@ -66,8 +102,8 @@
       <RelatedAsset></RelatedAsset>
       <AssetTraitName></AssetTraitName>
       <AssetTraitValue></AssetTraitValue>
-      <Fingerprint>m30z5c1u41</Fingerprint>
-      <Integrity>vq+0l5BIoD2LUBt18UAMDCCaqpeeH3sx1hH8urwUfLA=</Integrity>
+      <Fingerprint>c4yq0wd9st</Fingerprint>
+      <Integrity>PL+LnvX4fg9y8e+jBxErxW/168dZ98iJWKnu/5lc2F0=</Integrity>
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\index.html'))</OriginalItemSpec>

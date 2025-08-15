@@ -1,9 +1,16 @@
 import { useState } from "react"
 import { useAuth } from "../components/AuthProvider"
-import { checkUsername, checkPassword } from "../helpers/validators"
+import { useNavigate } from "react-router-dom"
+import { baseApi } from "../api/base"
+import {
+  checkUsername,
+  checkPassword,
+  renderLoginErrors,
+} from "../helpers/validators"
 
 export function useLoginForm() {
-  const { loginAction } = useAuth()
+  const { setUser, isSignUp } = useAuth()
+  const navigate = useNavigate()
 
   const [usernameErrors, setUsernameErrors] = useState([])
   const [passwordErrors, setPasswordErrors] = useState([])
@@ -27,16 +34,14 @@ export function useLoginForm() {
 
   function handleSubmit() {
     const { username, password } = credentials
-    //swap out new validation logic here
-    // if (isSignup) {
-    // }
-    const usernameResults = checkUsername(username)
-    const passwordresults = checkPassword(password)
+
+    const usernameResults = checkUsername(username, isSignUp)
+    const passwordresults = checkPassword(password, isSignUp)
 
     setUsernameErrors(usernameResults)
     setPasswordErrors(passwordresults)
 
-    if (usernameErrors < 0 && passwordErrors < 0) {
+    if (usernameErrors?.length === 0 && passwordErrors?.length === 0) {
       loginAction(credentials)
       clearInput()
       return
@@ -50,6 +55,37 @@ export function useLoginForm() {
       password: import.meta.env.VITE_GUEST_PASSWORD,
     }
     loginAction(guestCredentials)
+  }
+
+  function handleLoginError(errorResponse) {
+    const results = renderLoginErrors(errorResponse)
+    setPasswordErrors(results)
+  }
+
+  async function loginAction(data) {
+    const { username, password } = data
+    const path = isSignUp ? `users/signup` : `users/login`
+
+    try {
+      const res = await baseApi.post(path, {
+        Username: username,
+        PasswordHash: password,
+      })
+
+      if (isSignUp) {
+        accountStatus
+          ? alert("Account created successfully!")
+          : alert("failed to create account")
+        return accountStatus
+      }
+
+      setUser(res.data.value)
+      alert("logged in success!")
+      navigate("/chatroom")
+      return
+    } catch (error) {
+      handleLoginError(error.response.status)
+    }
   }
 
   return {
