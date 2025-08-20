@@ -1,13 +1,11 @@
 import React, { useCallback, useEffect, useState } from "react"
 import { useWebSocket } from "../hooks/useWebSocket"
 import { useAuth } from "../components/AuthProvider"
-//import { AuthContext } from "../components/AuthProvider"
 import { baseApi } from "../api/base"
 import { BeatLoader } from "react-spinners"
 
 export function ChatroomPage() {
   const { user } = useAuth()
-  //const { user } = useContext(AuthContext)
   const [usernameList, setUsernameList] = useState([])
   const [messageList, setMessageList] = useState([])
   const [messageInput, setMessageInput] = useState({
@@ -84,12 +82,22 @@ export function ChatroomPage() {
     )
   })
 
+  function updateUsernameList(id, username) {
+    setUsernameList((list) => [...list, { id, username }])
+  }
+
   const renderChatroom = messageList.map((message) => {
     const matchUser = usernameList.find((usr) => usr.id === message.userId)
+    console.log("message:", message)
+    console.log("matched user:", matchUser)
+    //updateUsernameList()
     return (
       <li key={message.id}>
         <span className="username">
-          {matchUser ? matchUser.username : "Unknown"}
+          {/* {matchUser = {id: message.userId, username: message.username }} */}
+          {matchUser
+            ? matchUser.username
+            : updateUsernameList(message.userId, message.username)}
         </span>
         {" : "}
         <span className="message">{message.text}</span>

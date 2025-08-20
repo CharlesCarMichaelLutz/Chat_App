@@ -1,11 +1,14 @@
 import { useState, useContext, createContext } from "react"
 import { useLocalStorage } from "../hooks/useLocalStorage"
+import { useNavigate } from "react-router-dom"
 
 const AuthContext = createContext()
 
 const USER = "USER"
 
 export function AuthProvider({ children }) {
+  const navigate = useNavigate()
+
   const [user, setUser] = useLocalStorage(USER, "")
   const [isSignUp, setIsSignup] = useState(false)
 

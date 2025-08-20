@@ -28,6 +28,15 @@ export function useLoginForm() {
     }))
   }
 
+  function handleSubmitGuest(e) {
+    e.preventDefault()
+    const guestCredentials = {
+      username: import.meta.env.VITE_GUEST_USER,
+      password: import.meta.env.VITE_GUEST_PASSWORD,
+    }
+    loginAction(guestCredentials)
+  }
+
   function clearInput() {
     setCredentials({ username: "", password: "" })
   }
@@ -48,19 +57,21 @@ export function useLoginForm() {
     }
   }
 
-  function handleSubmitGuest(e) {
-    e.preventDefault()
-    const guestCredentials = {
-      username: import.meta.env.VITE_GUEST_USER,
-      password: import.meta.env.VITE_GUEST_PASSWORD,
-    }
-    loginAction(guestCredentials)
-  }
+  // function handleSubmitCreate() {
+  //   const { username, password } = credentials
 
-  function handleLoginError(errorResponse) {
-    const results = renderLoginErrors(errorResponse)
-    setPasswordErrors(results)
-  }
+  //   const usernameResults = checkUsername(username, isSignUp)
+  //   const passwordresults = checkPassword(password, isSignUp)
+
+  //   setUsernameErrors(usernameResults)
+  //   setPasswordErrors(passwordresults)
+
+  //   if (usernameErrors?.length === 0 && passwordErrors?.length === 0) {
+  //     loginAction(credentials)
+  //     clearInput()
+  //     return
+  //   }
+  // }
 
   async function loginAction(data) {
     const { username, password } = data
@@ -87,6 +98,48 @@ export function useLoginForm() {
       handleLoginError(error.response.status)
     }
   }
+
+  // async function loginAction(data) {
+  //   const { username, password } = data
+
+  //   try {
+  //     const res = await baseApi.post(`users/login`, {
+  //       Username: username,
+  //       PasswordHash: password,
+  //     })
+
+  //     setUser(res.data.value)
+  //     alert("logged in success!")
+  //     navigate("/chatroom")
+  //     return
+  //   } catch (error) {
+  //     handleLoginError(error.response.status)
+  //   }
+  // }
+
+  function handleLoginError(errorResponse) {
+    const results = renderLoginErrors(errorResponse)
+    setPasswordErrors(results)
+  }
+
+  // async function createUserSubmit(data) {
+  //   const { username, password } = data
+
+  //   try {
+  //     const res = await baseApi.post(`users/signup`, {
+  //       Username: username,
+  //       PasswordHash: password,
+  //     })
+
+  //     setUser(res.data.value)
+  //     alert("logged in success!")
+  //     navigate("/chatroom")
+  //     return
+  //   } catch (error) {
+  //     //handleLoginError(error.response.status)
+  //     console.error(error)
+  //   }
+  // }
 
   return {
     credentials,

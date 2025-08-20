@@ -13,6 +13,7 @@ namespace chatAppWebApi.SignalR
         {
             _messageService = messageService;
         }
+
         public async Task SendMessage(int userId, string message)
         {
             var model = new MessageModel
