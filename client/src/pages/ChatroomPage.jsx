@@ -82,22 +82,14 @@ export function ChatroomPage() {
     )
   })
 
-  function updateUsernameList(id, username) {
-    setUsernameList((list) => [...list, { id, username }])
-  }
-
   const renderChatroom = messageList.map((message) => {
     const matchUser = usernameList.find((usr) => usr.id === message.userId)
     console.log("message:", message)
     console.log("matched user:", matchUser)
-    //updateUsernameList()
     return (
       <li key={message.id}>
         <span className="username">
-          {/* {matchUser = {id: message.userId, username: message.username }} */}
-          {matchUser
-            ? matchUser.username
-            : updateUsernameList(message.userId, message.username)}
+          {matchUser ? matchUser.username : "Unknown"}
         </span>
         {" : "}
         <span className="message">{message.text}</span>
@@ -145,11 +137,6 @@ export function ChatroomPage() {
           <section className="active-users">
             <h2>Rabbits</h2>
             <ul className="active-users-list">{renderUsersList}</ul>
-            {/* {activeUserList.map((username) => {
-            if (username.isLoggedIn) {
-              return username
-            }
-          })} */}
           </section>
           <section className="chatroom-data">
             <ul>{renderChatroom}</ul>

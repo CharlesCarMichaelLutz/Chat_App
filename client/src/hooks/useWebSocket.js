@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 import { HubConnectionBuilder } from "@microsoft/signalr"
 
-export function useWebSocket({ setMessageList }) {
+export function useWebSocket(setMessageList) {
   const [hubConnection, setHubConnection] = useState(null)
 
   useEffect(() => {
@@ -17,9 +17,6 @@ export function useWebSocket({ setMessageList }) {
         if (setMessageList) {
           setMessageList((list) => [...list, { id, userId, text }])
         }
-        //if(usernam)
-        //check if usernamelist.find((usr) => usr.id !== user.id)
-        //call fetchData
       })
 
       connection.on("DeleteMessageResponse", (messageId) => {
