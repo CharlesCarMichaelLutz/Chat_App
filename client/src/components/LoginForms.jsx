@@ -1,16 +1,85 @@
 import { useAuth } from "./AuthProvider"
-import { useLoginForm } from "../hooks/useLoginForm"
+import { useState } from "react"
+import { useNavigate } from "react-router-dom"
+import { baseApi } from "../api/base"
+import { checkUsername, checkPassword } from "../helpers/validators"
 
 export function LoginForms() {
-  const { isSignUp, toggleSignUp } = useAuth()
-  const {
-    credentials: { username, password },
-    handleChange,
-    handleSubmit,
-    handleSubmitGuest,
-    usernameErrors,
-    passwordErrors,
-  } = useLoginForm()
+  const { isSignUp, toggleSignUp, setUser, getData } = useAuth()
+  const navigate = useNavigate()
+
+  const [usernameErrors, setUsernameErrors] = useState([])
+  const [passwordErrors, setPasswordErrors] = useState([])
+
+  const [credentials, setCredentials] = useState({
+    username: "",
+    password: "",
+  })
+
+  function handleChange(e) {
+    const { name, value } = e.target
+    setCredentials((prev) => ({
+      ...prev,
+      [name]: value,
+    }))
+  }
+
+  function handleSubmitGuest(e) {
+    e.preventDefault()
+    const guestCredentials = {
+      username: import.meta.env.VITE_GUEST_USER,
+      password: import.meta.env.VITE_GUEST_PASSWORD,
+    }
+    loginAction(guestCredentials)
+  }
+
+  function clearInput() {
+    setCredentials({ username: "", password: "" })
+  }
+
+  async function handleSubmit() {
+    const { username, password } = credentials
+
+    const usernameResults = checkUsername(username, isSignUp)
+    const passwordresults = checkPassword(password, isSignUp)
+
+    setUsernameErrors(usernameResults)
+    setPasswordErrors(passwordresults)
+
+    if (usernameErrors?.length === 0 && passwordErrors?.length === 0) {
+      loginAction(credentials)
+      clearInput()
+      return
+    }
+  }
+
+  async function loginAction(data) {
+    const { username, password } = data
+    const path = isSignUp ? `users/signup` : `users/login`
+
+    try {
+      const res = await baseApi.post(path, {
+        Username: username,
+        PasswordHash: password,
+      })
+
+      setUser(res.data.value)
+      if (isSignUp) {
+        await getData()
+      }
+      alert("logged in success!")
+
+      navigate("/chatroom")
+      return
+    } catch (error) {
+      handleLoginError(error.response.status)
+    }
+  }
+
+  function handleLoginError(errorResponse) {
+    const results = renderLoginErrors(errorResponse)
+    setPasswordErrors(results)
+  }
 
   return (
     <>
@@ -44,7 +113,7 @@ export function LoginForms() {
               id="username"
               name="username"
               placeholder="...enter username"
-              value={username}
+              value={credentials.username}
               onChange={handleChange}
               required
             />
@@ -66,7 +135,7 @@ export function LoginForms() {
               id="password"
               name="password"
               placeholder="...enter password"
-              value={password}
+              value={credentials.password}
               onChange={handleChange}
               required
             />

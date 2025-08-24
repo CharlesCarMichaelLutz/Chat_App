@@ -9,9 +9,27 @@ namespace chatAppWebApi.SignalR
     public class ChatHub : Hub
     {
         private readonly IMessageService _messageService;
-        public ChatHub(IMessageService messageService)
+        private readonly IUserService _userService;
+        public ChatHub(IMessageService messageService, IUserService userService)
         {
             _messageService = messageService;
+            _userService = userService;
+        }
+
+        public async Task GetMessageList(string token)
+        {
+            var response = await _messageService.GetAllMessages();
+
+            await Clients.All.SendAsync("PropagateMessageListResponse", response);
+
+        }
+
+        public async Task GetUserList(string token)
+        {
+            var response = await _userService.GetAllUsers();
+
+            await Clients.All.SendAsync("PropagateUserListResponse", response);
+
         }
 
         public async Task SendMessage(int userId, string message)

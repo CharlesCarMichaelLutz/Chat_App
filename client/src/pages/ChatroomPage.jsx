@@ -1,18 +1,22 @@
-import React, { useCallback, useEffect, useState } from "react"
-import { useWebSocket } from "../hooks/useWebSocket"
+import React, { useEffect, useState } from "react"
 import { useAuth } from "../components/AuthProvider"
-import { baseApi } from "../api/base"
 import { BeatLoader } from "react-spinners"
 
 export function ChatroomPage() {
-  const { user } = useAuth()
-  const [usernameList, setUsernameList] = useState([])
-  const [messageList, setMessageList] = useState([])
+  const {
+    user,
+    usernameList,
+    messageList,
+    getData,
+    loading,
+    setLoading,
+    hubConnection,
+  } = useAuth()
+
   const [messageInput, setMessageInput] = useState({
     message: "",
   })
-  const [loading, setLoading] = useState(true)
-  const { hubConnection } = useWebSocket(setMessageList)
+  //const { hubConnection } = useWebSocket(setMessageList, setUsernameList)
 
   function handleChange(e) {
     const { name, value } = e.target
@@ -21,30 +25,6 @@ export function ChatroomPage() {
       [name]: value,
     }))
   }
-
-  const fetchData = useCallback(async () => {
-    try {
-      const res1 = await baseApi.get(`users`, {
-        headers: { Authorization: `Bearer ${user.token}` },
-      })
-      setUsernameList(res1.data)
-      const res2 = await baseApi.get(`messages`, {
-        headers: { Authorization: `Bearer ${user.token}` },
-      })
-      setMessageList(res2.data)
-    } catch (error) {
-      console.log(error)
-    } finally {
-      setLoading(false)
-    }
-  }, [user.token])
-
-  useEffect(() => {
-    if (user.token) {
-      setLoading(true)
-      fetchData()
-    }
-  }, [user.token])
 
   const propagateCreateMessage = async (e) => {
     e.preventDefault()
@@ -74,7 +54,14 @@ export function ChatroomPage() {
     }
   }
 
-  const renderUsersList = usernameList.map((user) => {
+  useEffect(() => {
+    if (user.token) {
+      setLoading(true)
+      getData()
+    }
+  }, [])
+
+  const renderUsersList = usernameList?.map((user) => {
     return (
       <li key={user.id}>
         <span className="username">{user.username}</span>
@@ -82,10 +69,10 @@ export function ChatroomPage() {
     )
   })
 
-  const renderChatroom = messageList.map((message) => {
-    const matchUser = usernameList.find((usr) => usr.id === message.userId)
-    console.log("message:", message)
-    console.log("matched user:", matchUser)
+  const renderChatroom = messageList?.map((message) => {
+    const matchUser = usernameList?.find((usr) => usr.id === message.userId)
+    // console.log("message:", message)
+    // console.log("matched user:", matchUser)
     return (
       <li key={message.id}>
         <span className="username">

@@ -49,30 +49,6 @@
           }
         }
       }
-    },
-    "/api/users": {
-      "get": {
-        "tags": [
-          "chatAppWebApi"
-        ],
-        "responses": {
-          "200": {
-            "description": "Success"
-          }
-        }
-      }
-    },
-    "/api/messages": {
-      "get": {
-        "tags": [
-          "chatAppWebApi"
-        ],
-        "responses": {
-          "200": {
-            "description": "Success"
-          }
-        }
-      }
     }
   },
   "components": {

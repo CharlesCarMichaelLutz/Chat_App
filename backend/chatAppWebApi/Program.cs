@@ -127,19 +127,19 @@ app.UseEndpoints(endpoints =>
         return Results.Ok(response);
     });
     //get all users
-    endpoints.MapGet("/api/users", [Authorize] async (
-              IUserService service) =>
-    {
-        var response = await service.GetAllUsers();
-        return Results.Ok(response);
-    });
-    //get all messages
-    endpoints.MapGet("/api/messages", [Authorize] async (
-              IMessageService service) =>
-    {
-        var response = await service.GetAllMessages();
-        return Results.Ok(response);
-    });
+    //endpoints.MapGet("/api/users", [Authorize] async (
+    //          IUserService service) =>
+    //{
+    //    var response = await service.GetAllUsers();
+    //    return Results.Ok(response);
+    //});
+    ////get all messages
+    //endpoints.MapGet("/api/messages", [Authorize] async (
+    //          IMessageService service) =>
+    //{
+    //    var response = await service.GetAllMessages();
+    //    return Results.Ok(response);
+    //});
 
     endpoints.MapHub<ChatHub>("/chatHub");
 
