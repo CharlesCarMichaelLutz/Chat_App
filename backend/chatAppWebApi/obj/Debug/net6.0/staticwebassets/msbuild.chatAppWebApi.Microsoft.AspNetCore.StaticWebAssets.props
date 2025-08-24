@@ -36,23 +36,23 @@
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\assets\bootstrap-icons-mSm7cUeB.woff2'))</OriginalItemSpec>
     </StaticWebAsset>
-    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\assets\index-CsJaXqID.js'))">
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\assets\index-q9iXCecJ.js'))">
       <SourceType>Package</SourceType>
       <SourceId>chatAppWebApi</SourceId>
       <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
       <BasePath>_content/chatAppWebApi</BasePath>
-      <RelativePath>assets/index-CsJaXqID.js</RelativePath>
+      <RelativePath>assets/index-q9iXCecJ.js</RelativePath>
       <AssetKind>All</AssetKind>
       <AssetMode>All</AssetMode>
       <AssetRole>Primary</AssetRole>
       <RelatedAsset></RelatedAsset>
       <AssetTraitName></AssetTraitName>
       <AssetTraitValue></AssetTraitValue>
-      <Fingerprint>a28zicmkmr</Fingerprint>
-      <Integrity>boqfpt6z5DmIBM+IS289C9H5m8PX21n924uJqL6BW9s=</Integrity>
+      <Fingerprint>mjfuxnpblv</Fingerprint>
+      <Integrity>zogxIdNV0HS9hmBwPJZhBEaKbVwpXO9Je89bocckbWQ=</Integrity>
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-      <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\assets\index-CsJaXqID.js'))</OriginalItemSpec>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\assets\index-q9iXCecJ.js'))</OriginalItemSpec>
     </StaticWebAsset>
     <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\assets\index-XovtAlIL.css'))">
       <SourceType>Package</SourceType>
@@ -102,8 +102,8 @@
       <RelatedAsset></RelatedAsset>
       <AssetTraitName></AssetTraitName>
       <AssetTraitValue></AssetTraitValue>
-      <Fingerprint>c4yq0wd9st</Fingerprint>
-      <Integrity>PL+LnvX4fg9y8e+jBxErxW/168dZ98iJWKnu/5lc2F0=</Integrity>
+      <Fingerprint>bs8jlrmg90</Fingerprint>
+      <Integrity>xWtQxNTFeQKfBG3hAAjO7s+gkBRDMK4S6n5ItlJWhnw=</Integrity>
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\index.html'))</OriginalItemSpec>

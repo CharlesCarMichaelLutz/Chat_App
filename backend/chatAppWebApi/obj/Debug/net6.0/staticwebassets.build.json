@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "l3cCkN54x0x4UzyQF/H6Aly2eOq5yycX19fPAzhUr5g=",
+  "Hash": "vt/BIw7N80iwYOdR8WPcGK6SD2bjoEE7aXKDvITaWLc=",
   "Source": "chatAppWebApi",
   "BasePath": "_content/chatAppWebApi",
   "Mode": "Default",
@@ -59,12 +59,12 @@
       "OriginalItemSpec": "wwwroot\\assets\\bootstrap-icons-mSm7cUeB.woff2"
     },
     {
-      "Identity": "C:\\Users\\Charlie\\Desktop\\Chat_App\\Chat_App\\backend\\chatAppWebApi\\wwwroot\\assets\\index-CsJaXqID.js",
+      "Identity": "C:\\Users\\Charlie\\Desktop\\Chat_App\\Chat_App\\backend\\chatAppWebApi\\wwwroot\\assets\\index-q9iXCecJ.js",
       "SourceId": "chatAppWebApi",
       "SourceType": "Discovered",
       "ContentRoot": "C:\\Users\\Charlie\\Desktop\\Chat_App\\Chat_App\\backend\\chatAppWebApi\\wwwroot\\",
       "BasePath": "_content/chatAppWebApi",
-      "RelativePath": "assets/index-CsJaXqID#[.{fingerprint}]?.js",
+      "RelativePath": "assets/index-q9iXCecJ#[.{fingerprint}]?.js",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -73,11 +73,11 @@
       "RelatedAsset": "",
       "AssetTraitName": "",
       "AssetTraitValue": "",
-      "Fingerprint": "a28zicmkmr",
-      "Integrity": "boqfpt6z5DmIBM+IS289C9H5m8PX21n924uJqL6BW9s=",
+      "Fingerprint": "mjfuxnpblv",
+      "Integrity": "zogxIdNV0HS9hmBwPJZhBEaKbVwpXO9Je89bocckbWQ=",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\assets\\index-CsJaXqID.js"
+      "OriginalItemSpec": "wwwroot\\assets\\index-q9iXCecJ.js"
     },
     {
       "Identity": "C:\\Users\\Charlie\\Desktop\\Chat_App\\Chat_App\\backend\\chatAppWebApi\\wwwroot\\assets\\index-XovtAlIL.css",
@@ -136,8 +136,8 @@
       "RelatedAsset": "",
       "AssetTraitName": "",
       "AssetTraitValue": "",
-      "Fingerprint": "c4yq0wd9st",
-      "Integrity": "PL+LnvX4fg9y8e+jBxErxW/168dZ98iJWKnu/5lc2F0=",
+      "Fingerprint": "bs8jlrmg90",
+      "Integrity": "xWtQxNTFeQKfBG3hAAjO7s+gkBRDMK4S6n5ItlJWhnw=",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\index.html"
@@ -188,7 +188,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Fri, 15 Aug 2025 02:23:00 GMT"
+          "Value": "Sun, 24 Aug 2025 12:11:45 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -233,7 +233,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Fri, 15 Aug 2025 02:23:00 GMT"
+          "Value": "Sun, 24 Aug 2025 12:11:45 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -270,7 +270,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Fri, 15 Aug 2025 02:23:00 GMT"
+          "Value": "Sun, 24 Aug 2025 12:11:45 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -315,7 +315,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Fri, 15 Aug 2025 02:23:00 GMT"
+          "Value": "Sun, 24 Aug 2025 12:11:45 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -330,8 +330,8 @@
       ]
     },
     {
-      "Route": "assets/index-CsJaXqID.a28zicmkmr.js",
-      "AssetFile": "C:\\Users\\Charlie\\Desktop\\Chat_App\\Chat_App\\backend\\chatAppWebApi\\wwwroot\\assets\\index-CsJaXqID.js",
+      "Route": "assets/index-q9iXCecJ.js",
+      "AssetFile": "C:\\Users\\Charlie\\Desktop\\Chat_App\\Chat_App\\backend\\chatAppWebApi\\wwwroot\\assets\\index-q9iXCecJ.js",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -340,7 +340,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "368939"
+          "Value": "368879"
         },
         {
           "Name": "Content-Type",
@@ -348,56 +348,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"boqfpt6z5DmIBM+IS289C9H5m8PX21n924uJqL6BW9s=\""
+          "Value": "\"zogxIdNV0HS9hmBwPJZhBEaKbVwpXO9Je89bocckbWQ=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Fri, 15 Aug 2025 02:23:00 GMT"
-        },
-        {
-          "Name": "Cache-Control",
-          "Value": "max-age=31536000, immutable"
-        }
-      ],
-      "EndpointProperties": [
-        {
-          "Name": "fingerprint",
-          "Value": "a28zicmkmr"
-        },
-        {
-          "Name": "label",
-          "Value": "assets/index-CsJaXqID.js"
-        },
-        {
-          "Name": "integrity",
-          "Value": "sha256-boqfpt6z5DmIBM+IS289C9H5m8PX21n924uJqL6BW9s="
-        }
-      ]
-    },
-    {
-      "Route": "assets/index-CsJaXqID.js",
-      "AssetFile": "C:\\Users\\Charlie\\Desktop\\Chat_App\\Chat_App\\backend\\chatAppWebApi\\wwwroot\\assets\\index-CsJaXqID.js",
-      "Selectors": [],
-      "ResponseHeaders": [
-        {
-          "Name": "Accept-Ranges",
-          "Value": "bytes"
-        },
-        {
-          "Name": "Content-Length",
-          "Value": "368939"
-        },
-        {
-          "Name": "Content-Type",
-          "Value": "text/javascript"
-        },
-        {
-          "Name": "ETag",
-          "Value": "\"boqfpt6z5DmIBM+IS289C9H5m8PX21n924uJqL6BW9s=\""
-        },
-        {
-          "Name": "Last-Modified",
-          "Value": "Fri, 15 Aug 2025 02:23:00 GMT"
+          "Value": "Sun, 24 Aug 2025 12:11:45 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -407,7 +362,52 @@
       "EndpointProperties": [
         {
           "Name": "integrity",
-          "Value": "sha256-boqfpt6z5DmIBM+IS289C9H5m8PX21n924uJqL6BW9s="
+          "Value": "sha256-zogxIdNV0HS9hmBwPJZhBEaKbVwpXO9Je89bocckbWQ="
+        }
+      ]
+    },
+    {
+      "Route": "assets/index-q9iXCecJ.mjfuxnpblv.js",
+      "AssetFile": "C:\\Users\\Charlie\\Desktop\\Chat_App\\Chat_App\\backend\\chatAppWebApi\\wwwroot\\assets\\index-q9iXCecJ.js",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "368879"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"zogxIdNV0HS9hmBwPJZhBEaKbVwpXO9Je89bocckbWQ=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sun, 24 Aug 2025 12:11:45 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "mjfuxnpblv"
+        },
+        {
+          "Name": "label",
+          "Value": "assets/index-q9iXCecJ.js"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-zogxIdNV0HS9hmBwPJZhBEaKbVwpXO9Je89bocckbWQ="
         }
       ]
     },
@@ -434,7 +434,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Fri, 15 Aug 2025 02:23:00 GMT"
+          "Value": "Sun, 24 Aug 2025 12:11:45 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -479,7 +479,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Fri, 15 Aug 2025 02:23:00 GMT"
+          "Value": "Sun, 24 Aug 2025 12:11:45 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -516,7 +516,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Fri, 15 Aug 2025 02:23:00 GMT"
+          "Value": "Sun, 24 Aug 2025 12:11:45 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -561,7 +561,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Fri, 15 Aug 2025 02:23:00 GMT"
+          "Value": "Sun, 24 Aug 2025 12:11:45 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -576,7 +576,7 @@
       ]
     },
     {
-      "Route": "index.c4yq0wd9st.html",
+      "Route": "index.bs8jlrmg90.html",
       "AssetFile": "C:\\Users\\Charlie\\Desktop\\Chat_App\\Chat_App\\backend\\chatAppWebApi\\wwwroot\\index.html",
       "Selectors": [],
       "ResponseHeaders": [
@@ -594,11 +594,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"PL+LnvX4fg9y8e+jBxErxW/168dZ98iJWKnu/5lc2F0=\""
+          "Value": "\"xWtQxNTFeQKfBG3hAAjO7s+gkBRDMK4S6n5ItlJWhnw=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Fri, 15 Aug 2025 02:23:00 GMT"
+          "Value": "Sun, 24 Aug 2025 12:11:45 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -608,7 +608,7 @@
       "EndpointProperties": [
         {
           "Name": "fingerprint",
-          "Value": "c4yq0wd9st"
+          "Value": "bs8jlrmg90"
         },
         {
           "Name": "label",
@@ -616,7 +616,7 @@
         },
         {
           "Name": "integrity",
-          "Value": "sha256-PL+LnvX4fg9y8e+jBxErxW/168dZ98iJWKnu/5lc2F0="
+          "Value": "sha256-xWtQxNTFeQKfBG3hAAjO7s+gkBRDMK4S6n5ItlJWhnw="
         }
       ]
     },
@@ -639,11 +639,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"PL+LnvX4fg9y8e+jBxErxW/168dZ98iJWKnu/5lc2F0=\""
+          "Value": "\"xWtQxNTFeQKfBG3hAAjO7s+gkBRDMK4S6n5ItlJWhnw=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Fri, 15 Aug 2025 02:23:00 GMT"
+          "Value": "Sun, 24 Aug 2025 12:11:45 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -653,7 +653,7 @@
       "EndpointProperties": [
         {
           "Name": "integrity",
-          "Value": "sha256-PL+LnvX4fg9y8e+jBxErxW/168dZ98iJWKnu/5lc2F0="
+          "Value": "sha256-xWtQxNTFeQKfBG3hAAjO7s+gkBRDMK4S6n5ItlJWhnw="
         }
       ]
     },
