@@ -29,14 +29,14 @@ export function useWebSocket(setMessageList, setUsernameList) {
 
       connection.on("PropagateMessageListResponse", (response) => {
         if (setMessageList) {
-          //console.log("message list:", response)
+          console.log("message list:", response)
           setMessageList(response)
         }
       })
 
       connection.on("PropagateUserListResponse", (response) => {
         if (setUsernameList) {
-          //console.log("user list:", response)
+          console.log("user list:", response)
           setUsernameList(response)
         }
       })

@@ -38,9 +38,20 @@ namespace chatAppWebApi.Services
                     Text = saved.Text,
                 };
         }
+        //public async Task<IEnumerable<MessageModel>> GetAllMessages()
+        //{
+        //    return await _messageRepository.GetAllMessagesAsync();
+        //}
         public async Task<IEnumerable<MessageModel>> GetAllMessages()
         {
-            return await _messageRepository.GetAllMessagesAsync();
+            var messageList = await _messageRepository.GetAllMessagesAsync();
+
+            return messageList.Select(m => new MessageModel
+            {
+                Id = m.MessageId,
+                UserId = m.UserId,
+                Text = m.Text
+            });
         }
         public async Task<bool> DeleteMessage(int id)
         {

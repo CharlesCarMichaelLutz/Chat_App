@@ -112,34 +112,19 @@ app.UseAuthorization();
 
 app.UseEndpoints(endpoints =>
 {   
-    //sign up a user
     endpoints.MapPost("/api/users/signup", async (
               IUserService service, [FromBody] UserModel user) =>
     {
         var response = await service.CreateUser(user);
         return Results.Ok(response);
     });
-    //login an existing user
+
     endpoints.MapPost("/api/users/login", async (
               IUserService service, [FromBody] UserModel user) =>
     {
         var response = await service.LoginUser(user);
         return Results.Ok(response);
     });
-    //get all users
-    //endpoints.MapGet("/api/users", [Authorize] async (
-    //          IUserService service) =>
-    //{
-    //    var response = await service.GetAllUsers();
-    //    return Results.Ok(response);
-    //});
-    ////get all messages
-    //endpoints.MapGet("/api/messages", [Authorize] async (
-    //          IMessageService service) =>
-    //{
-    //    var response = await service.GetAllMessages();
-    //    return Results.Ok(response);
-    //});
 
     endpoints.MapHub<ChatHub>("/chatHub");
 

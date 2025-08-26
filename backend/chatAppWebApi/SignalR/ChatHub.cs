@@ -15,7 +15,6 @@ namespace chatAppWebApi.SignalR
             _messageService = messageService;
             _userService = userService;
         }
-
         public async Task GetMessageList(string token)
         {
             var response = await _messageService.GetAllMessages();

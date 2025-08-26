@@ -6,6 +6,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Text;
 using BCrypt.Net;
 using System.Security.Claims;
+using System.Data.Common;
 
 namespace chatAppWebApi.Services
 {
@@ -43,27 +44,21 @@ namespace chatAppWebApi.Services
                 CreatedDate = DateTime.UtcNow,
             };
 
-            //direct user to remain logged in the application after being created
+            //direct user to remain logged in the application after being created on the client
 
             return await _userRepository.CreateUserAsync(newUser);
         }
         public async Task<IEnumerable<UserModel>> GetAllUsers()
         {
-            //var response = _userRepository.GetAllUsersAsync();
+            var userlist = await _userRepository.GetAllUsersAsync();
 
-            //var dto = new UserDTO
-            //{
-            //    Id = response.Id,
-            //    Username = response.Username,
-            //};
+           return userlist.Select(u => new UserModel
+           {
+               Id = u.UserId,
+               Username = u.Username,
+           });
 
-            //return await dto;
-
-            //TODO reshape the data with a DTO so it omits passwordHash & createdDate
-
-            return await _userRepository.GetAllUsersAsync();
         }
-
         public async Task<IResult?> LoginUser(UserModel user)
         {
             var loggedInUser = await _userRepository.GetUsernameAsync(user);

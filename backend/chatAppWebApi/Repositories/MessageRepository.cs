@@ -7,7 +7,8 @@ namespace chatAppWebApi.Repositories
     public interface IMessageRepository
     {
         Task<bool> CreateMessageAsync(MessageModel message);
-        Task<IEnumerable<MessageModel>> GetAllMessagesAsync();
+        //Task<IEnumerable<MessageModel>> GetAllMessagesAsync();
+        Task<IEnumerable<MessageDTO>> GetAllMessagesAsync();
         Task<bool> DeleteMessageAsync(int id);
         Task<MessageDTO> GetMessageAsync();
     }
@@ -42,15 +43,28 @@ namespace chatAppWebApi.Repositories
 
             return response;
         }
-        public async Task<IEnumerable<MessageModel>> GetAllMessagesAsync()
+        //public async Task<IEnumerable<MessageModel>> GetAllMessagesAsync()
+        //{
+        //    using var connection = await _connectionFactory.CreateConnectionAsync();
+
+        //    var query = "SELECT * FROM messages ORDER BY ID ASC";
+
+        //    var response = await connection.QueryAsync<MessageModel>(query);
+
+        //    return response;
+        //}
+
+        public async Task<IEnumerable<MessageDTO>> GetAllMessagesAsync()
         {
             using var connection = await _connectionFactory.CreateConnectionAsync();
 
-            var query = "SELECT * FROM messages ORDER BY ID ASC";
+            //var query = "SELECT * FROM messages ORDER BY ID ASC";
+            var query = "SELECT Id AS MessageId, UserId, Text FROM messages ORDER BY ID ASC";
 
-            var response = await connection.QueryAsync<MessageModel>(query);
+            //var response = await connection.QueryAsync<MessageDTO>(query);
 
-            return response;
+            return await connection.QueryAsync<MessageDTO>(query);
+
         }
         public async Task<bool> DeleteMessageAsync(int id)
         {
