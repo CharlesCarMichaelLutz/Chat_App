@@ -15,6 +15,7 @@ namespace chatAppWebApi.SignalR
             _messageService = messageService;
             _userService = userService;
         }
+        //[Authorize]
         public async Task GetMessageList(string token)
         {
             var response = await _messageService.GetAllMessages();
@@ -22,7 +23,7 @@ namespace chatAppWebApi.SignalR
             await Clients.All.SendAsync("PropagateMessageListResponse", response);
 
         }
-
+        //[Authorize]
         public async Task GetUserList(string token)
         {
             var response = await _userService.GetAllUsers();
@@ -31,6 +32,7 @@ namespace chatAppWebApi.SignalR
 
         }
 
+        [Authorize]
         public async Task SendMessage(int userId, string message)
         {
             var model = new MessageModel
@@ -60,6 +62,7 @@ namespace chatAppWebApi.SignalR
             await Clients.All.SendAsync("PropagateMessageResponse", dto.MessageId, dto.UserId, dto.Text);
         }
 
+        [Authorize]
         public async Task DeleteMessage(int messageId)
         {
             var response = await _messageService.DeleteMessage(messageId);

@@ -1,13 +1,20 @@
 import { useEffect, useState } from "react"
 import { HubConnectionBuilder } from "@microsoft/signalr"
+//import { useAuth } from "../components/AuthProvider"
 
 export function useWebSocket(setMessageList, setUsernameList) {
   const [hubConnection, setHubConnection] = useState(null)
+  //const { user } = useAuth()
 
   useEffect(() => {
+    //if (user.token) {
     const connect = async () => {
+      //console.log("JWT:", user.token)
       const connection = new HubConnectionBuilder()
-        .withUrl(import.meta.env.VITE_WEB_SOCKET)
+        .withUrl(
+          import.meta.env.VITE_WEB_SOCKET
+          //{accessTokenFactory: () => user.token,}
+        )
         .withAutomaticReconnect()
         .build()
 
@@ -43,6 +50,7 @@ export function useWebSocket(setMessageList, setUsernameList) {
 
       try {
         await connection.start()
+        console.log("connection started")
       } catch (err) {
         console.error("error starting signalR:", err)
       }
