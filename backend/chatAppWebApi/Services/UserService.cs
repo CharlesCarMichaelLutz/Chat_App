@@ -7,6 +7,8 @@ using System.Text;
 using BCrypt.Net;
 using System.Security.Claims;
 using System.Data.Common;
+using chatAppWebApi.SignalR;
+using Microsoft.AspNetCore.SignalR;
 
 namespace chatAppWebApi.Services
 {
@@ -21,17 +23,21 @@ namespace chatAppWebApi.Services
     {
         private readonly IUserRepository _userRepository;
         private readonly JwtCredentials _jwtCredentials;
-        public UserService(IUserRepository userRepository, IOptions<JwtCredentials> jwtCredentials)
+        private readonly IHubContext<ChatHub> _hubContext;
+        public UserService(IUserRepository userRepository, IOptions<JwtCredentials> jwtCredentials, IHubContext<ChatHub> hubContext)
         {
             _userRepository = userRepository;
             _jwtCredentials = jwtCredentials.Value;
+            _hubContext = hubContext;
         }
         public async Task<bool> CreateUser(UserModel user)
         {
+            //implement validation that matches username and password on the client  
+
             var existingUser = await _userRepository.GetUsernameAsync(user);
             if (existingUser is not null)
             {
-                var message = $"A user with id {user.Username} already exists";
+                var message = $"A user with {user.Username} already exists";
                 throw new Exception(message);
             }
 
@@ -44,9 +50,17 @@ namespace chatAppWebApi.Services
                 CreatedDate = DateTime.UtcNow,
             };
 
-            //direct user to remain logged in the application after being created on the client
+            var result = await _userRepository.CreateUserAsync(newUser);
 
-            return await _userRepository.CreateUserAsync(newUser);
+            if (result)
+            {
+                //call GetUserList method from ChatHub after new user has been created
+
+                var updatedUserList = await _userRepository.GetAllUsersAsync();
+                await _hubContext.Clients.All.SendAsync("PropagateUserListResponse", updatedUserList);
+            }
+
+            return result;
         }
         public async Task<IEnumerable<UserModel>> GetAllUsers()
         {

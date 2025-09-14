@@ -14,4 +14,9 @@ export default defineConfig({
       "@": fileURLToPath(new URL("./src", import.meta.url)),
     },
   },
+  server: {
+    //host: "0.0.0.0", // Binds to all available network interfaces
+    //port: 3000, // Change if needed to avoid conflicts
+    host: true,
+  },
 })

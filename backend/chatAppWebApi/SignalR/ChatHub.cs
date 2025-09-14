@@ -15,21 +15,20 @@ namespace chatAppWebApi.SignalR
             _messageService = messageService;
             _userService = userService;
         }
-        //[Authorize]
-        public async Task GetMessageList(string token)
+        [Authorize]
+        public async Task GetMessageList()
         {
             var response = await _messageService.GetAllMessages();
 
             await Clients.All.SendAsync("PropagateMessageListResponse", response);
-
         }
-        //[Authorize]
-        public async Task GetUserList(string token)
+
+        [Authorize]
+        public async Task GetUserList()
         {
             var response = await _userService.GetAllUsers();
 
             await Clients.All.SendAsync("PropagateUserListResponse", response);
-
         }
 
         [Authorize]
@@ -42,22 +41,14 @@ namespace chatAppWebApi.SignalR
                 CreatedDate = DateTime.UtcNow
             };
 
-            //Console.WriteLine($"Creating message with UserId: {userId}, Message: {message}");
-
             var response = await _messageService.CreateMessage(model);
-
-            //Console.WriteLine($"CreateMessage response: {response}");
 
             if (!response)
             {
                 throw new Exception("Failed to create a message");
             }
 
-            //Console.WriteLine("Fetching message DTO from DB");
-
             var dto = await _messageService.GetMessage();
-
-            //Console.WriteLine($"Fetched DTO: MessageId: {dto.MessageId}, UserId: {dto.UserId}, Text: {dto.Text}");
 
             await Clients.All.SendAsync("PropagateMessageResponse", dto.MessageId, dto.UserId, dto.Text);
         }

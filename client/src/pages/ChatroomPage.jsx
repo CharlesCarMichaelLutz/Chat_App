@@ -1,22 +1,12 @@
-import React, { useEffect, useState } from "react"
+import React, { useState } from "react"
 import { useAuth } from "../components/AuthProvider"
-import { BeatLoader } from "react-spinners"
 
 export function ChatroomPage() {
-  const {
-    user,
-    usernameList,
-    messageList,
-    getData,
-    loading,
-    setLoading,
-    hubConnection,
-  } = useAuth()
+  const { user, usernameList, messageList, hubConnection } = useAuth()
 
   const [messageInput, setMessageInput] = useState({
     message: "",
   })
-  //const { hubConnection } = useWebSocket(setMessageList, setUsernameList)
 
   function handleChange(e) {
     const { name, value } = e.target
@@ -40,7 +30,6 @@ export function ChatroomPage() {
       console.log(error)
     } finally {
       setMessageInput({ message: "" })
-      setLoading(false)
     }
   }
 
@@ -54,12 +43,12 @@ export function ChatroomPage() {
     }
   }
 
-  useEffect(() => {
-    if (user.token) {
-      setLoading(true)
-      getData()
-    }
-  }, [])
+  //maybe this can be omitted because it's being called in Authprovider?
+  // useEffect(() => {
+  //   if (hubConnection && connected) {
+  //     getData()
+  //   }
+  // }, [])
 
   const renderUsersList = usernameList?.map((user) => {
     return (
@@ -84,9 +73,10 @@ export function ChatroomPage() {
           {matchUser && matchUser.username === user.username && (
             <button
               className="delete-button"
+              data-aria-label="delete button"
               onClick={() => propagateDeleteMessage(message.id)}
             >
-              Delete
+              <span className="bi bi-trash"></span>
             </button>
           )}
         </span>
@@ -94,32 +84,9 @@ export function ChatroomPage() {
     )
   })
 
-  const override = {
-    display: "block",
-    margin: "0 auto",
-    borderColor: "blue",
-  }
-
-  const renderLoading = (
-    <BeatLoader
-      //color="#36d7b7"
-      loading={loading}
-      cssOverride={override}
-      size={150}
-      aira-label="Loading Spinner"
-      data-testid="loader"
-    />
-  )
-
-  // <div className="chatroom-wrapper">
-
   return (
     <>
-      {loading && renderLoading}
-
-      <div
-        className={`container ${loading ? renderLoading : "chatroom-wrapper"}`}
-      >
+      <div className="container chatroom-wrapper">
         <div className="row-one">
           <section className="active-users">
             <h2>Rabbits</h2>
@@ -139,7 +106,9 @@ export function ChatroomPage() {
               value={messageInput.message}
               onChange={handleChange}
             />
-            <button>Send</button>
+            <button data-aria-label="send message button">
+              <span className="bi bi-send"></span>
+            </button>
           </form>
         </div>
       </div>

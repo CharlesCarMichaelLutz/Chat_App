@@ -4,7 +4,6 @@ using chatAppWebApi.Repositories;
 using chatAppWebApi.Services;
 using chatAppWebApi.SignalR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.IdentityModel.Tokens;
@@ -20,6 +19,23 @@ services.Configure<JwtCredentials>(config.GetSection("Jwt"));
 
 services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
 {
+    options.Events = new JwtBearerEvents
+    {
+        OnMessageReceived = context =>
+        {
+            var accessToken = context.Request.Query["access_token"];
+
+            // If the request is for our hub...
+            var path = context.HttpContext.Request.Path;
+            if (!string.IsNullOrEmpty(accessToken) &&
+                (path.StartsWithSegments("/chatHub")))
+            {
+                // Read the token out of the query string
+                context.Token = accessToken;
+            }
+            return Task.CompletedTask;
+        }
+    };
     options.TokenValidationParameters = new TokenValidationParameters()
     {
         ValidateActor = true,
@@ -111,11 +127,15 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.UseEndpoints(endpoints =>
-{   
+{
     endpoints.MapPost("/api/users/signup", async (
               IUserService service, [FromBody] UserModel user) =>
     {
         var response = await service.CreateUser(user);
+        if (response)
+        {
+            return await service.LoginUser(user);
+        }
         return Results.Ok(response);
     });
 
