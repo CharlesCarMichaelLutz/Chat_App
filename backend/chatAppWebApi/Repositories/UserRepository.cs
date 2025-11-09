@@ -25,10 +25,11 @@ namespace chatAppWebApi.Repositories
             var query = @"INSERT INTO users (Username, PasswordHash, CreatedDate)
                 VALUES (@Username, @PasswordHash, @CreatedDate)";
 
-            var result = await connection.ExecuteAsync(query,user);
+            var result = await connection.ExecuteAsync(query, user);
 
             return result > 0;
         }
+    
         public async Task<IEnumerable<UserDTO>> GetAllUsersAsync()
         {
             using var connection = await _connectionFactory.CreateConnectionAsync();
