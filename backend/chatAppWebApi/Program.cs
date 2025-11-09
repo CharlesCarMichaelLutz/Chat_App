@@ -34,7 +34,7 @@ services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(
 
 services.AddScoped<IPostgreSqlConnectionFactory>(_ =>
     new PostgreSqlConnectionFactory(config.GetValue<string>("ConnectionStrings:chat_app")));
-
+services.AddScoped<PostgresDBInitializer>();
 services.AddScoped<IUserService, UserService>();
 services.AddScoped<IMessageService, MessageService>();
 services.AddScoped<IUserRepository, UserRepository>();
@@ -92,6 +92,12 @@ services.AddSignalR(options =>
 
 var app = builder.Build();
 
+using (var scope = app.Services.CreateScope())
+{
+    var initializer = scope.ServiceProvider.GetRequiredService<PostgresDBInitializer>();
+    await initializer.InitializeAsync();
+}
+
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
@@ -109,6 +115,8 @@ app.UseCors("ReactAppPolicy");
 
 app.UseAuthentication();
 app.UseAuthorization();
+
+
 
 app.UseEndpoints(endpoints =>
 {   

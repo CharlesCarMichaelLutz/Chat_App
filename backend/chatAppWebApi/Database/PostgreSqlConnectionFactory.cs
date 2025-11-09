@@ -34,6 +34,7 @@ public class PostgreSqlConnectionFactory : IPostgreSqlConnectionFactory
         catch (Exception ex) 
         {
             Console.WriteLine($"Could not connect to DB: {ex.Message}");
+            throw;
         }
         return connection;
     }

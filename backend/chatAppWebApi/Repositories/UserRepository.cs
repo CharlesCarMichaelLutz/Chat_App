@@ -42,6 +42,8 @@ namespace chatAppWebApi.Repositories
             using var connection = await _connectionFactory.CreateConnectionAsync();
 
             var query = @"SELECT * FROM users WHERE Username = @UserName";
+            //var query = @"SELECT * FROM users WHERE Username = @Username";
+
 
             return await connection.QuerySingleOrDefaultAsync<UserModel>(query, user);
         }

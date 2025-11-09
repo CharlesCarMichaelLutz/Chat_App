@@ -1,0 +1,11 @@
+wwwroot\assets\bootstrap-icons-BeopsB42.woff
+wwwroot\assets\bootstrap-icons-mSm7cUeB.woff2
+wwwroot\assets\index-q9iXCecJ.js
+wwwroot\assets\index-XovtAlIL.css
+wwwroot\assets\rabbitchat-BD_2bsj4.jpg
+wwwroot\index.html
+wwwroot\vite.svg
+C:\Users\Ml\Desktop\Projects\Chat_App\backend\chatAppWebApi\wwwroot\vite.svg
+C:\Users\Ml\Desktop\Projects\Chat_App\backend\chatAppWebApi\wwwroot\index.html
+C:\Users\Ml\Desktop\Projects\Chat_App\backend\chatAppWebApi\wwwroot\assets\index-XovtAlIL.css
+C:\Users\Ml\Desktop\Projects\Chat_App\backend\chatAppWebApi\wwwroot\assets\index-q9iXCecJ.js
