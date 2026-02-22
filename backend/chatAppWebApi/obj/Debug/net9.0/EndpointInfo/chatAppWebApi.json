@@ -15,7 +15,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/UserModel"
+                "$ref": "#/components/schemas/UserRequestDto"
               }
             }
           },
@@ -37,7 +37,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/UserModel"
+                "$ref": "#/components/schemas/UserRequestDto"
               }
             }
           },
@@ -53,24 +53,16 @@
   },
   "components": {
     "schemas": {
-      "UserModel": {
+      "UserRequestDto": {
         "type": "object",
         "properties": {
-          "id": {
-            "type": "integer",
-            "format": "int32"
-          },
           "username": {
             "type": "string",
             "nullable": true
           },
-          "passwordHash": {
+          "password": {
             "type": "string",
             "nullable": true
-          },
-          "createdDate": {
-            "type": "string",
-            "format": "date-time"
           }
         },
         "additionalProperties": false

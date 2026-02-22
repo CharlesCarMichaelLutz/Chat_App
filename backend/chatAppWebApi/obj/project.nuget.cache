@@ -1,10 +1,9 @@
 {
   "version": 2,
-  "dgSpecHash": "PCXlh1Q/3Q0=",
+  "dgSpecHash": "0KimX/DaT2E=",
   "success": true,
   "projectFilePath": "C:\\Users\\Ml\\Desktop\\Projects\\Chat_App\\backend\\chatAppWebApi\\chatAppWebApi.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\Ml\\.nuget\\packages\\bcrypt.net-next\\4.0.3\\bcrypt.net-next.4.0.3.nupkg.sha512",
     "C:\\Users\\Ml\\.nuget\\packages\\dapper\\2.1.66\\dapper.2.1.66.nupkg.sha512",
     "C:\\Users\\Ml\\.nuget\\packages\\microsoft.aspnetcore.authentication.jwtbearer\\9.0.10\\microsoft.aspnetcore.authentication.jwtbearer.9.0.10.nupkg.sha512",
     "C:\\Users\\Ml\\.nuget\\packages\\microsoft.aspnetcore.connections.abstractions\\9.0.10\\microsoft.aspnetcore.connections.abstractions.9.0.10.nupkg.sha512",

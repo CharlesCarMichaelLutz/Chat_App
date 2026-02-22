@@ -1,4 +1,4 @@
-import { useState, useContext, createContext, useEffect } from "react"
+import { useState, useContext, createContext, useEffect, useCallback } from "react"
 import { useLocalStorage } from "../hooks/useLocalStorage"
 import { useNavigate } from "react-router-dom"
 import { HubConnectionBuilder } from "@microsoft/signalr"
@@ -66,12 +66,18 @@ export function AuthProvider({ children }) {
         })
 
         try {
-          connection.start().then(() => {
+          connection.start().then(async () => {
             console.log("Websocket connection started successfully")
             setHubConnection(connection)
             setConnected(true)
+            // Fetch messages and users immediately while connection is in scope (avoids effect timing issues after login + navigate)
+            try {
+              await connection.invoke("GetMessageList")
+              await connection.invoke("GetUserList")
+            } catch (err) {
+              console.error("Error fetching initial data:", err)
+            }
           })
-          //console.log("connection started")
         } catch (err) {
           console.error("error starting signalR:", err)
         }
@@ -89,7 +95,7 @@ export function AuthProvider({ children }) {
     if (connected) {
       getData()
     }
-  }, [connected])
+  }, [connected, getData])
 
   function toggleSignUp() {
     setIsSignup((prev) => !prev)
@@ -101,7 +107,7 @@ export function AuthProvider({ children }) {
     navigate("/")
   }
 
-  async function getData() {
+  const getData = useCallback(async () => {
     try {
       if (hubConnection && connected) {
         await hubConnection.invoke("GetMessageList")
@@ -112,7 +118,7 @@ export function AuthProvider({ children }) {
     } catch (err) {
       console.error("Error in getData:", err)
     }
-  }
+  }, [hubConnection, connected])
 
   return (
     <AuthContext.Provider

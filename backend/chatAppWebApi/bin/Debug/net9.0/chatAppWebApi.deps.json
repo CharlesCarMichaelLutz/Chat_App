@@ -357,14 +357,7 @@
           }
         }
       },
-      "System.Threading.Channels/9.0.10": {
-        "runtime": {
-          "lib/net9.0/System.Threading.Channels.dll": {
-            "assemblyVersion": "9.0.0.0",
-            "fileVersion": "9.0.1025.47515"
-          }
-        }
-      }
+      "System.Threading.Channels/9.0.10": {}
     }
   },
   "libraries": {

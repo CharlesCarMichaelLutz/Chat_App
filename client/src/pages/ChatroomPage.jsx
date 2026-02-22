@@ -1,65 +1,65 @@
-import React, { useState } from "react"
-import { useAuth } from "../components/AuthProvider"
+import { useState, useEffect } from "react";
+import { useAuth } from "../components/AuthProvider";
 
 export function ChatroomPage() {
-  const { user, usernameList, messageList, hubConnection } = useAuth()
+  const { user, usernameList, messageList, hubConnection, connected, getData } = useAuth();
 
   const [messageInput, setMessageInput] = useState({
     message: "",
-  })
+  });
 
   function handleChange(e) {
-    const { name, value } = e.target
+    const { name, value } = e.target;
     setMessageInput((prev) => ({
       ...prev,
       [name]: value,
-    }))
+    }));
   }
 
   const propagateCreateMessage = async (e) => {
-    e.preventDefault()
+    e.preventDefault();
     try {
       if (hubConnection) {
         await hubConnection.invoke(
           "SendMessage",
           user.userId,
-          messageInput.message
-        )
+          messageInput.message,
+        );
       }
     } catch (error) {
-      console.log(error)
+      console.log(error);
     } finally {
-      setMessageInput({ message: "" })
+      setMessageInput({ message: "" });
     }
-  }
+  };
 
   const propagateDeleteMessage = async (messageId) => {
     try {
       if (hubConnection) {
-        await hubConnection.invoke("DeleteMessage", messageId)
+        await hubConnection.invoke("DeleteMessage", messageId);
       }
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
-  }
+  };
 
-  //maybe this can be omitted because it's being called in Authprovider?
-  // useEffect(() => {
-  //   if (hubConnection && connected) {
-  //     getData()
-  //   }
-  // }, [])
+  // Load messages when we have an active hub connection (on mount or when navigating here)
+  useEffect(() => {
+    if (hubConnection && connected) {
+      getData();
+    }
+  }, [hubConnection, connected, getData]);
 
   const renderUsersList = usernameList?.map((user) => {
     return (
       <li key={user.id}>
         <span className="username">{user.username}</span>
       </li>
-    )
-  })
+    );
+  });
 
   const renderChatroom = messageList?.map((message) => {
-    const matchUser = usernameList?.find((usr) => usr.id === message.userId)
+    const matchUser = usernameList?.find((usr) => usr.id === message.userId);
     // console.log("message:", message)
     // console.log("matched user:", matchUser)
     return (
@@ -81,8 +81,8 @@ export function ChatroomPage() {
           )}
         </span>
       </li>
-    )
-  })
+    );
+  });
 
   return (
     <>
@@ -113,5 +113,5 @@ export function ChatroomPage() {
         </div>
       </div>
     </>
-  )
+  );
 }

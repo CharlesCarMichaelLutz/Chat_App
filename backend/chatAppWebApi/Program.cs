@@ -1,3 +1,4 @@
+using chatAppWebApi.Contracts.Requests;
 using chatAppWebApi.Database;
 using chatAppWebApi.Models;
 using chatAppWebApi.Repositories;
@@ -6,6 +7,7 @@ using chatAppWebApi.SignalR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
+using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.Text;
@@ -15,42 +17,30 @@ var builder = WebApplication.CreateBuilder(args);
 var config = builder.Configuration;
 var services = builder.Services;
 
-services.Configure<JwtCredentials>(config.GetSection("Jwt"));
-
-services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
+services.AddAuthentication(x =>
 {
-    options.Events = new JwtBearerEvents
+    x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+    x.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+}).AddJwtBearer(x =>
+{
+    x.TokenValidationParameters = new TokenValidationParameters
     {
-        OnMessageReceived = context =>
-        {
-            var accessToken = context.Request.Query["access_token"];
-
-            // If the request is for our hub...
-            var path = context.HttpContext.Request.Path;
-            if (!string.IsNullOrEmpty(accessToken) &&
-                (path.StartsWithSegments("/chatHub")))
-            {
-                // Read the token out of the query string
-                context.Token = accessToken;
-            }
-            return Task.CompletedTask;
-        }
-    };
-    options.TokenValidationParameters = new TokenValidationParameters()
-    {
-        ValidateActor = true,
-        ValidateAudience = true,
-        ValidateLifetime = true,
-        ValidateIssuerSigningKey = true,
         ValidIssuer = config["Jwt:Issuer"],
         ValidAudience = config["Jwt:Audience"],
-        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(config["Jwt:Key"]))
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(config["Jwt:Secret"]!)),
+        ValidateIssuer = true,
+        ValidateAudience = true,
+        ValidateLifetime = true,
+        ValidateIssuerSigningKey = true
     };
 });
 
 services.AddScoped<IPostgreSqlConnectionFactory>(_ =>
     new PostgreSqlConnectionFactory(config.GetValue<string>("ConnectionStrings:chat_app")));
 services.AddScoped<PostgresDBInitializer>();
+services.AddSingleton<IPasswordHasher, PasswordHasher>();
+services.AddScoped<ITokenService, TokenService>();
 services.AddScoped<IUserService, UserService>();
 services.AddScoped<IMessageService, MessageService>();
 services.AddScoped<IUserRepository, UserRepository>();
@@ -132,34 +122,31 @@ app.UseCors("ReactAppPolicy");
 app.UseAuthentication();
 app.UseAuthorization();
 
-
-
-app.UseEndpoints(endpoints =>
+app.UseEndpoints(e =>
 {
-    endpoints.MapPost("/api/users/signup", async (
-              IUserService service, [FromBody] UserModel user) =>
+    e.MapPost("/api/users/signup", async (
+              IUserService service, [FromBody] UserRequestDto request) =>
     {
-        var response = await service.CreateUser(user);
-        if (response)
-        {
-            return await service.LoginUser(user);
-        }
+        var create = await service.CreateUser(request);
+        return Results.Ok(create);
+    });
+
+    e.MapPost("/api/users/login", async (
+              IUserService service, [FromBody] UserRequestDto request) =>
+    {
+        var response = await service.LoginUser(request);
         return Results.Ok(response);
     });
 
-    endpoints.MapPost("/api/users/login", async (
-              IUserService service, [FromBody] UserModel user) =>
-    {
-        var response = await service.LoginUser(user);
-        return Results.Ok(response);
-    });
+    e.MapHub<ChatHub>("/chatHub");
 
-    endpoints.MapHub<ChatHub>("/chatHub");
-
-    endpoints.MapFallback(async context =>
+    e.MapFallback(async context =>
     {
         context.Response.ContentType = "text/html";
-        await context.Response.SendFileAsync(Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "index.html"));
+        await context.Response.SendFileAsync(
+            Path.Combine(Directory.GetCurrentDirectory(), 
+            "wwwroot", "index.html"
+            ));
     });
 });
 
