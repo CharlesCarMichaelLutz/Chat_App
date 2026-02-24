@@ -1,5 +1,4 @@
 ﻿using chatAppWebApi.Contracts.Responses;
-using chatAppWebApi.Models;
 using chatAppWebApi.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.SignalR;
@@ -8,8 +7,8 @@ namespace chatAppWebApi.SignalR;
 public interface IChatHubClient
 {
     Task Connected(string greeting);
-    Task SendMessage(int userId, string message);
-    Task DeleteMessage(int messageId);
+    Task SendMessage(MessageResponse message);
+    Task DeleteMessageById(MessageResponse message);
     Task AddUser(UserResponse addUser);
 }
 public class ChatHub : Hub<IChatHubClient>
@@ -31,37 +30,14 @@ public class ChatHub : Hub<IChatHubClient>
     //}
 
     //re-write client sends message (http), save in db, broadcast in signalR
-    //public async Task SendMessage(int userId, string message)
+    //public async Task SendMessage(MessageResponse message)
     //{
-    //    var model = new MessageModel
-    //    {
-    //        UserId = userId,
-    //        Text = message,
-    //        CreatedDate = DateTime.UtcNow
-    //    };
-
-    //    var response = await _messageService.CreateMessage(model);
-
-    //    if (!response)
-    //    {
-    //        throw new Exception("Failed to create a message");
-    //    }
-
-    //    var dto = await _messageService.GetMessage();
-
-    //    await Clients.All.SendAsync("PropagateMessageResponse", dto.MessageId, dto.UserId, dto.Text);
+    //    await Clients.All.SendMessage(message);
     //}
 
     //re-write client sends message (http), save in db, broadcast in signalR
-    //public async Task DeleteMessage(int messageId)
+    //public async Task DeleteMessageById(MessageResponse message)
     //{
-    //    var response = await _messageService.DeleteMessage(messageId);
-
-    //    if (!response)
-    //    {
-    //        throw new Exception("Failed to delete the message");
-    //    }
-
-    //    await Clients.All.SendAsync("DeleteMessageResponse", messageId);
+    //    await Clients.All.DeleteMessageById(message);
     //}
 }

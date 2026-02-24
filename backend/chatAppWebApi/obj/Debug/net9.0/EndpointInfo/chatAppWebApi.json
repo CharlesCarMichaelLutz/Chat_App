@@ -6,7 +6,7 @@
     "version": "v1"
   },
   "paths": {
-    "/api/users/signup": {
+    "/signup": {
       "post": {
         "tags": [
           "chatAppWebApi"
@@ -28,7 +28,7 @@
         }
       }
     },
-    "/api/users/login": {
+    "/login": {
       "post": {
         "tags": [
           "chatAppWebApi"
@@ -50,21 +50,10 @@
         }
       }
     },
-    "/api/users/{id}": {
+    "/users": {
       "get": {
         "tags": [
           "chatAppWebApi"
-        ],
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
-          }
         ],
         "responses": {
           "200": {
@@ -73,22 +62,51 @@
         }
       }
     },
-    "/api/messages/{id}": {
+    "/messages": {
       "get": {
         "tags": [
           "chatAppWebApi"
         ],
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
+        "responses": {
+          "200": {
+            "description": "OK"
           }
+        }
+      },
+      "post": {
+        "tags": [
+          "chatAppWebApi"
         ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/MessageRequestDto"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "chatAppWebApi"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DeleteRequestDto"
+              }
+            }
+          },
+          "required": true
+        },
         "responses": {
           "200": {
             "description": "OK"
@@ -99,6 +117,37 @@
   },
   "components": {
     "schemas": {
+      "DeleteRequestDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "userId": {
+            "type": "string",
+            "nullable": true
+          },
+          "isDeleted": {
+            "type": "boolean"
+          }
+        },
+        "additionalProperties": false
+      },
+      "MessageRequestDto": {
+        "type": "object",
+        "properties": {
+          "userId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "text": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
       "UserRequestDto": {
         "type": "object",
         "properties": {

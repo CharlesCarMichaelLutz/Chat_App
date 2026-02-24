@@ -1,6 +1,6 @@
 ﻿using chatAppWebApi.Contracts.Requests;
 using chatAppWebApi.Contracts.Responses;
-using chatAppWebApi.Models;
+using chatAppWebApi.Domain;
 using chatAppWebApi.Repositories;
 using chatAppWebApi.SignalR;
 using Microsoft.AspNetCore.SignalR;
@@ -18,7 +18,6 @@ public class UserService : IUserService
     private readonly IPasswordHasher _passwordHasher;
     private readonly ITokenService _tokenService;
     private readonly IHubContext<ChatHub,IChatHubClient> _hubContext;
-
     public UserService(
         IUserRepository userRepository,
         IPasswordHasher passwordHasher, 
@@ -41,7 +40,7 @@ public class UserService : IUserService
             throw new Exception(message);
         }
 
-        var user = new UserModel
+        var user = new User
         {
             Username = request.Username,
             PasswordHash = _passwordHasher.Hash(request.Password),

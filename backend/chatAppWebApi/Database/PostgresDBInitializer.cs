@@ -23,12 +23,12 @@ public class PostgresDBInitializer
                     Id SERIAL PRIMARY KEY,
                     UserId INTEGER NOT NULL,
                     Text TEXT NOT NULL,
+                    IsDeleted BOOLEAN NOT NULL,
                     CreatedDate Timestamp NOT NULL,
 
                     CONSTRAINT FK_messages_users FOREIGN KEY (UserId)
                         REFERENCES users(Id)
                     );
-
              ");
     }
 }

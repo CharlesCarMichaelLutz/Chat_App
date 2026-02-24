@@ -1,15 +1,15 @@
-﻿using chatAppWebApi.Database;
-using chatAppWebApi.Models;
+﻿using chatAppWebApi.Contracts.Requests;
+using chatAppWebApi.Contracts.Responses;
+using chatAppWebApi.Database;
+using chatAppWebApi.Domain;
 using Dapper;
 
 namespace chatAppWebApi.Repositories;
 public interface IMessageRepository
 {
-    Task<bool> CreateMessageAsync(MessageModel message);
-    //Task<IEnumerable<MessageModel>> GetAllMessagesAsync();
-    Task<IEnumerable<MessageDTO>> GetAllMessagesAsync();
-    Task<bool> DeleteMessageAsync(int id);
-    Task<MessageDTO> GetMessageAsync();
+    Task<MessageResponse> SaveAndGetMessage(Message message);
+    Task<IEnumerable<MessageResponse>> GetAllMessagesAsync();
+    Task<MessageResponse> DeleteMessageAsync(DeleteRequestDto request);
 }
 public class MessageRepository : IMessageRepository
 {
@@ -18,56 +18,43 @@ public class MessageRepository : IMessageRepository
     {
         _connectionFactory = connectionFactory;
     }
-    public async Task<bool> CreateMessageAsync(MessageModel message)
+    public async Task<MessageResponse> SaveAndGetMessage(Message message)
     {
         using var connection = await _connectionFactory.CreateConnectionAsync();
-        var query = @"INSERT INTO messages (UserId, Text, CreatedDate) 
-                VALUES (@UserId, @Text, @CreatedDate)";
+        const string sql =
+            """
+            INSERT INTO messages
+                (UserId, Text, CreatedDate, IsDeleted)
+            VALUES
+                (@UserId, @Text, @CreatedDate, @IsDeleted)
+            RETURNING
+                Id, UserId, Text, CreatedDate, IsDeleted
+            """;
 
-        var result = await connection.ExecuteAsync(query,message);
-
-        return result > 0;
+        return await connection.QuerySingleAsync<MessageResponse>(sql, message);
     }
-    public async Task<MessageDTO> GetMessageAsync()
+    public async Task<IEnumerable<MessageResponse>> GetAllMessagesAsync()
     {
         using var connection = await _connectionFactory.CreateConnectionAsync();
-        var query = @"SELECT Id AS MessageId, UserId, Text FROM messages 
-                ORDER BY ID DESC LIMIT 1;";
+        const string sql =
+            """
+            SELECT * from messages ORDER BY ID ASC
+            """;
 
-        var response = await connection.QuerySingleAsync<MessageDTO>(query);
-
-        return response;
+        return await connection.QueryAsync<MessageResponse>(sql);
     }
-    //public async Task<IEnumerable<MessageModel>> GetAllMessagesAsync()
-    //{
-    //    using var connection = await _connectionFactory.CreateConnectionAsync();
-
-    //    var query = "SELECT * FROM messages ORDER BY ID ASC";
-
-    //    var response = await connection.QueryAsync<MessageModel>(query);
-
-    //    return response;
-    //}
-
-    public async Task<IEnumerable<MessageDTO>> GetAllMessagesAsync()
+    public async Task<MessageResponse> DeleteMessageAsync(DeleteRequestDto request)
     {
         using var connection = await _connectionFactory.CreateConnectionAsync();
-        //var query = "SELECT * FROM messages ORDER BY ID ASC";
-        var query = "SELECT Id AS MessageId, UserId, Text FROM messages ORDER BY ID ASC";
+        const string sql =
+            """
+            UPDATE messages
+            SET isdeleted = @IsDeleted
+            WHERE id = @Id
+            RETURNING *
+            """;
 
-        //var response = await connection.QueryAsync<MessageDTO>(query);
-
-        return await connection.QueryAsync<MessageDTO>(query);
-
-    }
-    public async Task<bool> DeleteMessageAsync(int id)
-    {
-        using var connection = await _connectionFactory.CreateConnectionAsync();
-        var query = @"DELETE FROM messages WHERE Id = @Id";
-
-        var result = await connection.ExecuteAsync(query, new { Id = id});
-
-        return result > 0;
+        return await connection.QuerySingleAsync<MessageResponse>(sql, request);
     }
 }
 

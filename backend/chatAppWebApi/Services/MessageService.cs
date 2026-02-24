@@ -1,13 +1,15 @@
-﻿using chatAppWebApi.Models;
+﻿using chatAppWebApi.Contracts.Requests;
+using chatAppWebApi.Contracts.Responses;
+using chatAppWebApi.Domain;
 using chatAppWebApi.Repositories;
+using Microsoft.AspNetCore.Mvc;
 
 namespace chatAppWebApi.Services;
 public interface IMessageService
 {
-    Task<bool> CreateMessage(MessageModel message);
-    Task<IEnumerable<MessageModel>> GetAllMessages();
-    Task<bool> DeleteMessage(int id);
-    Task<MessageDTO> GetMessage();
+    Task<MessageResponse> SaveMessage(MessageRequestDto request);
+    Task<IEnumerable<MessageResponse>> GetAllMessages();
+    Task<MessageResponse> DeleteMessage(DeleteRequestDto request);
 }
 public class MessageService : IMessageService
 {
@@ -16,58 +18,34 @@ public class MessageService : IMessageService
     {
         _messageRepository = messageRepository;
     }
-    public async Task<bool> CreateMessage(MessageModel message)
+    public async Task<MessageResponse> SaveMessage(MessageRequestDto request)
     {
-            var saved = await _messageRepository.CreateMessageAsync(message);
+        var message = new Message
+        {
+            UserId = request.UserId,
+            Text = request.Text,
+            IsDeleted = false,
+            CreatedDate = DateTime.UtcNow,
+        };
 
-            if (saved)
-            {
-                return true;
-            }
-            return false;
+        return await _messageRepository.SaveAndGetMessage(message);
     }
-    public async Task<MessageDTO> GetMessage()
-    {
-            var saved = await _messageRepository.GetMessageAsync();
-
-            return new MessageDTO
-            {
-                MessageId = saved.MessageId,
-                UserId = saved.UserId,
-                Text = saved.Text,
-            };
-    }
-    //public async Task<IEnumerable<MessageModel>> GetAllMessages()
-    //{
-    //    return await _messageRepository.GetAllMessagesAsync();
-    //}
-    public async Task<IEnumerable<MessageModel>> GetAllMessages()
+    public async Task<IEnumerable<MessageResponse>> GetAllMessages()
     {
         var messageList = await _messageRepository.GetAllMessagesAsync();
 
-        return messageList.Select(m => new MessageModel
-        {
-            Id = m.MessageId,
+        return messageList.Select(m => new MessageResponse
+        { 
+            Id = m.Id,
             UserId = m.UserId,
-            Text = m.Text
+            Text = m.Text,
+            IsDeleted = m.IsDeleted,
+            CreatedDate = m.CreatedDate
         });
     }
-    public async Task<bool> DeleteMessage(int id)
+    public async Task<MessageResponse> DeleteMessage(DeleteRequestDto request)
     {
-        try
-        {
-            var saved = await _messageRepository.DeleteMessageAsync(id);
-            if (!saved)
-            {
-                return false;
-            }
-            return true;
-        }
-        catch (Exception ex)
-        {
-            Console.WriteLine(ex.Message);
-            return false;
-        }
+        return await _messageRepository.DeleteMessageAsync(request);
     }
 }
 
