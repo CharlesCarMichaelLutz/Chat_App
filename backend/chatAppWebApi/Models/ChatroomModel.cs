@@ -12,11 +12,11 @@ public class UserModel
     public string PasswordHash { get; set; }
     public DateTime CreatedDate { get; set; }
 }
-public class UserDTO
-{
-    public int UserId { get; set; }
-    public string Username { get; set; }
-}
+//public class UserDTO
+//{
+//    public int UserId { get; set; }
+//    public string Username { get; set; }
+//}
 public class MessageModel
 {
     public int Id { get; set; }

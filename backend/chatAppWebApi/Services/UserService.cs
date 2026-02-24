@@ -2,12 +2,14 @@
 using chatAppWebApi.Contracts.Responses;
 using chatAppWebApi.Models;
 using chatAppWebApi.Repositories;
+using chatAppWebApi.SignalR;
+using Microsoft.AspNetCore.SignalR;
 
 namespace chatAppWebApi.Services;
 public interface IUserService
 {
     Task<LoginResponse> CreateUser(UserRequestDto request);
-    Task<IEnumerable<UserModel>> GetAllUsers();
+    Task<IEnumerable<UserResponse>> GetAllUsers();
     Task<LoginResponse> LoginUser(UserRequestDto request);
 }
 public class UserService : IUserService
@@ -15,11 +17,18 @@ public class UserService : IUserService
     private readonly IUserRepository _userRepository;
     private readonly IPasswordHasher _passwordHasher;
     private readonly ITokenService _tokenService;
-    public UserService(IUserRepository userRepository,IPasswordHasher passwordHasher, ITokenService tokenService)
+    private readonly IHubContext<ChatHub,IChatHubClient> _hubContext;
+
+    public UserService(
+        IUserRepository userRepository,
+        IPasswordHasher passwordHasher, 
+        ITokenService tokenService, 
+        IHubContext<ChatHub, IChatHubClient> hubContext)
     {
         _userRepository = userRepository;
         _passwordHasher = passwordHasher;
         _tokenService = tokenService;
+        _hubContext = hubContext;
     }
     public async Task<LoginResponse> CreateUser(UserRequestDto request)
     {
@@ -41,9 +50,13 @@ public class UserService : IUserService
 
         var result = await _userRepository.CreateUserAsync(user);
 
-        if(result)
+        if (result)
         {
-            return await LoginUser(request);
+            var loginSuccess = await LoginUser(request);
+
+            BroadCastNewUser(request);
+
+            return loginSuccess;
         }
 
         throw new Exception(message);
@@ -75,14 +88,27 @@ public class UserService : IUserService
             Token = token
         };
     }
-    public async Task<IEnumerable<UserModel>> GetAllUsers()
+    public async Task<IEnumerable<UserResponse>> GetAllUsers()
     {
         var userlist = await _userRepository.GetAllUsersAsync();
 
-        return userlist.Select(u => new UserModel
+        return userlist.Select(u => new UserResponse
         {
-            Id = u.UserId,
+            UserId = u.UserId,
             Username = u.Username,
         });
+    }
+    //broadcast new user to client and append to userlist
+    public async void BroadCastNewUser(UserRequestDto request)
+    {
+        var getUser = await _userRepository.GetUsernameAsync(request);
+
+        var user = new UserResponse
+        {
+            UserId = getUser.Id,
+            Username= getUser.Username,
+        };
+
+        await _hubContext.Clients.All.AddUser(user);
     }
 }

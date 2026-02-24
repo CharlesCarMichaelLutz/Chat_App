@@ -8,7 +8,6 @@ C:\Users\Ml\Desktop\Projects\Chat_App\backend\chatAppWebApi\bin\Debug\net9.0\cha
 C:\Users\Ml\Desktop\Projects\Chat_App\backend\chatAppWebApi\bin\Debug\net9.0\chatAppWebApi.runtimeconfig.json
 C:\Users\Ml\Desktop\Projects\Chat_App\backend\chatAppWebApi\bin\Debug\net9.0\chatAppWebApi.dll
 C:\Users\Ml\Desktop\Projects\Chat_App\backend\chatAppWebApi\bin\Debug\net9.0\chatAppWebApi.pdb
-C:\Users\Ml\Desktop\Projects\Chat_App\backend\chatAppWebApi\bin\Debug\net9.0\BCrypt.Net-Next.dll
 C:\Users\Ml\Desktop\Projects\Chat_App\backend\chatAppWebApi\bin\Debug\net9.0\Dapper.dll
 C:\Users\Ml\Desktop\Projects\Chat_App\backend\chatAppWebApi\bin\Debug\net9.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
 C:\Users\Ml\Desktop\Projects\Chat_App\backend\chatAppWebApi\bin\Debug\net9.0\Microsoft.AspNetCore.Connections.Abstractions.dll

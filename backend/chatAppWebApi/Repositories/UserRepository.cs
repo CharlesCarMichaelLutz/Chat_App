@@ -1,4 +1,5 @@
 ﻿using chatAppWebApi.Contracts.Requests;
+using chatAppWebApi.Contracts.Responses;
 using chatAppWebApi.Database;
 using chatAppWebApi.Models;
 using Dapper;
@@ -7,7 +8,7 @@ namespace chatAppWebApi.Repositories;
 public interface IUserRepository
 {
     Task<bool> CreateUserAsync(UserModel user);
-    Task<IEnumerable<UserDTO>> GetAllUsersAsync();
+    Task<IEnumerable<UserResponse>> GetAllUsersAsync();
     Task<UserModel> GetUsernameAsync(UserRequestDto request);
 }
 public class UserRepository : IUserRepository
@@ -27,12 +28,12 @@ public class UserRepository : IUserRepository
 
         return result > 0;
     }
-    public async Task<IEnumerable<UserDTO>> GetAllUsersAsync()
+    public async Task<IEnumerable<UserResponse>> GetAllUsersAsync()
     {
         using var connection = await _connectionFactory.CreateConnectionAsync();
         var query = @"SELECT Id AS UserId, Username FROM users";
 
-        return await connection.QueryAsync<UserDTO>(query);
+        return await connection.QueryAsync<UserResponse>(query);
     }
     public async Task<UserModel> GetUsernameAsync(UserRequestDto request)
     {

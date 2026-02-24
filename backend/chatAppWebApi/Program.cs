@@ -5,6 +5,7 @@ using chatAppWebApi.Repositories;
 using chatAppWebApi.Services;
 using chatAppWebApi.SignalR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.Extensions.Options;
@@ -122,33 +123,72 @@ app.UseCors("ReactAppPolicy");
 app.UseAuthentication();
 app.UseAuthorization();
 
-app.UseEndpoints(e =>
+app.MapPost("/api/users/signup", async (IUserService service, [FromBody] UserRequestDto request) =>
 {
-    e.MapPost("/api/users/signup", async (
-              IUserService service, [FromBody] UserRequestDto request) =>
-    {
-        var create = await service.CreateUser(request);
-        return Results.Ok(create);
-    });
-
-    e.MapPost("/api/users/login", async (
-              IUserService service, [FromBody] UserRequestDto request) =>
-    {
-        var response = await service.LoginUser(request);
-        return Results.Ok(response);
-    });
-
-    e.MapHub<ChatHub>("/chatHub");
-
-    e.MapFallback(async context =>
-    {
-        context.Response.ContentType = "text/html";
-        await context.Response.SendFileAsync(
-            Path.Combine(Directory.GetCurrentDirectory(), 
-            "wwwroot", "index.html"
-            ));
-    });
+    var response = await service.CreateUser(request);
+    return Results.Ok(response);
 });
+
+app.MapPost("/api/users/login", async (IUserService service, [FromBody] UserRequestDto request) =>
+{
+    var response = await service.LoginUser(request);
+    return Results.Ok(response);
+});
+
+//gets called after register/login and before chatroom loads
+app.MapGet("/api/users/{id:int}", [Authorize] async (IUserService service, int id) =>
+{
+    var response = await service.GetAllUsers();
+    return Results.Ok(response);
+});
+
+//chatroom loader gets called, then websocket connects 
+app.MapGet("/api/messages/{id:int}", [Authorize] async (IMessageService service, int id) =>
+{
+    var response = await service.GetAllMessages();
+    return Results.Ok(response);
+});
+
+app.MapHub<ChatHub>("/chatHub");
+
+app.MapFallback(async context =>
+{
+    context.Response.ContentType = "text/html";
+    await context.Response.SendFileAsync(
+        Path.Combine(Directory.GetCurrentDirectory(),
+        "wwwroot", "index.html"
+    ));
+});
+
+//#pragma warning disable ASP0014
+//app.UseEndpoints(e =>
+//{
+//    e.MapPost("/api/users/signup", async (
+//              IUserService service, [FromBody] UserRequestDto request) =>
+//    {
+//        var create = await service.CreateUser(request);
+//        return Results.Ok(create);
+//    });
+
+//    e.MapPost("/api/users/login", async (
+//              IUserService service, [FromBody] UserRequestDto request) =>
+//    {
+//        var response = await service.LoginUser(request);
+//        return Results.Ok(response);
+//    });
+
+//    e.MapHub<ChatHub>("/chatHub");
+
+//    e.MapFallback(async context =>
+//    {
+//        context.Response.ContentType = "text/html";
+//        await context.Response.SendFileAsync(
+//            Path.Combine(Directory.GetCurrentDirectory(),
+//            "wwwroot", "index.html"
+//            ));
+//    });
+//});
+//#pragma warning restore ASP0014
 
 app.Run();
 
