@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
-import { useAuth } from "../components/AuthProvider";
+import { useChat } from "../components/ChatProvider";
 
 export function ChatroomPage() {
-  const { user, usernameList, messageList, hubConnection, connected, getData } = useAuth();
+  const { user, usernameList, messageList, hubConnection, connected, getData } = useChat();
 
   const [messageInput, setMessageInput] = useState({
     message: "",
