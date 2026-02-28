@@ -1,12 +1,14 @@
 ﻿using Microsoft.IdentityModel.JsonWebTokens;
 using Microsoft.IdentityModel.Tokens;
 using System.Security.Claims;
+using System.Security.Cryptography;
 using System.Text;
 
 namespace chatAppWebApi.Services;
 public interface ITokenService
 {
     string Create(string username);
+    string GenerateRefreshToken();
 }
 public class TokenService(IConfiguration configuration) : ITokenService
 {
@@ -36,5 +38,10 @@ public class TokenService(IConfiguration configuration) : ITokenService
         string token = handler.CreateToken(tokenDescriptor);
 
         return token;
+    }
+
+    public string GenerateRefreshToken()
+    {
+        return Convert.ToBase64String(RandomNumberGenerator.GetBytes(32));
     }
 }

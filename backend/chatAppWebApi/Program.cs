@@ -133,6 +133,12 @@ app.MapPost("/login", async (IUserService service, [FromBody] UserRequestDto req
     return Results.Ok(response);
 });
 
+app.MapPost("/refreshToken", async (IUserService service, [FromBody] RefreshTokenRequest request) =>
+{
+    var response = await service.LoginUserWithRefreshToken(request);
+    return Results.Ok(response);
+});
+
 //gets called after register/login and before chatroom loads
 app.MapGet("/users", [Authorize] async (IUserService service) =>
 {
