@@ -1,34 +1,73 @@
 import rabbitImage from "../images/rabbitchat.jpg";
-
-const isSignUp = true;
+import { useState } from "react";
 
 export function Login() {
+  const [isSignUp, setIsSignUp] = useState(true);
+
+  function toggleSignUp() {
+    setIsSignUp((prev) => !prev);
+  }
+
   return (
     <>
-      <main className="login-container">
+      <main className="login-wrapper">
         <img src={rabbitImage} alt="Rabbit Chat Logo" />
         <section className="form-container">
-          <form>
-            <h3>Visit as guest</h3>
+          <form className="login-form">
+            <h3 className="login-text">Visit as guest</h3>
             <button type="submit">Enter</button>
           </form>
           {isSignUp ? (
-            <form>
-              <h3>Create Account</h3>
-              <label htmlFor="username">Username</label>
-              <input type="text" placeholder="...enter username" required />
-              <label htmlFor="password">Password</label>
-              <input type="password" placeholder="...enter password" required />
+            <form className="login-form">
+              <h3 className="login-text">Create Account</h3>
+              <div className="input-group">
+                <label htmlFor="username">Username</label>
+                <input
+                  type="text"
+                  id="username"
+                  placeholder="...enter username"
+                  required
+                />
+                <label htmlFor="password">Password</label>
+                <input
+                  type="password"
+                  id="password"
+                  placeholder="...enter password"
+                  required
+                />
+              </div>
               <button type="submit">Sign Up</button>
+              <button onClick={toggleSignUp} className="toggle-login">
+                {isSignUp
+                  ? "Already have an account? Login"
+                  : "Don't have an account? Sign Up"}
+              </button>
             </form>
           ) : (
-            <form>
-              <h3>Login</h3>
-              <label htmlFor="username">Username</label>
-              <input type="text" placeholder="Username" required />
-              <label htmlFor="password">Password</label>
-              <input type="password" placeholder="Password" required />
+            <form className="login-form">
+              <h3 className="login-text">Login</h3>
+              <div className="input-group">
+                <label htmlFor="username">Username</label>
+                <input
+                  type="text"
+                  id="username"
+                  placeholder="...enter username"
+                  required
+                />
+                <label htmlFor="password">Password</label>
+                <input
+                  type="password"
+                  id="password"
+                  placeholder="...enter password"
+                  required
+                />
+              </div>
               <button type="submit">Login</button>
+              <button onClick={toggleSignUp} className="toggle-login">
+                {isSignUp
+                  ? "Already have an account? Login"
+                  : "Don't have an account? Sign Up"}
+              </button>
             </form>
           )}
         </section>

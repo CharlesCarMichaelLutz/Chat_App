@@ -1,5 +1,5 @@
 import { createBrowserRouter, Navigate } from "react-router-dom";
-import { ChatProvider } from "./components/ChatProvider";
+import { ChatProvider } from "./context/ChatProvider";
 import { RootLayout } from "./layouts/RootLayout";
 import { Error } from "./pages/Error";
 import { Login } from "./pages/Login";
