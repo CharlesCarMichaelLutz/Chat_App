@@ -9,12 +9,10 @@ using System.Reflection.Metadata.Ecma335;
 namespace chatAppWebApi.Services;
 public interface IUserService
 {
-    //Task<LoginResponse> CreateUser(UserRequestDto request);
-    Task<LoginResponseRefreshToken> CreateUser(UserRequestDto request);
+    Task<LoginResponse> CreateUser(UserRequest request);
     Task<IEnumerable<UserResponse>> GetAllUsers();
-    //Task<LoginResponse> LoginUser(UserRequestDto request);
-    Task<LoginResponseRefreshToken> LoginUser(UserRequestDto request);
-    Task<RefreshTokenResponse> LoginUserWithRefreshToken(RefreshTokenRequest request);
+    Task<LoginResponse> LoginUser(UserRequest request);
+    Task<RefreshTokenResponse> CheckAndReplaceToken(RefreshTokenRequest request);
 }
 public class UserService : IUserService
 {
@@ -33,7 +31,7 @@ public class UserService : IUserService
         _tokenService = tokenService;
         _hubContext = hubContext;
     }
-    public async Task<LoginResponseRefreshToken> CreateUser(UserRequestDto request)
+    public async Task<LoginResponse> CreateUser(UserRequest request)
     {
         var message = "Failed to create user try again";
 
@@ -64,7 +62,7 @@ public class UserService : IUserService
 
         throw new Exception(message);
     }
-    public async Task<LoginResponseRefreshToken> LoginUser(UserRequestDto request)
+    public async Task<LoginResponse> LoginUser(UserRequest request)
     {
         var message = "Failed to login try again";
 
@@ -84,17 +82,17 @@ public class UserService : IUserService
 
         var accessToken = _tokenService.Create(user.Username);
 
-        //save the refresh token in the database
         var refreshToken = new RefreshToken
         {
             UserId = user.Id,
             Token = _tokenService.GenerateRefreshToken(),
-            ExpiresOnUtc = DateTime.UtcNow.AddDays(7)
+            ExpiresOnUtc = DateTime.UtcNow.AddDays(3),
+            IsExpired = false
         };
 
         await _userRepository.SaveRefreshToken(refreshToken);
 
-        return new LoginResponseRefreshToken
+        return new LoginResponse
         {
             UserId = user.Id,
             Username = user.Username,
@@ -112,7 +110,7 @@ public class UserService : IUserService
             Username = u.Username,
         });
     }
-    public async void BroadCastNewUser(UserRequestDto request)
+    public async void BroadCastNewUser(UserRequest request)
     {
         var getUser = await _userRepository.GetUsernameAsync(request);
 
@@ -124,33 +122,25 @@ public class UserService : IUserService
 
         await _hubContext.Clients.All.AddUser(user);
     }
-
-    //always forcing the refreshToken endpoint to check for the latest accessToken
-
-    public async Task<RefreshTokenResponse> CheckAndUpdateToken(RefreshTokenRequest request)
+    public async Task<RefreshTokenResponse> CheckAndReplaceToken(RefreshTokenRequest request)
     {
-        //if current RefreshToken is not expired generate a new accessToken
-        //else generate a new refreshToken and accessToken pair 
+        var refreshToken = await _userRepository.CheckAndInvalidateToken(request);
 
-
-        //get list of refresh tokens of current user from database
-        var refreshToken = await _userRepository.GetRefreshTokensByUserId(request.UserId, request.RefreshToken);
-
+        //on the client the user would be forced to logout and sign-in to generate a new pair
         if (refreshToken == null || refreshToken.ExpiresOnUtc < DateTime.UtcNow)
         {
             throw new Exception("The refresh token has expired");
         }
 
         string accessToken = _tokenService.Create(request.Username);
-
-        //save the new refresh token in the database
-        refreshToken.Token = _tokenService.GenerateRefreshToken();
+        string replaceRefreshToken = _tokenService.GenerateRefreshToken();
 
         var saveToken = new RefreshToken
         {
-            Token = refreshToken.Token,
+            Token = replaceRefreshToken,
             UserId = request.UserId,
-            ExpiresOnUtc = DateTime.UtcNow.AddDays(7),
+            ExpiresOnUtc = DateTime.UtcNow.AddDays(3),
+            IsExpired = false
         };
 
         await _userRepository.SaveRefreshToken(saveToken);
@@ -158,14 +148,14 @@ public class UserService : IUserService
         return new RefreshTokenResponse
         {
             AccessToken = accessToken,
-            RefreshToken = refreshToken.Token
+            RefreshToken = replaceRefreshToken
         };
     }
 
     //On the client before you make a request
         //1 check the expiration of your JWT (accessToken)
         //If is in the past
-            //send your accessToken and RefreshToken to refresh enpoint of API 
+            //send your accessToken and RefreshToken to refresh endpoint of API 
             //get a new pair back and use that for requests on the client
             //until that accessToken expires then repeat 
         //else send request with valid accessToken 

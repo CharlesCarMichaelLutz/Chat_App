@@ -9,7 +9,7 @@ public interface IMessageRepository
 {
     Task<MessageResponse> SaveAndGetMessage(Message message);
     Task<IEnumerable<MessageResponse>> GetAllMessagesAsync();
-    Task<MessageResponse> DeleteMessageAsync(DeleteRequestDto request);
+    Task<MessageResponse> DeleteMessageAsync(DeleteRequest request);
 }
 public class MessageRepository : IMessageRepository
 {
@@ -43,7 +43,7 @@ public class MessageRepository : IMessageRepository
 
         return await connection.QueryAsync<MessageResponse>(sql);
     }
-    public async Task<MessageResponse> DeleteMessageAsync(DeleteRequestDto request)
+    public async Task<MessageResponse> DeleteMessageAsync(DeleteRequest request)
     {
         using var connection = await _connectionFactory.CreateConnectionAsync();
         const string sql =

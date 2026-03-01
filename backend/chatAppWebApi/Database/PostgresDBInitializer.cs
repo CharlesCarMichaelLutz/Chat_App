@@ -13,22 +13,33 @@ public class PostgresDBInitializer
         using var connection = await _connectionFactory.CreateConnectionAsync();
         await connection.ExecuteAsync(@"
                 CREATE TABLE IF NOT EXISTS users (
-                        Id SERIAL PRIMARY KEY, 
-                        Username VARCHAR(100) NOT NULL,
-                        PasswordHash VARCHAR(255) NOT NULL,
-                        CreatedDate TIMESTAMP NOT NULL
+                    id SERIAL PRIMARY KEY, 
+                    username VARCHAR(100) NOT NULL,
+                    passwordhash VARCHAR(255) NOT NULL,
+                    createddate TIMESTAMP NOT NULL
                     );
 
                 CREATE TABLE IF NOT EXISTS messages (
-                    Id SERIAL PRIMARY KEY,
-                    UserId INTEGER NOT NULL,
-                    Text TEXT NOT NULL,
-                    IsDeleted BOOLEAN NOT NULL,
-                    CreatedDate Timestamp NOT NULL,
+                    id SERIAL PRIMARY KEY,
+                    userid INTEGER NOT NULL,
+                    text TEXT NOT NULL,
+                    isdeleted BOOLEAN NOT NULL,
+                    createdcate Timestamp NOT NULL,
 
-                    CONSTRAINT FK_messages_users FOREIGN KEY (UserId)
-                        REFERENCES users(Id)
+                    CONSTRAINT FK_messages_users FOREIGN KEY (userid)
+                        REFERENCES users(id)
                     );
+
+                CREATE TABLE IF NOT EXISTS tokens (
+                    id SERIAL PRIMARY KEY,
+	                token varchar(300) NOT NULL,
+	                userid INTEGER NOT NULL,
+                    expiresonutc Timestamp NOT NULL,
+                    isexpired BOOLEAN NOT NULL,
+
+                CONSTRAINT FK_tokens_users FOREIGN KEY (userid)
+                       REFERENCES users(id)
+                );
              ");
     }
 }

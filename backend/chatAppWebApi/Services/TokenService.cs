@@ -28,7 +28,7 @@ public class TokenService(IConfiguration configuration) : ITokenService
         var tokenDescriptor = new SecurityTokenDescriptor
         {
             Subject = new ClaimsIdentity(claims),
-            Expires = DateTime.UtcNow.AddDays(configuration.GetValue<int>("Jwt:ExpirationInDays")),
+            Expires = DateTime.UtcNow.AddMinutes(configuration.GetValue<int>("Jwt:ExpirationInMinutes")),
             SigningCredentials = credentials,
             Issuer = configuration["Jwt:Issuer"],
             Audience = configuration["Jwt:Audience"]
