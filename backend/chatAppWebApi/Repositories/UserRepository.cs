@@ -9,7 +9,9 @@ public interface IUserRepository
 {
     Task<bool> CreateUserAsync(User user);
     Task<IEnumerable<UserResponse>> GetAllUsersAsync();
-    Task<User> GetUsernameAsync(UserRequestDto request);
+    Task<User> GetUsernameAsync(UserRequest request);
+    Task<bool> SaveRefreshToken(RefreshToken token);
+    Task<RefreshToken> CheckAndInvalidateToken(RefreshTokenRequest request);
 }
 public class UserRepository : IUserRepository
 {
@@ -43,7 +45,7 @@ public class UserRepository : IUserRepository
 
         return await connection.QueryAsync<UserResponse>(sql);
     }
-    public async Task<User> GetUsernameAsync(UserRequestDto request)
+    public async Task<User> GetUsernameAsync(UserRequest request)
     {
         using var connection = await _connectionFactory.CreateConnectionAsync();
         const string sql =
@@ -52,5 +54,31 @@ public class UserRepository : IUserRepository
             """;
 
         return await connection.QuerySingleOrDefaultAsync<User>(sql, request);
+    }
+    public async Task<bool> SaveRefreshToken(RefreshToken token)
+    {
+        using var connection = await _connectionFactory.CreateConnectionAsync();
+        const string sql =
+            """
+            INSERT INTO tokens
+                (Token, UserId, ExpiresOnUtc, IsExpired)
+            VALUES
+                (@Token, @UserId, @ExpiresOnUtc, @IsExpired)
+            """;
+        var result = await connection.ExecuteAsync(sql, token);
+
+        return result > 0;
+    }
+    public async Task<RefreshToken> CheckAndInvalidateToken(RefreshTokenRequest request)
+    {
+        using var connection = await _connectionFactory.CreateConnectionAsync();
+        const string sql =
+             """
+            UPDATE tokens
+            SET isexpired = @IsExpired
+            WHERE UserId = @UserId, Token = @Token
+            RETURNING *
+            """;
+        return await connection.QuerySingleOrDefaultAsync<RefreshToken>(sql, request);
     }
 }

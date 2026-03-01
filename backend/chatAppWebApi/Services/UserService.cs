@@ -4,24 +4,26 @@ using chatAppWebApi.Domain;
 using chatAppWebApi.Repositories;
 using chatAppWebApi.SignalR;
 using Microsoft.AspNetCore.SignalR;
+using System.Reflection.Metadata.Ecma335;
 
 namespace chatAppWebApi.Services;
 public interface IUserService
 {
-    Task<LoginResponse> CreateUser(UserRequestDto request);
+    Task<LoginResponse> CreateUser(UserRequest request);
     Task<IEnumerable<UserResponse>> GetAllUsers();
-    Task<LoginResponse> LoginUser(UserRequestDto request);
+    Task<LoginResponse> LoginUser(UserRequest request);
+    Task<RefreshTokenResponse> CheckAndReplaceToken(RefreshTokenRequest request);
 }
 public class UserService : IUserService
 {
     private readonly IUserRepository _userRepository;
     private readonly IPasswordHasher _passwordHasher;
     private readonly ITokenService _tokenService;
-    private readonly IHubContext<ChatHub,IChatHubClient> _hubContext;
+    private readonly IHubContext<ChatHub, IChatHubClient> _hubContext;
     public UserService(
         IUserRepository userRepository,
-        IPasswordHasher passwordHasher, 
-        ITokenService tokenService, 
+        IPasswordHasher passwordHasher,
+        ITokenService tokenService,
         IHubContext<ChatHub, IChatHubClient> hubContext)
     {
         _userRepository = userRepository;
@@ -29,7 +31,7 @@ public class UserService : IUserService
         _tokenService = tokenService;
         _hubContext = hubContext;
     }
-    public async Task<LoginResponse> CreateUser(UserRequestDto request)
+    public async Task<LoginResponse> CreateUser(UserRequest request)
     {
         var message = "Failed to create user try again";
 
@@ -60,7 +62,7 @@ public class UserService : IUserService
 
         throw new Exception(message);
     }
-    public async Task<LoginResponse> LoginUser(UserRequestDto request)
+    public async Task<LoginResponse> LoginUser(UserRequest request)
     {
         var message = "Failed to login try again";
 
@@ -73,18 +75,29 @@ public class UserService : IUserService
 
         bool verified = _passwordHasher.Verify(request.Password, user.PasswordHash);
 
-        if(!verified)
+        if (!verified)
         {
             throw new Exception(message);
         }
 
-        var token = _tokenService.Create(user.Username);
+        var accessToken = _tokenService.Create(user.Username);
+
+        var refreshToken = new RefreshToken
+        {
+            UserId = user.Id,
+            Token = _tokenService.GenerateRefreshToken(),
+            ExpiresOnUtc = DateTime.UtcNow.AddDays(3),
+            IsExpired = false
+        };
+
+        await _userRepository.SaveRefreshToken(refreshToken);
 
         return new LoginResponse
         {
             UserId = user.Id,
             Username = user.Username,
-            Token = token
+            AccessToken = accessToken,
+            RefreshToken = refreshToken.Token
         };
     }
     public async Task<IEnumerable<UserResponse>> GetAllUsers()
@@ -97,17 +110,53 @@ public class UserService : IUserService
             Username = u.Username,
         });
     }
-    //broadcast new user to client and append to userlist
-    public async void BroadCastNewUser(UserRequestDto request)
+    public async void BroadCastNewUser(UserRequest request)
     {
         var getUser = await _userRepository.GetUsernameAsync(request);
 
         var user = new UserResponse
         {
             UserId = getUser.Id,
-            Username= getUser.Username,
+            Username = getUser.Username,
         };
 
         await _hubContext.Clients.All.AddUser(user);
     }
+    public async Task<RefreshTokenResponse> CheckAndReplaceToken(RefreshTokenRequest request)
+    {
+        var refreshToken = await _userRepository.CheckAndInvalidateToken(request);
+
+        //on the client the user would be forced to logout and sign-in to generate a new pair
+        if (refreshToken == null || refreshToken.ExpiresOnUtc < DateTime.UtcNow)
+        {
+            throw new Exception("The refresh token has expired");
+        }
+
+        string accessToken = _tokenService.Create(request.Username);
+        string replaceRefreshToken = _tokenService.GenerateRefreshToken();
+
+        var saveToken = new RefreshToken
+        {
+            Token = replaceRefreshToken,
+            UserId = request.UserId,
+            ExpiresOnUtc = DateTime.UtcNow.AddDays(3),
+            IsExpired = false
+        };
+
+        await _userRepository.SaveRefreshToken(saveToken);
+
+        return new RefreshTokenResponse
+        {
+            AccessToken = accessToken,
+            RefreshToken = replaceRefreshToken
+        };
+    }
+
+    //On the client before you make a request
+        //1 check the expiration of your JWT (accessToken)
+        //If is in the past
+            //send your accessToken and RefreshToken to refresh endpoint of API 
+            //get a new pair back and use that for requests on the client
+            //until that accessToken expires then repeat 
+        //else send request with valid accessToken 
 }

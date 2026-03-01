@@ -1,5 +1,5 @@
 ﻿namespace chatAppWebApi.Contracts.Requests;
-public class MessageRequestDto
+public class MessageRequest
 {
     public int UserId { get; set; }
     public string Text { get; set; }

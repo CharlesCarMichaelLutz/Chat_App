@@ -36,7 +36,7 @@ services.AddAuthentication(x =>
 });
 
 services.AddScoped<IPostgreSqlConnectionFactory>(_ =>
-    new PostgreSqlConnectionFactory(config.GetValue<string>("ConnectionStrings:chat_app")));
+    new PostgreSqlConnectionFactory(config.GetValue<string>("ConnectionStrings:chat_app")!));
 services.AddScoped<PostgresDBInitializer>();
 services.AddSingleton<IPasswordHasher, PasswordHasher>();
 services.AddScoped<ITokenService, TokenService>();
@@ -121,15 +121,21 @@ app.UseCors("ReactAppPolicy");
 app.UseAuthentication();
 app.UseAuthorization();
 
-app.MapPost("/signup", async (IUserService service, [FromBody] UserRequestDto request) =>
+app.MapPost("/signup", async (IUserService service, [FromBody] UserRequest request) =>
 {
     var response = await service.CreateUser(request);
     return Results.Ok(response);
 });
 
-app.MapPost("/login", async (IUserService service, [FromBody] UserRequestDto request) =>
+app.MapPost("/login", async (IUserService service, [FromBody] UserRequest request) =>
 {
     var response = await service.LoginUser(request);
+    return Results.Ok(response);
+});
+
+app.MapPost("/refresh-token", async (IUserService service, [FromBody] RefreshTokenRequest request) =>
+{
+    var response = await service.CheckAndReplaceToken(request);
     return Results.Ok(response);
 });
 
@@ -147,7 +153,7 @@ app.MapGet("/messages", [Authorize] async (IMessageService service) =>
     return Results.Ok(response);
 });
 
-app.MapPost("/messages", [Authorize] async (IMessageService service, IHubContext<ChatHub, IChatHubClient> hubContext, [FromBody] MessageRequestDto request) =>
+app.MapPost("/messages", [Authorize] async (IMessageService service, IHubContext<ChatHub, IChatHubClient> hubContext, [FromBody] MessageRequest request) =>
 {
     try
     {
@@ -161,7 +167,7 @@ app.MapPost("/messages", [Authorize] async (IMessageService service, IHubContext
     }
 });
 
-app.MapPatch("/messages", [Authorize] async (IMessageService service, IHubContext<ChatHub, IChatHubClient> hubContext, [FromBody] DeleteRequestDto request) =>
+app.MapPatch("/messages", [Authorize] async (IMessageService service, IHubContext<ChatHub, IChatHubClient> hubContext, [FromBody] DeleteRequest request) =>
 {
     try
     {

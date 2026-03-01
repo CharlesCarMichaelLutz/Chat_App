@@ -7,9 +7,9 @@ using Microsoft.AspNetCore.Mvc;
 namespace chatAppWebApi.Services;
 public interface IMessageService
 {
-    Task<MessageResponse> SaveMessage(MessageRequestDto request);
+    Task<MessageResponse> SaveMessage(MessageRequest request);
     Task<IEnumerable<MessageResponse>> GetAllMessages();
-    Task<MessageResponse> DeleteMessage(DeleteRequestDto request);
+    Task<MessageResponse> DeleteMessage(DeleteRequest request);
 }
 public class MessageService : IMessageService
 {
@@ -18,7 +18,7 @@ public class MessageService : IMessageService
     {
         _messageRepository = messageRepository;
     }
-    public async Task<MessageResponse> SaveMessage(MessageRequestDto request)
+    public async Task<MessageResponse> SaveMessage(MessageRequest request)
     {
         var message = new Message
         {
@@ -43,7 +43,7 @@ public class MessageService : IMessageService
             CreatedDate = m.CreatedDate
         });
     }
-    public async Task<MessageResponse> DeleteMessage(DeleteRequestDto request)
+    public async Task<MessageResponse> DeleteMessage(DeleteRequest request)
     {
         return await _messageRepository.DeleteMessageAsync(request);
     }
