@@ -16,6 +16,7 @@ var builder = WebApplication.CreateBuilder(args);
 var config = builder.Configuration;
 var services = builder.Services;
 
+
 services.AddAuthentication(x =>
 {
     x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -34,6 +35,8 @@ services.AddAuthentication(x =>
         ValidateIssuerSigningKey = true
     };
 });
+
+services.AddHttpContextAccessor();
 
 services.AddScoped<IPostgreSqlConnectionFactory>(_ =>
     new PostgreSqlConnectionFactory(config.GetValue<string>("ConnectionStrings:chat_app")!));
@@ -133,9 +136,9 @@ app.MapPost("/login", async (IUserService service, [FromBody] UserRequest reques
     return Results.Ok(response);
 });
 
-app.MapPost("/refresh-token", async (IUserService service, [FromBody] RefreshTokenRequest request) =>
+app.MapPost("/refresh-token", async (IUserService service) =>
 {
-    var response = await service.CheckAndReplaceToken(request);
+    var response = await service.CheckAndReplaceToken();
     return Results.Ok(response);
 });
 

@@ -4,7 +4,6 @@ using chatAppWebApi.Domain;
 using chatAppWebApi.Repositories;
 using chatAppWebApi.SignalR;
 using Microsoft.AspNetCore.SignalR;
-using System.Reflection.Metadata.Ecma335;
 
 namespace chatAppWebApi.Services;
 public interface IUserService
@@ -12,7 +11,7 @@ public interface IUserService
     Task<LoginResponse> CreateUser(UserRequest request);
     Task<IEnumerable<UserResponse>> GetAllUsers();
     Task<LoginResponse> LoginUser(UserRequest request);
-    Task<RefreshTokenResponse> CheckAndReplaceToken(RefreshTokenRequest request);
+    Task<RefreshTokenResponse> CheckAndReplaceToken();
 }
 public class UserService : IUserService
 {
@@ -20,16 +19,19 @@ public class UserService : IUserService
     private readonly IPasswordHasher _passwordHasher;
     private readonly ITokenService _tokenService;
     private readonly IHubContext<ChatHub, IChatHubClient> _hubContext;
+    private readonly IHttpContextAccessor _contextAccessor;
     public UserService(
         IUserRepository userRepository,
         IPasswordHasher passwordHasher,
         ITokenService tokenService,
-        IHubContext<ChatHub, IChatHubClient> hubContext)
+        IHubContext<ChatHub, IChatHubClient> hubContext,
+        IHttpContextAccessor contextAccessor)
     {
         _userRepository = userRepository;
         _passwordHasher = passwordHasher;
         _tokenService = tokenService;
         _hubContext = hubContext;
+        _contextAccessor = contextAccessor;
     }
     public async Task<LoginResponse> CreateUser(UserRequest request)
     {
@@ -82,7 +84,7 @@ public class UserService : IUserService
 
         var accessToken = _tokenService.Create(user.Username);
 
-        var refreshToken = new RefreshToken
+        var saveToken = new RefreshToken
         {
             UserId = user.Id,
             Token = _tokenService.GenerateRefreshToken(),
@@ -90,14 +92,16 @@ public class UserService : IUserService
             IsExpired = false
         };
 
-        await _userRepository.SaveRefreshToken(refreshToken);
+        await _userRepository.SaveRefreshToken(saveToken);
 
+        SetRefreshToken(saveToken);
+
+        //will need to remove RefreshToken from model and return it as a cookie 
         return new LoginResponse
         {
             UserId = user.Id,
             Username = user.Username,
             AccessToken = accessToken,
-            RefreshToken = refreshToken.Token
         };
     }
     public async Task<IEnumerable<UserResponse>> GetAllUsers()
@@ -122,9 +126,17 @@ public class UserService : IUserService
 
         await _hubContext.Clients.All.AddUser(user);
     }
-    public async Task<RefreshTokenResponse> CheckAndReplaceToken(RefreshTokenRequest request)
+    public async Task<RefreshTokenResponse> CheckAndReplaceToken()
     {
-        var refreshToken = await _userRepository.CheckAndInvalidateToken(request);
+        var refreshTolken = _contextAccessor.HttpContext?.Request.Cookies["RefreshToken"];
+
+        var transfer = new RefreshTokenRequest
+        {
+            Token = refreshTolken,
+            IsExpired = true
+        };
+
+        var refreshToken = await _userRepository.CheckAndInvalidateToken(transfer);
 
         //on the client the user would be forced to logout and sign-in to generate a new pair
         if (refreshToken == null || refreshToken.ExpiresOnUtc < DateTime.UtcNow)
@@ -132,31 +144,53 @@ public class UserService : IUserService
             throw new Exception("The refresh token has expired");
         }
 
-        string accessToken = _tokenService.Create(request.Username);
+        //call user by id, then pass username to create a new Access Token below
+        var user = await _userRepository.GetUserById(refreshToken.UserId);
+
+        if (user == null)
+        {
+            throw new Exception("Could not get the user");
+        }
+
+        string accessToken = _tokenService.Create(user.Username);
         string replaceRefreshToken = _tokenService.GenerateRefreshToken();
 
         var saveToken = new RefreshToken
         {
             Token = replaceRefreshToken,
-            UserId = request.UserId,
+            UserId = user.Id,
             ExpiresOnUtc = DateTime.UtcNow.AddDays(3),
             IsExpired = false
         };
 
         await _userRepository.SaveRefreshToken(saveToken);
 
+        SetRefreshToken(saveToken);
+
         return new RefreshTokenResponse
         {
             AccessToken = accessToken,
-            RefreshToken = replaceRefreshToken
         };
+    }
+    public void SetRefreshToken(RefreshToken refreshToken)
+    {
+           var options = new CookieOptions
+           {
+               Expires = refreshToken.ExpiresOnUtc,
+               HttpOnly = true,
+               Secure = true,
+               IsEssential = true,
+               SameSite = SameSiteMode.None
+           };
+
+        _contextAccessor.HttpContext?.Response.Cookies.Append("RefreshToken", refreshToken.Token, options);
     }
 
     //On the client before you make a request
-        //1 check the expiration of your JWT (accessToken)
-        //If is in the past
-            //send your accessToken and RefreshToken to refresh endpoint of API 
-            //get a new pair back and use that for requests on the client
-            //until that accessToken expires then repeat 
-        //else send request with valid accessToken 
+    //1 check the expiration of your JWT (accessToken)
+    //If is in the past
+    //send your accessToken and RefreshToken to refresh endpoint of API 
+    //get a new pair back and use that for requests on the client
+    //until that accessToken expires then repeat 
+    //else send request with valid accessToken 
 }

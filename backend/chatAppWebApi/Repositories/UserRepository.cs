@@ -9,9 +9,10 @@ public interface IUserRepository
 {
     Task<bool> CreateUserAsync(User user);
     Task<IEnumerable<UserResponse>> GetAllUsersAsync();
-    Task<User> GetUsernameAsync(UserRequest request);
+    Task<User?> GetUsernameAsync(UserRequest request);
     Task<bool> SaveRefreshToken(RefreshToken token);
-    Task<RefreshToken> CheckAndInvalidateToken(RefreshTokenRequest request);
+    Task<RefreshToken?> CheckAndInvalidateToken(RefreshTokenRequest request);
+    Task<User?> GetUserById(int userId);
 }
 public class UserRepository : IUserRepository
 {
@@ -45,7 +46,7 @@ public class UserRepository : IUserRepository
 
         return await connection.QueryAsync<UserResponse>(sql);
     }
-    public async Task<User> GetUsernameAsync(UserRequest request)
+    public async Task<User?> GetUsernameAsync(UserRequest request)
     {
         using var connection = await _connectionFactory.CreateConnectionAsync();
         const string sql =
@@ -54,6 +55,16 @@ public class UserRepository : IUserRepository
             """;
 
         return await connection.QuerySingleOrDefaultAsync<User>(sql, request);
+    }
+    public async Task<User?> GetUserById(int userId)
+    {
+        using var connection = await _connectionFactory.CreateConnectionAsync();
+        const string sql =
+            """
+            SELECT Username, Id FROM users WHERE Id = @Id
+            """;
+
+        return await connection.QuerySingleOrDefaultAsync<User>(sql, new {Id = userId});
     }
     public async Task<bool> SaveRefreshToken(RefreshToken token)
     {
@@ -69,14 +80,21 @@ public class UserRepository : IUserRepository
 
         return result > 0;
     }
-    public async Task<RefreshToken> CheckAndInvalidateToken(RefreshTokenRequest request)
+    public async Task<RefreshToken?> CheckAndInvalidateToken(RefreshTokenRequest request)
     {
         using var connection = await _connectionFactory.CreateConnectionAsync();
+        //const string sql =
+        //     """
+        //    UPDATE tokens
+        //    SET isexpired = @IsExpired
+        //    WHERE UserId = @UserId AND Token = @Token
+        //    RETURNING *
+        //    """;
         const string sql =
-             """
+            """
             UPDATE tokens
             SET isexpired = @IsExpired
-            WHERE UserId = @UserId, Token = @Token
+            WHERE Token = @Token
             RETURNING *
             """;
         return await connection.QuerySingleOrDefaultAsync<RefreshToken>(sql, request);
