@@ -1,5 +1,14 @@
+# Node.js dependencies
+node_modules/
+.pnp
+.pnp.js
+
+# Build directories for frontend
+/dist
+/dist-ssr
+
 # Logs
-logs
+logs/
 *.log
 npm-debug.log*
 yarn-debug.log*
@@ -7,48 +16,40 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
-node_modules
-dist
-dist-ssr
-*.local
+# Testing output
+/coverage/
 
-# Editor directories and files
-.vscode/*
-!.vscode/extensions.json
-.idea
-.DS_Store
-*.suo
-*.ntvs*
-*.njsproj
-*.sln
-*.sw?
-.env
+# Production build output
+/build/
 
-
-# dependencies
-/node_modules
-/.pnp
-.pnp.js
-
-# testing
-/coverage
-
-# production
-/build
-
-# misc
+# Misc
 .DS_Store
 .env.local
 .env.development.local
 .env.test.local
 .env.production.local
-.vs
+
+# IDE/editor directories and files
+/.vscode/*
+!.vscode/extensions.json
+.idea/
+/.vs/
+
+# Visual Studio files
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+.vs2019/
+.vs2017/
+
+# Ignore bin and obj directories (backend build files)
+**/bin/
+**/obj/
+
+# Ignore environment files
 .env
 
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-bin/
-obj/
-node_modules/
-dist/
+# Ignore system-specific files
+Thumbs.db
