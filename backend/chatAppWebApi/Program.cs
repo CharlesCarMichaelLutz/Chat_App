@@ -117,7 +117,6 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseRouting();
-app.UseStaticFiles();
 
 app.UseCors("ReactAppPolicy");
 
@@ -185,15 +184,6 @@ app.MapPatch("/messages", [Authorize] async (IMessageService service, IHubContex
 });
 
 app.MapHub<ChatHub>("/chatHub");
-
-app.MapFallback(async context =>
-{
-    context.Response.ContentType = "text/html";
-    await context.Response.SendFileAsync(
-        Path.Combine(Directory.GetCurrentDirectory(),
-        "wwwroot", "index.html"
-    ));
-});
 
 app.Run();
 

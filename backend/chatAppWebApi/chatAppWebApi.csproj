@@ -18,9 +18,9 @@
     <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="8.14.0" />
   </ItemGroup>
 
-	<Target Name="CompileClient" BeforeTargets="Publish">
+	<!--<Target Name="CompileClient" BeforeTargets="Publish">
 		<Exec WorkingDirectory="./client" Command="npm install" />
 		<Exec WorkingDirectory="./client" Command="npm run build" />
-	</Target>
+	</Target>-->
 
 </Project>
