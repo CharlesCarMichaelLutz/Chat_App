@@ -1,11 +1,11 @@
 import { createContext, useState, useEffect } from "react";
 import { baseApi } from "../api/base";
-import useRefreshToken from "../hooks/useRefreshToken";
+//import useRefreshToken from "../hooks/useRefreshToken";
 
 const ChatContext = createContext();
 
 export const ChatProvider = ({ children }) => {
-  const refresh = useRefreshToken();
+  //const refresh = useRefreshToken();
 
   //persist the user
   const [auth, setAuth] = useState({});
@@ -13,10 +13,14 @@ export const ChatProvider = ({ children }) => {
   //function call Api for the guest user
   const guestLogin = async (credentials) => {
     try {
-      const response = await baseApi.post("login", {
-        Username: credentials?.username,
-        Password: credentials?.password,
-      });
+      const response = await baseApi.post(
+        "login",
+        {
+          Username: credentials?.username,
+          Password: credentials?.password,
+        },
+        // { withCredentials: true },
+      );
       setAuth(response.data);
       console.log("user:", auth);
     } catch (error) {
@@ -37,7 +41,8 @@ export const ChatProvider = ({ children }) => {
   //pass down context values to children
 
   return (
-    <ChatContext.Provider value={{ auth, setAuth, guestLogin, refresh }}>
+    //<ChatContext.Provider value={{ auth, setAuth, guestLogin, refresh }}>
+    <ChatContext.Provider value={{ auth, setAuth, guestLogin }}>
       {children}
     </ChatContext.Provider>
   );

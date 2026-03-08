@@ -1,8 +1,8 @@
 import { createBrowserRouter, Navigate } from "react-router-dom";
-import ChatProvider from "./context/ChatProvider";
+import { ChatProvider } from "./context/ChatProvider";
 import { RootLayout } from "./layouts/RootLayout";
 import { Error } from "./pages/Error";
-import Login from "./pages/Login";
+import { Login } from "./pages/Login";
 // import { ProtectedRoute } from "./components/ProtectedRoute"
 import { Chatroom } from "./pages/Chatroom";
 

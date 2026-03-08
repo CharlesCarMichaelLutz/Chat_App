@@ -1,9 +1,10 @@
 import rabbitImage from "../images/rabbitchat.jpg";
 import { useState } from "react";
-import useChat from "../hooks/useChat";
+import { useChat } from "../hooks/useChat";
 
-const Login = () => {
-  const { guestLogin, refresh } = useChat();
+export const Login = () => {
+  //const { guestLogin, refresh } = useChat();
+  const { guestLogin } = useChat();
   const [isSignUp, setIsSignUp] = useState(true);
 
   const [input, setInput] = useState({
@@ -50,7 +51,7 @@ const Login = () => {
             <h3 className="login-text">Visit as guest</h3>
             <button type="submit">Enter</button>
           </form>
-          <button onClick={() => refresh()}>refresh</button>
+          {/* <button onClick={() => refresh()}>refresh</button> */}
           {isSignUp ? (
             <form className="login-form">
               <h3 className="login-text">Create Account</h3>
@@ -118,4 +119,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+//export default Login;

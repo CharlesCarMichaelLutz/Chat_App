@@ -1,4 +1,4 @@
-export function Chatroom() {
+export const Chatroom = () => {
   return (
     <>
       <main className="chatroom-wrapper">
@@ -35,4 +35,4 @@ export function Chatroom() {
       </main>
     </>
   );
-}
+};

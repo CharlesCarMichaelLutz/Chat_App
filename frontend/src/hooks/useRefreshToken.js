@@ -1,5 +1,5 @@
 import axios from "axios";
-import useChat  from "./useChat";
+import { useChat }  from "./useChat";
 
 const useRefreshToken = () => {
     const { setAuth } = useChat();

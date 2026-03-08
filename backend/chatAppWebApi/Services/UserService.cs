@@ -178,7 +178,8 @@ public class UserService : IUserService
            {
                Expires = refreshToken.ExpiresOnUtc,
                HttpOnly = true,
-               Secure = true,
+               //Secure = true,
+               Secure = false,
                IsEssential = true,
                SameSite = SameSiteMode.None
            };
