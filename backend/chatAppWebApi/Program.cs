@@ -88,8 +88,8 @@ services.AddCors(options =>
     {
         builder.WithOrigins("http://localhost:5173")
           .AllowAnyHeader()
-          .AllowCredentials()
-          .AllowAnyMethod();
+          .AllowAnyMethod()
+          .AllowCredentials();
     });
 });
 
