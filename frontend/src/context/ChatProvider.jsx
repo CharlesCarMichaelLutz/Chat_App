@@ -1,6 +1,7 @@
-import { createContext, useState, useEffect } from "react";
+import { createContext, useState, useRef, useEffect } from "react";
 import { baseApi } from "../api/base";
 import { useNavigate } from "react-router-dom";
+import * as signalR from "@microsoft/signalr";
 
 const ChatContext = createContext();
 
@@ -8,7 +9,47 @@ export const ChatProvider = ({ children }) => {
   const [auth, setAuth] = useState({});
   const [userList, setUserList] = useState([]);
   const [messageList, setMessageList] = useState([]);
+  const connectionRef = useRef(null);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!auth?.accessToken) return;
+
+    const newConnection = new signalR.HubConnectionBuilder()
+      .withUrl(import.meta.env.VITE_WS_URL + "/chatHub")
+      .withAutomaticReconnect()
+      .build();
+
+    connectionRef.current = newConnection;
+
+    return () => {
+      if (newConnection) {
+        newConnection.stop();
+        connectionRef.current = null;
+      }
+    };
+  }, [auth.accessToken]);
+
+  useEffect(() => {
+    const startConnection = async () => {
+      const connection = connectionRef.current;
+      if (!connectionRef.current) return;
+
+      try {
+        await connection.start();
+        console.log("websocket connected");
+
+        //register listeners
+        connection.on("Connected", (greeting) => {
+          console.log(greeting);
+        });
+      } catch (error) {
+        console.error("websocket connection error:", error);
+      }
+    };
+
+    startConnection();
+  }, [auth.accessToken]);
 
   //function call Api for the guest user
   const guestLogin = async (credentials) => {
@@ -57,9 +98,9 @@ export const ChatProvider = ({ children }) => {
 
   //call Api for logout
 
-  //delete message
+  //patch delete message
 
-  //create message
+  //post create message
 
   useEffect(() => {
     console.log("auth changed, effect ran:", auth);
