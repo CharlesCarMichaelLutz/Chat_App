@@ -145,6 +145,7 @@ app.MapPost("/refresh-token", async (IUserService service) =>
 app.MapGet("/users", [Authorize] async (IUserService service) =>
 {
     var response = await service.GetAllUsers();
+    //await hubContext.Clients.All.AddUser(response);
     return Results.Ok(response);
 });
 
@@ -160,7 +161,7 @@ app.MapPost("/messages", [Authorize] async (IMessageService service, IHubContext
     try
     {
         var response = await service.SaveMessage(request);
-            await hubContext.Clients.All.SendMessage(response);
+        await hubContext.Clients.All.SendMessage(response);
         return Results.Ok(response);
     }
     catch (Exception ex)
@@ -174,7 +175,7 @@ app.MapPatch("/messages", [Authorize] async (IMessageService service, IHubContex
     try
     {
         var response = await service.DeleteMessage(request);
-            await hubContext.Clients.All.DeleteMessageById(response);
+        await hubContext.Clients.All.DeleteMessageById(response);
         return Results.Ok(response);
     }
     catch (Exception ex)

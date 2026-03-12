@@ -1,12 +1,13 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react-swc";
 
-// https://vite.dev/config/
+//production build
 // export default defineConfig({
 //   plugins: [react()],
 //   server: { host: true },
 // });
 
+//development build with proxy to backend
 export default defineConfig({
   plugins: [react()],
   server: {
@@ -22,3 +23,13 @@ export default defineConfig({
     }
   }
 });
+
+//run localhost as https but SSL does not allow
+// export default defineConfig({
+//   plugins: [react()],
+//   server: { 
+//     host: true,
+//     https: true,
+//     port: 5173
+//    },
+// });

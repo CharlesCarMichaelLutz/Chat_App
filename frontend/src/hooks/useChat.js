@@ -5,4 +5,3 @@ export const useChat = () => {
     return useContext(ChatContext)
 }
 
-//export default useChat;

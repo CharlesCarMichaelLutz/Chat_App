@@ -3,8 +3,8 @@ import { useState } from "react";
 import { useChat } from "../hooks/useChat";
 
 export const Login = () => {
-  const { guestLogin, refresh } = useChat();
-  //const { guestLogin } = useChat();
+  // const { guestLogin, refresh } = useChat();
+  const { guestLogin, userLogin, userRegister } = useChat();
   const [isSignUp, setIsSignUp] = useState(true);
 
   const [input, setInput] = useState({
@@ -20,6 +20,7 @@ export const Login = () => {
     }));
   };
 
+  //guest
   const handleGuestSubmit = (e) => {
     e.preventDefault();
     const credentials = {
@@ -30,9 +31,27 @@ export const Login = () => {
     clearInput();
   };
 
-  //const handleLoginSubmit = (e) => {}
+  //login
+  const handleLoginSubmit = (e) => {
+    e.preventDefault();
+    const credentials = {
+      username: input.username,
+      password: input.password,
+    };
+    userLogin(credentials);
+    clearInput();
+  };
 
-  //const handleRegisterSubmit = (e) => {}
+  //register
+  const handleRegisterSubmit = (e) => {
+    e.preventDefault();
+    const credentials = {
+      username: input.username,
+      password: input.password,
+    };
+    userRegister(credentials);
+    clearInput();
+  };
 
   const clearInput = () => {
     setInput({ username: "", password: "" });
@@ -51,9 +70,9 @@ export const Login = () => {
             <h3 className="login-text">Visit as guest</h3>
             <button type="submit">Enter</button>
           </form>
-          <button onClick={() => refresh()}>refresh</button>
+          {/* <button onClick={() => refresh()}>refresh</button> */}
           {isSignUp ? (
-            <form className="login-form">
+            <form className="login-form" onSubmit={handleRegisterSubmit}>
               <h3 className="login-text">Create Account</h3>
               <div className="input-group">
                 <label htmlFor="username">Username</label>
@@ -83,7 +102,7 @@ export const Login = () => {
               </button>
             </form>
           ) : (
-            <form className="login-form">
+            <form className="login-form" onSubmit={handleLoginSubmit}>
               <h3 className="login-text">Login</h3>
               <div className="input-group">
                 <label htmlFor="username">Username</label>

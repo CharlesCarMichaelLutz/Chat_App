@@ -1,21 +1,14 @@
 import { createContext, useState, useEffect } from "react";
 import { baseApi } from "../api/base";
+import { useNavigate } from "react-router-dom";
 
 const ChatContext = createContext();
 
 export const ChatProvider = ({ children }) => {
-  //persist the user
   const [auth, setAuth] = useState({});
-
-  const refresh = async () => {
-    const response = await baseApi.post("refresh-token", {});
-    setAuth((prev) => {
-      console.log("prev:", prev);
-      console.log(response.data.accessToken);
-      return { ...prev, accessToken: response.data.accessToken };
-    });
-    return response.data.accessToken;
-  };
+  const [userList, setUserList] = useState([]);
+  const [messageList, setMessageList] = useState([]);
+  const navigate = useNavigate();
 
   //function call Api for the guest user
   const guestLogin = async (credentials) => {
@@ -25,27 +18,68 @@ export const ChatProvider = ({ children }) => {
         Password: credentials?.password,
       });
       setAuth(response.data);
-      console.log("user:", auth);
+      console.log("set user:", auth);
+      navigate("/chatroom");
     } catch (error) {
       console.error(error);
     }
   };
 
+  //call Api for login
+  const userLogin = async (credentials) => {
+    try {
+      const response = await baseApi.post("login", {
+        Username: credentials?.username,
+        Password: credentials?.password,
+      });
+      setAuth(response.data);
+      console.log("set user:", auth);
+      navigate("/chatroom");
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  //call Api for register
+  const userRegister = async (credentials) => {
+    try {
+      const response = await baseApi.post("signup", {
+        Username: credentials?.username,
+        Password: credentials?.password,
+      });
+      setAuth(response.data);
+      console.log("set user:", auth);
+      navigate("/chatroom");
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  //call Api for logout
+
+  //delete message
+
+  //create message
+
   useEffect(() => {
-    console.log("user:", auth);
+    console.log("auth changed, effect ran:", auth);
   }, [auth]);
 
-  //function call Api for register
-
-  //function call Api for login
-
-  //function call Api for logout
-
   //pass down context values to children
-
   return (
-    <ChatContext.Provider value={{ auth, setAuth, guestLogin, refresh }}>
-      {/* <ChatContext.Provider value={{ auth, setAuth, guestLogin }}> */}
+    <ChatContext.Provider
+      value={{
+        auth,
+        setAuth,
+        guestLogin,
+        userLogin,
+        userRegister,
+        userList,
+        setUserList,
+        messageList,
+        setMessageList,
+      }}
+    >
       {children}
     </ChatContext.Provider>
   );
