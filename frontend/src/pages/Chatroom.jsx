@@ -7,6 +7,7 @@ export const Chatroom = () => {
     useContext(ChatContext);
   const axiosPrivate = useAxiosPrivate();
 
+  //load users
   useEffect(() => {
     if (!auth?.accessToken) return;
 
@@ -33,6 +34,7 @@ export const Chatroom = () => {
     };
   }, []);
 
+  //load messages
   useEffect(() => {
     if (!auth?.accessToken) return;
 
@@ -57,6 +59,10 @@ export const Chatroom = () => {
       controller.abort();
     };
   }, []);
+
+  //patch delete message
+
+  //post create message
 
   return (
     <>
@@ -100,7 +106,7 @@ export const Chatroom = () => {
             <ul className="message-list">
               {messageList.map((message) => (
                 <li className="message" key={message.id}>
-                  <span className="username">{message.userId}</span>
+                  <span className="username">{message.username}</span>
                   <span className="content">{message.text}</span>
                 </li>
               ))}

@@ -6,7 +6,8 @@ import * as signalR from "@microsoft/signalr";
 const ChatContext = createContext();
 
 export const ChatProvider = ({ children }) => {
-  const [auth, setAuth] = useState({});
+  //const [auth, setAuth] = useState({});
+  const [auth, setAuth] = useState(null);
   const [userList, setUserList] = useState([]);
   const [messageList, setMessageList] = useState([]);
   const connectionRef = useRef(null);
@@ -33,7 +34,8 @@ export const ChatProvider = ({ children }) => {
   useEffect(() => {
     const startConnection = async () => {
       const connection = connectionRef.current;
-      if (!connectionRef.current) return;
+      //if (!connectionRef.current) return;
+      if (!connection) return;
 
       try {
         await connection.start();
@@ -43,6 +45,11 @@ export const ChatProvider = ({ children }) => {
         connection.on("Connected", (greeting) => {
           console.log(greeting);
         });
+        //broadcast delete message on messageList
+
+        //broadcast create message on messageList
+
+        //broadcast add user on userList
       } catch (error) {
         console.error("websocket connection error:", error);
       }
@@ -50,21 +57,6 @@ export const ChatProvider = ({ children }) => {
 
     startConnection();
   }, [auth.accessToken]);
-
-  //function call Api for the guest user
-  const guestLogin = async (credentials) => {
-    try {
-      const response = await baseApi.post("login", {
-        Username: credentials?.username,
-        Password: credentials?.password,
-      });
-      setAuth(response.data);
-      console.log("set user:", auth);
-      navigate("/chatroom");
-    } catch (error) {
-      console.error(error);
-    }
-  };
 
   //call Api for login
   const userLogin = async (credentials) => {
@@ -98,10 +90,8 @@ export const ChatProvider = ({ children }) => {
 
   //call Api for logout
 
-  //patch delete message
-
-  //post create message
-
+  //Is this necessary
+  //given that we don't want to trigger a re-render when auth changes every time
   useEffect(() => {
     console.log("auth changed, effect ran:", auth);
   }, [auth]);
@@ -112,7 +102,6 @@ export const ChatProvider = ({ children }) => {
       value={{
         auth,
         setAuth,
-        guestLogin,
         userLogin,
         userRegister,
         userList,

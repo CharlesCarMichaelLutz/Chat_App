@@ -38,7 +38,11 @@ public class MessageRepository : IMessageRepository
         using var connection = await _connectionFactory.CreateConnectionAsync();
         const string sql =
             """
-            SELECT * from messages ORDER BY ID ASC
+            SELECT m.id, m.userid, m.text, m.createddate, m.isdeleted, u.username
+            FROM messages m
+            JOIN users u
+            	ON u.id = m.userid
+            ORDER BY ID ASC;
             """;
 
         return await connection.QueryAsync<MessageResponse>(sql);

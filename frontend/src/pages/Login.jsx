@@ -3,8 +3,7 @@ import { useState } from "react";
 import { useChat } from "../hooks/useChat";
 
 export const Login = () => {
-  // const { guestLogin, refresh } = useChat();
-  const { guestLogin, userLogin, userRegister } = useChat();
+  const { userLogin, userRegister } = useChat();
   const [isSignUp, setIsSignUp] = useState(true);
 
   const [input, setInput] = useState({
@@ -27,7 +26,7 @@ export const Login = () => {
       username: import.meta.env.VITE_GUEST,
       password: import.meta.env.VITE_PASSWORD,
     };
-    guestLogin(credentials);
+    userLogin(credentials);
     clearInput();
   };
 
@@ -70,7 +69,6 @@ export const Login = () => {
             <h3 className="login-text">Visit as guest</h3>
             <button type="submit">Enter</button>
           </form>
-          {/* <button onClick={() => refresh()}>refresh</button> */}
           {isSignUp ? (
             <form className="login-form" onSubmit={handleRegisterSubmit}>
               <h3 className="login-text">Create Account</h3>
@@ -137,5 +135,3 @@ export const Login = () => {
     </>
   );
 };
-
-//export default Login;

@@ -38,6 +38,7 @@ public class MessageService : IMessageService
         { 
             Id = m.Id,
             UserId = m.UserId,
+            Username = m.Username,
             Text = m.Text,
             IsDeleted = m.IsDeleted,
             CreatedDate = m.CreatedDate
