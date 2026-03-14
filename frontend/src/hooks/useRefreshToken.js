@@ -1,11 +1,11 @@
-import axios from "axios";
 import { useChat }  from "./useChat";
+import { baseApi } from "../api/base";
 
 const useRefreshToken = () => {
     const { setAuth } = useChat();
 
     const refresh = async () => {
-        const response = await axios.get("refresh-token", {
+        const response = await baseApi.post("refresh-token", {
             withCredentials: true
         })
         setAuth(prev => {

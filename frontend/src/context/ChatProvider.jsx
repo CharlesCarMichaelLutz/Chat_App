@@ -6,8 +6,8 @@ import * as signalR from "@microsoft/signalr";
 const ChatContext = createContext();
 
 export const ChatProvider = ({ children }) => {
-  //const [auth, setAuth] = useState({});
-  const [auth, setAuth] = useState(null);
+  const [auth, setAuth] = useState({});
+  //const [auth, setAuth] = useState(null);
   const [userList, setUserList] = useState([]);
   const [messageList, setMessageList] = useState([]);
   const connectionRef = useRef(null);
@@ -48,6 +48,10 @@ export const ChatProvider = ({ children }) => {
         //broadcast delete message on messageList
 
         //broadcast create message on messageList
+        connection.on("SendMessage", (message) => {
+          console.log("received message:", message);
+          setMessageList((list) => [...list, message]);
+        });
 
         //broadcast add user on userList
       } catch (error) {
@@ -92,9 +96,9 @@ export const ChatProvider = ({ children }) => {
 
   //Is this necessary
   //given that we don't want to trigger a re-render when auth changes every time
-  useEffect(() => {
-    console.log("auth changed, effect ran:", auth);
-  }, [auth]);
+  // useEffect(() => {
+  //   console.log("auth changed, effect ran:", auth);
+  // }, [auth]);
 
   //pass down context values to children
   return (

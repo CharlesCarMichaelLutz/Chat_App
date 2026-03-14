@@ -1,4 +1,4 @@
-import { useEffect, useContext } from "react";
+import { useEffect, useContext, useState } from "react";
 import ChatContext from "../context/ChatProvider";
 import useAxiosPrivate from "../hooks/useAxiosPrivate";
 
@@ -6,6 +6,11 @@ export const Chatroom = () => {
   const { auth, userList, setUserList, messageList, setMessageList } =
     useContext(ChatContext);
   const axiosPrivate = useAxiosPrivate();
+  const [message, setMessage] = useState("");
+
+  const handleChange = (e) => {
+    setMessage(e.target.value);
+  };
 
   //load users
   useEffect(() => {
@@ -60,9 +65,32 @@ export const Chatroom = () => {
     };
   }, []);
 
-  //patch delete message
-
   //post create message
+  const handleCreateMessage = async (e) => {
+    e.preventDefault();
+    if (!message.trim()) return;
+
+    const controller = new AbortController();
+
+    try {
+      const response = await axiosPrivate.post(
+        "messages",
+        {
+          UserId: auth.userId,
+          Text: message,
+        },
+        {
+          signal: controller.signal,
+        },
+      );
+      console.log("created message:", response.data);
+      setMessage("");
+    } catch (error) {
+      console.error("Error creating message:", error);
+    }
+  };
+
+  //patch delete message
 
   return (
     <>
@@ -121,7 +149,20 @@ export const Chatroom = () => {
               </li>
             </ul> */}
           </div>
-          <footer className="chat-footer"></footer>
+          <footer className="chat-footer">
+            <form onSubmit={handleCreateMessage}>
+              <label htmlFor="message-input">Send Message</label>
+              <textarea
+                id="message-input"
+                name="message-input"
+                value={message}
+                onChange={handleChange}
+                placeholder="Type your message here..."
+                required
+              />
+              <button type="submit">Send</button>
+            </form>
+          </footer>
         </section>
       </main>
     </>

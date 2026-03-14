@@ -22,7 +22,8 @@ public class ChatHub : Hub<IChatHubClient>
     }
     public override async Task OnConnectedAsync()
     {
-        await Clients.All.Connected($"{Context.ConnectionId} has joined");
+        //await Clients.All.Connected($"{Context.ConnectionId} has joined");
+        await Clients.Caller.Connected($"{Context.ConnectionId} has joined");
     }
     //public async Task AddUser(UserResponse addUser)
     //{
