@@ -58,6 +58,7 @@ export const Login = () => {
 
   const toggleSignUp = () => {
     setIsSignUp((prev) => !prev);
+    clearInput();
   };
 
   return (
@@ -93,11 +94,6 @@ export const Login = () => {
                 />
               </div>
               <button type="submit">Sign Up</button>
-              <button onClick={toggleSignUp} className="toggle-login">
-                {isSignUp
-                  ? "Already have an account? Login"
-                  : "Don't have an account? Sign Up"}
-              </button>
             </form>
           ) : (
             <form className="login-form" onSubmit={handleLoginSubmit}>
@@ -123,13 +119,13 @@ export const Login = () => {
                 />
               </div>
               <button type="submit">Login</button>
-              <button onClick={toggleSignUp} className="toggle-login">
-                {isSignUp
-                  ? "Already have an account? Login"
-                  : "Don't have an account? Sign Up"}
-              </button>
             </form>
           )}
+          <button onClick={toggleSignUp} className="toggle-login">
+            {isSignUp
+              ? "Already have an account? Login"
+              : "Don't have an account? Sign Up"}
+          </button>
         </section>
       </main>
     </>

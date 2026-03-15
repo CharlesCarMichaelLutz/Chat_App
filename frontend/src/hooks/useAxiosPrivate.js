@@ -8,7 +8,6 @@ const useAxiosPrivate = () => {
     const { auth } = useChat();
 
     useEffect(() => {
-
         const requestIntercept = axiosPrivate.interceptors.request.use(
             config => {
                 if(!config.headers['Authorization']){

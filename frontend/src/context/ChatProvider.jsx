@@ -36,6 +36,11 @@ export const ChatProvider = ({ children }) => {
             console.log("received message:", message);
             setMessageList((list) => [...list, message]);
           });
+
+          newConnection.on("AddUser", (user) => {
+            console.log("new user added:", user);
+            setUserList((list) => [...list, user]);
+          });
         } catch (error) {
           console.error("websocket connection error:", error);
         }
@@ -93,7 +98,6 @@ export const ChatProvider = ({ children }) => {
     navigate("/");
   };
 
-  //pass down context values to children
   return (
     <ChatContext.Provider
       value={{
