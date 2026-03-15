@@ -7,60 +7,50 @@ const ChatContext = createContext();
 
 export const ChatProvider = ({ children }) => {
   const [auth, setAuth] = useState({});
-  //const [auth, setAuth] = useState(null);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [userList, setUserList] = useState([]);
   const [messageList, setMessageList] = useState([]);
   const connectionRef = useRef(null);
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (!auth?.accessToken) return;
+    if (isLoggedIn && !connectionRef.current) {
+      const newConnection = new signalR.HubConnectionBuilder()
+        .withUrl(import.meta.env.VITE_WS_URL + "/chatHub")
+        .withAutomaticReconnect()
+        .build();
 
-    const newConnection = new signalR.HubConnectionBuilder()
-      .withUrl(import.meta.env.VITE_WS_URL + "/chatHub")
-      .withAutomaticReconnect()
-      .build();
+      connectionRef.current = newConnection;
 
-    connectionRef.current = newConnection;
+      const startConnection = async () => {
+        try {
+          await newConnection.start();
+          console.log("websocket connected");
+
+          // Register listeners
+          newConnection.on("Connected", (greeting) => {
+            console.log(greeting);
+          });
+
+          newConnection.on("SendMessage", (message) => {
+            console.log("received message:", message);
+            setMessageList((list) => [...list, message]);
+          });
+        } catch (error) {
+          console.error("websocket connection error:", error);
+        }
+      };
+
+      startConnection();
+    }
 
     return () => {
-      if (newConnection) {
-        newConnection.stop();
+      if (!isLoggedIn && connectionRef.current) {
+        connectionRef.current.stop();
         connectionRef.current = null;
       }
     };
-  }, [auth.accessToken]);
-
-  useEffect(() => {
-    const startConnection = async () => {
-      const connection = connectionRef.current;
-      //if (!connectionRef.current) return;
-      if (!connection) return;
-
-      try {
-        await connection.start();
-        console.log("websocket connected");
-
-        //register listeners
-        connection.on("Connected", (greeting) => {
-          console.log(greeting);
-        });
-        //broadcast delete message on messageList
-
-        //broadcast create message on messageList
-        connection.on("SendMessage", (message) => {
-          console.log("received message:", message);
-          setMessageList((list) => [...list, message]);
-        });
-
-        //broadcast add user on userList
-      } catch (error) {
-        console.error("websocket connection error:", error);
-      }
-    };
-
-    startConnection();
-  }, [auth.accessToken]);
+  }, [isLoggedIn]);
 
   //call Api for login
   const userLogin = async (credentials) => {
@@ -70,6 +60,7 @@ export const ChatProvider = ({ children }) => {
         Password: credentials?.password,
       });
       setAuth(response.data);
+      setIsLoggedIn(true);
       console.log("set user:", auth);
       navigate("/chatroom");
     } catch (error) {
@@ -85,6 +76,7 @@ export const ChatProvider = ({ children }) => {
         Password: credentials?.password,
       });
       setAuth(response.data);
+      setIsLoggedIn(true);
       console.log("set user:", auth);
       navigate("/chatroom");
     } catch (error) {
@@ -93,12 +85,13 @@ export const ChatProvider = ({ children }) => {
   };
 
   //call Api for logout
-
-  //Is this necessary
-  //given that we don't want to trigger a re-render when auth changes every time
-  // useEffect(() => {
-  //   console.log("auth changed, effect ran:", auth);
-  // }, [auth]);
+  const userLogout = () => {
+    setAuth({});
+    setIsLoggedIn(false);
+    setUserList([]);
+    setMessageList([]);
+    navigate("/");
+  };
 
   //pass down context values to children
   return (
@@ -108,6 +101,7 @@ export const ChatProvider = ({ children }) => {
         setAuth,
         userLogin,
         userRegister,
+        userLogout,
         userList,
         setUserList,
         messageList,

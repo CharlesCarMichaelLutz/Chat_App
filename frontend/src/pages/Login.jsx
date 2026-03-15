@@ -5,18 +5,17 @@ import { useChat } from "../hooks/useChat";
 export const Login = () => {
   const { userLogin, userRegister } = useChat();
   const [isSignUp, setIsSignUp] = useState(true);
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
 
-  const [input, setInput] = useState({
-    username: "",
-    password: "",
-  });
+  const handleUsername = (e) => {
+    let usernameInput = e.target.value;
+    setUsername(usernameInput);
+  };
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setInput((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
+  const handlePassword = (e) => {
+    let passwordInput = e.target.value;
+    setPassword(passwordInput);
   };
 
   //guest
@@ -34,8 +33,8 @@ export const Login = () => {
   const handleLoginSubmit = (e) => {
     e.preventDefault();
     const credentials = {
-      username: input.username,
-      password: input.password,
+      username: username,
+      password: password,
     };
     userLogin(credentials);
     clearInput();
@@ -45,15 +44,16 @@ export const Login = () => {
   const handleRegisterSubmit = (e) => {
     e.preventDefault();
     const credentials = {
-      username: input.username,
-      password: input.password,
+      username: username,
+      password: password,
     };
     userRegister(credentials);
     clearInput();
   };
 
   const clearInput = () => {
-    setInput({ username: "", password: "" });
+    setUsername("");
+    setPassword("");
   };
 
   const toggleSignUp = () => {
@@ -77,8 +77,8 @@ export const Login = () => {
                 <input
                   type="text"
                   id="username"
-                  value={input.username}
-                  onChange={handleChange}
+                  value={username}
+                  onChange={handleUsername}
                   placeholder="...enter username"
                   required
                 />
@@ -86,8 +86,8 @@ export const Login = () => {
                 <input
                   type="password"
                   id="password"
-                  value={input.password}
-                  onChange={handleChange}
+                  value={password}
+                  onChange={handlePassword}
                   placeholder="...enter password"
                   required
                 />
@@ -107,8 +107,8 @@ export const Login = () => {
                 <input
                   type="text"
                   id="username"
-                  value={input.username}
-                  onChange={handleChange}
+                  value={username}
+                  onChange={handleUsername}
                   placeholder="...enter username"
                   required
                 />
@@ -116,8 +116,8 @@ export const Login = () => {
                 <input
                   type="password"
                   id="password"
-                  value={input.password}
-                  onChange={handleChange}
+                  value={password}
+                  onChange={handlePassword}
                   placeholder="...enter password"
                   required
                 />
