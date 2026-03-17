@@ -41,6 +41,18 @@ export const ChatProvider = ({ children }) => {
             console.log("new user added:", user);
             setUserList((list) => [...list, user]);
           });
+
+          newConnection.on("DeleteMessageById", (messageResponse) => {
+            console.log("message deleted in db:", messageResponse);
+            setMessageList((list) =>
+              list.map((message) => {
+                if (message.id === messageResponse.id) {
+                  return { ...message, isDeleted: messageResponse.isDeleted };
+                }
+                return message;
+              }),
+            );
+          });
         } catch (error) {
           console.error("websocket connection error:", error);
         }
@@ -90,7 +102,7 @@ export const ChatProvider = ({ children }) => {
   };
 
   //call Api for logout
-  const userLogout = () => {
+  const handleLogout = () => {
     setAuth({});
     setIsLoggedIn(false);
     setUserList([]);
@@ -105,7 +117,7 @@ export const ChatProvider = ({ children }) => {
         setAuth,
         userLogin,
         userRegister,
-        userLogout,
+        handleLogout,
         userList,
         setUserList,
         messageList,

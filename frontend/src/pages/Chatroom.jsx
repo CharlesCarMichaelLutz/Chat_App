@@ -88,9 +88,35 @@ export const Chatroom = () => {
     } catch (error) {
       console.error("Error creating message:", error);
     }
+    return () => {
+      controller.abort();
+    };
   };
 
   //patch delete message
+  const handleDeleteMessage = async (message) => {
+    const controller = new AbortController();
+    try {
+      await axiosPrivate.patch(
+        "messages",
+        {
+          Id: message.id,
+          UserId: message.userId,
+          IsDeleted: true,
+        },
+        {
+          signal: controller.signal,
+        },
+      );
+      console.log("delete request success");
+    } catch (error) {
+      console.error("Error deleting message:", error);
+    }
+
+    return () => {
+      controller.abort();
+    };
+  };
 
   return (
     <>
@@ -131,13 +157,39 @@ export const Chatroom = () => {
                 </li>
               ))}
             </ul> */}
-            <ul className="message-list">
+            {/* <ul className="message-list">
               {messageList.map((message) => (
                 <li className="message" key={message.id}>
                   <span className="username">{message.username}</span>
                   <span className="content">{message.text}</span>
+                  {message.userId === auth.userId && (
+                    <button
+                      className="delete"
+                      onClick={() => handleDeleteMessage(message)}
+                    >
+                      delete
+                    </button>
+                  )}
                 </li>
               ))}
+            </ul> */}
+            <ul className="message-list">
+              {messageList
+                .filter((message) => !message.isDeleted)
+                .map((message) => (
+                  <li className="message" key={message.id}>
+                    <span className="username">{message.username}</span>
+                    <span className="content">{message.text}</span>
+                    {message.userId === auth.userId && (
+                      <button
+                        className="delete"
+                        onClick={() => handleDeleteMessage(message)}
+                      >
+                        delete
+                      </button>
+                    )}
+                  </li>
+                ))}
             </ul>
             {/* <ul className="message-list">
               <li className="message">
