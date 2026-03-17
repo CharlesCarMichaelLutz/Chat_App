@@ -84,8 +84,7 @@
               "RelativeToolTip": "Contracts\\Responses\\MessageResponse.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAMAAAAUAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-03-14T02:03:12.721Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-03-14T02:03:12.721Z"
             },
             {
               "$type": "Document",
@@ -109,8 +108,7 @@
               "RelativeToolTip": "Services\\MessageService.cs",
               "ViewState": "AgIAACAAAAAAAAAAAAA9wCsAAAAnAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-03-14T02:21:38.606Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-03-14T02:21:38.606Z"
             },
             {
               "$type": "Document",
@@ -122,8 +120,7 @@
               "RelativeToolTip": "Repositories\\MessageRepository.cs",
               "ViewState": "AgIAADQAAAAAAAAAAAAwwCoAAABVAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-03-14T01:49:00.043Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-03-14T01:49:00.043Z"
             },
             {
               "$type": "Document",
@@ -163,7 +160,7 @@
               "RelativeDocumentMoniker": "SignalR\\ChatHub.cs",
               "ToolTip": "C:\\Users\\Ml\\Desktop\\Projects\\Chat_App\\backend\\chatAppWebApi\\SignalR\\ChatHub.cs",
               "RelativeToolTip": "SignalR\\ChatHub.cs",
-              "ViewState": "AgIAAAYAAAAAAAAAAAAAAAoAAAA0AAAAAAAAAA==",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAuwAoAAAA0AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-03-12T08:53:49.634Z",
               "EditorCaption": ""
