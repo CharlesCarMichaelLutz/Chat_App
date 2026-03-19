@@ -177,18 +177,36 @@ export const Chatroom = () => {
               {messageList
                 .filter((message) => !message.isDeleted)
                 .map((message) => (
-                  <li className="message" key={message.id}>
-                    <span className="username">{message.username}</span>
-                    <span className="content">{message.text}</span>
-                    {message.userId === auth.userId && (
-                      <button
-                        className="delete"
-                        onClick={() => handleDeleteMessage(message)}
-                      >
-                        delete
-                      </button>
-                    )}
-                  </li>
+                  <div
+                    className={`message ${auth.userId === message.userId ? "current" : ""}`}
+                    key={message.id}
+                  >
+                    {/* <div className="username"> */}
+                    <div className="user-image">
+                      <img className="rabbit-svg" />
+                    </div>
+                    <div className="text-content">{message.text}</div>
+                    {/* {message.userId === auth.userId && (
+                      <div className="delete-container">
+                        <button
+                          className="delete-button"
+                          onClick={() => handleDeleteMessage(message)}
+                        >
+                          delete
+                        </button>
+                      </div>
+                    )} */}
+                    <div className="delete-container">
+                      {message.userId === auth.userId && (
+                        <button
+                          className="delete-button"
+                          onClick={() => handleDeleteMessage(message)}
+                        >
+                          delete
+                        </button>
+                      )}
+                    </div>
+                  </div>
                 ))}
             </ul>
             {/* <ul className="message-list">
