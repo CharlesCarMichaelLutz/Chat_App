@@ -204,7 +204,7 @@ img {
  flex-direction: row-reverse;
 }
 
- .user-image,
+ .identicon-container,
 .delete-container
 {
   /* border: 2px solid black; */
@@ -227,7 +227,7 @@ img {
  flex: 0 0 auto;
 }
 
-.rabbit-svg
+.identicon
 {
   border: 1px solid #777;
   border-radius: 50%;

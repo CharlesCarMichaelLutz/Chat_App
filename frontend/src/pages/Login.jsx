@@ -1,12 +1,10 @@
 import rabbitImage from "../images/rabbitchat.jpg";
-//import { baseApi } from "../api/base";
 import { useState } from "react";
 import { useChat } from "../hooks/useChat";
 import { useNavigate } from "react-router-dom";
 
 export const Login = () => {
   const { userLogin, userRegister } = useChat();
-  //const { setAuth, setIsLoggedIn } = useChat();
   const [isSignUp, setIsSignUp] = useState(true);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");

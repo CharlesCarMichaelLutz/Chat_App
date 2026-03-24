@@ -1,6 +1,7 @@
-import { useEffect, useContext, useState } from "react";
+import { useEffect, useContext, useState, useMemo } from "react";
 import ChatContext from "../context/ChatProvider";
 import useAxiosPrivate from "../hooks/useAxiosPrivate";
+import { minidenticon } from "minidenticons";
 
 export const Chatroom = () => {
   const { auth, userList, setUserList, messageList, setMessageList } =
@@ -118,14 +119,25 @@ export const Chatroom = () => {
     };
   };
 
-  const parseCreatedDate = (dateString) => {
+  const formatMessageCreatedTimestamp = (dateString) => {
     const timestamp = new Date(dateString);
-    const formatTime = new Intl.DateTimeFormat("en-US", {
+    const twelveHourTime = new Intl.DateTimeFormat("en-US", {
       hour: "2-digit",
       minute: "2-digit",
       hour12: true,
     });
-    return formatTime.format(timestamp);
+    return twelveHourTime.format(timestamp);
+  };
+
+  const MinidenticonImg = ({ username, saturation, lightness, ...props }) => {
+    const svgURI = useMemo(
+      () =>
+        "data:image/svg+xml;utf8," +
+        encodeURIComponent(minidenticon(username, saturation, lightness)),
+      [username, saturation, lightness],
+    );
+    // console.log("ImageURI:", svgURI);
+    return <img src={svgURI} alt={username} {...props} />;
   };
 
   return (
@@ -150,8 +162,14 @@ export const Chatroom = () => {
                     className={`message ${auth.userId === message.userId ? "current" : ""}`}
                     key={message.id}
                   >
-                    <div className="user-image">
-                      <img className="rabbit-svg" />
+                    <div className="identicon-container">
+                      <MinidenticonImg
+                        username={message.username}
+                        saturation="90"
+                        width="45"
+                        height="45"
+                        className="identicon"
+                      />
                     </div>
                     <div className="message-detail-wrapper">
                       <h4
@@ -164,7 +182,7 @@ export const Chatroom = () => {
                       <time
                         className={`timestamp ${auth.userId === message.userId ? "left" : ""}`}
                       >
-                        {parseCreatedDate(message.createdDate)}
+                        {formatMessageCreatedTimestamp(message.createdDate)}
                       </time>
                     </div>
                     <div className="delete-container">
