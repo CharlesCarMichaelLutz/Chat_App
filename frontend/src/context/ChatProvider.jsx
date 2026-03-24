@@ -1,6 +1,5 @@
 import { createContext, useState, useRef, useEffect } from "react";
 import { baseApi } from "../api/base";
-import { useNavigate } from "react-router-dom";
 import * as signalR from "@microsoft/signalr";
 
 const ChatContext = createContext();
@@ -11,7 +10,6 @@ export const ChatProvider = ({ children }) => {
   const [userList, setUserList] = useState([]);
   const [messageList, setMessageList] = useState([]);
   const connectionRef = useRef(null);
-  const navigate = useNavigate();
 
   useEffect(() => {
     if (isLoggedIn && !connectionRef.current) {
@@ -78,8 +76,9 @@ export const ChatProvider = ({ children }) => {
       });
       setAuth(response.data);
       setIsLoggedIn(true);
-      console.log("set user:", auth);
-      navigate("/chatroom");
+      //navigate("/chatroom");
+      //navigate("/auth");
+      return response.status;
     } catch (error) {
       console.error(error);
     }
@@ -94,8 +93,8 @@ export const ChatProvider = ({ children }) => {
       });
       setAuth(response.data);
       setIsLoggedIn(true);
-      console.log("set user:", auth);
-      navigate("/chatroom");
+      //navigate("/chatroom");
+      return response.status;
     } catch (error) {
       console.error(error);
     }
@@ -107,7 +106,7 @@ export const ChatProvider = ({ children }) => {
     setIsLoggedIn(false);
     setUserList([]);
     setMessageList([]);
-    navigate("/");
+    //navigate("/");
   };
 
   return (

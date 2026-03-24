@@ -1,9 +1,10 @@
-import { Outlet, useLocation } from "react-router-dom";
-import { useChat } from "../hooks/useChat";
+//import { Outlet, useLocation } from "react-router-dom";
+import { Outlet } from "react-router-dom";
+//import { useChat } from "../hooks/useChat";
 
 export function RootLayout() {
-  const location = useLocation();
-  const { handleLogout } = useChat();
+  //const location = useLocation();
+  //const { handleLogout } = useChat();
   return (
     <>
       <div className="navbar-container">
@@ -17,14 +18,14 @@ export function RootLayout() {
               data-aria-label="light/dark mode toggle"
             ></span>
           </button>
-          {location.pathname === "/chatroom" && (
-            <button onClick={handleLogout} data-aria-label="logout">
+          {/* { {location.pathname === "/chatroom" && ( */}
+          {/* <button onClick={handleLogout} data-aria-label="logout">
               {" "}
               logout
               {/* <span className="bi bi-box-arrow-right"></span> */}
-              {console.log("logged out")}
-            </button>
-          )}
+          {/* {console.log("logged out")} */}
+          {/* </button> */}
+          {/* )} } */}
         </div>
       </div>
       <div className="container">

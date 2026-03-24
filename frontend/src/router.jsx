@@ -1,19 +1,14 @@
 import { createBrowserRouter, Navigate } from "react-router-dom";
-import { ChatProvider } from "./context/ChatProvider";
 import { RootLayout } from "./layouts/RootLayout";
 import { Error } from "./pages/Error";
 import { Login } from "./pages/Login";
-// import { ProtectedRoute } from "./components/ProtectedRoute"
+import { RequireAuth } from "./components/RequireAuth";
 import { Chatroom } from "./pages/Chatroom";
 
 export const router = createBrowserRouter([
   {
     path: "/",
-    element: (
-      <ChatProvider>
-        <RootLayout />
-      </ChatProvider>
-    ),
+    element: <RootLayout />,
     children: [
       {
         errorElement: <Error />,
@@ -25,14 +20,16 @@ export const router = createBrowserRouter([
           },
           {
             path: "chatroom",
-            // element: <ProtectedRoute />,
-            children: [
-              {
-                path: "",
-                element: <Chatroom />,
-              },
-            ],
+            element: <Chatroom />,
           },
+          // {
+          //   path: "chatroom",
+          //   element: (
+          //     <RequireAuth>
+          //       <Chatroom />
+          //     </RequireAuth>
+          //   ),
+          // },
           {
             path: "*",
             element: <h1> 404 - Page not found</h1>,

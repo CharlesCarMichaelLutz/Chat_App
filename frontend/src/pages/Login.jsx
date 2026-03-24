@@ -1,12 +1,16 @@
 import rabbitImage from "../images/rabbitchat.jpg";
+//import { baseApi } from "../api/base";
 import { useState } from "react";
 import { useChat } from "../hooks/useChat";
+import { useNavigate } from "react-router-dom";
 
 export const Login = () => {
   const { userLogin, userRegister } = useChat();
+  //const { setAuth, setIsLoggedIn } = useChat();
   const [isSignUp, setIsSignUp] = useState(true);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const navigate = useNavigate();
 
   const handleUsername = (e) => {
     let usernameInput = e.target.value;
@@ -19,13 +23,16 @@ export const Login = () => {
   };
 
   //guest
-  const handleGuestSubmit = (e) => {
+  const handleGuestSubmit = async (e) => {
     e.preventDefault();
     const credentials = {
       username: import.meta.env.VITE_GUEST,
       password: import.meta.env.VITE_PASSWORD,
     };
-    userLogin(credentials);
+    const success = await userLogin(credentials);
+    if (success == 200) {
+      navigate("/chatroom");
+    }
     clearInput();
   };
 
@@ -38,6 +45,7 @@ export const Login = () => {
     };
     userLogin(credentials);
     clearInput();
+    //navigate("/chatroom");
   };
 
   //register
@@ -49,6 +57,7 @@ export const Login = () => {
     };
     userRegister(credentials);
     clearInput();
+    //navigate("/chatroom");
   };
 
   const clearInput = () => {

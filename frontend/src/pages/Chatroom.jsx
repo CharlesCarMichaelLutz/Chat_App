@@ -118,61 +118,30 @@ export const Chatroom = () => {
     };
   };
 
+  const parseCreatedDate = (dateString) => {
+    const timestamp = new Date(dateString);
+    const formatTime = new Intl.DateTimeFormat("en-US", {
+      hour: "2-digit",
+      minute: "2-digit",
+      hour12: true,
+    });
+    return formatTime.format(timestamp);
+  };
+
   return (
     <>
       <main className="chatroom-wrapper">
         <aside className="sidebar">
-          {/* <ul>
-            {userList.map((user) => (
-              <li key={user.userId}>{user.username}</li>
-            ))}
-          </ul> */}
           <ul className="user-list">
             {userList.map((user) => (
-              <li key={user.userId}>{user.username}</li>
+              <li key={user.userId}>
+                <h3>{user.username}</h3>
+              </li>
             ))}
           </ul>
-          {/* <ul className="user-list">
-            <li>Bill</li>
-            <li>Mary</li>
-            <li>James</li>
-            <li>Sue</li>
-            <li>Larry</li>
-            <li>Sarah</li>
-            <li>Tom</li>
-            <li>Jessica</li>
-            <li>Peter</li>
-            <li>Amy</li>
-            <li>Derek</li>
-            <li>Emily</li>
-          </ul> */}
         </aside>
         <section className="chat-panel">
           <div className="chat-content">
-            {/* <ul>
-              {messageList.map((message) => (
-                <li key={message.id}>
-                  <span>{message.userId}</span>
-                  <span>{message.text}</span>
-                </li>
-              ))}
-            </ul> */}
-            {/* <ul className="message-list">
-              {messageList.map((message) => (
-                <li className="message" key={message.id}>
-                  <span className="username">{message.username}</span>
-                  <span className="content">{message.text}</span>
-                  {message.userId === auth.userId && (
-                    <button
-                      className="delete"
-                      onClick={() => handleDeleteMessage(message)}
-                    >
-                      delete
-                    </button>
-                  )}
-                </li>
-              ))}
-            </ul> */}
             <ul className="message-list">
               {messageList
                 .filter((message) => !message.isDeleted)
@@ -181,21 +150,23 @@ export const Chatroom = () => {
                     className={`message ${auth.userId === message.userId ? "current" : ""}`}
                     key={message.id}
                   >
-                    {/* <div className="username"> */}
                     <div className="user-image">
                       <img className="rabbit-svg" />
                     </div>
-                    <div className="text-content">{message.text}</div>
-                    {/* {message.userId === auth.userId && (
-                      <div className="delete-container">
-                        <button
-                          className="delete-button"
-                          onClick={() => handleDeleteMessage(message)}
-                        >
-                          delete
-                        </button>
-                      </div>
-                    )} */}
+                    <div className="message-detail-wrapper">
+                      <h4
+                        className={`username ${auth.userId === message.userId ? "right" : ""}`}
+                      >
+                        {message.username}
+                      </h4>
+
+                      <div className="text-content">{message.text}</div>
+                      <time
+                        className={`timestamp ${auth.userId === message.userId ? "left" : ""}`}
+                      >
+                        {parseCreatedDate(message.createdDate)}
+                      </time>
+                    </div>
                     <div className="delete-container">
                       {message.userId === auth.userId && (
                         <button
@@ -209,15 +180,6 @@ export const Chatroom = () => {
                   </div>
                 ))}
             </ul>
-            {/* <ul className="message-list">
-              <li className="message">
-                <span className="username">Billionare</span>
-                <span className="content">
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                  Ipsum, quibusdam!
-                </span>
-              </li>
-            </ul> */}
           </div>
           <footer className="chat-footer">
             <form onSubmit={handleCreateMessage}>
@@ -225,6 +187,7 @@ export const Chatroom = () => {
               <textarea
                 id="message-input"
                 name="message-input"
+                maxLength="500"
                 value={message}
                 onChange={handleChange}
                 placeholder="Type your message here..."

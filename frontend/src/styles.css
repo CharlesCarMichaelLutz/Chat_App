@@ -35,6 +35,10 @@ body {
   margin-left: 1em;
 }
 
+.navbar-left h1 {
+  margin: 0;
+}
+
 .navbar-right {
   display: flex;
   align-items: center;
@@ -125,7 +129,7 @@ img {
 /* Chatroom */
 
 .chatroom-wrapper {
-  border: 2px solid green;
+  /* border: 2px solid green; */
   display: flex;
   flex-direction: row;
   width: 100%;
@@ -133,7 +137,6 @@ img {
   margin: 75px auto;
   height: 100%;
   max-height: 70vh;
-  /* max-height: 70%; */
   min-height: 0;
 }
 
@@ -145,13 +148,13 @@ img {
   flex: 2;
   display: flex;
   flex-direction: column;
-  align-items: center;          
+  align-items: center;
 }
 
 .sidebar .user-list {
   display: flex;
   flex-direction: column;
-  align-items: center;  
+  align-items: center;
   list-style: none;
   padding: 0;
   margin: 0;
@@ -160,6 +163,10 @@ img {
 .sidebar .user-list li {
   text-align: center;
   padding: 0.25rem 0;
+}
+
+.sidebar h3 {
+  margin: 0;
 }
 
 .chat-panel{
@@ -179,7 +186,6 @@ img {
 }
 
 .message-list {
-  /* list-style: none; */
   padding: 0;
   margin: 0;
 }
@@ -221,7 +227,7 @@ img {
  flex: 0 0 auto;
 }
 
-.rabbit-svg 
+.rabbit-svg
 {
   border: 1px solid #777;
   border-radius: 50%;
@@ -230,36 +236,38 @@ img {
   margin: 0;
 }
 
-.message-content {
-  flex: 80%;
+.message-detail-wrapper {
+  /* flex: 80%; */
   margin: 0;
   display: flex;
   flex-direction: column;
+  flex: 1;
+  min-width: 0;
+  margin: 0;
+  padding-left: 5px;
 }
 
-/* .message-username {
+.username{
   border: 2px solid black;
   flex-grow: 1;
   margin: 0;
   padding: 5px;
-} */
+}
 
-.username{
-  border: 2px dotted red;
-   flex-grow: 1;
-  margin: 0;
-  padding: 5px;
+.username.right{
+  display: flex;
+  justify-content: flex-end;
 }
 
 .message-text {
-  border: 2px solid black;
   margin: 0;
   padding: 5px;
   flex-grow: 2;
 }
 
 .text-content{
-  /* border: 2px dotted green; */
+  border: 2px solid black;
+
   flex: 1;
   min-width: 0;
   margin: 0;
@@ -268,7 +276,7 @@ img {
   padding-left: 5px;
 }
 
-time {
+.timestamp {
   border: 2px solid black;
   display: flex;
   justify-content: flex-end;
@@ -276,13 +284,21 @@ time {
   flex-grow: 1;
   padding: 2px;
   border-radius: 2px;
-  padding-right: 15px;
+  padding-right: 10px;
 }
 
-.chat-footer { 
-  border: 2px solid orange; 
-  flex: 2; 
-} 
+.timestamp.left {
+  display: flex;
+  justify-content: flex-start;
+  padding: 2px;
+  border-radius: 2px;
+  padding-left: 10px;
+}
+
+.chat-footer {
+  border: 2px solid orange;
+  flex: 2;
+}
 
 .message-footer {}
 
