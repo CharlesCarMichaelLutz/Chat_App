@@ -1,5 +1,4 @@
 import { createContext, useState, useRef, useEffect } from "react";
-import { baseApi } from "../api/base";
 import * as signalR from "@microsoft/signalr";
 
 const ChatContext = createContext();
@@ -25,7 +24,6 @@ export const ChatProvider = ({ children }) => {
           await newConnection.start();
           console.log("websocket connected");
 
-          // Register listeners
           newConnection.on("Connected", (greeting) => {
             console.log(greeting);
           });
@@ -67,40 +65,6 @@ export const ChatProvider = ({ children }) => {
     };
   }, [isLoggedIn]);
 
-  //call Api for login
-  const userLogin = async (credentials) => {
-    try {
-      const response = await baseApi.post("login", {
-        Username: credentials?.username,
-        Password: credentials?.password,
-      });
-      setAuth(response.data);
-      setIsLoggedIn(true);
-      //navigate("/chatroom");
-      //navigate("/auth");
-      return response.status;
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
-  //call Api for register
-  const userRegister = async (credentials) => {
-    try {
-      const response = await baseApi.post("signup", {
-        Username: credentials?.username,
-        Password: credentials?.password,
-      });
-      setAuth(response.data);
-      setIsLoggedIn(true);
-      //navigate("/chatroom");
-      return response.status;
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
-  //call Api for logout
   const handleLogout = () => {
     setAuth({});
     setIsLoggedIn(false);
@@ -114,8 +78,7 @@ export const ChatProvider = ({ children }) => {
       value={{
         auth,
         setAuth,
-        userLogin,
-        userRegister,
+        setIsLoggedIn,
         handleLogout,
         userList,
         setUserList,

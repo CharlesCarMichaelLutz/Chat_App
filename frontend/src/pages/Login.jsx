@@ -2,9 +2,10 @@ import rabbitImage from "../images/rabbitchat.jpg";
 import { useState } from "react";
 import { useChat } from "../hooks/useChat";
 import { useNavigate } from "react-router-dom";
+import { baseApi } from "../api/base";
 
 export const Login = () => {
-  const { userLogin, userRegister } = useChat();
+  const { setAuth, setIsLoggedIn } = useChat();
   const [isSignUp, setIsSignUp] = useState(true);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -20,42 +21,62 @@ export const Login = () => {
     setPassword(passwordInput);
   };
 
-  //guest
+  //call Api for login
   const handleGuestSubmit = async (e) => {
     e.preventDefault();
-    const credentials = {
-      username: import.meta.env.VITE_GUEST,
-      password: import.meta.env.VITE_PASSWORD,
-    };
-    const success = await userLogin(credentials);
-    if (success == 200) {
-      navigate("/chatroom");
+    try {
+      const response = await baseApi.post("login", {
+        Username: import.meta.env.VITE_GUEST,
+        Password: import.meta.env.VITE_PASSWORD,
+      });
+
+      setAuth(response.data);
+      setIsLoggedIn(true);
+
+      if (response.status == 200) {
+        navigate("/chatroom");
+      }
+    } catch (error) {
+      console.error(error);
     }
-    clearInput();
   };
 
-  //login
-  const handleLoginSubmit = (e) => {
+  const handleLoginSubmit = async (e) => {
     e.preventDefault();
-    const credentials = {
-      username: username,
-      password: password,
-    };
-    userLogin(credentials);
-    clearInput();
-    //navigate("/chatroom");
+    try {
+      const response = await baseApi.post("login", {
+        Username: username,
+        Password: password,
+      });
+
+      setAuth(response.data);
+      setIsLoggedIn(true);
+
+      if (response.status == 200) {
+        navigate("/chatroom");
+      }
+    } catch (error) {
+      console.error(error);
+    }
   };
 
-  //register
-  const handleRegisterSubmit = (e) => {
+  //call Api for register
+  const handleRegisterSubmit = async (e) => {
     e.preventDefault();
-    const credentials = {
-      username: username,
-      password: password,
-    };
-    userRegister(credentials);
-    clearInput();
-    //navigate("/chatroom");
+    try {
+      const response = await baseApi.post("signup", {
+        Username: username,
+        Password: password,
+      });
+      setAuth(response.data);
+      setIsLoggedIn(true);
+
+      if (response.status == 200) {
+        navigate("/chatroom");
+      }
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   const clearInput = () => {
