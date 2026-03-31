@@ -2,13 +2,13 @@ import { createBrowserRouter, Navigate } from "react-router-dom";
 import { RootLayout } from "./layouts/RootLayout";
 import { Error } from "./pages/Error";
 import { Login } from "./pages/Login";
-//import { RequireAuth } from "./components/RequireAuth";
+import { RequireAuth } from "./components/RequireAuth";
 import { Chatroom } from "./pages/Chatroom";
 
 export const router = createBrowserRouter([
   {
     path: "/",
-    element: <RootLayout />,
+    Component: RootLayout,
     children: [
       {
         errorElement: <Error />,
@@ -16,20 +16,16 @@ export const router = createBrowserRouter([
           { index: true, element: <Navigate to="/login" /> },
           {
             path: "login",
-            element: <Login />,
+            Component: Login,
           },
           {
             path: "chatroom",
-            element: <Chatroom />,
+            element: (
+              <RequireAuth>
+                <Chatroom />
+              </RequireAuth>
+            ),
           },
-          // {
-          //   path: "chatroom",
-          //   element: (
-          //     <RequireAuth>
-          //       <Chatroom />
-          //     </RequireAuth>
-          //   ),
-          // },
           {
             path: "*",
             element: <h1> 404 - Page not found</h1>,

@@ -21,7 +21,6 @@ export const Login = () => {
     setPassword(passwordInput);
   };
 
-  //call Api for login
   const handleGuestSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -60,7 +59,6 @@ export const Login = () => {
     }
   };
 
-  //call Api for register
   const handleRegisterSubmit = async (e) => {
     e.preventDefault();
     try {

@@ -70,7 +70,6 @@ export const ChatProvider = ({ children }) => {
     setIsLoggedIn(false);
     setUserList([]);
     setMessageList([]);
-    //navigate("/");
   };
 
   return (

@@ -21,7 +21,7 @@ export function RootLayout() {
             <button onClick={handleLogout} data-aria-label="logout">
               {" "}
               logout
-              <span className="bi bi-box-arrow-right"></span>
+              {/* <span className="bi bi-box-arrow-right"></span> */}
               {console.log("logged out")}
             </button>
           )}
