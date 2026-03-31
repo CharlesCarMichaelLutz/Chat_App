@@ -1,5 +1,11 @@
 import { Outlet, useLocation } from "react-router-dom";
 import { useChat } from "../hooks/useChat";
+import {
+  faPowerOff,
+  // faMoon,
+  faLightbulb,
+} from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 export function RootLayout() {
   const location = useLocation();
@@ -12,17 +18,17 @@ export function RootLayout() {
         </div>
         <div className="navbar-right">
           <button>
-            <span
+            {/* <span
               className="bi bi-brightness-high-fill"
               data-aria-label="light/dark mode toggle"
-            ></span>
+            ></span> */}
+            {/* conditionally render moon/lightbulb icon if in light/dark mode,  */}
+            {/* <FontAwesomeIcon icon={faMoon} /> */}
+            <FontAwesomeIcon icon={faLightbulb} />
           </button>
           {location.pathname === "/chatroom" && (
-            <button onClick={handleLogout} data-aria-label="logout">
-              {" "}
-              logout
-              {/* <span className="bi bi-box-arrow-right"></span> */}
-              {console.log("logged out")}
+            <button onClick={handleLogout}>
+              <FontAwesomeIcon icon={faPowerOff} />
             </button>
           )}
         </div>
@@ -33,3 +39,10 @@ export function RootLayout() {
     </>
   );
 }
+
+//  <button onClick={handleLogout} data-aria-label="logout">
+//               {" "}
+//               logout
+//               {/* <span className="bi bi-box-arrow-right"></span> */}
+//               {console.log("logged out")}
+//             </button>

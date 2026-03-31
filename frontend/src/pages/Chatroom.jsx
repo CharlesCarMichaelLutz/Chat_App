@@ -2,6 +2,12 @@ import { useEffect, useContext, useState, useMemo } from "react";
 import ChatContext from "../context/ChatProvider";
 import useAxiosPrivate from "../hooks/useAxiosPrivate";
 import { minidenticon } from "minidenticons";
+import {
+  faPaperPlane,
+  faTrashCan,
+  faCircle,
+} from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 export const Chatroom = () => {
   const { auth, userList, setUserList, messageList, setMessageList } =
@@ -146,8 +152,13 @@ export const Chatroom = () => {
         <aside className="sidebar">
           <ul className="user-list">
             {userList.map((user) => (
-              <li key={user.userId}>
-                <h3>{user.username}</h3>
+              <li className="username-active" key={user.userId}>
+                <div className="active-container">
+                  <FontAwesomeIcon icon={faCircle} className="fa-circle" />
+                </div>
+                <span className="active-username-container">
+                  <h3>{user.username}</h3>
+                </span>
               </li>
             ))}
           </ul>
@@ -191,7 +202,7 @@ export const Chatroom = () => {
                           className="delete-button"
                           onClick={() => handleDeleteMessage(message)}
                         >
-                          delete
+                          <FontAwesomeIcon icon={faTrashCan} />
                         </button>
                       )}
                     </div>
@@ -211,7 +222,9 @@ export const Chatroom = () => {
                 placeholder="Type your message here..."
                 required
               />
-              <button type="submit">Send</button>
+              <button type="submit" className="send-message-button">
+                <FontAwesomeIcon icon={faPaperPlane} />
+              </button>
             </form>
           </footer>
         </section>

@@ -149,7 +149,8 @@ img {
   min-height: 0;
 }
 
-.sidebar {
+
+aside {
   border: 2px solid blue;
   height: 100%;
   overflow-y: auto;
@@ -169,9 +170,27 @@ img {
   margin: 0;
 }
 
-.sidebar .user-list li {
-  text-align: center;
+/* debug list items to align circle left with flexbox */
+
+.username-active {
+    text-align: center;
   padding: 0.25rem 0;
+    display: flex;
+  flex-direction: row;
+}
+
+.active-container {
+  flex: 1
+}
+
+.fa-circle {
+  color: #7CFF7C;
+  /* color: #006200; */
+  /* background-color: #7CFF7C; */
+}
+
+.active-username-container {
+ flex: 5;
 }
 
 .sidebar h3 {
@@ -234,6 +253,7 @@ img {
 .delete-button
 {
  flex: 0 0 auto;
+ cursor: pointer;
 }
 
 .identicon
@@ -310,6 +330,10 @@ img {
 }
 
 .message-footer {}
+
+.send-message-button {
+  cursor: pointer;
+}
 
 
 @media (max-width: 768px) {
