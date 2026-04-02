@@ -19,7 +19,6 @@ export const Chatroom = () => {
     setMessage(e.target.value);
   };
 
-  //load users
   useEffect(() => {
     if (!auth?.accessToken) return;
 
@@ -46,7 +45,6 @@ export const Chatroom = () => {
     };
   }, []);
 
-  //load messages
   useEffect(() => {
     if (!auth?.accessToken) return;
 
@@ -72,7 +70,6 @@ export const Chatroom = () => {
     };
   }, []);
 
-  //post create message
   const handleCreateMessage = async (e) => {
     e.preventDefault();
     if (!message.trim()) return;
@@ -100,7 +97,6 @@ export const Chatroom = () => {
     };
   };
 
-  //patch delete message
   const handleDeleteMessage = async (message) => {
     const controller = new AbortController();
     try {
@@ -145,6 +141,21 @@ export const Chatroom = () => {
     // console.log("ImageURI:", svgURI);
     return <img src={svgURI} alt={username} {...props} />;
   };
+
+  const maxLength = 300;
+  const currentLength = message.length;
+  const progressWidth = (currentLength / maxLength) * 100;
+
+  let barColor = "rgb(34, 34, 34)";
+  let textColor = "rgb(34, 34, 34)";
+
+  if (progressWidth > 60 && progressWidth < 85) {
+    barColor = "rgb(236, 157, 8)";
+    textColor = "rgb(236, 157, 8)";
+  } else if (progressWidth >= 85) {
+    barColor = "rgb(241, 9, 9)";
+    textColor = "rgb(241, 9, 9)";
+  }
 
   return (
     <>
@@ -210,23 +221,34 @@ export const Chatroom = () => {
                 ))}
             </ul>
           </div>
-          <footer className="chat-footer">
-            <form onSubmit={handleCreateMessage}>
-              <label htmlFor="message-input">Send Message</label>
+          <form className="message-form" onSubmit={handleCreateMessage}>
+            <div className="message-form-container">
               <textarea
-                id="message-input"
-                name="message-input"
-                maxLength="500"
+                id="message-text"
+                name="message-text"
+                maxLength={maxLength}
                 value={message}
                 onChange={handleChange}
                 placeholder="Type your message here..."
                 required
               />
               <button type="submit" className="send-message-button">
-                <FontAwesomeIcon icon={faPaperPlane} />
+                <FontAwesomeIcon icon={faPaperPlane} size="xl" />
               </button>
-            </form>
-          </footer>
+            </div>
+            <div className="progress">
+              <div
+                className="progress-bar"
+                style={{
+                  width: `${progressWidth}%`,
+                  backgroundColor: barColor,
+                }}
+              ></div>
+              <p className="remaining-chars" style={{ color: textColor }}>
+                {maxLength - currentLength} characters left
+              </p>
+            </div>
+          </form>
         </section>
       </main>
     </>

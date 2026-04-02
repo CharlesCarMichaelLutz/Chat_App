@@ -12,7 +12,7 @@ html {
 body {
   margin: 0;
   /* background: hsl(200, 20%, 95%); */
-  color: #222;
+  color: rgb(34, 34, 34);
   background: #fff;
   font-size: 1rem;
   font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
@@ -34,8 +34,8 @@ body {
   justify-content: space-between;
   align-items: center;
   padding: 1rem;
-  border: 2px dotted blue;
   height: 60px;
+  border-bottom: 2px solid #121212;
 }
 
 .navbar-title {
@@ -65,8 +65,6 @@ body {
 }
 
 .container {
-  /* border: 2px, solid, blue; */
-  /* max-width: 1200px; */
   margin: 0 auto;
   padding: 0 2rem;
   display: flex;
@@ -78,7 +76,6 @@ body {
 /* Login */
 
 .login-wrapper {
-  border: 2px solid blue;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -90,7 +87,6 @@ body {
 }
 
 img {
-  border: 2px dotted blue;
   width: 100%;
   max-width: 300px;
   margin: 20px auto;
@@ -98,7 +94,8 @@ img {
 }
 
 .form-container {
-  border: 2px dotted blue;
+  border: 2px solid black;
+  border-radius:0.3rem;
   width: 100%;
   max-width: 350px;
   margin: 0 auto;
@@ -138,7 +135,6 @@ img {
 /* Chatroom */
 
 .chatroom-wrapper {
-  /* border: 2px solid green; */
   display: flex;
   flex-direction: row;
   width: 100%;
@@ -151,7 +147,8 @@ img {
 
 
 aside {
-  border: 2px solid blue;
+  border: 2px solid black;
+  border-radius: 3px;
   height: 100%;
   overflow-y: auto;
   min-height: 0;
@@ -159,6 +156,7 @@ aside {
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin-right: 3px;
 }
 
 .sidebar .user-list {
@@ -198,7 +196,6 @@ aside {
 }
 
 .chat-panel{
-  /* border: 2px solid red; */
   height: 100%;
   display: flex;
   flex-direction: column;
@@ -207,7 +204,9 @@ aside {
 }
 
 .chat-content {
-  border: 2px solid greenyellow;
+  border: 2px solid black;
+  border-radius: 3px;
+
   flex: 6;
   overflow-y: auto;
   min-height: 0;
@@ -324,17 +323,66 @@ aside {
   padding-left: 10px;
 }
 
-.chat-footer {
-  border: 2px solid orange;
+.message-form {
+  border: 2px solid black;
+  border-radius: 3px;
   flex: 2;
+  margin-top: 3px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
 }
 
-.message-footer {}
+.message-form-container {
+  display: flex;
+  align-items: center;
+}
+
+textarea {
+  height: 5rem;
+  height: 4rem;
+
+  width: 30rem;
+  max-width: 100%;
+  resize: none;
+  border: 2px solid black;
+  border-radius: 2px;
+}
 
 .send-message-button {
+  border: 2px solid blue;
+  border-radius: 2px;
   cursor: pointer;
+  margin-left: 1rem;
+  font-family: 10em;
+  background-color: white;
+  color: blue;
+  align-items: center;
+  justify-content: center;
 }
 
+.progress {
+  width: 60%;
+  height: 7px;
+  box-shadow: inset 1px 1px 2px #ccc;
+  border: 1px solid #bbb;
+  border-radius: 15px;
+  /* margin-top: 3px; */
+  margin: 5px 0 3px 0;
+}
+
+.progress-bar {
+  height: 100%;
+}
+
+.remaining-chars {
+  font-size: 11px;
+  /* margin-top: 3px; */
+  margin: 3px 0 3px 0;
+
+  text-align: right;
+}
 
 @media (max-width: 768px) {
   .chatroom-wrapper {
@@ -346,7 +394,9 @@ aside {
   .sidebar {
     flex: 1;
     max-height: 25vh;
-    border-bottom: 2px solid blue;
+    /* border-bottom: 2px solid blue; */
+    margin-bottom: 3px;
+
     border-right: none;
   }
 
