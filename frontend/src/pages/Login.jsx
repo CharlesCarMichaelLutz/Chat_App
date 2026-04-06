@@ -9,6 +9,9 @@ export const Login = () => {
   const [isSignUp, setIsSignUp] = useState(true);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [userErrors, setUserErrors] = useState([]);
+  const [passErrors, setPassErrors] = useState([]);
+
   const navigate = useNavigate();
 
   const handleUsername = (e) => {
@@ -73,7 +76,10 @@ export const Login = () => {
         navigate("/chatroom");
       }
     } catch (error) {
-      console.error(error);
+      const errorData = error.response?.data;
+
+      setUserErrors(errorData?.usernameErrors ?? []);
+      setPassErrors(errorData?.passwordErrors ?? []);
     }
   };
 
@@ -109,6 +115,9 @@ export const Login = () => {
                   placeholder="...enter username"
                   required
                 />
+                {userErrors.length > 0 && (
+                  <div>{`Username must: ${userErrors.join(", ")}`}</div>
+                )}
                 <label htmlFor="password">Password</label>
                 <input
                   type="password"
@@ -118,6 +127,9 @@ export const Login = () => {
                   placeholder="...enter password"
                   required
                 />
+                {passErrors.length > 0 && (
+                  <div>{`Password must: ${passErrors.join(", ")}`}</div>
+                )}
               </div>
               <button type="submit">Sign Up</button>
             </form>
@@ -157,3 +169,30 @@ export const Login = () => {
     </>
   );
 };
+
+// {isSignUp ? (
+//   <form className="login-form" onSubmit={handleRegisterSubmit}>
+//     <h3 className="login-text">Create Account</h3>
+//     <div className="input-group">
+//       <label htmlFor="username">Username</label>
+//       <input
+//         type="text"
+//         id="username"
+//         value={username}
+//         onChange={handleUsername}
+//         placeholder="...enter username"
+//         required
+//       />
+//       <label htmlFor="password">Password</label>
+//       <input
+//         type="password"
+//         id="password"
+//         value={password}
+//         onChange={handlePassword}
+//         placeholder="...enter password"
+//         required
+//       />
+//     </div>
+//     <button type="submit">Sign Up</button>
+//   </form>
+// )

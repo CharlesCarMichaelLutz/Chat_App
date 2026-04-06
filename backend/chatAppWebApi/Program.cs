@@ -9,7 +9,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using Newtonsoft.Json;
 using System.Text;
+using System.Text.Json;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -125,6 +127,16 @@ app.UseAuthorization();
 
 app.MapPost("/signup", async (IUserService service, [FromBody] UserRequest request) =>
 {
+     var validationResult = UserValidator.Validate(request);
+
+    if(!validationResult.IsValid)
+    {
+        //var jsonErrors = JsonConvert.SerializeObject(validationResult);
+        //Console.WriteLine(jsonErrors);
+        //return Results.BadRequest(jsonErrors);
+
+        return Results.BadRequest(validationResult);
+    }
     var response = await service.CreateUser(request);
     return Results.Ok(response);
 });
