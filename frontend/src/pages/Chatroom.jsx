@@ -157,6 +157,10 @@ export const Chatroom = () => {
     textColor = "rgb(241, 9, 9)";
   }
 
+  {
+    console.log("auth: ", auth);
+  }
+
   return (
     <>
       <main className="chatroom-wrapper">

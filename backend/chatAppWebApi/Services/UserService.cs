@@ -35,11 +35,11 @@ public class UserService : IUserService
     }
     public async Task<LoginResponse> CreateUser(UserRequest request)
     {
-        var message = "Failed to create user try again";
+        const string message = "Failed to create user try again";
 
-        var checkUsername = await _userRepository.GetUsernameAsync(request);
-
-        if (checkUsername is not null)
+        var checkExistingUser = await _userRepository.GetUsernameAsync(request);
+        
+        if (checkExistingUser is not null)
         {
             throw new Exception(message);
         }
@@ -66,15 +66,9 @@ public class UserService : IUserService
     }
     public async Task<LoginResponse> LoginUser(UserRequest request)
     {
-        var message = "Failed to login try again";
+        const string message = "Failed to login try again";
 
-        var user = await _userRepository.GetUsernameAsync(request);
-
-        if (user is null)
-        {
-            throw new Exception(message);
-        }
-
+        var user = await _userRepository.GetUsernameAsync(request) ?? throw new Exception(message);
         bool verified = _passwordHasher.Verify(request.Password, user.PasswordHash);
 
         if (!verified)
@@ -96,13 +90,13 @@ public class UserService : IUserService
 
         SetRefreshToken(saveToken);
 
-        //will need to remove RefreshToken from model and return it as a cookie 
-        return new LoginResponse
+        var response =  new LoginResponse
         {
             UserId = user.Id,
             Username = user.Username,
             AccessToken = accessToken,
         };
+        return response;
     }
     public async Task<IEnumerable<UserResponse>> GetAllUsers()
     {

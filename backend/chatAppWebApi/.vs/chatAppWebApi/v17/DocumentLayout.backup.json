@@ -3,44 +3,24 @@
   "WorkspaceRootPath": "C:\\Users\\Ml\\Desktop\\Projects\\Chat_App\\backend\\chatAppWebApi\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{E4E0BFFD-EACF-4EF8-AF2F-A956EEBEA31C}|chatAppWebApi.csproj|c:\\users\\ml\\desktop\\projects\\chat_app\\backend\\chatappwebapi\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{E4E0BFFD-EACF-4EF8-AF2F-A956EEBEA31C}|chatAppWebApi.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{E4E0BFFD-EACF-4EF8-AF2F-A956EEBEA31C}|chatAppWebApi.csproj|c:\\users\\ml\\desktop\\projects\\chat_app\\backend\\chatappwebapi\\services\\uservalidator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{E4E0BFFD-EACF-4EF8-AF2F-A956EEBEA31C}|chatAppWebApi.csproj|solutionrelative:services\\uservalidator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{E4E0BFFD-EACF-4EF8-AF2F-A956EEBEA31C}|chatAppWebApi.csproj|c:\\users\\ml\\desktop\\projects\\chat_app\\backend\\chatappwebapi\\contracts\\responses\\uservalidationresponse.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{E4E0BFFD-EACF-4EF8-AF2F-A956EEBEA31C}|chatAppWebApi.csproj|solutionrelative:contracts\\responses\\uservalidationresponse.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{E4E0BFFD-EACF-4EF8-AF2F-A956EEBEA31C}|chatAppWebApi.csproj|c:\\users\\ml\\desktop\\projects\\chat_app\\backend\\chatappwebapi\\chatappwebapi.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
-      "RelativeMoniker": "D:0:0:{E4E0BFFD-EACF-4EF8-AF2F-A956EEBEA31C}|chatAppWebApi.csproj|solutionrelative:chatappwebapi.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{E4E0BFFD-EACF-4EF8-AF2F-A956EEBEA31C}|chatAppWebApi.csproj|c:\\users\\ml\\desktop\\projects\\chat_app\\backend\\chatappwebapi\\services\\userservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{E4E0BFFD-EACF-4EF8-AF2F-A956EEBEA31C}|chatAppWebApi.csproj|solutionrelative:services\\userservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{E4E0BFFD-EACF-4EF8-AF2F-A956EEBEA31C}|chatAppWebApi.csproj|c:\\users\\ml\\desktop\\projects\\chat_app\\backend\\chatappwebapi\\services\\messageservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{E4E0BFFD-EACF-4EF8-AF2F-A956EEBEA31C}|chatAppWebApi.csproj|solutionrelative:services\\messageservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{E4E0BFFD-EACF-4EF8-AF2F-A956EEBEA31C}|chatAppWebApi.csproj|c:\\users\\ml\\desktop\\projects\\chat_app\\backend\\chatappwebapi\\services\\tokenservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{E4E0BFFD-EACF-4EF8-AF2F-A956EEBEA31C}|chatAppWebApi.csproj|solutionrelative:services\\tokenservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{E4E0BFFD-EACF-4EF8-AF2F-A956EEBEA31C}|chatAppWebApi.csproj|c:\\users\\ml\\desktop\\projects\\chat_app\\backend\\chatappwebapi\\contracts\\responses\\loginresponse.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{E4E0BFFD-EACF-4EF8-AF2F-A956EEBEA31C}|chatAppWebApi.csproj|solutionrelative:contracts\\responses\\loginresponse.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{E4E0BFFD-EACF-4EF8-AF2F-A956EEBEA31C}|chatAppWebApi.csproj|c:\\users\\ml\\desktop\\projects\\chat_app\\backend\\chatappwebapi\\repositories\\messagerepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{E4E0BFFD-EACF-4EF8-AF2F-A956EEBEA31C}|chatAppWebApi.csproj|solutionrelative:repositories\\messagerepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{E4E0BFFD-EACF-4EF8-AF2F-A956EEBEA31C}|chatAppWebApi.csproj|c:\\users\\ml\\desktop\\projects\\chat_app\\backend\\chatappwebapi\\contracts\\responses\\messageresponse.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{E4E0BFFD-EACF-4EF8-AF2F-A956EEBEA31C}|chatAppWebApi.csproj|solutionrelative:contracts\\responses\\messageresponse.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{E4E0BFFD-EACF-4EF8-AF2F-A956EEBEA31C}|chatAppWebApi.csproj|c:\\users\\ml\\desktop\\projects\\chat_app\\backend\\chatappwebapi\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E4E0BFFD-EACF-4EF8-AF2F-A956EEBEA31C}|chatAppWebApi.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E4E0BFFD-EACF-4EF8-AF2F-A956EEBEA31C}|chatAppWebApi.csproj|c:\\users\\ml\\desktop\\projects\\chat_app\\backend\\chatappwebapi\\services\\userservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E4E0BFFD-EACF-4EF8-AF2F-A956EEBEA31C}|chatAppWebApi.csproj|solutionrelative:services\\userservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E4E0BFFD-EACF-4EF8-AF2F-A956EEBEA31C}|chatAppWebApi.csproj|c:\\users\\ml\\desktop\\projects\\chat_app\\backend\\chatappwebapi\\contracts\\responses\\uservalidationresponse.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E4E0BFFD-EACF-4EF8-AF2F-A956EEBEA31C}|chatAppWebApi.csproj|solutionrelative:contracts\\responses\\uservalidationresponse.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -49,7 +29,7 @@
       "VerticalTabListWidth": 256,
       "DocumentGroups": [
         {
-          "DockedWidth": 274,
+          "DockedWidth": 52,
           "SelectedChildIndex": 3,
           "Children": [
             {
@@ -66,131 +46,73 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "Program.cs",
-              "DocumentMoniker": "C:\\Users\\Ml\\Desktop\\Projects\\Chat_App\\backend\\chatAppWebApi\\Program.cs",
-              "RelativeDocumentMoniker": "Program.cs",
-              "ToolTip": "C:\\Users\\Ml\\Desktop\\Projects\\Chat_App\\backend\\chatAppWebApi\\Program.cs",
-              "RelativeToolTip": "Program.cs",
-              "ViewState": "AgIAAHkAAAAAAAAAAAAAAH4AAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-04T02:00:49.641Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "MessageService.cs",
-              "DocumentMoniker": "C:\\Users\\Ml\\Desktop\\Projects\\Chat_App\\backend\\chatAppWebApi\\Services\\MessageService.cs",
-              "RelativeDocumentMoniker": "Services\\MessageService.cs",
-              "ToolTip": "C:\\Users\\Ml\\Desktop\\Projects\\Chat_App\\backend\\chatAppWebApi\\Services\\MessageService.cs",
-              "RelativeToolTip": "Services\\MessageService.cs",
-              "ViewState": "AgIAABQAAAAAAAAAAAA9wAkAAAA+AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-03-14T02:21:38.606Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "TokenService.cs",
-              "DocumentMoniker": "C:\\Users\\Ml\\Desktop\\Projects\\Chat_App\\backend\\chatAppWebApi\\Services\\TokenService.cs",
-              "RelativeDocumentMoniker": "Services\\TokenService.cs",
-              "ToolTip": "C:\\Users\\Ml\\Desktop\\Projects\\Chat_App\\backend\\chatAppWebApi\\Services\\TokenService.cs",
-              "RelativeToolTip": "Services\\TokenService.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAhAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-04T02:19:58.78Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 9,
-              "Title": "MessageResponse.cs",
-              "DocumentMoniker": "C:\\Users\\Ml\\Desktop\\Projects\\Chat_App\\backend\\chatAppWebApi\\Contracts\\Responses\\MessageResponse.cs",
-              "RelativeDocumentMoniker": "Contracts\\Responses\\MessageResponse.cs",
-              "ToolTip": "C:\\Users\\Ml\\Desktop\\Projects\\Chat_App\\backend\\chatAppWebApi\\Contracts\\Responses\\MessageResponse.cs",
-              "RelativeToolTip": "Contracts\\Responses\\MessageResponse.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAMAAAAUAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-03-14T02:03:12.721Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "chatAppWebApi.csproj",
-              "DocumentMoniker": "C:\\Users\\Ml\\Desktop\\Projects\\Chat_App\\backend\\chatAppWebApi\\chatAppWebApi.csproj",
-              "RelativeDocumentMoniker": "chatAppWebApi.csproj",
-              "ToolTip": "C:\\Users\\Ml\\Desktop\\Projects\\Chat_App\\backend\\chatAppWebApi\\chatAppWebApi.csproj",
-              "RelativeToolTip": "chatAppWebApi.csproj",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAlAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
-              "WhenOpened": "2026-04-01T23:40:39.948Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "UserService.cs",
-              "DocumentMoniker": "C:\\Users\\Ml\\Desktop\\Projects\\Chat_App\\backend\\chatAppWebApi\\Services\\UserService.cs",
-              "RelativeDocumentMoniker": "Services\\UserService.cs",
-              "ToolTip": "C:\\Users\\Ml\\Desktop\\Projects\\Chat_App\\backend\\chatAppWebApi\\Services\\UserService.cs",
-              "RelativeToolTip": "Services\\UserService.cs",
-              "ViewState": "AgIAAF4AAAAAAAAAAADwv0YAAABDAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-03-14T02:34:15.13Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 1,
               "Title": "MessageRepository.cs",
               "DocumentMoniker": "C:\\Users\\Ml\\Desktop\\Projects\\Chat_App\\backend\\chatAppWebApi\\Repositories\\MessageRepository.cs",
               "RelativeDocumentMoniker": "Repositories\\MessageRepository.cs",
               "ToolTip": "C:\\Users\\Ml\\Desktop\\Projects\\Chat_App\\backend\\chatAppWebApi\\Repositories\\MessageRepository.cs",
               "RelativeToolTip": "Repositories\\MessageRepository.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAACoAAABVAAAAAAAAAA==",
+              "ViewState": "AgIAAEAAAAAAAAAAAADwvyoAAABVAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-03-14T01:49:00.043Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "LoginResponse.cs",
-              "DocumentMoniker": "C:\\Users\\Ml\\Desktop\\Projects\\Chat_App\\backend\\chatAppWebApi\\Contracts\\Responses\\LoginResponse.cs",
-              "RelativeDocumentMoniker": "Contracts\\Responses\\LoginResponse.cs",
-              "ToolTip": "C:\\Users\\Ml\\Desktop\\Projects\\Chat_App\\backend\\chatAppWebApi\\Contracts\\Responses\\LoginResponse.cs",
-              "RelativeToolTip": "Contracts\\Responses\\LoginResponse.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-04T01:57:14.712Z"
-            }
-          ]
-        },
-        {
-          "DockedWidth": 114,
-          "SelectedChildIndex": 0,
-          "Children": [
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "UserValidator.cs",
-              "DocumentMoniker": "C:\\Users\\Ml\\Desktop\\Projects\\Chat_App\\backend\\chatAppWebApi\\Services\\UserValidator.cs",
-              "RelativeDocumentMoniker": "Services\\UserValidator.cs",
-              "ToolTip": "C:\\Users\\Ml\\Desktop\\Projects\\Chat_App\\backend\\chatAppWebApi\\Services\\UserValidator.cs",
-              "RelativeToolTip": "Services\\UserValidator.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAqwE0AAAAMAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-04T02:31:35.409Z",
+              "WhenOpened": "2026-03-14T01:49:00.043Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 2,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\Ml\\Desktop\\Projects\\Chat_App\\backend\\chatAppWebApi\\Program.cs",
+              "RelativeDocumentMoniker": "Program.cs",
+              "ToolTip": "C:\\Users\\Ml\\Desktop\\Projects\\Chat_App\\backend\\chatAppWebApi\\Program.cs",
+              "RelativeToolTip": "Program.cs",
+              "ViewState": "AgIAAJ0AAAAAAAAAAAAAAM4AAAArAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-04T02:00:49.641Z",
+              "EditorCaption": ""
+            }
+          ]
+        },
+        {
+          "DockedWidth": 312,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "UserValidator.cs",
+              "DocumentMoniker": "C:\\Users\\Ml\\Desktop\\Projects\\Chat_App\\backend\\chatAppWebApi\\Services\\UserValidator.cs",
+              "RelativeDocumentMoniker": "Services\\UserValidator.cs",
+              "ToolTip": "C:\\Users\\Ml\\Desktop\\Projects\\Chat_App\\backend\\chatAppWebApi\\Services\\UserValidator.cs",
+              "RelativeToolTip": "Services\\UserValidator.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-10T01:01:20.212Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "UserService.cs",
+              "DocumentMoniker": "C:\\Users\\Ml\\Desktop\\Projects\\Chat_App\\backend\\chatAppWebApi\\Services\\UserService.cs",
+              "RelativeDocumentMoniker": "Services\\UserService.cs",
+              "ToolTip": "C:\\Users\\Ml\\Desktop\\Projects\\Chat_App\\backend\\chatAppWebApi\\Services\\UserService.cs",
+              "RelativeToolTip": "Services\\UserService.cs",
+              "ViewState": "AgIAAB0AAAAAAAAAAAAswCwAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-14T02:34:15.13Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
               "Title": "UserValidationResponse.cs",
               "DocumentMoniker": "C:\\Users\\Ml\\Desktop\\Projects\\Chat_App\\backend\\chatAppWebApi\\Contracts\\Responses\\UserValidationResponse.cs",
               "RelativeDocumentMoniker": "Contracts\\Responses\\UserValidationResponse.cs",
               "ToolTip": "C:\\Users\\Ml\\Desktop\\Projects\\Chat_App\\backend\\chatAppWebApi\\Contracts\\Responses\\UserValidationResponse.cs",
               "RelativeToolTip": "Contracts\\Responses\\UserValidationResponse.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAEAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAqAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-05T07:59:53.368Z",
+              "WhenOpened": "2026-04-10T02:12:29.627Z",
               "EditorCaption": ""
             }
           ]

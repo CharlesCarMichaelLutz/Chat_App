@@ -38,6 +38,7 @@ export const Login = () => {
       if (response.status == 200) {
         navigate("/chatroom");
       }
+      clearInput();
     } catch (error) {
       console.error(error);
     }
@@ -45,6 +46,7 @@ export const Login = () => {
 
   const handleLoginSubmit = async (e) => {
     e.preventDefault();
+    setUserErrors([]);
     try {
       const response = await baseApi.post("login", {
         Username: username,
@@ -57,13 +59,20 @@ export const Login = () => {
       if (response.status == 200) {
         navigate("/chatroom");
       }
+      clearInput();
     } catch (error) {
-      console.error(error);
+      console.log("response: ", error.response);
+      console.log("data: ", error.response.data);
+      if (error.status === 400) {
+        setUserErrors((prevErr) => [...prevErr, error.response.data]);
+      }
     }
   };
 
   const handleRegisterSubmit = async (e) => {
     e.preventDefault();
+    setUserErrors([]);
+    setPassErrors([]);
     try {
       const response = await baseApi.post("signup", {
         Username: username,
@@ -75,11 +84,15 @@ export const Login = () => {
       if (response.status == 200) {
         navigate("/chatroom");
       }
+      clearInput();
     } catch (error) {
-      const errorData = error.response?.data;
-
-      setUserErrors(errorData?.usernameErrors ?? []);
-      setPassErrors(errorData?.passwordErrors ?? []);
+      if (error.response.status === 400) {
+        const errorData = error.response?.data;
+        setUserErrors(errorData?.usernameErrors ?? []);
+        setPassErrors(errorData?.passwordErrors ?? []);
+      } else if (error.response.status === 404) {
+        setUserErrors((prevErr) => [...prevErr, error.response.data]);
+      }
     }
   };
 
@@ -116,7 +129,7 @@ export const Login = () => {
                   required
                 />
                 {userErrors.length > 0 && (
-                  <div>{`Username must: ${userErrors.join(", ")}`}</div>
+                  <div>{`Must: ${userErrors.join(", ")}`}</div>
                 )}
                 <label htmlFor="password">Password</label>
                 <input
@@ -128,7 +141,7 @@ export const Login = () => {
                   required
                 />
                 {passErrors.length > 0 && (
-                  <div>{`Password must: ${passErrors.join(", ")}`}</div>
+                  <div>{`Must: ${passErrors.join(", ")}`}</div>
                 )}
               </div>
               <button type="submit">Sign Up</button>
@@ -155,6 +168,7 @@ export const Login = () => {
                   placeholder="...enter password"
                   required
                 />
+                {userErrors.length > 0 && <div>{userErrors}</div>}
               </div>
               <button type="submit">Login</button>
             </form>
@@ -169,30 +183,3 @@ export const Login = () => {
     </>
   );
 };
-
-// {isSignUp ? (
-//   <form className="login-form" onSubmit={handleRegisterSubmit}>
-//     <h3 className="login-text">Create Account</h3>
-//     <div className="input-group">
-//       <label htmlFor="username">Username</label>
-//       <input
-//         type="text"
-//         id="username"
-//         value={username}
-//         onChange={handleUsername}
-//         placeholder="...enter username"
-//         required
-//       />
-//       <label htmlFor="password">Password</label>
-//       <input
-//         type="password"
-//         id="password"
-//         value={password}
-//         onChange={handlePassword}
-//         placeholder="...enter password"
-//         required
-//       />
-//     </div>
-//     <button type="submit">Sign Up</button>
-//   </form>
-// )

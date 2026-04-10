@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.SignalR;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Newtonsoft.Json;
+using System.Net;
 using System.Text;
 using System.Text.Json;
 
@@ -127,30 +128,41 @@ app.UseAuthorization();
 
 app.MapPost("/signup", async (IUserService service, [FromBody] UserRequest request) =>
 {
-     var validationResult = UserValidator.Validate(request);
+    var validationResult = UserValidator.Validate(request);
 
-    if(!validationResult.IsValid)
+    if (!validationResult.IsValid)
     {
-        //var jsonErrors = JsonConvert.SerializeObject(validationResult);
-        //Console.WriteLine(jsonErrors);
-        //return Results.BadRequest(jsonErrors);
-
         return Results.BadRequest(validationResult);
     }
-    var response = await service.CreateUser(request);
-    return Results.Ok(response);
+
+    try 
+    { 
+        var response = await service.CreateUser(request);
+        return Results.Ok(response);
+    }
+    catch(Exception ex)
+    {
+        return Results.NotFound(ex.Message);
+    }
 });
 
 app.MapPost("/login", async (IUserService service, [FromBody] UserRequest request) =>
 {
-    var response = await service.LoginUser(request);
-    return Results.Ok(response);
+    try 
+    {
+        var response = await service.LoginUser(request);
+        return Results.Ok(response);
+    }
+    catch(Exception ex)
+    {
+        return Results.BadRequest(ex.Message);
+    }
 });
 
 app.MapPost("/refresh-token", async (IUserService service) =>
 {
     var response = await service.CheckAndReplaceToken();
-    return Results.Ok(response);
+        return Results.Ok(response);
 });
 
 //gets called after register/login and before chatroom loads
@@ -158,14 +170,14 @@ app.MapGet("/users", [Authorize] async (IUserService service) =>
 {
     var response = await service.GetAllUsers();
     //await hubContext.Clients.All.AddUser(response);
-    return Results.Ok(response);
+        return Results.Ok(response);
 });
 
 //chatroom loader gets called, then websocket connects 
 app.MapGet("/messages", [Authorize] async (IMessageService service) =>
 {
     var response = await service.GetAllMessages();
-    return Results.Ok(response);
+        return Results.Ok(response);
 });
 
 app.MapPost("/messages", [Authorize] async (IMessageService service, IHubContext<ChatHub, IChatHubClient> hubContext, [FromBody] MessageRequest request) =>
@@ -174,7 +186,7 @@ app.MapPost("/messages", [Authorize] async (IMessageService service, IHubContext
     {
         var response = await service.SaveMessage(request);
         await hubContext.Clients.All.SendMessage(response);
-        return Results.Ok(response);
+            return Results.Ok(response);
     }
     catch (Exception ex)
     {
@@ -188,7 +200,7 @@ app.MapPatch("/messages", [Authorize] async (IMessageService service, IHubContex
     {
         var response = await service.DeleteMessage(request);
         await hubContext.Clients.All.DeleteMessageById(response);
-        return Results.Ok(response);
+            return Results.Ok(response);
     }
     catch (Exception ex)
     {
