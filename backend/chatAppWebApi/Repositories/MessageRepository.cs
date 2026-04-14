@@ -21,15 +21,6 @@ public class MessageRepository : IMessageRepository
     public async Task<MessageResponse> SaveAndGetMessage(Message message)
     {
         using var connection = await _connectionFactory.CreateConnectionAsync();
-        //const string sql =
-        //    """
-        //    INSERT INTO messages
-        //        (UserId, Text, CreatedDate, IsDeleted)
-        //    VALUES
-        //        (@UserId, @Text, @CreatedDate, @IsDeleted)
-        //    RETURNING
-        //        Id, UserId, Text, CreatedDate, IsDeleted
-        //    """;
         const string sql =
             """
             WITH inserted_row AS (

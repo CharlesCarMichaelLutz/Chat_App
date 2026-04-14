@@ -2,11 +2,7 @@ import { useEffect, useContext, useState, useMemo } from "react";
 import ChatContext from "../context/ChatProvider";
 import useAxiosPrivate from "../hooks/useAxiosPrivate";
 import { minidenticon } from "minidenticons";
-import {
-  faPaperPlane,
-  faTrashCan,
-  faCircle,
-} from "@fortawesome/free-solid-svg-icons";
+import { faTrashCan } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 export const Chatroom = () => {
@@ -157,23 +153,15 @@ export const Chatroom = () => {
     textColor = "rgb(241, 9, 9)";
   }
 
-  {
-    console.log("auth: ", auth);
-  }
-
   return (
     <>
       <main className="chatroom-wrapper">
         <aside className="sidebar">
+          <h2 className="users-title">Users</h2>
           <ul className="user-list">
             {userList.map((user) => (
               <li className="username-active" key={user.userId}>
-                <div className="active-container">
-                  <FontAwesomeIcon icon={faCircle} className="fa-circle" />
-                </div>
-                <span className="active-username-container">
-                  <h3>{user.username}</h3>
-                </span>
+                {user.username}
               </li>
             ))}
           </ul>
@@ -201,14 +189,16 @@ export const Chatroom = () => {
                       <h4
                         className={`username ${auth.userId === message.userId ? "right" : ""}`}
                       >
-                        {message.username}
+                        <strong>{message.username}</strong>
                       </h4>
 
                       <div className="text-content">{message.text}</div>
                       <time
                         className={`timestamp ${auth.userId === message.userId ? "left" : ""}`}
                       >
-                        {formatMessageCreatedTimestamp(message.createdDate)}
+                        <em>
+                          {formatMessageCreatedTimestamp(message.createdDate)}
+                        </em>
                       </time>
                     </div>
                     <div className="delete-container">
@@ -237,20 +227,22 @@ export const Chatroom = () => {
                 required
               />
               <button type="submit" className="send-message-button">
-                <FontAwesomeIcon icon={faPaperPlane} size="xl" />
+                Send
               </button>
             </div>
-            <div className="progress">
-              <div
-                className="progress-bar"
-                style={{
-                  width: `${progressWidth}%`,
-                  backgroundColor: barColor,
-                }}
-              ></div>
-              <p className="remaining-chars" style={{ color: textColor }}>
-                {maxLength - currentLength} characters left
-              </p>
+            <div className="progress-container">
+              <div className="progress-bar-container">
+                <div
+                  className="progress-bar"
+                  style={{
+                    width: `${progressWidth}%`,
+                    backgroundColor: barColor,
+                  }}
+                ></div>
+                <p className="remaining-chars" style={{ color: textColor }}>
+                  {maxLength - currentLength} characters left
+                </p>
+              </div>
             </div>
           </form>
         </section>
