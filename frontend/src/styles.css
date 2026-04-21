@@ -65,48 +65,50 @@ body {
   cursor: pointer;
 }
 
-.container {
-  margin: 0 auto;
-  padding: 0 2rem;
+.login-wrapper {
+  /* border: 2px dotted green; */
   display: flex;
-  flex-direction: column;
-  align-items: stretch;
+  flex-direction: row;
   height: 100vh;
+  margin: 0;
+  padding: 0;
 }
 
 /* Login */
 
-.login-wrapper {
+.login-left{
+  /* border: 2px solid purple; */
+  flex:1;
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 100vh;
-  width: 100%;
-  max-width: 400px;
-  margin: 0 auto;
+}
+
+.image-container
+{
+  /* border: 2px solid purple; */
+  align-items: center;
+  justify-content: center;
 }
 
 img {
-  width: 100%;
-  max-width: 300px;
-  margin: 20px auto;
   border-radius: 10px;
+}
+
+.login-right {
+  /* border: 2px dotted orange; */
+  flex:1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .form-container {
   border: 2px solid black;
+  align-items: center;
+  justify-content: center;
+  width: 350px;
   border-radius:0.3rem;
-  width: 100%;
-  max-width: 350px;
-  margin: 0 auto;
-}
-
-.login-text {
-  margin: 0;
-  text-align: center;
-  font-size: 1.5rem;
-  font-weight: normal;
 }
 
 .login-form {
@@ -116,21 +118,44 @@ img {
   padding: 10px 20px;
 }
 
-.login-form button{
-  border-radius: 5px;
-  cursor: pointer;
+.login-text {
+  margin: 0;
+  text-align: center;
+  font-size: 1.5rem;
+  font-weight: normal;
 }
 
 .input-group {
   display: flex;
   flex-direction: column;
-  gap: 7px;
+  gap: 10px;
 
 }
 
-.toggle-login {
-  margin: 0;
+.login-form > button {
+  color: white;
+  /* background-color: #56a4ed; */
+  background-color:#123048;
+  border: none;
+  height: 1.5rem;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.toggle-container{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 20px 0 25px 0;
+}
+
+.toggle-login-button {
+  border:none;
+  border-radius: 3px;
   text-align: center;
+  cursor:pointer;
+  color: black;
+  background-color: #9ee86f;
 }
 
 /* Chatroom */
@@ -145,7 +170,6 @@ img {
   max-height: 70vh;
   min-height: 0;
 }
-
 
 aside {
   border: 2px solid black;
@@ -282,7 +306,6 @@ aside {
 
 .text-content{
   border: 2px solid black;
-
   flex: 1;
   min-width: 0;
   margin: 0;
@@ -343,7 +366,7 @@ textarea {
   border-radius: 2px;
   cursor: pointer;
   margin-left: 1rem;
-  font-size: 1.3em;
+  font-size: 1em;
   color: black;
   background-color: #9ee86f;
 }
@@ -355,7 +378,7 @@ textarea {
 }
 
 .progress-bar-container {
-    width: 60%;
+  width: 60%;
   height: 7px;
   box-shadow: inset 1px 1px 2px #ccc;
   border: 1px solid #bbb;
@@ -407,6 +430,9 @@ textarea {
     padding: 0.4em 0.8em;
     font-size: 0.9em;
   }
+.login-wrapper {
+  flex-direction: column;
+}
 }
 
 @media (max-width: 480px) {

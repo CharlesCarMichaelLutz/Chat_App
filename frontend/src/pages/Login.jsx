@@ -108,78 +108,86 @@ export const Login = () => {
 
   return (
     <>
-      <main className="login-wrapper">
-        <img src={rabbitImage} alt="Rabbit Chat Logo" />
-        <section className="form-container">
-          <form className="login-form" onSubmit={handleGuestSubmit}>
-            <h3 className="login-text">Visit as guest</h3>
-            <button type="submit">Enter</button>
-          </form>
-          {isSignUp ? (
-            <form className="login-form" onSubmit={handleRegisterSubmit}>
-              <h3 className="login-text">Create Account</h3>
-              <div className="input-group">
-                <label htmlFor="username">Username</label>
-                <input
-                  type="text"
-                  id="username"
-                  value={username}
-                  onChange={handleUsername}
-                  placeholder="...enter username"
-                  required
-                />
-                {userErrors.length > 0 && (
-                  <div>{`Must: ${userErrors.join(", ")}`}</div>
-                )}
-                <label htmlFor="password">Password</label>
-                <input
-                  type="password"
-                  id="password"
-                  value={password}
-                  onChange={handlePassword}
-                  placeholder="...enter password"
-                  required
-                />
-                {passErrors.length > 0 && (
-                  <div>{`Must: ${passErrors.join(", ")}`}</div>
-                )}
-              </div>
-              <button type="submit">Sign Up</button>
+      <div className="login-wrapper">
+        <div className="login-left">
+          <div className="image-container">
+            <img src={rabbitImage} alt="Rabbit Chat Logo" />
+          </div>
+        </div>
+        <div className="login-right">
+          <div className="form-container">
+            <form className="login-form" onSubmit={handleGuestSubmit}>
+              <h3 className="login-text">Visit as guest</h3>
+              <button type="submit">Enter</button>
             </form>
-          ) : (
-            <form className="login-form" onSubmit={handleLoginSubmit}>
-              <h3 className="login-text">Login</h3>
-              <div className="input-group">
-                <label htmlFor="username">Username</label>
-                <input
-                  type="text"
-                  id="username"
-                  value={username}
-                  onChange={handleUsername}
-                  placeholder="...enter username"
-                  required
-                />
-                <label htmlFor="password">Password</label>
-                <input
-                  type="password"
-                  id="password"
-                  value={password}
-                  onChange={handlePassword}
-                  placeholder="...enter password"
-                  required
-                />
-                {userErrors.length > 0 && <div>{userErrors}</div>}
-              </div>
-              <button type="submit">Login</button>
-            </form>
-          )}
-          <button onClick={toggleSignUp} className="toggle-login">
-            {isSignUp
-              ? "Already have an account? Login"
-              : "Don't have an account? Sign Up"}
-          </button>
-        </section>
-      </main>
+            {isSignUp ? (
+              <form className="login-form" onSubmit={handleRegisterSubmit}>
+                <h3 className="login-text">Create Account</h3>
+                <div className="input-group">
+                  <label htmlFor="username">Username</label>
+                  <input
+                    type="text"
+                    id="username"
+                    value={username}
+                    onChange={handleUsername}
+                    placeholder="...enter username"
+                    required
+                  />
+                  {userErrors.length > 0 && (
+                    <div>{`Must: ${userErrors.join(", ")}`}</div>
+                  )}
+                  <label htmlFor="password">Password</label>
+                  <input
+                    type="password"
+                    id="password"
+                    value={password}
+                    onChange={handlePassword}
+                    placeholder="...enter password"
+                    required
+                  />
+                  {passErrors.length > 0 && (
+                    <div>{`Must: ${passErrors.join(", ")}`}</div>
+                  )}
+                </div>
+                <button type="submit">Sign Up</button>
+              </form>
+            ) : (
+              <form className="login-form" onSubmit={handleLoginSubmit}>
+                <h3 className="login-text">Login</h3>
+                <div className="input-group">
+                  <label htmlFor="username">Username</label>
+                  <input
+                    type="text"
+                    id="username"
+                    value={username}
+                    onChange={handleUsername}
+                    placeholder="...enter username"
+                    required
+                  />
+                  <label htmlFor="password">Password</label>
+                  <input
+                    type="password"
+                    id="password"
+                    value={password}
+                    onChange={handlePassword}
+                    placeholder="...enter password"
+                    required
+                  />
+                  {userErrors.length > 0 && <div>{userErrors}</div>}
+                </div>
+                <button type="submit">Login</button>
+              </form>
+            )}
+            <div className="toggle-container">
+              <button onClick={toggleSignUp} className="toggle-login-button">
+                {isSignUp
+                  ? "Already have an account? Login"
+                  : "Don't have an account? Sign Up"}
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
     </>
   );
 };
