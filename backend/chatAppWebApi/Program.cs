@@ -18,7 +18,6 @@ var builder = WebApplication.CreateBuilder(args);
 var config = builder.Configuration;
 var services = builder.Services;
 
-
 services.AddAuthentication(x =>
 {
     x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -39,7 +38,6 @@ services.AddAuthentication(x =>
 });
 
 services.AddHttpContextAccessor();
-
 services.AddScoped<IPostgreSqlConnectionFactory>(_ =>
     new PostgreSqlConnectionFactory(config.GetValue<string>("ConnectionStrings:chat_app")!));
 services.AddScoped<PostgresDBInitializer>();
@@ -132,7 +130,6 @@ app.UseExceptionHandler(appError =>
 
             await context.Response.WriteAsJsonAsync(new
             {
-                //StatusCode = context.Response.StatusCode,
                 HttpStatusCode = context.Response.StatusCode,
                 Message = "Internal Server Error"
             });
@@ -185,13 +182,25 @@ app.MapPost("/login", async (IUserService service, [FromBody] UserRequest reques
     }
 });
 
+//app.MapPost("/refresh-token", async (IUserService service) =>
+//{
+//    var response = await service.CheckAndReplaceToken();
+//        return Results.Ok(response);
+//});
+
 app.MapPost("/refresh-token", async (IUserService service) =>
 {
-    var response = await service.CheckAndReplaceToken();
+    try
+    {
+        var response = await service.CheckAndReplaceToken();
         return Results.Ok(response);
+    }
+    catch (Exception ex)
+    {
+        return Results.BadRequest(ex.Message);
+    }
 });
 
-//gets called after register/login and before chatroom loads
 app.MapGet("/users", [Authorize] async (IUserService service) =>
 {
     var response = await service.GetAllUsers();
@@ -199,7 +208,6 @@ app.MapGet("/users", [Authorize] async (IUserService service) =>
         return Results.Ok(response);
 });
 
-//chatroom loader gets called, then websocket connects 
 app.MapGet("/messages", [Authorize] async (IMessageService service) =>
 {
     var response = await service.GetAllMessages();
