@@ -5,10 +5,12 @@ using chatAppWebApi.Services;
 using chatAppWebApi.SignalR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using System.Net;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -116,6 +118,28 @@ if (app.Environment.IsDevelopment())
 }
 
 //app.UseHttpsRedirection();
+app.UseExceptionHandler(appError =>
+{
+    appError.Run(async context =>
+    {
+        context.Response.StatusCode = 500;
+        context.Response.ContentType = "application/json";
+
+        var contextFeature = context.Features.Get<IExceptionHandlerFeature>();
+        if(contextFeature is not null)
+        {
+            Console.WriteLine($"Error: {contextFeature.Error}");
+
+            await context.Response.WriteAsJsonAsync(new
+            {
+                //StatusCode = context.Response.StatusCode,
+                HttpStatusCode = context.Response.StatusCode,
+                Message = "Internal Server Error"
+            });
+        }
+    });
+});
+
 app.UseRouting();
 
 app.UseCors("ReactAppPolicy");
@@ -141,6 +165,11 @@ app.MapPost("/signup", async (IUserService service, [FromBody] UserRequest reque
     {
         return Results.NotFound(ex.Message);
     }
+});
+
+app.MapGet("/error", () =>
+{
+    throw new Exception("An example exception for testing");
 });
 
 app.MapPost("/login", async (IUserService service, [FromBody] UserRequest request) =>

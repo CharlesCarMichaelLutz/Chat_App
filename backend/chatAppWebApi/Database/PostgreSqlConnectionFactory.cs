@@ -9,7 +9,6 @@ public interface IPostgreSqlConnectionFactory
 public class PostgreSqlConnectionFactory : IPostgreSqlConnectionFactory
 {
     private readonly string _connectionString;
-
     public PostgreSqlConnectionFactory(string connectionString)
     {
         _connectionString = connectionString;
@@ -17,15 +16,7 @@ public class PostgreSqlConnectionFactory : IPostgreSqlConnectionFactory
     public async Task<IDbConnection> CreateConnectionAsync()
     {
         var connection = new NpgsqlConnection(_connectionString);
-        try
-        {
-            await connection.OpenAsync();
-        }
-        catch (Exception ex) 
-        {
-            Console.WriteLine($"Could not connect to DB: {ex.Message}");
-            throw;
-        }
+        await connection.OpenAsync();
         return connection;
     }
 }
