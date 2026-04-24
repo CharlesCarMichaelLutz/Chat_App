@@ -182,12 +182,6 @@ app.MapPost("/login", async (IUserService service, [FromBody] UserRequest reques
     }
 });
 
-//app.MapPost("/refresh-token", async (IUserService service) =>
-//{
-//    var response = await service.CheckAndReplaceToken();
-//        return Results.Ok(response);
-//});
-
 app.MapPost("/refresh-token", async (IUserService service) =>
 {
     try
@@ -203,8 +197,7 @@ app.MapPost("/refresh-token", async (IUserService service) =>
 
 app.MapGet("/users", [Authorize] async (IUserService service) =>
 {
-    var response = await service.GetAllUsers();
-    //await hubContext.Clients.All.AddUser(response);
+    var response = await service.GetAllUsers(); 
         return Results.Ok(response);
 });
 

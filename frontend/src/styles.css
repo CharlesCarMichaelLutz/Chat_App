@@ -1,31 +1,36 @@
-html {
-  box-sizing: border-box;
-  height: 100%;
-  /* color: #56a4ed; */
-  /* color: #123048; */
-}
-
 *,
 *::before,
 *::after {
   box-sizing: inherit;
 }
 
+html {
+  box-sizing: border-box;
+  height: 100%;
+}
+
+body.light {
+  --bg-color: white;
+  --text-color: #121212;
+}
+
+body.dark {
+  --bg-color: #121212;
+  --text-color: white;
+}
+
 body {
   margin: 0;
-  color: rgb(34, 34, 34);
-  background: #fff;
+  background-color: var(--bg-color);
+  color: var(--text-color);
   font-size: 1rem;
   font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
     Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
   height: 100%;
 }
 
-@media (prefers-color-scheme: dark) {
-  body {
-    color: #eee;
-    background: #121212;
-  }
+body {
+  transition: background-color 0.3s, color 0.3s;
 }
 
 /* navbar */
@@ -85,8 +90,6 @@ body {
   padding: 0;
 }
 
-/* Login */
-
 .login-left{
   /* border: 2px solid purple; */
   flex:1;
@@ -100,6 +103,7 @@ body {
   /* border: 2px solid purple; */
   align-items: center;
   justify-content: center;
+  padding: 2rem;
 }
 
 img {
@@ -141,6 +145,16 @@ img {
   flex-direction: column;
   gap: 10px;
 
+}
+
+body.light .login-errors {
+ color: white;
+ background-color: red;
+}
+
+body.dark .login-errors {
+color: white;
+ background-color: yellow;
 }
 
 .login-form > button {

@@ -103,6 +103,8 @@ export const Login = () => {
 
   const toggleSignUp = () => {
     setIsSignUp((prev) => !prev);
+    setUserErrors([]);
+    setPassErrors([]);
     clearInput();
   };
 
@@ -134,7 +136,7 @@ export const Login = () => {
                     required
                   />
                   {userErrors.length > 0 && (
-                    <div>{`Must: ${userErrors.join(", ")}`}</div>
+                    <div className="login-errors">{`Must: ${userErrors.join(", ")}`}</div>
                   )}
                   <label htmlFor="password">Password</label>
                   <input
@@ -146,7 +148,7 @@ export const Login = () => {
                     required
                   />
                   {passErrors.length > 0 && (
-                    <div>{`Must: ${passErrors.join(", ")}`}</div>
+                    <div className="login-errors">{`Must: ${passErrors.join(", ")}`}</div>
                   )}
                 </div>
                 <button type="submit">Sign Up</button>
@@ -173,7 +175,10 @@ export const Login = () => {
                     placeholder="...enter password"
                     required
                   />
-                  {userErrors.length > 0 && <div>{userErrors}</div>}
+                  {userErrors.length > 0 && (
+                    // <div className="login-errors">{userErrors}</div>
+                    <div className="login-errors">{userErrors.join(", ")}</div>
+                  )}
                 </div>
                 <button type="submit">Login</button>
               </form>
