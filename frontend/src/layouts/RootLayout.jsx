@@ -1,4 +1,6 @@
-import { useState, useEffect } from "react";
+//import { useState, useEffect } from "react";
+import { useState, useLayoutEffect } from "react";
+
 import { Outlet, useLocation } from "react-router-dom";
 import { useChat } from "../hooks/useChat";
 import {
@@ -12,20 +14,20 @@ export function RootLayout() {
   const location = useLocation();
   const { handleLogout } = useChat();
 
-  const [darkMode, setDarkMode] = useState(() => {
-    const savedTheme = localStorage.getItem("theme");
-    if (savedTheme) {
-      return savedTheme === "dark";
-    }
-    return window.matchMedia("(prefers-color-scheme: dark)").matches;
-  });
+  const [darkMode, setDarkMode] = useState(
+    () => localStorage.getItem("theme") || "light",
+  );
 
-  useEffect(() => {
-    document.body.className = darkMode ? "dark" : "light";
-    localStorage.setItem("theme", darkMode ? "dark" : "light");
+  useLayoutEffect(() => {
+    document.documentElement.className = darkMode;
   }, [darkMode]);
 
-  const toggleTheme = () => setDarkMode((prev) => !prev);
+  const toggleTheme = () => {
+    const newTheme = darkMode === "light" ? "dark" : "light";
+    document.body.className = newTheme;
+    localStorage.setItem("theme", newTheme);
+    setDarkMode(newTheme);
+  };
 
   return (
     <>
