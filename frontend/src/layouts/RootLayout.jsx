@@ -1,6 +1,3 @@
-//import { useState, useEffect } from "react";
-import { useState, useLayoutEffect } from "react";
-
 import { Outlet, useLocation } from "react-router-dom";
 import { useChat } from "../hooks/useChat";
 import {
@@ -12,22 +9,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 export function RootLayout() {
   const location = useLocation();
-  const { handleLogout } = useChat();
-
-  const [darkMode, setDarkMode] = useState(
-    () => localStorage.getItem("theme") || "light",
-  );
-
-  useLayoutEffect(() => {
-    document.documentElement.className = darkMode;
-  }, [darkMode]);
-
-  const toggleTheme = () => {
-    const newTheme = darkMode === "light" ? "dark" : "light";
-    document.body.className = newTheme;
-    localStorage.setItem("theme", newTheme);
-    setDarkMode(newTheme);
-  };
+  const { darkMode, toggleTheme, handleLogout } = useChat();
 
   return (
     <>
@@ -36,15 +18,23 @@ export function RootLayout() {
           <h1>Rabbit Chat</h1>
         </div>
         <div className="navbar-right">
-          <button onClick={toggleTheme} aria-lablel="switch to a dark theme">
-            {darkMode ? (
-              <FontAwesomeIcon icon={faLightbulb} />
-            ) : (
+          <button
+            onClick={toggleTheme}
+            className="light-dark-button"
+            aria-lablel="switch to a dark theme"
+          >
+            {darkMode === "light" ? (
               <FontAwesomeIcon icon={faMoon} />
+            ) : (
+              <FontAwesomeIcon icon={faLightbulb} />
             )}
           </button>
           {location.pathname === "/chatroom" && (
-            <button onClick={handleLogout} aria-label="logout of application">
+            <button
+              onClick={handleLogout}
+              className="logout-button"
+              aria-label="logout of application"
+            >
               <FontAwesomeIcon icon={faPowerOff} />
             </button>
           )}

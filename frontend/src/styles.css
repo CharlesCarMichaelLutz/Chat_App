@@ -57,7 +57,7 @@ body {
   margin-right: 1em;
 }
 
-.navbar-right button {
+.light-dark-button {
   margin-left: 1em;
   padding: 0.5em 1em;
   border: none;
@@ -65,6 +65,24 @@ body {
   background-color: #444;
   color: #fff;
   cursor: pointer;
+}
+
+.light-dark-button:hover {
+  color: #DAC4A3;
+}
+
+.logout-button {
+  margin-left: 1em;
+  padding: 0.5em 1em;
+  border: none;
+  border-radius: 0.5em;
+  background-color: #444;
+  color: #fff;
+  cursor: pointer;
+}
+
+.logout-button:hover {
+  color: #ff6666;
 }
 
 .container {
@@ -79,16 +97,13 @@ body {
 /* Login */
 
 .login-wrapper {
-  /* border: 2px dotted green; */
   display: flex;
-  /* flex-direction: row; */
   height: 100vh;
   margin: 0;
   padding: 0;
 }
 
 .login-left{
-  /* border: 2px solid purple; */
   flex:1;
   display: flex;
   align-items: center;
@@ -97,7 +112,6 @@ body {
 
 .image-container
 {
-  /* border: 2px solid purple; */
   align-items: center;
   justify-content: center;
   padding: 2rem;
@@ -108,7 +122,6 @@ img {
 }
 
 .login-right {
-  /* border: 2px dotted orange; */
   flex:1;
   display: flex;
   align-items: center;
@@ -141,26 +154,53 @@ img {
   display: flex;
   flex-direction: column;
   gap: 10px;
+}
 
+#username {
+  line-height: 1;
+  padding: 0.25em 0 0.25em 0.1em;
+  font-size: 1rem;
+  border-radius: 5px;
+  background-color: lightgray;
+}
+
+#password {
+  line-height: 1;
+  padding: 0.25em 0 0.25em 0.1em;
+  font-size: 1rem;
+  border-radius: 5px;
+  background-color: lightgray;
 }
 
 html.light .login-errors {
- color: white;
- background-color: red;
+  color: #ff6666;
+  background-color: #ffe5e5;
+  border: 1px solid #ff6666;
+  border-radius: 5px;
+  padding: 7px;
 }
 
 html.dark .login-errors {
-color: white;
- background-color: yellow;
+ color: #fbd96d;
+ background-color:#332701 ;
+ border:1px solid #fbd96d;
+ border-radius: 5px;
+ padding: 7px;
 }
 
 .login-form > button {
   color: white;
-  background-color:#123048;
+  background-color:#183f5d;
   border: none;
-  height: 1.5rem;
   cursor: pointer;
   border-radius: 5px;
+   padding: 0.3em 0.9em;
+  font-size:1rem;
+}
+
+.login-form > button:hover {
+  color: white;
+  background-color:#123048;
 }
 
 .toggle-container{
@@ -177,6 +217,13 @@ color: white;
   cursor:pointer;
   color: black;
   background-color: #9ee86f;
+  padding: 0.2em 0.6em;
+  font-size:0.8rem;
+}
+
+.toggle-login-button:hover {
+  color: black;
+  background-color: #85de4d;
 }
 
 /* Chatroom */
@@ -243,6 +290,7 @@ aside {
 .chat-content {
   border: 2px solid black;
   border-radius: 3px;
+  position: relative;
 
   flex: 6;
   overflow-y: auto;
@@ -281,15 +329,32 @@ aside {
   border: none;
 }
 
-.delete-button
-{
- flex: 0 0 auto;
- cursor: pointer;
+html.light .delete-button{
+  flex: 0 0 auto;
+  cursor: pointer;
+  background-color: var(--bg-color);
+  border: none;
+
+}
+
+html.dark .delete-button{
+  flex: 0 0 auto;
+  cursor: pointer;
+  background-color: var(--bg-color);
+  border: none;
+  color: white;
+}
+
+html.light .delete-button:hover{
+  color:rgb(239, 57, 57);
+}
+
+html.dark .delete-button:hover{
+  color:rgb(239, 57, 57);
 }
 
 .identicon
 {
-  border: 1px solid #777;
   border-radius: 50%;
   width: 50px;
   height: 50px;
@@ -311,13 +376,13 @@ aside {
   flex-grow: 1;
   margin: 0;
   padding: 5px;
-  color: #123048;
+  color: #56a4ed;
 }
 
 .username.right{
   display: flex;
   justify-content: flex-end;
-  color: slategray;
+  color: #123048;
 }
 
 .message-text {
@@ -389,9 +454,14 @@ textarea {
   border-radius: 2px;
   cursor: pointer;
   margin-left: 1rem;
-  font-size: 1.3em;
+  font-size: 1.3rem;
   color: black;
   background-color: #9ee86f;
+  padding: 0.1em 0.3em;
+}
+
+.send-message-button:hover {
+  background-color: #85de4d;
 }
 
 .progress-container {

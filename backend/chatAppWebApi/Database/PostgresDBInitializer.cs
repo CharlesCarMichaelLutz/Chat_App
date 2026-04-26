@@ -24,7 +24,7 @@ public class PostgresDBInitializer
                     userid INTEGER NOT NULL,
                     text TEXT NOT NULL,
                     isdeleted BOOLEAN NOT NULL,
-                    createdcate Timestamp NOT NULL,
+                    createddate Timestamp NOT NULL,
 
                     CONSTRAINT FK_messages_users FOREIGN KEY (userid)
                         REFERENCES users(id)

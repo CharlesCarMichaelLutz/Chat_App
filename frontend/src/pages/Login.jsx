@@ -176,7 +176,6 @@ export const Login = () => {
                     required
                   />
                   {userErrors.length > 0 && (
-                    // <div className="login-errors">{userErrors}</div>
                     <div className="login-errors">{userErrors.join(", ")}</div>
                   )}
                 </div>

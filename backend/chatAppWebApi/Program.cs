@@ -14,7 +14,6 @@ using System.Net;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
-
 var config = builder.Configuration;
 var services = builder.Services;
 

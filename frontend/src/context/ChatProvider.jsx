@@ -1,4 +1,10 @@
-import { createContext, useState, useRef, useEffect } from "react";
+import {
+  createContext,
+  useState,
+  useRef,
+  useEffect,
+  useLayoutEffect,
+} from "react";
 import * as signalR from "@microsoft/signalr";
 
 const ChatContext = createContext();
@@ -9,6 +15,20 @@ export const ChatProvider = ({ children }) => {
   const [userList, setUserList] = useState([]);
   const [messageList, setMessageList] = useState([]);
   const connectionRef = useRef(null);
+
+  const [darkMode, setDarkMode] = useState(
+    () => localStorage.getItem("theme") || "light",
+  );
+
+  useLayoutEffect(() => {
+    document.documentElement.className = darkMode;
+  }, [darkMode]);
+
+  const toggleTheme = () => {
+    const newTheme = darkMode === "light" ? "dark" : "light";
+    setDarkMode(newTheme);
+    localStorage.setItem("theme", newTheme);
+  };
 
   useEffect(() => {
     if (isLoggedIn && !connectionRef.current) {
@@ -83,6 +103,8 @@ export const ChatProvider = ({ children }) => {
         setUserList,
         messageList,
         setMessageList,
+        darkMode,
+        toggleTheme,
       }}
     >
       {children}

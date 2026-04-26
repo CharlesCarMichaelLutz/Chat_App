@@ -4,10 +4,12 @@ import useAxiosPrivate from "../hooks/useAxiosPrivate";
 import { minidenticon } from "minidenticons";
 import { faTrashCan } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useChatScroll } from "../hooks/useChatScroll";
 
 export const Chatroom = () => {
-  const { auth, userList, setUserList, messageList, setMessageList } =
+  const { auth, userList, setUserList, messageList, setMessageList, darkMode } =
     useContext(ChatContext);
+  const { ref } = useChatScroll(messageList.length);
   const axiosPrivate = useAxiosPrivate();
   const [message, setMessage] = useState("");
 
@@ -16,8 +18,6 @@ export const Chatroom = () => {
   };
 
   useEffect(() => {
-    if (!auth?.accessToken) return;
-
     const controller = new AbortController();
 
     const getUserList = async () => {
@@ -42,8 +42,6 @@ export const Chatroom = () => {
   }, []);
 
   useEffect(() => {
-    if (!auth?.accessToken) return;
-
     const controller = new AbortController();
 
     const getMessageList = async () => {
@@ -120,6 +118,9 @@ export const Chatroom = () => {
   const formatMessageCreatedTimestamp = (dateString) => {
     const timestamp = new Date(dateString);
     const twelveHourTime = new Intl.DateTimeFormat("en-US", {
+      month: "2-digit",
+      day: "2-digit",
+      year: "numeric",
       hour: "2-digit",
       minute: "2-digit",
       hour12: true,
@@ -134,7 +135,6 @@ export const Chatroom = () => {
         encodeURIComponent(minidenticon(username, saturation, lightness)),
       [username, saturation, lightness],
     );
-    // console.log("ImageURI:", svgURI);
     return <img src={svgURI} alt={username} {...props} />;
   };
 
@@ -142,8 +142,10 @@ export const Chatroom = () => {
   const currentLength = message.length;
   const progressWidth = (currentLength / maxLength) * 100;
 
-  let barColor = "rgb(34, 34, 34)";
-  let textColor = "rgb(34, 34, 34)";
+  let barColor =
+    darkMode === "light" ? "rgb(34, 34, 34)" : "rgb(255, 255, 255)";
+  let textColor =
+    darkMode === "light" ? "rgb(34, 34, 34)" : "rgb(255, 255, 255)";
 
   if (progressWidth > 60 && progressWidth < 85) {
     barColor = "rgb(236, 157, 8)";
@@ -167,7 +169,7 @@ export const Chatroom = () => {
           </ul>
         </aside>
         <section className="chat-panel">
-          <div className="chat-content">
+          <div className="chat-content" ref={ref}>
             <ul className="message-list">
               {messageList
                 .filter((message) => !message.isDeleted)
