@@ -1,6 +1,4 @@
-﻿using Dapper;
-
-namespace chatAppWebApi.Database;
+﻿namespace chatAppWebApi.Database;
 public class PostgresDBInitializer
 {
     private readonly IPostgreSqlConnectionFactory _connectionFactory;

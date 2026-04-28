@@ -1,8 +1,4 @@
-﻿using Microsoft.AspNetCore.Identity;
-using System.Runtime.CompilerServices;
-using System.Security.Cryptography;
-
-namespace chatAppWebApi.Services;
+﻿namespace chatAppWebApi.Services;
 public interface IPasswordHasher
 {
     string Hash(string password);

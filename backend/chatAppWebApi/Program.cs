@@ -1,17 +1,4 @@
-using chatAppWebApi.Contracts.Requests;
-using chatAppWebApi.Database;
-using chatAppWebApi.Repositories;
-using chatAppWebApi.Services;
-using chatAppWebApi.SignalR;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Diagnostics;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.SignalR;
-using Microsoft.IdentityModel.Tokens;
-using Microsoft.OpenApi.Models;
-using System.Net;
-using System.Text;
+using Microsoft.AspNetCore.Builder;
 
 var builder = WebApplication.CreateBuilder(args);
 var config = builder.Configuration;
@@ -163,11 +150,6 @@ app.MapPost("/signup", async (IUserService service, [FromBody] UserRequest reque
     }
 });
 
-app.MapGet("/error", () =>
-{
-    throw new Exception("An example exception for testing");
-});
-
 app.MapPost("/login", async (IUserService service, [FromBody] UserRequest request) =>
 {
     try 
@@ -237,4 +219,3 @@ app.MapPatch("/messages", [Authorize] async (IMessageService service, IHubContex
 app.MapHub<ChatHub>("/chatHub");
 
 app.Run();
-

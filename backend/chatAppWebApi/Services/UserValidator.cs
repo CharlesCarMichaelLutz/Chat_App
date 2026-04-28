@@ -1,8 +1,4 @@
-﻿using chatAppWebApi.Contracts.Requests;
-using chatAppWebApi.Contracts.Responses;
-using System.Text.RegularExpressions;
-
-namespace chatAppWebApi.Services;
+﻿namespace chatAppWebApi.Services;
 public class UserValidator
 {
     public static UserValidationResponse Validate(UserRequest user)

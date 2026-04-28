@@ -1,7 +1,4 @@
-﻿using System.Data;
-using Npgsql;
-
-namespace chatAppWebApi.Database;
+﻿namespace chatAppWebApi.Database;
 public interface IPostgreSqlConnectionFactory
 {
     Task<IDbConnection> CreateConnectionAsync();

@@ -1,10 +1,4 @@
-﻿using chatAppWebApi.Contracts.Requests;
-using chatAppWebApi.Contracts.Responses;
-using chatAppWebApi.Domain;
-using chatAppWebApi.Repositories;
-using Microsoft.AspNetCore.Mvc;
-
-namespace chatAppWebApi.Services;
+﻿namespace chatAppWebApi.Services;
 public interface IMessageService
 {
     Task<MessageResponse> SaveMessage(MessageRequest request);

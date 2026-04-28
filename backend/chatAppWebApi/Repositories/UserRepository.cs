@@ -1,10 +1,4 @@
-﻿using chatAppWebApi.Contracts.Requests;
-using chatAppWebApi.Contracts.Responses;
-using chatAppWebApi.Database;
-using chatAppWebApi.Domain;
-using Dapper;
-
-namespace chatAppWebApi.Repositories;
+﻿namespace chatAppWebApi.Repositories;
 public interface IUserRepository
 {
     Task<bool> CreateUserAsync(User user);

@@ -1,9 +1,4 @@
-﻿using chatAppWebApi.Contracts.Responses;
-using chatAppWebApi.Domain;
-using chatAppWebApi.Services;
-using Microsoft.AspNetCore.SignalR;
-
-namespace chatAppWebApi.SignalR;
+﻿namespace chatAppWebApi.SignalR;
 public interface IChatHubClient
 {
     Task Connected(string greeting);

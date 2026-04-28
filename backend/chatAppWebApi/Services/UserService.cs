@@ -1,11 +1,4 @@
-﻿using chatAppWebApi.Contracts.Requests;
-using chatAppWebApi.Contracts.Responses;
-using chatAppWebApi.Domain;
-using chatAppWebApi.Repositories;
-using chatAppWebApi.SignalR;
-using Microsoft.AspNetCore.SignalR;
-
-namespace chatAppWebApi.Services;
+﻿namespace chatAppWebApi.Services;
 public interface IUserService
 {
     Task<LoginResponse> CreateUser(UserRequest request);
@@ -132,13 +125,11 @@ public class UserService : IUserService
 
         var refreshToken = await _userRepository.CheckAndInvalidateToken(transfer);
 
-        //on the client the user would be forced to logout and sign-in to generate a new pair
         if (refreshToken == null || refreshToken.ExpiresOnUtc < DateTime.UtcNow)
         {
             throw new Exception("The refresh token has expired");
         }
 
-        //call user by id, then pass username to create a new Access Token below
         var user = await _userRepository.GetUserById(refreshToken.UserId);
 
         if (user == null)
@@ -191,12 +182,4 @@ public class UserService : IUserService
 
         _contextAccessor.HttpContext?.Response.Cookies.Append("RefreshToken", refreshToken.Token, options);
     }
-
-    //On the client before you make a request
-    //1 check the expiration of your JWT (accessToken)
-    //If is in the past
-    //send your accessToken and RefreshToken to refresh endpoint of API 
-    //get a new pair back and use that for requests on the client
-    //until that accessToken expires then repeat 
-    //else send request with valid accessToken 
 }
