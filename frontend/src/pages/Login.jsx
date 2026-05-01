@@ -1,8 +1,12 @@
-import rabbitImage from "../images/rabbitchat.jpg";
+import RabbitImage from "../components/RabbitImage";
 import { useState } from "react";
 import { useChat } from "../hooks/useChat";
 import { useNavigate } from "react-router-dom";
 import { baseApi } from "../api/base";
+import GuestLoginForm from "../components/GuestLoginForm";
+import RegisterForm from "../components/RegisterForm";
+import LoginForm from "../components/LoginForm";
+import ToggleLoginFormButton from "../components/ToggleLoginFormButton";
 
 export const Login = () => {
   const { setAuth, setIsLoggedIn } = useChat();
@@ -11,7 +15,6 @@ export const Login = () => {
   const [password, setPassword] = useState("");
   const [userErrors, setUserErrors] = useState([]);
   const [passErrors, setPassErrors] = useState([]);
-
   const navigate = useNavigate();
 
   const handleUsername = (e) => {
@@ -112,83 +115,35 @@ export const Login = () => {
     <>
       <div className="login-wrapper">
         <div className="login-left">
-          <div className="image-container">
-            <img src={rabbitImage} alt="Rabbit Chat Logo" />
-          </div>
+          <RabbitImage />
         </div>
         <div className="login-right">
           <div className="form-container">
-            <form className="login-form" onSubmit={handleGuestSubmit}>
-              <h3 className="login-text">Visit as guest</h3>
-              <button type="submit">Enter</button>
-            </form>
+            <GuestLoginForm handleGuestSubmit={handleGuestSubmit} />
             {isSignUp ? (
-              <form className="login-form" onSubmit={handleRegisterSubmit}>
-                <h3 className="login-text">Create Account</h3>
-                <div className="input-group">
-                  <label htmlFor="username">Username</label>
-                  <input
-                    type="text"
-                    id="username"
-                    value={username}
-                    onChange={handleUsername}
-                    placeholder="...enter username"
-                    required
-                  />
-                  {userErrors.length > 0 && (
-                    <div className="login-errors">{`Must: ${userErrors.join(", ")}`}</div>
-                  )}
-                  <label htmlFor="password">Password</label>
-                  <input
-                    type="password"
-                    id="password"
-                    value={password}
-                    onChange={handlePassword}
-                    placeholder="...enter password"
-                    required
-                  />
-                  {passErrors.length > 0 && (
-                    <div className="login-errors">{`Must: ${passErrors.join(", ")}`}</div>
-                  )}
-                </div>
-                <button type="submit">Sign Up</button>
-              </form>
+              <RegisterForm
+                handleRegisterSubmit={handleRegisterSubmit}
+                username={username}
+                password={password}
+                handleUsername={handleUsername}
+                handlePassword={handlePassword}
+                userErrors={userErrors}
+                passErrors={passErrors}
+              />
             ) : (
-              <form className="login-form" onSubmit={handleLoginSubmit}>
-                <h3 className="login-text">Login</h3>
-                <div className="input-group">
-                  <label htmlFor="username">Username</label>
-                  <input
-                    type="text"
-                    id="username"
-                    value={username}
-                    onChange={handleUsername}
-                    placeholder="...enter username"
-                    required
-                  />
-                  <label htmlFor="password">Password</label>
-                  <input
-                    type="password"
-                    id="password"
-                    value={password}
-                    onChange={handlePassword}
-                    placeholder="...enter password"
-                    required
-                  />
-                  {userErrors.length > 0 && (
-                    <div className="login-errors">{userErrors.join(", ")}</div>
-                  )}
-                </div>
-                <button type="submit">Login</button>
-              </form>
+              <LoginForm
+                handleLoginSubmit={handleLoginSubmit}
+                username={username}
+                password={password}
+                handleUsername={handleUsername}
+                handlePassword={handlePassword}
+                userErrors={userErrors}
+              />
             )}
-            <div className="toggle-container">
-              <button onClick={toggleSignUp} className="toggle-login-button">
-                {isSignUp
-                  ? "Already have an account? Login"
-                  : "Don't have an account? Sign Up"}
-              </button>
-            </div>
+            <ToggleLoginFormButton
+              toggleSignUp={toggleSignUp}
+              isSignUp={isSignUp}
+            />
           </div>
         </div>
       </div>
