@@ -99,7 +99,10 @@ if (app.Environment.IsDevelopment())
     });
 }
 
+// omit for http proxy development
 //app.UseHttpsRedirection();
+app.UseHttpsRedirection();
+
 app.UseExceptionHandler(appError =>
 {
     appError.Run(async context =>
@@ -127,6 +130,10 @@ app.UseCors("ReactAppPolicy");
 
 app.UseAuthentication();
 app.UseAuthorization();
+
+app.UseDefaultFiles();
+app.UseStaticFiles();
+
 
 app.MapPost("/signup", async (IUserService service, [FromBody] UserRequest request) =>
 {
@@ -215,5 +222,7 @@ app.MapPatch("/messages", [Authorize] async (IMessageService service, IHubContex
 });
 
 app.MapHub<ChatHub>("/chatHub");
+
+app.MapFallbackToFile("index.html");
 
 app.Run();

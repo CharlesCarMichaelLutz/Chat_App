@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/rabbit.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/rabbit.png" />
+    <link rel="shortcut icon" href="/rabbit.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Rabbit Chat</title>
+    <script>
+      (function () {
+        const savedTheme = localStorage.getItem("theme");
+        let theme;
+
+        if (savedTheme) {
+          theme = savedTheme;
+        } else {
+          const prefersDark = window.matchMedia(
+            "(prefers-color-scheme: dark)",
+          ).matches;
+          theme = prefersDark ? "dark" : "light";
+        }
+
+        document.documentElement.className = theme;
+      })();
+    </script>
+    <script type="module" crossorigin src="/assets/index-DbfszyUS.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-BIg1HBG1.css">
+  </head>
+  <body>
+    <div id="root"></div>
+  </body>
+</html>

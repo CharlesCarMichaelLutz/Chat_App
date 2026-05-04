@@ -160,24 +160,24 @@ public class UserService : IUserService
     public void SetRefreshToken(RefreshToken refreshToken)
     {
         ////production
-        //var options = new CookieOptions
-        //{
-        //    Expires = refreshToken.ExpiresOnUtc,
-        //    HttpOnly = true,
-        //    Secure = true,
-        //    IsEssential = true,
-        //    SameSite = SameSiteMode.None
-        //};
-
-        //development
         var options = new CookieOptions
         {
             Expires = refreshToken.ExpiresOnUtc,
             HttpOnly = true,
-            Secure = false,
+            Secure = true,
             IsEssential = true,
-            SameSite = SameSiteMode.Lax
+            SameSite = SameSiteMode.None
         };
+
+        //development
+        //var options = new CookieOptions
+        //{
+        //    Expires = refreshToken.ExpiresOnUtc,
+        //    HttpOnly = true,
+        //    Secure = false,
+        //    IsEssential = true,
+        //    SameSite = SameSiteMode.Lax
+        //};
 
         _contextAccessor.HttpContext?.Response.Cookies.Append("RefreshToken", refreshToken.Token, options);
     }

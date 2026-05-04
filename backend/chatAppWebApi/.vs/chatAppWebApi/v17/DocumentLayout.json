@@ -3,12 +3,20 @@
   "WorkspaceRootPath": "C:\\Users\\Ml\\Desktop\\Projects\\Chat_App\\backend\\chatAppWebApi\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{E4E0BFFD-EACF-4EF8-AF2F-A956EEBEA31C}|chatAppWebApi.csproj|c:\\users\\ml\\desktop\\projects\\chat_app\\backend\\chatappwebapi\\services\\userservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{E4E0BFFD-EACF-4EF8-AF2F-A956EEBEA31C}|chatAppWebApi.csproj|solutionrelative:services\\userservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{E4E0BFFD-EACF-4EF8-AF2F-A956EEBEA31C}|chatAppWebApi.csproj|c:\\users\\ml\\desktop\\projects\\chat_app\\backend\\chatappwebapi\\properties\\launchsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{E4E0BFFD-EACF-4EF8-AF2F-A956EEBEA31C}|chatAppWebApi.csproj|solutionrelative:properties\\launchsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{E4E0BFFD-EACF-4EF8-AF2F-A956EEBEA31C}|chatAppWebApi.csproj|c:\\users\\ml\\desktop\\projects\\chat_app\\backend\\chatappwebapi\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{E4E0BFFD-EACF-4EF8-AF2F-A956EEBEA31C}|chatAppWebApi.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E4E0BFFD-EACF-4EF8-AF2F-A956EEBEA31C}|chatAppWebApi.csproj|c:\\users\\ml\\desktop\\projects\\chat_app\\backend\\chatappwebapi\\chatappwebapi.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{E4E0BFFD-EACF-4EF8-AF2F-A956EEBEA31C}|chatAppWebApi.csproj|solutionrelative:chatappwebapi.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E4E0BFFD-EACF-4EF8-AF2F-A956EEBEA31C}|chatAppWebApi.csproj|c:\\users\\ml\\desktop\\projects\\chat_app\\backend\\chatappwebapi\\services\\userservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E4E0BFFD-EACF-4EF8-AF2F-A956EEBEA31C}|chatAppWebApi.csproj|solutionrelative:services\\userservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -35,9 +43,35 @@
           ]
         },
         {
-          "DockedWidth": 185,
+          "DockedWidth": 192,
           "SelectedChildIndex": 0,
           "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "launchSettings.json",
+              "DocumentMoniker": "C:\\Users\\Ml\\Desktop\\Projects\\Chat_App\\backend\\chatAppWebApi\\Properties\\launchSettings.json",
+              "RelativeDocumentMoniker": "Properties\\launchSettings.json",
+              "ToolTip": "C:\\Users\\Ml\\Desktop\\Projects\\Chat_App\\backend\\chatAppWebApi\\Properties\\launchSettings.json",
+              "RelativeToolTip": "Properties\\launchSettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2026-05-04T00:59:16.227Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "chatAppWebApi.csproj",
+              "DocumentMoniker": "C:\\Users\\Ml\\Desktop\\Projects\\Chat_App\\backend\\chatAppWebApi\\chatAppWebApi.csproj",
+              "RelativeDocumentMoniker": "chatAppWebApi.csproj",
+              "ToolTip": "C:\\Users\\Ml\\Desktop\\Projects\\Chat_App\\backend\\chatAppWebApi\\chatAppWebApi.csproj",
+              "RelativeToolTip": "chatAppWebApi.csproj",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABsAAAACAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2026-05-04T00:33:26.739Z",
+              "EditorCaption": ""
+            },
             {
               "$type": "Document",
               "DocumentIndex": 1,
@@ -46,7 +80,7 @@
               "RelativeDocumentMoniker": "Program.cs",
               "ToolTip": "C:\\Users\\Ml\\Desktop\\Projects\\Chat_App\\backend\\chatAppWebApi\\Program.cs",
               "RelativeToolTip": "Program.cs",
-              "ViewState": "AgIAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAFgAAAAAAAAAAAAAANIAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-04-28T08:45:10.123Z",
               "EditorCaption": ""
@@ -54,18 +88,18 @@
           ]
         },
         {
-          "DockedWidth": 237,
+          "DockedWidth": 230,
           "SelectedChildIndex": 0,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 3,
               "Title": "UserService.cs",
               "DocumentMoniker": "C:\\Users\\Ml\\Desktop\\Projects\\Chat_App\\backend\\chatAppWebApi\\Services\\UserService.cs",
               "RelativeDocumentMoniker": "Services\\UserService.cs",
               "ToolTip": "C:\\Users\\Ml\\Desktop\\Projects\\Chat_App\\backend\\chatAppWebApi\\Services\\UserService.cs",
               "RelativeToolTip": "Services\\UserService.cs",
-              "ViewState": "AgIAAJsAAAAAAAAAAAAAALAAAAAbAAAAAAAAAA==",
+              "ViewState": "AgIAAJsAAAAAAAAAAAAAAKgAAAAMAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-05-04T00:11:31.314Z",
               "EditorCaption": ""
