@@ -42,24 +42,16 @@ export const ChatProvider = ({ children }) => {
       const startConnection = async () => {
         try {
           await newConnection.start();
-          console.log("websocket connected");
-
-          newConnection.on("Connected", (greeting) => {
-            console.log(greeting);
-          });
 
           newConnection.on("SendMessage", (message) => {
-            console.log("received message:", message);
             setMessageList((list) => [...list, message]);
           });
 
           newConnection.on("AddUser", (user) => {
-            console.log("new user added:", user);
             setUserList((list) => [...list, user]);
           });
 
           newConnection.on("DeleteMessageById", (messageResponse) => {
-            console.log("message deleted in db:", messageResponse);
             setMessageList((list) =>
               list.map((message) => {
                 if (message.id === messageResponse.id) {

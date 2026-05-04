@@ -15,8 +15,4 @@ public class ChatHub : Hub<IChatHubClient>
         _messageService = messageService;
         _userService = userService;
     }
-    public override async Task OnConnectedAsync()
-    {
-        await Clients.Caller.Connected($"{Context.ConnectionId} has joined");
-    }
 }

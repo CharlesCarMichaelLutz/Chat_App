@@ -24,24 +24,51 @@ const useLoginForm = () => {
     };
 
     const handleGuestSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      const response = await baseApi.post("login", {
-        Username: import.meta.env.VITE_GUEST,
-        Password: import.meta.env.VITE_PASSWORD,
-      });
+      e.preventDefault();
+      try {
+        const response = await baseApi.post("login", {
+          Username: import.meta.env.VITE_GUEST,
+          Password: import.meta.env.VITE_PASSWORD,
+        });
 
-      setAuth(response.data);
-      setIsLoggedIn(true);
+        setAuth(response.data);
+        setIsLoggedIn(true);
 
-      if (response.status == 200) {
-        navigate("/chatroom");
+        if (response.status == 200) {
+          navigate("/chatroom");
+        }
+        clearInput();
+      } catch (error) {
+        console.error(error);
       }
-      clearInput();
-    } catch (error) {
-      console.error(error);
-    }
-  };
+    };
+
+    const handleRegisterSubmit = async (e) => {
+      e.preventDefault();
+      setUserErrors([]);
+      setPassErrors([]);
+      try {
+        const response = await baseApi.post("signup", {
+          Username: username,
+          Password: password,
+        });
+        setAuth(response.data);
+        setIsLoggedIn(true);
+
+        if (response.status == 200) {
+          navigate("/chatroom");
+        }
+        clearInput();
+      } catch (error) {
+        if (error.response.status === 400) {
+          const errorData = error.response?.data;
+          setUserErrors(errorData?.usernameErrors ?? []);
+          setPassErrors(errorData?.passwordErrors ?? []);
+        } else if (error.response.status === 404) {
+          setUserErrors((prevErr) => [...prevErr, error.response.data]);
+        }
+      }
+    };
 
   const handleLoginSubmit = async (e) => {
     e.preventDefault();
@@ -60,36 +87,7 @@ const useLoginForm = () => {
       }
       clearInput();
     } catch (error) {
-      console.log("response: ", error.response);
-      console.log("data: ", error.response.data);
       if (error.status === 400) {
-        setUserErrors((prevErr) => [...prevErr, error.response.data]);
-      }
-    }
-  };
-
-  const handleRegisterSubmit = async (e) => {
-    e.preventDefault();
-    setUserErrors([]);
-    setPassErrors([]);
-    try {
-      const response = await baseApi.post("signup", {
-        Username: username,
-        Password: password,
-      });
-      setAuth(response.data);
-      setIsLoggedIn(true);
-
-      if (response.status == 200) {
-        navigate("/chatroom");
-      }
-      clearInput();
-    } catch (error) {
-      if (error.response.status === 400) {
-        const errorData = error.response?.data;
-        setUserErrors(errorData?.usernameErrors ?? []);
-        setPassErrors(errorData?.passwordErrors ?? []);
-      } else if (error.response.status === 404) {
         setUserErrors((prevErr) => [...prevErr, error.response.data]);
       }
     }

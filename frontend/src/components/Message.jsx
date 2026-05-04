@@ -33,7 +33,6 @@ const Message = ({ message, auth }) => {
           signal: controller.signal,
         },
       );
-      console.log("delete request success");
     } catch (error) {
       console.error("Error deleting message:", error);
     }

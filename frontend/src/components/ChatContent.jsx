@@ -1,10 +1,10 @@
-import React, { useContext } from "react";
 import { useChatScroll } from "../hooks/useChatScroll";
 import ChatContext from "../context/ChatProvider";
+import { useChat } from "../hooks/useChat";
 import Message from "./Message";
 
 const ChatContent = () => {
-  const { auth, messageList } = useContext(ChatContext);
+  const { auth, messageList } = useChat();
   const { ref } = useChatScroll(messageList.length);
 
   return (
@@ -14,7 +14,7 @@ const ChatContent = () => {
           {messageList
             .filter((message) => !message.isDeleted)
             .map((message) => (
-              <Message message={message} auth={auth} />
+              <Message key={message.id} message={message} auth={auth} />
             ))}
         </ul>
       </div>

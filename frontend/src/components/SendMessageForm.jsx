@@ -17,7 +17,7 @@ const SendMessageForm = ({ darkMode, auth }) => {
     const controller = new AbortController();
 
     try {
-      const response = await axiosPrivate.post(
+      await axiosPrivate.post(
         "messages",
         {
           UserId: auth.userId,
@@ -27,7 +27,6 @@ const SendMessageForm = ({ darkMode, auth }) => {
           signal: controller.signal,
         },
       );
-      console.log("created message:", response.data);
       setMessage("");
     } catch (error) {
       console.error("Error creating message:", error);
