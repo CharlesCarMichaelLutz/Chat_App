@@ -99,8 +99,6 @@ if (app.Environment.IsDevelopment())
     });
 }
 
-// omit for http proxy development
-//app.UseHttpsRedirection();
 app.UseHttpsRedirection();
 
 app.UseExceptionHandler(appError =>
@@ -133,7 +131,6 @@ app.UseAuthorization();
 
 app.UseDefaultFiles();
 app.UseStaticFiles();
-
 
 app.MapPost("/signup", async (IUserService service, [FromBody] UserRequest request) =>
 {

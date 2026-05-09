@@ -25,9 +25,4 @@
     <Folder Include="wwwroot\" />
   </ItemGroup>
 
-	<!--<Target Name="CompileClient" BeforeTargets="Publish">
-		<Exec WorkingDirectory="./frontend" Command="npm install" />
-		<Exec WorkingDirectory="./frontend" Command="npm run build" />
-	</Target>-->
-
 </Project>
