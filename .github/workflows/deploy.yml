@@ -1,0 +1,25 @@
+name: Deploy Chat_App to Azure App Service
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Build Docker image
+        run: |
+          docker build -t chatapp:latest -f backend/chatAppWebApi/Dockerfile .
+
+      - name: Deploy to Azure Web App (Container)
+        uses: azure/webapps-deploy@v2
+        with:
+          app-name: rabbit-chat
+          publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
+          images: chatapp:latest
