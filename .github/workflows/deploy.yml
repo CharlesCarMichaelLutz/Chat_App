@@ -1,4 +1,4 @@
-name: Deploy Chat_App to Azure App Service
+name: Deploy Chat_App
 
 on:
   push:
