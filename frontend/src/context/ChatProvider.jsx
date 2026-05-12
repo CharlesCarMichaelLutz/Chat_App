@@ -33,7 +33,7 @@ export const ChatProvider = ({ children }) => {
   useEffect(() => {
     if (isLoggedIn && !connectionRef.current) {
       const newConnection = new signalR.HubConnectionBuilder()
-        .withUrl(import.meta.env.VITE_WS_URL + "/chatHub")
+        .withUrl("/chatHub")
         .withAutomaticReconnect()
         .build();
 
