@@ -66,6 +66,17 @@ services.AddSwaggerGen(create =>
     });
 });
 
+services.AddCors(options =>
+{
+    options.AddPolicy("ReactAppPolicy", builder =>
+    {
+        builder.WithOrigins("https://rabbit-chat.azurewebsites.net")
+          .AllowAnyHeader()
+          .AllowAnyMethod()
+          .AllowCredentials();
+    });
+});
+
 services.AddSignalR(options =>
 {
     options.EnableDetailedErrors = true;
@@ -113,6 +124,8 @@ app.UseExceptionHandler(appError =>
 });
 
 app.UseRouting();
+
+app.UseCors("ReactAppPolicy");
 
 app.UseAuthentication();
 app.UseAuthorization();
